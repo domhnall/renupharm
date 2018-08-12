@@ -11,6 +11,8 @@
 #   policy.object_src  :none
 #   policy.script_src  :self, :https
 #   policy.style_src   :self, :https
+# Added by DM based on comment from webpacker install
+#   policy.connect_src :self, :https, "http://localhost:3035", "ws://localhost:3035" if Rails.env.development?
 
 #   # Specify URI for violation reports
 #   # policy.report_uri "/csp-violation-report-endpoint"
