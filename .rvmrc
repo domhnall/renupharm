@@ -8,6 +8,6 @@ if [ $? -ne 0 ]; then
 else
   bundle check
   if [ $? -ne 0 -o ! -d ./bin ]; then
-      bundle install --binstubs
+    bundle install
   fi
 fi

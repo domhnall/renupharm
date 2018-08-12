@@ -30,4 +30,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  contacts:
+    index:
+      heading: Welcome to RenuPharm
+      intro: RenuPharm offers a unique platform for pharmacies in Ireland, enabling them to source and supply pharmaceutical products to other pharmacies across the nation
