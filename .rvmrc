@@ -1,0 +1,13 @@
+#!/bin/bash
+
+rvm --create use 2.3.6@renupharm
+hash -r
+which bundle > /dev/null
+if [ $? -ne 0 ]; then
+  echo "WARNING: No Bundler found!"
+else
+  bundle check
+  if [ $? -ne 0 -o ! -d ./bin ]; then
+      bundle install --binstubs
+  fi
+fi
