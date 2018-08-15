@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get 'contacts/index'
+  resources :pages, only: [:index]
 
-  root 'contacts#index'
+  resources :surveys, only: [:new, :create]
+
+  root 'pages#index'
 end

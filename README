@@ -12,3 +12,7 @@ Install yarn
 Run webpack dev server
 
 > bin/webpack-dev-server
+
+Run rails server
+
+> bin/rails s

@@ -30,7 +30,47 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  contacts:
+  pages:
     index:
       heading: Welcome to RenuPharm
       intro: RenuPharm offers a unique platform for pharmacies in Ireland, enabling them to source and supply pharmaceutical products to other pharmacies across the nation
+  surveys:
+    heading: RenuPharm Survey
+    intro: RenuPharm is an Irish-owned business aiming to provide an alternative source for pharmaceuticals across Ireland.  Pharmacies registered on the RenuPharm platform will have the option of purchasing medicinalproducts from other Irish pharmacies who have a temporary over-stock and/or no usage of the same product.
+    benefits:
+      intro: "The RenuPharm platform offers mutual benefits to the buying and selling pharmacies:"
+      buyer: The selling pharmacy can offload stock that may otherwise require disposal, reducing product wastage, man-hours and disposal costs.
+      seller: The buying pharmacy benefits from an alternative channel for sourcing stock and the potential of picking this up at a significant discount from typical wholesale price.
+    survey:
+      intro: We are very interested to guage your views through completion of this short survey.
+      submit: Submit
+      question_1:
+        question: Would you be willing to purchase a medicinal product with a shorter expiry date at a cheaper price (cf. wholesaler price with a better date)?
+        option_1: "Yes"
+        option_2: "No"
+      question_2:
+        question: Would you be willing to sell drugs with a shorter expiry data (or no usage) at a lower price?
+        option_1: "Yes"
+        option_2: "No"
+      question_3:
+        question: Have you ever been impacted by drug shortages or sourcing issues?
+        option_1: "Yes"
+        option_2: "No"
+      question_4:
+        question: Would you be happy to supply a shorter-dated medication to your customers, provided the typical usage of the product would imply the product would be consumed before the expiry date?
+        option_1: "Yes"
+        option_2: "No"
+      question_5:
+        question: Could you estimate the amount of stock that goes out of date each month in your pharmacy (cost price)?
+        option_1: "&lt; &euro;200"
+        option_2: "&euro;200 - &euro;500"
+        option_3: "&euro;500 - &euro;1000"
+        option_4: "&gt; &euro;1000"
+      interested:
+        intro: If you are interested in learning more about the RenuPharm service, and to be kept up-to-date please enter your details below.
+        name_label: "Name:"
+        email_label: "Email (if you are happy for us to contact you by email):"
+        phone_label: "Phone (if you are happy for us to contact you by phone):"
+    submissions:
+      success: "Thank you for your valued input!"
+      error: "Sorry there appears to have been a problem with your submission. Please try again later."

@@ -1,0 +1,15 @@
+$blue: #3bbfce;
+$margin: 16px;
+
+body {
+  background-image: image_url("blister.png");
+}
+
+.content-navigation {
+  border-color: $blue;
+  color: darken($blue, 9%);
+}
+
+.border {
+  padding: $margin / 2; margin: $margin / 2; border-color: $blue;
+}
