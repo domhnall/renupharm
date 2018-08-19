@@ -1,0 +1,24 @@
+version: '2'
+services:
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "s2cr2t"
+  web:
+    build: .
+    volumes:
+      - .:/production
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: "3000"
+      MYSQL_HOST: "mysql_cont"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "s2cr2t"
+      MYSQL_DATABASE: "renupharm"
+    links:
+      - db:mysql_cont
+    depends_on:
+      - db
