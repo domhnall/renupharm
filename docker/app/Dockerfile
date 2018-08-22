@@ -38,12 +38,13 @@ WORKDIR $APP_HOME
 ADD Gemfile* $APP_HOME/
 RUN bundle install
 
-# Install npm packages
-ADD package.json yarn.lock $APP_HOME/
-RUN yarn install
-
 # Copy over our application code
 ADD . $APP_HOME/
+
+# Install npm packages
+#ADD package.json yarn.lock $APP_HOME/
+#RUN yarn install
+RUN RAILS_ENV=production bin/rails assets:precompile
 
 # Run our app
 CMD bundle exec rails s -p ${PORT} -b '0.0.0.0'

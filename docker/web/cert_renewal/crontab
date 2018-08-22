@@ -1,0 +1,1 @@
+30 8 * * 0 root /opt/cert_renewal/cert_renewal.sh --renew-all >> /var/log/cron.letsencrypt.log 2>&1

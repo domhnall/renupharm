@@ -1,24 +1,59 @@
-# README
+RenuPharm
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Setting up environment for development
 
-Things you may want to cover:
+Install node
+Install yarn
 
-* Ruby version
+> curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+> echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+> sudo apt-get update && sudo apt-get install yarn
 
-* System dependencies
+Run webpack dev server
 
-* Configuration
+> bin/webpack-dev-server
 
-* Database creation
+Run rails server
 
-* Database initialization
+> bin/rails s
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## Local docker setup
 
-* Deployment instructions
+> docker-compose -f docker/docker-compose.yml run app_1 bin/rake renupharm:setup_dev
 
-* ...
+
+
+## Deployment
+
+You will need to install the AWS CLI and the separate ECS CLI:
+
+> pip install awscli --upgrade --user
+> sudo curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest
+> sudo chmod +x /usr/local/bin/ecs-cli
+
+Now configure the ECS CLI to allow deployments:
+
+> ecs-cli configure --cluster renupharm --region eu-west-1 --default-launch-type EC2 --config-name renupharm
+> ecs-cli configure profile --profile-name domhnall-renupharm --access-key <AWS_ACCESS_KEY_ID> --secret-key <AWS_SECRET_ACCESS_KEY>
+
+The credentials are taken from the account under which you intend to use to connect to AWS.
+We want to create a cluster to deploy our containers to:
+
+> ecs-cli up --keypair domhnall-renupharm --capability-iam --size 1 --instance-type t2.micro --cluster-config renupharm
+
+### Each deployment
+
+Generate a docker image, tag it and push to the AWS registry
+
+> docker-compose -f docker/docker-compose.yml build
+> docker tag renupharm_app_1 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
+> docker push 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
+
+Run docker-compose up on the ECS cluster
+
+> ecs-cli compose up --cluster-config renupharm --file docker/docker-compose.production.yml
+
+
+## SSH on to AWS
+> ssh -i ~/keys/domhnall-renupharm.pem ec2-user@renupharm.ie

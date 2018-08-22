@@ -1,0 +1,16 @@
+version: '2'
+services:
+  web:
+    image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
+    ports:
+      - "80:3000"
+    environment:
+      PORT: "3000"
+      MYSQL_HOST: "renupharm.cybtvpbzftdb.eu-west-1.rds.amazonaws.com"
+      MYSQL_USER: "renupharm"
+      MYSQL_PASSWORD: "Ad4mJam1l"
+      MYSQL_DATABASE: "renupharm"
+      RAILS_ENV: "production"
+      RACK_ENV: "production"
+    cpu_shares: 45
+    mem_reservation: 300000000

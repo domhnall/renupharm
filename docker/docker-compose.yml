@@ -8,9 +8,10 @@ services:
       MYSQL_ROOT_PASSWORD: "s2cr2t"
   app_1:
     build:
-      context: .
+      context: $PWD
       dockerfile: ./docker/app/Dockerfile
-    command: bash -c "rm -f /production/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    #command: bash -c "rm -f /production/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "sleep 5000"
     volumes:
       - .:/production
       - public-volume:/production/public/
@@ -27,9 +28,10 @@ services:
       - db
   app_2:
     build:
-      context: .
+      context: $PWD
       dockerfile: ./docker/app/Dockerfile
-    command: bash -c "rm -f /production/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    #command: bash -c "rm -f /production/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "sleep 5000"
     volumes:
       - .:/production
       - public-volume:/production/public/
@@ -44,11 +46,11 @@ services:
       - db
   web:
     build:
-      context: ./docker/web
+      context: ./web
       args:
         nginx_env: "development"
     volumes:
-      - public-volume:/usr/share/nginx/html/renupharm
+      - public-volume:/var/local/web
     ports:
       - "80:80"
     depends_on:
