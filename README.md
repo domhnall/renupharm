@@ -32,6 +32,11 @@ You will need to install the AWS CLI and the separate ECS CLI:
 > sudo curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest
 > sudo chmod +x /usr/local/bin/ecs-cli
 
+You will need to authenticate your docker client with ECS
+
+> aws ecr get-login --no-include-email
+
+Then paste the generated login command to your local terminal.
 Now configure the ECS CLI to allow deployments:
 
 > ecs-cli configure --cluster renupharm --region eu-west-1 --default-launch-type EC2 --config-name renupharm
@@ -42,17 +47,24 @@ We want to create a cluster to deploy our containers to:
 
 > ecs-cli up --keypair domhnall-renupharm --capability-iam --size 1 --instance-type t2.micro --cluster-config renupharm
 
+## Deploying new nginx image
+
+> docker-compose -f docker/docker-compose.yml build
+> docker tag renupharm_web:latest 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-nginx:latest
+> docker push 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-nginx:latest
+
 ### Each deployment
 
 Generate a docker image, tag it and push to the AWS registry
 
 > docker-compose -f docker/docker-compose.yml build
-> docker tag renupharm_app_1 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
+> docker tag docker_app_1 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
 > docker push 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
 
 Run docker-compose up on the ECS cluster
 
-> ecs-cli compose up --cluster-config renupharm --file docker/docker-compose.production.yml
+> ecs-cli compose --cluster-config renupharm --file docker/docker-compose.production.yml up
+> ecs-cli ps
 
 
 ## SSH on to AWS

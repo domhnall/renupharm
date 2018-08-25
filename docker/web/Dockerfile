@@ -6,6 +6,10 @@ MAINTAINER Domhnall Murphy
 
 # Install required packages
 RUN apt-get -y update && apt-get install -y git cron bc
+#software-properties-common
+
+# Get certbot
+#RUN add-apt-repository ppa:certbot/certbot && apt-get update && apt-get install python-certbot-nginx
 
 # Get letsencrypt
 WORKDIR /opt
