@@ -1,41 +1,57 @@
 version: '3'
 services:
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "s2cr2t"
   app_1:
-    image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
-    environment:
-      PORT: "3000"
-      MYSQL_HOST: "renupharm.cybtvpbzftdb.eu-west-1.rds.amazonaws.com"
-      MYSQL_USER: "renupharm"
-      MYSQL_PASSWORD: "Ad4mJam1l"
-      MYSQL_DATABASE: "renupharm"
-      RAILS_ENV: "production"
-      RACK_ENV: "production"
-      NODE_ENV: "development"
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
     command: bash -c "rm -f /production/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
+      - .:/production
       - public-volume:/production/public/
-
+    environment:
+      PORT: "3000"
+      MYSQL_HOST: "db"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "s2cr2t"
+      MYSQL_DATABASE: "renupharm"
+      NODE_ENV: "development"
+    links:
+      - db:mysql_cont
+    depends_on:
+      - db
   app_2:
-    image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
-    environment:
-      PORT: "3000"
-      MYSQL_HOST: "renupharm.cybtvpbzftdb.eu-west-1.rds.amazonaws.com"
-      MYSQL_USER: "renupharm"
-      MYSQL_PASSWORD: "Ad4mJam1l"
-      MYSQL_DATABASE: "renupharm"
-      RAILS_ENV: "production"
-      RACK_ENV: "production"
-      NODE_ENV: "development"
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
     command: bash -c "rm -f /production/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
+      - .:/production
       - public-volume:/production/public/
+    environment:
+      PORT: "3000"
+      MYSQL_HOST: "db"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "s2cr2t"
+      MYSQL_DATABASE: "renupharm"
+      NODE_ENV: "development"
+    depends_on:
+      - db
   web:
-    image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-nginx
+    build:
+      context: ./docker/web
+      args:
+        nginx_env: $NGINX_ENV
     volumes:
-      - public-volume:/usr/share/nginx/html
+      - public-volume:/usr/share/nginx/html/renupharm
     ports:
       - "80:80"
-    links:
+    depends_on:
       - app_1
       - app_2
 volumes:

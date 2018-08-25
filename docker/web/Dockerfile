@@ -6,16 +6,10 @@ MAINTAINER Domhnall Murphy
 
 # Install required packages
 RUN apt-get -y update && apt-get install -y git cron bc
-#software-properties-common
-
-# Get certbot
-#RUN add-apt-repository ppa:certbot/certbot && apt-get update && apt-get install python-certbot-nginx
 
 # Get letsencrypt
 WORKDIR /opt
 RUN git clone https://github.com/letsencrypt/letsencrypt
-#WORKDIR letsencrypt
-#RUN TERM=xterm ./letsencrypt-auto certonly --test-cert --webroot -w /usr/share/nginx/html -d cerealquotes.com -d www.cerealquotes.com
 
 RUN mkdir -p /etc/letsencrypt
 

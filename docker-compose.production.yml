@@ -33,8 +33,10 @@ services:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-nginx
     volumes:
       - public-volume:/usr/share/nginx/html
+      - /etc/letsencrypt:/etc/letsencrypt
     ports:
       - "80:80"
+      - "443:443"
     links:
       - app_1
       - app_2

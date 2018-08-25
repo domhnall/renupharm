@@ -49,7 +49,7 @@ We want to create a cluster to deploy our containers to:
 
 ## Deploying new nginx image
 
-> docker-compose -f docker/docker-compose.yml build
+> NGINX_ENV=production docker-compose build web
 > docker tag renupharm_web:latest 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-nginx:latest
 > docker push 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-nginx:latest
 
@@ -57,13 +57,13 @@ We want to create a cluster to deploy our containers to:
 
 Generate a docker image, tag it and push to the AWS registry
 
-> docker-compose -f docker/docker-compose.yml build
-> docker tag docker_app_1 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
+> docker-compose -f docker/docker-compose.yml build app_1
+> docker tag renupharm_app_1 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
 > docker push 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
 
 Run docker-compose up on the ECS cluster
 
-> ecs-cli compose --cluster-config renupharm --file docker/docker-compose.production.yml up
+> ecs-cli compose --cluster-config renupharm --file docker-compose.production.yml up
 > ecs-cli ps
 
 
