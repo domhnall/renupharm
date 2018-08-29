@@ -3,11 +3,18 @@
     
     var bootsnav = {
         initialize: function() {
+            this.removeBoundEvents();
             this.event();
             this.hoverDropdown();
             this.navbarSticky();
             this.navbarScrollspy();
         },
+
+        removeBoundEvents: function(){
+          $(window).off("scroll");
+          $(window).off("resize");
+        },
+
         event : function(){
             
             // ------------------------------------------------------------------------------ //
@@ -548,30 +555,29 @@
             }
         }
     };
-    
+
     // Initialize
-    $(document).ready(function(){
+    document.addEventListener("turbolinks:load", function(){
         bootsnav.initialize();
+        // Reset on resize
+        $(window).on("resize", function(){
+            bootsnav.hoverDropdown();
+
+            $(".top-search").slideUp();
+            setTimeout(function(){
+                bootsnav.navbarSticky();
+            }, 500); 
+
+            // Toggle Bars
+            $(".navbar-toggle").each(function(){
+                $(".fa", this).removeClass("fa-times");
+                $(".fa", this).addClass("fa-bars");
+                $(this).removeClass("fixed");
+            });
+            $(".navbar-collapse").removeClass("in");
+            $(".navbar-collapse").removeClass("on");
+            $(".navbar-collapse").removeClass("bounceIn");
+        });
     });
-    
-    // Reset on resize
-    $(window).on("resize", function(){   
-        bootsnav.hoverDropdown();
-        
-        $(".top-search").slideUp();
-        setTimeout(function(){
-            bootsnav.navbarSticky();
-        }, 500); 
-        
-        // Toggle Bars
-        $(".navbar-toggle").each(function(){
-            $(".fa", this).removeClass("fa-times");
-            $(".fa", this).addClass("fa-bars");
-            $(this).removeClass("fixed");
-        });        
-        $(".navbar-collapse").removeClass("in");
-        $(".navbar-collapse").removeClass("on");
-        $(".navbar-collapse").removeClass("bounceIn");      
-    });
-    
+
 }(jQuery));
