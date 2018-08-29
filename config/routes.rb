@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :pages, only: [:index]
+  resource :pages, only: [:index], path: '/' do
+    get :privacy_policy
+  end
 
   resources :surveys, only: [:new, :create]
 
