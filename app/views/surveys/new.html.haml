@@ -1,40 +1,44 @@
-%h1
-  = t('surveys.heading')
-%p
-  = t('surveys.intro')
-%p
-  = t('surveys.benefits.intro')
-  %ul
-    %li
-      = t('surveys.benefits.seller')
-    %li
-      = t('surveys.benefits.buyer')
+%section
+  .container
+    .row
+      .col-xs-12
+        %h1
+          = t('surveys.heading')
+        %p
+          = t('surveys.intro')
+        %p
+          = t('surveys.benefits.intro')
+          %ul
+            %li
+              = t('surveys.benefits.seller')
+            %li
+              = t('surveys.benefits.buyer')
 
-%div.survey
-  %p
-    = t('surveys.survey.intro')
-  = form_tag surveys_path, method: :post do
-    %ol.survey_questions
-      - (1..5).each do |i|
-        %li.question
-          = t("surveys.survey.question_#{i}.question")
-          %ul.question_options
-            - t("surveys.survey.question_#{i}").select{ |k,v| k=~/^option/ }.each do |k,v|
-              %li
-                = label_tag k, v
-                = radio_button_tag "question_#{i}", v
+        %div.survey
+          %p
+            = t('surveys.survey.intro')
+          = form_tag surveys_path, method: :post do
+            %ol.survey_questions
+              - (1..5).each do |i|
+                %li.question
+                  = t("surveys.survey.question_#{i}.question")
+                  %ul.question_options
+                    - t("surveys.survey.question_#{i}").select{ |k,v| k=~/^option/ }.each do |k,v|
+                      %li
+                        = label_tag k, v
+                        = radio_button_tag "question_#{i}", v
 
-    %p
-      = t('surveys.survey.interested.intro')
-      %ul
-        %li
-          = label_tag :name, t('surveys.survey.interested.name_label')
-          = text_field_tag :name
-        %li
-          = label_tag :email, t('surveys.survey.interested.email_label')
-          = email_field_tag :email
-        %li
-          = label_tag :phone, t('surveys.survey.interested.phone_label')
-          = telephone_field_tag :phone
-    %p.submit
-      = submit_tag t('surveys.survey.submit')
+            %p
+              = t('surveys.survey.interested.intro')
+              %ul
+                %li
+                  = label_tag :name, t('surveys.survey.interested.name_label')
+                  = text_field_tag :name
+                %li
+                  = label_tag :email, t('surveys.survey.interested.email_label')
+                  = email_field_tag :email
+                %li
+                  = label_tag :phone, t('surveys.survey.interested.phone_label')
+                  = telephone_field_tag :phone
+            %p.submit
+              = submit_tag t('surveys.survey.submit')

@@ -1,4 +1,4 @@
-%nav.navbar.navbar-default.navbar-fixed.white.bootsnav.on.no-full.no-background
+%nav.navbar.navbar-default.navbar-fixed.white.bootsnav.on.no-full{class: @transparent_nav ? 'no-background' : ''}
   .container
     .navbar-header
       %a.navbar-brand{:href => "/"}
@@ -27,13 +27,11 @@
       %h4.title
         Menu
         %ul.link
-          %li
-            = link_to "Take our survey", new_survey_path
-          %li
-            %a{:href => "#"} Menu-item
-          %li
-            %a{:href => "#"} Menu-item
-          %li
-            %a{:href => "#"} Menu-item
-          %li
-            %a{:href => "#"} Menu-item
+          %li{:role => "presentation"}
+            = link_to "Home", root_path
+          %li{:role => "presentation"}
+            = link_to "About", "#{root_path}#about"
+          %li{:role => "presentation"}
+            = link_to "Survey", new_survey_path
+          %li{:role => "presentation"}
+            = link_to "Register interest", "#{root_path}#register_interest"
