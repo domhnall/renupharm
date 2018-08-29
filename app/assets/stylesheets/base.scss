@@ -27,3 +27,21 @@ body {
 .text-center {
   text-align: center;
 }
+
+// Survey page
+.survey {
+  margin: 10px;
+}
+
+.survey form {
+  margin: 0px;
+}
+
+.survey .submit {
+  display: inline-block;
+  float: right
+}
+
+.survey legend {
+  font-size: 18px;
+}

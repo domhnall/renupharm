@@ -2,10 +2,13 @@
   .container
     .row
       .col-xs-12
-        %h1
-          = t('surveys.heading')
-        %p
-          = t('surveys.intro')
+
+        .heading_area.text-center
+          %h1
+            = t('surveys.heading')
+          %hr
+          %p
+            = t('surveys.intro')
         %p
           = t('surveys.benefits.intro')
           %ul
@@ -20,25 +23,25 @@
           = form_tag surveys_path, method: :post do
             %ol.survey_questions
               - (1..5).each do |i|
-                %li.question
-                  = t("surveys.survey.question_#{i}.question")
-                  %ul.question_options
+                %li
+                  %fieldset.form-group
+                    %legend= t("surveys.survey.question_#{i}.question")
                     - t("surveys.survey.question_#{i}").select{ |k,v| k=~/^option/ }.each do |k,v|
-                      %li
-                        = label_tag k, v
-                        = radio_button_tag "question_#{i}", v
+                      %div.form-check
+                        = radio_button_tag "question_#{i}", v, class: 'form-check-input'
+                        = label_tag k, v, class: 'form-check-label'
 
             %p
               = t('surveys.survey.interested.intro')
-              %ul
-                %li
-                  = label_tag :name, t('surveys.survey.interested.name_label')
-                  = text_field_tag :name
-                %li
-                  = label_tag :email, t('surveys.survey.interested.email_label')
-                  = email_field_tag :email
-                %li
-                  = label_tag :phone, t('surveys.survey.interested.phone_label')
-                  = telephone_field_tag :phone
-            %p.submit
-              = submit_tag t('surveys.survey.submit')
+
+            .form-group
+              = label_tag :name, t('surveys.survey.interested.name_label')
+              = text_field_tag :name, nil, class: 'form-control'
+            .form-group
+              = label_tag :email, t('surveys.survey.interested.email_label')
+              = email_field_tag :email, nil, class: 'form-control'
+            .form-group
+              = label_tag :phone, t('surveys.survey.interested.phone_label')
+              = telephone_field_tag :phone, nil, class: 'form-control'
+            .submit
+              = submit_tag t('surveys.survey.submit'), class: 'btn btn-info'
