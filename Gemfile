@@ -59,3 +59,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'rspec-rails'
 end
+
+# Prototyping
+gem 'bootstrap'
+gem 'jquery-rails'

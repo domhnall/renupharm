@@ -1,0 +1,31 @@
+%header#home
+  #carousel.carousel.slide{"data-ride" => "carousel"}
+    %ol.carousel-indicators
+      %li.active{"data-slide-to" => "0", "data-target" => "#carousel"}
+      %li{"data-slide-to" => "1", "data-target" => "#carousel"}
+      %li{"data-slide-to" => "2", "data-target" => "#carousel"}
+    .carousel-inner{:role => "listbox"}
+      .carousel-item.active
+        = image_tag("slide_1.jpg", alt: "RenuPharm")
+        .container.caption_area
+          .carousel-caption
+            %h3 HOW CAN WE BUILD
+            %h1 AN AMAZING SITE
+            %p Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the.
+            %a.banner_btn{:href => ""} View Portfolio
+      .carousel-item
+        = image_tag("slide_2.jpg", alt: "Bgstudio")
+        .container.caption_area
+          .carousel-caption
+            %h3 HOW CAN WE BUILD
+            %h1 AN AMAZING SITE
+            %p Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the.
+            %a.banner_btn{:href => ""} View Portfolio
+      .carousel-item
+        = image_tag("slide_3.jpg", alt: "Bgstudio")
+        .container.caption_area
+          .carousel-caption
+            %h3 HOW CAN WE BUILD
+            %h1 AN AMAZING SITE
+            %p Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the.
+            %a.banner_btn{:href => ""} View Portfolio

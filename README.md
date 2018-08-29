@@ -20,7 +20,9 @@ Run rails server
 
 ## Local docker setup
 
-> docker-compose -f docker/docker-compose.yml run app_1 bin/rake renupharm:setup_dev
+> NGINX_ENV=development docker-compose build
+> docker-compose up
+> docker-compose run app bin/rake renupharm:setup_dev
 
 
 
@@ -57,8 +59,8 @@ We want to create a cluster to deploy our containers to:
 
 Generate a docker image, tag it and push to the AWS registry
 
-> docker-compose -f docker/docker-compose.yml build app_1
-> docker tag renupharm_app_1 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
+> docker-compose -f docker/docker-compose.yml build app
+> docker tag renupharm_app 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
 > docker push 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
 
 Run docker-compose up on the ECS cluster

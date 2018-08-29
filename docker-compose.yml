@@ -4,55 +4,40 @@ services:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
+    volumes:
+     - /usr/local/renupharm/mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "s2cr2t"
-  app_1:
+  app:
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
-    command: bash -c "rm -f /production/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f /production/tmp/pids/server.pid && bin/rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/production
       - public-volume:/production/public/
+    ports:
+      - "3000:3000"
     environment:
       PORT: "3000"
       MYSQL_HOST: "db"
       MYSQL_USER: "root"
       MYSQL_PASSWORD: "s2cr2t"
       MYSQL_DATABASE: "renupharm"
+      RAILS_ENV: "development"
       NODE_ENV: "development"
     links:
       - db:mysql_cont
     depends_on:
       - db
-  app_2:
+  webpacker:
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
-    command: bash -c "rm -f /production/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server"
     volumes:
       - .:/production
-      - public-volume:/production/public/
-    environment:
-      PORT: "3000"
-      MYSQL_HOST: "db"
-      MYSQL_USER: "root"
-      MYSQL_PASSWORD: "s2cr2t"
-      MYSQL_DATABASE: "renupharm"
-      NODE_ENV: "development"
-    depends_on:
-      - db
-  web:
-    build:
-      context: ./docker/web
-      args:
-        nginx_env: $NGINX_ENV
-    volumes:
-      - public-volume:/usr/share/nginx/html/renupharm
     ports:
-      - "80:80"
-    depends_on:
-      - app_1
-      - app_2
+      - "3035:3035"
 volumes:
   public-volume:

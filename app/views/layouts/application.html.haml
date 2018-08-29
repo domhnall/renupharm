@@ -1,12 +1,31 @@
 !!!
-%html
+/[if IE 8] <html lang="en" class="ie8">
+/ [if !IE]><!
+%html{:lang => "en"}
+  / <![endif]
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
     %title Renupharm
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = #javascript_pack_tag 'hello_vue.js'
-  %body
+    / Mobile Specific Meta
+    %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1", :name => "viewport"}/
+    /%link{:href => "images/favicon.png", :rel => "shortcut icon"}/
+    %link{:href => "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :rel => "stylesheet"}/
+    /[if lt IE 9]
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+
+  %body{"data-offset" => "100", "data-spy" => "scroll", "data-target" => "#navbar-menu"}
+    = render 'layouts/loading'
+    = render 'layouts/navigation'
+
     = yield
+
+    = render 'layouts/footer'
+    .scrollup
+      %a{:href => "#"}
+        %i.fa.fa-chevron-up

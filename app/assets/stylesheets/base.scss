@@ -1,8 +1,11 @@
+@import 'bootstrap';
+
 $blue: #3bbfce;
 $margin: 16px;
 
 body {
-  background-image: image_url("blister.png");
+  background-image: image-url("blister.png");
+  color: $blue;
 }
 
 .content-navigation {
@@ -11,5 +14,12 @@ body {
 }
 
 .border {
-  padding: $margin / 2; margin: $margin / 2; border-color: $blue;
+  padding: $margin / 2;
+  margin: $margin / 2;
+  border-color: $blue;
+}
+
+// Hacking bootsnav styles
+.bootsnav .navbar-collapse {
+  flex-basis: 75%;
 }

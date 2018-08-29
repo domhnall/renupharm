@@ -1,0 +1,39 @@
+%nav.navbar.navbar-default.navbar-fixed.white.bootsnav.on.no-full.no-background
+  .container
+    .navbar-header
+      %a.navbar-brand{:href => "/"}
+        = image_tag("bgstudio.png", alt: "", class: "logo logo-display")
+        = image_tag("logo.png", alt: "RenuPharm", class: "logo logo-scrolled")
+    #navbar-menu.collapse.navbar-collapse.text-uppercase.show
+      %ul.nav.navbar-nav{"data-in" => "fadeInDown", "data-out" => "fadeOutUp"}
+        %li{:role => "presentation"}
+          = link_to "Home", root_path
+        %li{:role => "presentation"}
+          = link_to "About", "#{root_path}#about"
+        %li{:role => "presentation"}
+          = link_to "Survey", new_survey_path
+        %li{:role => "presentation"}
+          = link_to "Register interest", "#{root_path}#register_interest"
+    .attr-nav
+      %ul
+        %li.side-menu
+          %a{:href => "#"}
+            %p More
+            %i.fa.fa-bars
+  .side
+    %a.close-side{:href => "#"}
+      %i.fa.fa-times
+    .widget
+      %h4.title
+        Menu
+        %ul.link
+          %li
+            = link_to "Take our survey", new_survey_path
+          %li
+            %a{:href => "#"} Menu-item
+          %li
+            %a{:href => "#"} Menu-item
+          %li
+            %a{:href => "#"} Menu-item
+          %li
+            %a{:href => "#"} Menu-item

@@ -1,0 +1,30 @@
+%footer
+  .container.text-canter
+    %ul.list-inline.footer_menu
+      %li{:role => "presentation"}
+        = link_to "Home", root_path
+      %li{:role => "presentation"}
+        = link_to "About", "#{root_path}#about"
+      %li{:role => "presentation"}
+        = link_to "Survey", new_survey_path
+      %li{:role => "presentation"}
+        = link_to "Register interest", "#{root_path}#register_interest"
+    %a.footer_logo{:href => "#"}
+      = image_tag("logo.png", alt: "RenuPharm")
+    %ul.list-inline.social
+      %li{:role => "presentation"}
+        %a{:href => "#"}
+          %span.fa.fa-facebook
+      %li{:role => "presentation"}
+        %a{:href => "#"}
+          %span.fa.fa-twitter
+      %li{:role => "presentation"}
+        %a{:href => "#"}
+          %span.fa.fa-linkedin
+    .footer-copyright.text-center
+      %p.wow.fadeInRight{"data-wow-duration" => "1s"}
+        Made with
+        %i.fa.fa-heart
+        by
+        %a{:href => "http://bootstrapthemes.co", :target => "_blank"} Bootstrap Themes
+        2016. All Rights Reserved

@@ -1,6 +1,4 @@
-%h1
-  = t('pages.index.heading')
-%p
-  = t('pages.index.intro')
-%p
-  = link_to "survey", new_survey_path
+= render 'header_section'
+= render 'about_section'
+= render 'services_section'
+= render 'register_interest_section'
