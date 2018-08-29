@@ -521,11 +521,6 @@ body.on-side .wrap-sticky nav.navbar.bootsnav.sticked{
         left: -200px;
     }
     
-    nav.navbar.bootsnav ul.nav > li > a{
-        padding: 30px 15px;
-        font-weight: 600;
-    }
-    
     nav.navbar.bootsnav ul.nav > li.dropdown > a.dropdown-toggle:after{
         font-family: 'FontAwesome';
         content: "\f0d7";
@@ -986,6 +981,17 @@ body.on-side .wrap-sticky nav.navbar.bootsnav.sticked{
     
     nav.bootsnav.navbar-sidebar .dropdown .megamenu-content .col-menu ul.menu-col li a{
         padding: 3px 0 !important;
+    }
+}
+
+@media (min-width: 991px) {
+    nav .attr-nav {
+      display: none;
+    }
+
+    nav.navbar.bootsnav ul.nav > li > a{
+        padding: 30px 15px;
+        font-weight: 600;
     }
 }
 

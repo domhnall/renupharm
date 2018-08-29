@@ -1,6 +1,15 @@
 %section#register_interest
-  .container
-    .row
-      .col-lg-10.col-lg-offset-1.text-center
-        %p.work_content Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.
-        %a.register_interest_btn{:href => "#work_us"} Work With Us!
+  .contact
+    .container
+      .row
+        .col-md-5
+          .contact_content
+            %h4 Want to be kept in the loop?
+            %p If you would like to be updated about progress and developments on the RenuPharm platform register your interest here.
+        .col-md-7
+          %form.form-inline{:role => "form"}
+            .form-group
+              %input#unam.form-control{:placeholder => "Enter your full name", :type => "text"}/
+            .form-group
+              %input#email.form-control{:placeholder => "Enter your email address", :type => "email"}/
+            %button.btn.submit_btn{:type => "submit"} Update me

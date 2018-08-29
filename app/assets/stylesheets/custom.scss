@@ -274,7 +274,7 @@ a:hover,a:focus{ text-decoration: none}
     -moz-transition: background .3s ease-in-out;
 }
 #about{padding-top: 76px;}
-#services{padding-top: 76px;padding-bottom: 100px;}
+#services{padding-top: 50px;}
 .contact{margin-top: 80px}
 .banner_btn,.register_interest_btn {
     background: #9068be none repeat scroll 0 0;
@@ -386,7 +386,7 @@ hr {
 .about_right {
     background: #f6f6f6 none repeat scroll 0 0;
     margin-left: -30px;
-    margin-top: 82px;
+    margin-top: 5px;
     overflow: hidden;
     padding: 18px 25px 25px 30px;
 }
@@ -409,7 +409,6 @@ hr {
 
 /* Contact */
 .contact {
-    background: #9068be none repeat scroll 0 0;
     color: #fff;
     padding: 42px 0;
 }
@@ -453,10 +452,16 @@ form {
     margin: 0 12px 0 0;
 }
 
-/* Services */
-#services {
+#services .container, #about .container{
     background: #f6f6f6 none repeat scroll 0 0;
+    padding: 30px 30px;
+    border-radius: 10px;
 }
+
+#services .container {
+    padding: 40px 30px;
+}
+
 .service > img {
     border-radius: 100%;
     -moz-border-radius: 100%;
@@ -533,34 +538,24 @@ form {
 /* Work with us */
 #register_interest {
     background: rgba(0, 0, 0, 0) image-url("register_interest.jpg") no-repeat scroll 0 0 / 100% 100%;
-    margin-top: 160px;
     padding-bottom: 40px;
-    min-height: 550px;
+    min-height: 350px;
     border-bottom: 2px solid #e46e48;
-}
-.work_content {
-    color: #fff;
-    font-size: 24px;
-    line-height: 36px;
-    margin-top: 165px;
 }
 .register_interest_btn {
     margin-top: 40px;
 }
 
-/* Work with us */
 footer {
     background: #011e22 none repeat scroll 0 0;
-    padding: 20px;
 }
 .footer_menu {
-    margin: 14px 0;
     text-align: center;
 }
-.footer_menu,.social {
+.footer_menu {
     text-align: center;
 }
-.footer_menu > li, .social > li {
+.footer_menu > li {
     padding: 0 10px 0 6px;
     display: inline-block;
     border-right: 1px solid #d7d7d7;
@@ -576,35 +571,15 @@ footer {
 .footer_menu a:hover,.footer_menu a:focus {
     color: #e46e48;
 }
-.footer_logo {
-    display: block;
-    margin: 0 auto 15px;
-    width: 170px;
-}
-.social > li {
-    padding: 0;
-}
-.social .fa {
-    background: #cfcfcf none repeat scroll 0 0;
-    color: #011e22;
-    height: 25px;
-    padding-top: 5px;
-    text-align: center;
-    width: 25px;
-}
-.social .fa:hover {
-    background: #ababab none repeat scroll 0 0;
-}
 .footer-copyright {
-    margin: 35px 0 45px;
+    padding: 5px 0 5px 0;
     font-size: 13px;
     color:#fff;
 }
 .footer-copyright a{
-    font-weight: 700;
-    font-size: 15px;
-    color:#fff;
     padding:0px 5px;
+    color:#fff;
+    text-decoration: underline;
 }
 
 /* scrollup */
@@ -779,12 +754,6 @@ footer {
     #register_interest {
         min-height: 400px;
     }
-    .work_content {
-        font-size: 20px;
-        line-height: 32px;
-        margin-top: 90px;
-    }
-
 }
 
 @media (max-width: 767px) {
@@ -833,12 +802,6 @@ footer {
         margin-top: 40px;
         min-height: auto;
     }
-    .work_content {
-        font-size: 18px;
-        line-height: 30px;
-        margin-top: 35px;
-    }
-
 }
 
 @media (max-width: 479px) {
@@ -849,5 +812,4 @@ footer {
     h3 {
         font-size: 24px;
     }
-
 }
