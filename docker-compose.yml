@@ -30,6 +30,19 @@ services:
       - db:mysql_cont
     depends_on:
       - db
+  web:
+    build:
+      context: ./docker/web
+      args:
+        nginx_env: $NGINX_ENV
+    volumes:
+      - public-volume:/usr/share/nginx/html
+      - /etc/letsencrypt:/etc/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - app
   webpacker:
     build:
       context: .
