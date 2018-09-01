@@ -71,3 +71,8 @@ Run docker-compose up on the ECS cluster
 
 ## SSH on to AWS
 > ssh -i ~/keys/domhnall-renupharm.pem ec2-user@renupharm.ie
+
+
+## Running tests
+
+> docker-compose run app bundle exec rspec spec/models/survey_response.rb

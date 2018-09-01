@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_15_161603) do
+ActiveRecord::Schema.define(version: 2018_09_01_114659) do
 
   create_table "sales_contacts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "sales_pharmacy_id"
@@ -31,6 +31,17 @@ ActiveRecord::Schema.define(version: 2018_08_15_161603) do
     t.string "telephone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "survey_responses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "email"
+    t.boolean "question_1"
+    t.boolean "question_2"
+    t.boolean "question_3"
+    t.boolean "question_4"
+    t.string "question_5"
+    t.text "additional_notes"
+    t.json "full_response"
   end
 
   add_foreign_key "sales_contacts", "sales_pharmacies"
