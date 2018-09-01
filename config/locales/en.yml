@@ -62,10 +62,12 @@ en:
         option_2: "No"
       question_5:
         question: Could you estimate the amount of stock that goes out of date each month in your pharmacy (cost price)?
-        option_1: "&lt; &euro;200"
-        option_2: "&euro;200 - &euro;500"
-        option_3: "&euro;500 - &euro;1000"
-        option_4: "&gt; &euro;1000"
+        option_1: "< €200"
+        option_2: "€200 - €500"
+        option_3: "€500 - €1000"
+        option_4: "> €1000"
+      additional_notes:
+        label: "If you would like to provide additional details relating to any of your responses, please do so here:"
       interested:
         intro: If you are interested in learning more about the RenuPharm service, and to be kept up-to-date please enter your details below.
         name_label: "Name:"

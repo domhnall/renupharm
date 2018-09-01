@@ -30,6 +30,13 @@
                       %div.form-check
                         = radio_button_tag "question_#{i}", v, class: 'form-check-input'
                         = label_tag k, v, class: 'form-check-label'
+            .form-group
+              = label_tag :additional_notes, t('surveys.survey.additional_notes.label')
+              = text_area_tag :additional_notes, nil, class: 'form-control'
+
+            %br
+            %hr
+            %br
 
             %p
               = t('surveys.survey.interested.intro')
