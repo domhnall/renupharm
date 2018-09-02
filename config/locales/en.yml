@@ -30,6 +30,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  general:
+    email_validator:
+      error: "is not an email"
   pages:
     index:
       heading: Welcome to RenuPharm

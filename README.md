@@ -75,4 +75,4 @@ Run docker-compose up on the ECS cluster
 
 ## Running tests
 
-> docker-compose run app bundle exec rspec spec/models/survey_response.rb
+> docker-compose run app bundle exec rspec spec/models/survey_response_spec.rb
