@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2018_09_01_114659) do
   end
 
   create_table "survey_responses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "email"
+    t.bigint "sales_contact_id"
     t.boolean "question_1"
     t.boolean "question_2"
     t.boolean "question_3"
@@ -42,7 +42,9 @@ ActiveRecord::Schema.define(version: 2018_09_01_114659) do
     t.string "question_5"
     t.text "additional_notes"
     t.json "full_response"
+    t.index ["sales_contact_id"], name: "index_survey_responses_on_sales_contact_id"
   end
 
   add_foreign_key "sales_contacts", "sales_pharmacies"
+  add_foreign_key "survey_responses", "sales_contacts"
 end

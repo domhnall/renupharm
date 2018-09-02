@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     get :privacy_policy
   end
 
-  resources :surveys, only: [:new, :create]
+  resources :survey_responses, only: [:new, :create]
 
   root 'pages#index'
 end

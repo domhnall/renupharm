@@ -1,7 +1,7 @@
 class CreateSurveyResponses < ActiveRecord::Migration[5.2]
   def change
     create_table :survey_responses do |t|
-      t.string :email
+      t.references :sales_contact, foreign_key: true
       t.boolean :question_1
       t.boolean :question_2
       t.boolean :question_3

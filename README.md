@@ -76,3 +76,19 @@ Run docker-compose up on the ECS cluster
 ## Running tests
 
 > docker-compose run app bundle exec rspec spec/models/survey_response_spec.rb
+
+
+## Debugging
+
+This is supported by the following settings in docker-compose.yml
+
+```
+  app:
+    tty: true
+    stdin_open: true
+```
+
+Place your `byebug` statement where you want to break in then attach to
+the running container as
+
+> docker attach renupharm_app_1

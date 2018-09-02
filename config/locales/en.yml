@@ -73,9 +73,10 @@ en:
         label: "If you would like to provide additional details relating to any of your responses, please do so here:"
       interested:
         intro: If you are interested in learning more about the RenuPharm service, and to be kept up-to-date please enter your details below.
-        name_label: "Name:"
+        first_name_label: "First name:"
+        surname_label: "Surname:"
         email_label: "Email (if you are happy for us to contact you by email):"
-        phone_label: "Phone (if you are happy for us to contact you by phone):"
+        telephone_label: "Phone (if you are happy for us to contact you by phone):"
     submissions:
       success: "Thank you for your valued input!"
       error: "Sorry there appears to have been a problem with your submission. Please try again later."

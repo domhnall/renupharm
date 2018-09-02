@@ -1,5 +1,8 @@
 class SurveyResponse < ApplicationRecord
+  belongs_to :sales_contact, class_name: 'Sales::Contact'
   before_save :serialize_full_response
+
+  accepts_nested_attributes_for :sales_contact
 
   private
 

@@ -1,0 +1,65 @@
+%section
+  .container
+    .row
+      .col-xs-12
+
+        .heading_area.text-center
+          %h1
+            = t('surveys.heading')
+          %hr
+          %p
+            = t('surveys.intro')
+        %p
+          = t('surveys.benefits.intro')
+          %ul
+            %li
+              = t('surveys.benefits.seller')
+            %li
+              = t('surveys.benefits.buyer')
+
+        %div.survey
+          - if @survey_response.errors.any?
+            #error_explanation
+              %h2
+                = "Sorry there were some errors with this submission:"
+              %ul
+                - @survey_response.errors.full_messages.each do |msg|
+                  %li= msg
+          %p
+            = t('surveys.survey.intro')
+          = form_for @survey_response do |f|
+            %ol.survey_questions
+              - (1..5).each do |i|
+                %li
+                  %fieldset.form-group
+                    %legend= t("surveys.survey.question_#{i}.question")
+                    - t("surveys.survey.question_#{i}").select{ |k,v| k=~/^option/ }.each do |k,v|
+                      %div.form-check
+                        = f.radio_button "question_#{i}", v, class: 'form-check-input'
+                        = f.label k, v, class: 'form-check-label'
+            .form-group
+              = f.label :additional_notes, t('surveys.survey.additional_notes.label')
+              = f.text_area :additional_notes, class: 'form-control'
+
+            %br
+            %hr
+            %br
+
+            %p
+              = t('surveys.survey.interested.intro')
+
+            = f.fields_for :sales_contact do |scf|
+              .form-group
+                = scf.label :first_name, t('surveys.survey.interested.first_name_label')
+                = scf.text_field :first_name, class: 'form-control'
+              .form-group
+                = scf.label :surname, t('surveys.survey.interested.surname_label')
+                = scf.text_field :surname, class: 'form-control'
+              .form-group
+                = scf.label :email, t('surveys.survey.interested.email_label')
+                = scf.email_field :email, class: 'form-control'
+              .form-group
+                = scf.label :telephone, t('surveys.survey.interested.phone_label')
+                = scf.telephone_field :telephone, class: 'form-control'
+            .submit
+              = submit_tag t('surveys.survey.submit'), class: 'btn btn-info'
