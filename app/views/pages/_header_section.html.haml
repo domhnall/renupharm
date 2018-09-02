@@ -1,5 +1,5 @@
 %header#home
-  #carousel.carousel.slide{"data-ride" => "carousel"}
+  #carousel.carousel.slide{"data-ride" => "carousel", "data-interval" => "10000"}
     %ol.carousel-indicators
       %li.active{"data-slide-to" => "0", "data-target" => "#carousel"}
       %li{"data-slide-to" => "1", "data-target" => "#carousel"}
@@ -10,14 +10,14 @@
         .container.caption_area
           .carousel-caption
             %h3 REDUCE MEDICATION WASTAGE
-            %p Holding excess medications that are unlikely to shift? You make these available for other Irish pharmacies to purchase on the RenuPharm network.
+            %p Holding excess medications that are unlikely to shift? You can make these available for other Irish pharmacies to purchase on the RenuPharm Marketplace.
             = link_to "Find out more", new_survey_response_path, class: 'banner_btn'
       .carousel-item
         = image_tag("slide_2.jpg", alt: "Source low-cost medications")
         .container.caption_area
           .carousel-caption
             %h3 SOURCE LOW-COST MEDICATIONS
-            %p Sourcing niche medications at a reasonable cost is a constant challenge. The RenuPharm marketplace offers a new channel for sourcing cost effective stock from other Irish pharmacies.
+            %p Sourcing niche medications at a reasonable cost is a constant challenge. The RenuPharm Marketplace offers a new channel for sourcing cost effective stock from other Irish pharmacies.
             = link_to "Find out more", new_survey_response_path, class: 'banner_btn'
       .carousel-item
         = image_tag("slide_3.jpg", alt: "Save time and money")
