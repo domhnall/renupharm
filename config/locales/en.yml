@@ -79,3 +79,7 @@ en:
     submissions:
       success: "Thank you for your valued input!"
       error: "Sorry there appears to have been a problem with your submission. Please try again later."
+  sales:
+    contact:
+      errors:
+        pharmacy_email_or_telephone_required: "Pharmacy, email or telephone must be supplied"
