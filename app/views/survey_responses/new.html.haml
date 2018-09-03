@@ -29,7 +29,7 @@
             = t('surveys.survey.intro')
           = form_for @survey_response do |f|
             %ol.survey_questions
-              - (1..5).each do |i|
+              - (1..4).each do |i|
                 %li
                   %fieldset.form-group
                     %legend= t("surveys.survey.question_#{i}.question")
@@ -37,6 +37,12 @@
                       %div.form-check
                         = f.radio_button "question_#{i}", v, class: 'form-check-input'
                         = f.label k, v, class: 'form-check-label'
+                %fieldset.form-group
+                  %legend= t("surveys.survey.question_5.question")
+                  - SurveyResponse::WASTAGE_BUCKETS.each do |bucket|
+                    %div.form-check
+                      = f.radio_button "question_5", bucket, class: 'form-check-input'
+                      = f.label bucket, t("surveys.survey.question_5.labels.#{bucket}"), class: 'form-check-label'
             .form-group
               = f.label :additional_notes, t('surveys.survey.additional_notes.label')
               = f.text_area :additional_notes, class: 'form-control'

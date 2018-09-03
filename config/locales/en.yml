@@ -65,10 +65,11 @@ en:
         option_2: "No"
       question_5:
         question: Could you estimate the amount of stock that goes out of date each month in your pharmacy (cost price)?
-        option_1: "< €200"
-        option_2: "€200 - €500"
-        option_3: "€500 - €1000"
-        option_4: "> €1000"
+        labels:
+          lt_200: "< €200"
+          "200_500": "€200 - €500"
+          "500_1000": "€500 - €1000"
+          gt_1000: "> €1000"
       additional_notes:
         label: "If you would like to provide additional details relating to any of your responses, please do so here:"
       interested:
