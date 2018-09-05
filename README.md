@@ -59,7 +59,7 @@ We want to create a cluster to deploy our containers to:
 
 Generate a docker image, tag it and push to the AWS registry
 
-> docker-compose -f docker/docker-compose.yml build app
+> docker-compose build app
 > docker tag renupharm_app 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
 > docker push 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
 
