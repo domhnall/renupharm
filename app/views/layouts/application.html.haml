@@ -1,8 +1,5 @@
 !!!
-/[if IE 8] <html lang="en" class="ie8">
-/ [if !IE]><!
 %html{:lang => "en"}
-  / <![endif]
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:charset => "utf-8"}/
@@ -14,15 +11,14 @@
     = #javascript_pack_tag 'hello_vue.js'
     / Mobile Specific Meta
     %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1", :name => "viewport"}/
-    /%link{:href => "images/favicon.png", :rel => "shortcut icon"}/
     %link{:href => "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :rel => "stylesheet"}/
-    /[if lt IE 9]
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     = render 'layouts/favicon'
+    = yield :head
 
   %body{"data-offset" => "100", "data-spy" => "scroll", "data-target" => "#navbar-menu"}
     = render 'layouts/loading'
     = render 'layouts/navigation'
+    = render 'layouts/flash'
 
     = yield
 

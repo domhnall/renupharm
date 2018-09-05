@@ -64,3 +64,4 @@ end
 # Prototyping
 gem 'bootstrap'
 gem 'jquery-rails'
+gem 'http'

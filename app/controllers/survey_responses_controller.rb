@@ -8,10 +8,12 @@ class SurveyResponsesController < ApplicationController
   def create
     contact = Sales::Contact.find_by_email(params[:survey_response][:sales_contact_attributes][:email])
     @survey_response = SurveyResponse.new(filtered_params(contact && contact.id))
-    if @survey_response.save
-      redirect_to root_path, notice: I18n.t('surveys.submissions.success')
+    verify_recaptcha(@survey_response)
+    if @survey_response.valid? && @survey_response.save
+      redirect_to root_path, flash: { success: I18n.t('surveys.submissions.success') }
     else
-      redirect_to new_survey_response_path, error: I18n.t('surveys.submissions.error')
+      flash.now[:warning] = I18n.t('surveys.submissions.error')
+      render :new
     end
   end
 
@@ -32,5 +34,15 @@ class SurveyResponsesController < ApplicationController
 
   def existing_contact(email)
     Sales::Contact.find_by_email(email)
+  end
+
+  def verify_recaptcha(survey_response)
+    unless verifier.verify(params["g-recaptcha-response"])
+      survey_response.errors.add(:base, I18n.t("surveys.errors.recaptcha"))
+    end
+  end
+
+  def verifier
+    RecaptchaResponseVerifier.new(Rails.application.credentials.recaptcha)
   end
 end

@@ -80,7 +80,9 @@ en:
         telephone_label: "Phone (if you are happy for us to contact you by phone):"
     submissions:
       success: "Thank you for your valued input!"
-      error: "Sorry there appears to have been a problem with your submission. Please try again later."
+      error: "There are some errors with your submission. Please review the errors below and try again."
+    errors:
+      recaptcha: "Sorry please try to resubmit the survey. Ensure to verify that you are not a robot!"
   sales:
     contact:
       errors:

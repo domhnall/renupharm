@@ -1,0 +1,5 @@
+- unless flash.empty?
+  %section#flash_messages
+    - flash.each do |name, msg|
+      %div.alert{class: "alert-#{name}" }
+        = msg

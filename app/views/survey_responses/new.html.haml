@@ -1,3 +1,6 @@
+- content_for :head do
+  %script{src: "https://www.google.com/recaptcha/api.js"}
+
 %section
   .container
     .row
@@ -9,36 +12,32 @@
           %hr
           %p
             = t('surveys.intro')
-        %p
-          = t('surveys.benefits.intro')
-          %ul
-            %li
-              = t('surveys.benefits.seller')
-            %li
-              = t('surveys.benefits.buyer')
 
         %div.survey
-          - if @survey_response.errors.any?
+          - error_keys = @survey_response.errors.keys.map(&:to_s)
+          - if @survey_response.errors[:base].any?
             #error_explanation
               %h2
                 = "Sorry there were some errors with this submission:"
               %ul
-                - @survey_response.errors.full_messages.each do |msg|
+                - @survey_response.errors[:base].messages.each do |msg|
                   %li= msg
+
           %p
             = t('surveys.survey.intro')
           = form_for @survey_response do |f|
             %ol.survey_questions
               - (1..4).each do |i|
                 %li
-                  %fieldset.form-group
-                    %legend= t("surveys.survey.question_#{i}.question")
+                  %fieldset.form-group{class: error_keys.include?("question_#{i}") ? 'error' : '' }
+                    %p= t("surveys.survey.question_#{i}.question")
                     - t("surveys.survey.question_#{i}").select{ |k,v| k=~/^option/ }.each do |k,v|
                       %div.form-check
                         = f.radio_button "question_#{i}", v, class: 'form-check-input'
                         = f.label k, v, class: 'form-check-label'
+              %li
                 %fieldset.form-group
-                  %legend= t("surveys.survey.question_5.question")
+                  %p= t("surveys.survey.question_5.question")
                   - SurveyResponse::WASTAGE_BUCKETS.each do |bucket|
                     %div.form-check
                       = f.radio_button "question_5", bucket, class: 'form-check-input'
@@ -55,17 +54,18 @@
               = t('surveys.survey.interested.intro')
 
             = f.fields_for :sales_contact do |scf|
-              .form-group
+              .form-group{ class: error_keys.include?('first_name') ? 'error' : '' }
                 = scf.label :first_name, t('surveys.survey.interested.first_name_label')
                 = scf.text_field :first_name, class: 'form-control'
-              .form-group
+              .form-group{ class: error_keys.include?('surname') ? 'error' : '' }
                 = scf.label :surname, t('surveys.survey.interested.surname_label')
                 = scf.text_field :surname, class: 'form-control'
-              .form-group
+              .form-group{ class: error_keys.include?('email') ? 'error' : '' }
                 = scf.label :email, t('surveys.survey.interested.email_label')
                 = scf.email_field :email, class: 'form-control'
-              .form-group
+              .form-group{ class: error_keys.include?('telephone') ? 'error' : '' }
                 = scf.label :telephone, t('surveys.survey.interested.phone_label')
                 = scf.telephone_field :telephone, class: 'form-control'
             .submit
-              = submit_tag t('surveys.survey.submit'), class: 'btn btn-info'
+              .g-recaptcha{ data: {sitekey: Rails.application.credentials.recaptcha[:site_key], callback: "recaptcha_successful"} }
+              = submit_tag t('surveys.survey.submit'), id: 'submit_survey', class: 'btn btn-info', disabled: true, "aria-disabled" => true

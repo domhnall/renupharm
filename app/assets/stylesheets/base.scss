@@ -8,6 +8,16 @@ body {
   color: $blue;
 }
 
+#flash_messages {
+  text-align: center;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 5px;
+  .alert {
+    margin-bottom: 5px;
+  }
+}
+
 .content-navigation {
   border-color: $blue;
   color: darken($blue, 9%);
@@ -31,10 +41,20 @@ body {
 // Survey page
 .survey {
   margin: 10px;
+  font-size: 14px;
 }
 
 .survey form {
   margin: 0px;
+  .form-check {
+    display: inline-block;
+    margin-left: 25px;
+  }
+
+  .form-check-input {
+    position: static;
+    margin-left: 0px;
+  }
 }
 
 .survey .submit {
@@ -42,6 +62,7 @@ body {
   float: right
 }
 
-.survey legend {
-  font-size: 18px;
+.form-group.error {
+  @extend .alert;
+  @extend .alert-warning;
 }
