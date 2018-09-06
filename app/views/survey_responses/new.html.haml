@@ -1,6 +1,3 @@
-- content_for :head do
-  %script{src: "https://www.google.com/recaptcha/api.js"}
-
 %section
   .container
     .row
@@ -67,5 +64,6 @@
                 = scf.label :telephone, t('surveys.survey.interested.phone_label')
                 = scf.telephone_field :telephone, class: 'form-control'
             .submit
-              .g-recaptcha{ data: {sitekey: Rails.application.credentials.recaptcha[:site_key], callback: "recaptcha_successful"} }
+              #g-recaptcha-container{ data: {sitekey: Rails.application.credentials.recaptcha[:site_key] } }
+                %script{src: "https://www.google.com/recaptcha/api.js?onload=onload_recaptcha&render=explicit", async: true, defer: true}
               = submit_tag t('surveys.survey.submit'), id: 'submit_survey', class: 'btn btn-info', disabled: true, "aria-disabled" => true
