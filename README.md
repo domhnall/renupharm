@@ -75,7 +75,7 @@ Run docker-compose up on the ECS cluster
 
 ## Running tests
 
-> docker-compose run -e "RAILS_ENV=test" app bundle exec rspec spec/models/survey_response_spec.rb
+> docker-compose run -e "RAILS_ENV=test" app bundle exec rspec spec/**/*
 
 
 ## Debugging

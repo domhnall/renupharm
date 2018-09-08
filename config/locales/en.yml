@@ -84,3 +84,7 @@ en:
     contact:
       errors:
         pharmacy_email_or_telephone_required: "Pharmacy, email or telephone must be supplied"
+    pharmacy:
+      errors:
+        email_or_telephone_required: "Email or telephone must be supplied"
+        name_uniqueness: "Name should be unique in a given area"

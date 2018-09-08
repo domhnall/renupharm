@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2018_09_01_114659) do
 
   create_table "sales_pharmacies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
+    t.string "proprietor"
     t.string "address_1"
     t.string "address_2"
     t.string "address_3"

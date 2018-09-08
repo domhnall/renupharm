@@ -50,12 +50,12 @@ describe RecaptchaResponseVerifier do
       end
 
       it "should return true if the response comes back successful" do
-        HTTP.stub(:post).and_return(@recaptcha_success_response)
+        allow(HTTP).to receive(:post).and_return(@recaptcha_success_response)
         expect(@verifier.verify("dummy")).to be_truthy
       end
 
       it "should return false if the repsonse comes back unsuccessful" do
-        HTTP.stub(:post).and_return(@recaptcha_error_response)
+        allow(HTTP).to receive(:post).and_return(@recaptcha_error_response)
         expect(@verifier.verify("dummy")).to be_falsey
       end
     end

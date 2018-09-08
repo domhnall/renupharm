@@ -2,10 +2,11 @@ require 'rails_helper'
 
 describe Sales::Contact do
   before :all do
-    @pharmacy = Sales::Pharmacy.create({
+    @pharmacy = Sales::Pharmacy.create!({
       name: 'PurePharmacy',
       address_1: '99 Bun Road',
       address_2: 'Caketown',
+      address_3: 'Bunland',
       telephone_1: '(01)2345678'
     })
     @params = {
@@ -72,7 +73,6 @@ describe Sales::Contact do
     end
 
     ['john@.com', 'john.smith.com', 'david@localhost', 'rubbish'].each do |invalid_email|
-    #['john@.com'].each do |invalid_email|
       it "should be invalid if :email is #{invalid_email} (invalid)" do
         expect(Sales::Contact.new(@params.merge(email: invalid_email))).not_to be_valid
       end
