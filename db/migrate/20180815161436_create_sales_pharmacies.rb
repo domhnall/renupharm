@@ -5,7 +5,9 @@ class CreateSalesPharmacies < ActiveRecord::Migration[5.2]
       t.string :address_1
       t.string :address_2
       t.string :address_3
-      t.string :telephone
+      t.string :email
+      t.string :telephone_1
+      t.string :telephone_2
 
       t.timestamps
     end

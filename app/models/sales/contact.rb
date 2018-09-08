@@ -1,5 +1,6 @@
 class Sales::Contact < ApplicationRecord
   include EmailValidatable
+  include ActsAsIrishPhoneContact
   belongs_to :sales_pharmacy, class_name: 'Sales::Pharmacy', optional: true
   has_many :survey_responses, foreign_key: :sales_contact_id
 
@@ -7,6 +8,8 @@ class Sales::Contact < ApplicationRecord
   validates :first_name, :surname, length: { maximum: 255 }
   validates :email, email: true, if: :email?
   validate :pharmacy_email_or_telephone_present?
+
+  acts_as_irish_phone_contact :telephone
 
   private
 
