@@ -55,6 +55,12 @@ body {
     position: static;
     margin-left: 0px;
   }
+
+  .survey_questions {
+    .field_with_errors {
+      display: inline-block;
+    }
+  }
 }
 
 .survey .submit {
@@ -62,7 +68,16 @@ body {
   float: right
 }
 
-.form-group.error {
+.form-group.error, .error_explanation {
   @extend .alert;
   @extend .alert-warning;
+}
+
+.no_error .error_message {
+  display: none;
+}
+
+.error_explanation .error_message {
+  font-weight: bold;
+  font-size: 120%;
 }

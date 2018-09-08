@@ -25,7 +25,7 @@ class SurveyResponsesController < ApplicationController
   end
 
   def survey_response_params
-    [:sales_contact_id, :question_1, :question_2, :question_3, :question_4, :question_5, :addition_notes]
+    [:sales_contact_id, :question_1, :question_2, :question_3, :question_4, :question_5, :additional_notes]
   end
 
   def sales_contact_params

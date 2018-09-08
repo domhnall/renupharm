@@ -45,24 +45,21 @@ en:
       buyer: The selling pharmacy can offload stock that may otherwise require disposal, reducing product wastage, man-hours and disposal costs.
       seller: The buying pharmacy benefits from an alternative channel for sourcing stock and the potential of picking this up at a significant discount from typical wholesale price.
     survey:
+      errors:
+        contact_details: "Please provide an email or telephone number."
+      response:
+        yes: "Yes"
+        no: "No"
       intro: We are very interested to gauge your views through completion of this short survey.
       submit: Submit
       question_1:
         question: Would you be willing to purchase a medicinal product with a shorter expiry date at a cheaper price (cf. wholesaler price with a better date)?
-        option_1: "Yes"
-        option_2: "No"
       question_2:
         question: Would you be willing to sell drugs with a shorter expiry data (or no usage) at a lower price?
-        option_1: "Yes"
-        option_2: "No"
       question_3:
         question: Have you ever been impacted by drug shortages or sourcing issues?
-        option_1: "Yes"
-        option_2: "No"
       question_4:
         question: Would you be happy to supply a shorter-dated medication to your customers, provided the typical usage of the product would imply the product would be consumed before the expiry date?
-        option_1: "Yes"
-        option_2: "No"
       question_5:
         question: Could you estimate the amount of stock that goes out of date each month in your pharmacy (cost price)?
         labels:

@@ -13,25 +13,26 @@
         %div.survey
           - error_keys = @survey_response.errors.keys.map(&:to_s)
           - if @survey_response.errors[:base].any?
-            #error_explanation
-              %h2
-                = "Sorry there were some errors with this submission:"
+            .error_explanation
               %ul
                 - @survey_response.errors[:base].messages.each do |msg|
                   %li= msg
 
           %p
             = t('surveys.survey.intro')
+
           = form_for @survey_response do |f|
             %ol.survey_questions
               - (1..4).each do |i|
                 %li
                   %fieldset.form-group{class: error_keys.include?("question_#{i}") ? 'error' : '' }
                     %p= t("surveys.survey.question_#{i}.question")
-                    - t("surveys.survey.question_#{i}").select{ |k,v| k=~/^option/ }.each do |k,v|
-                      %div.form-check
-                        = f.radio_button "question_#{i}", v, class: 'form-check-input'
-                        = f.label k, v, class: 'form-check-label'
+                    %div.form-check
+                      = f.radio_button "question_#{i}", true, class: 'form-check-input'
+                      = f.label "question_#{i}", t("surveys.survey.response.yes"), class: 'form-check-label'
+                    %div.form-check
+                      = f.radio_button "question_#{i}", false, class: 'form-check-input'
+                      = f.label "question_#{i}", t("surveys.survey.response.no"), class: 'form-check-label'
               %li
                 %fieldset.form-group
                   %p= t("surveys.survey.question_5.question")
@@ -51,18 +52,20 @@
               = t('surveys.survey.interested.intro')
 
             = f.fields_for :sales_contact do |scf|
-              .form-group{ class: error_keys.include?('first_name') ? 'error' : '' }
+              .form-group{ class: error_keys.include?('sales_contact.first_name') ? 'error' : '' }
                 = scf.label :first_name, t('surveys.survey.interested.first_name_label')
                 = scf.text_field :first_name, class: 'form-control'
-              .form-group{ class: error_keys.include?('surname') ? 'error' : '' }
+              .form-group{ class: error_keys.include?('sales_contact.surname') ? 'error' : '' }
                 = scf.label :surname, t('surveys.survey.interested.surname_label')
                 = scf.text_field :surname, class: 'form-control'
-              .form-group{ class: error_keys.include?('email') ? 'error' : '' }
-                = scf.label :email, t('surveys.survey.interested.email_label')
-                = scf.email_field :email, class: 'form-control'
-              .form-group{ class: error_keys.include?('telephone') ? 'error' : '' }
-                = scf.label :telephone, t('surveys.survey.interested.phone_label')
-                = scf.telephone_field :telephone, class: 'form-control'
+              %div{ class: error_keys.include?('sales_contact.base') ? 'error_explanation' : 'no_error' }
+                .error_message= t("surveys.survey.errors.contact_details")
+                .form-group{ class: error_keys.include?('sales_contact.email') ? 'error' : '' }
+                  = scf.label :email, t('surveys.survey.interested.email_label')
+                  = scf.email_field :email, class: 'form-control'
+                .form-group{ class: error_keys.include?('sales_contact.telephone') ? 'error' : '' }
+                  = scf.label :telephone, t('surveys.survey.interested.telephone_label')
+                  = scf.telephone_field :telephone, class: 'form-control'
             .submit
               #g-recaptcha-container{ data: {sitekey: Rails.application.credentials.recaptcha[:site_key] } }
                 %script{src: "https://www.google.com/recaptcha/api.js?onload=onload_recaptcha&render=explicit", async: true, defer: true}

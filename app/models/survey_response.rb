@@ -6,7 +6,7 @@ class SurveyResponse < ApplicationRecord
 
   accepts_nested_attributes_for :sales_contact
 
-  validates :question_1, :question_2, :question_3, :question_4, :question_5, presence: true
+  validates :question_1, :question_2, :question_3, :question_4, inclusion: { in: [true, false] }
   validates :question_5, inclusion: { in: WASTAGE_BUCKETS }
 
   private
