@@ -9,7 +9,8 @@ class RecaptchaResponseVerifier
     @secret_key = secret_key
   end
 
-  def verify(res)
+  def verify(res = "")
+    raise ArgumentError, "You must supply the response to be verified" if (res.nil? || res.empty?)
     JSON.parse(HTTP.post(VERIFY_URL, form: { secret: secret_key, response: res }))["success"]
   end
 end
