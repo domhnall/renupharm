@@ -24,3 +24,13 @@ Dir.glob(Rails.root.join("db/pharmacy_contact_lists/*.csv")).each do |filename|
     end
   end
 end
+
+# Create users
+
+User.where(email: "dev@renupharm.ie").first_or_create do |user|
+  user.email = "dev@renupharm.ie"
+  user.password = "handbag"
+  user.password_confirmation = "handbag"
+  user.skip_confirmation!
+  user.confirm
+end.save!

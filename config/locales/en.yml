@@ -37,6 +37,10 @@ en:
     index:
       heading: Welcome to RenuPharm
       intro: RenuPharm offers a unique platform for pharmacies in Ireland, enabling them to source and supply pharmaceutical products to other pharmacies across the nation
+      register_interest:
+        success: Thanks for registering your interest. We will keep you up-to-date with platform and product developments.
+        already_exists: Thanks for your interest. It looks like that email has already been registered. We will keep you up-to-date with platform and product developments.
+        error: There has been an unexpected error. Please contact support at <a href="mailto:dev@renupharm.ie">dev@renupharm.ie</a>.
   surveys:
     heading: RenuPharm Survey
     intro: RenuPharm is an Irish-owned business aiming to provide an alternative source for pharmaceuticals across Ireland.  Pharmacies registered on the RenuPharm platform will have the option of purchasing medicinal products from other Irish pharmacies who have a temporary over-stock and/or no usage of the same product.
@@ -82,9 +86,36 @@ en:
       recaptcha: "Sorry please try to resubmit the survey. Ensure to verify that you are not a robot!"
   sales:
     contact:
+      first_name: "First name"
+      surname: "Surname"
+      email: "Email"
       errors:
         pharmacy_email_or_telephone_required: "Pharmacy, email or telephone must be supplied"
     pharmacy:
       errors:
         email_or_telephone_required: "Email or telephone must be supplied"
         name_uniqueness: "Name should be unique in a given area"
+  devise:
+    sessions:
+      log_in: Log in
+    passwords:
+      forgot_your_password: "Forgot your password?"
+      send_me_reset_instructions: "Send me reset password instructions"
+      change_your_password: "Change your password"
+      new_password: "New password"
+      minimum_length: "(%{min} characters minimum)"
+      confirm_new_password: "Confirm new password"
+      change_my_password: "Change my password"
+    confirmations:
+      resend_instructions: "Resend confirmation instructions"
+    unlocks:
+      resend_instructions: "Resend unlock instructions"
+    registrations:
+      edit_account: "Edit account details"
+      cancel_my_account: "Cancel my account"
+      want_to_cancel_account: "We hope you are happy with the service provided by RenuPharm, but you are free to cancel your account at any time."
+      confirm_cancel: "Are you sure you want to cancel your account? This action cannot be undone."
+      need_current_password_to_confirm: "(we need your current password to confirm your changes)"
+      awaiting_confirmation: "Currently waiting confirmation for: %{unconfirmed_email}"
+      leave_blank_for_no_change: "(leave blank if you don't want to change it)"
+      minimum_length: "%{min} characters minimum"
