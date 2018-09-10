@@ -6,7 +6,7 @@ class Sales::Contact < ApplicationRecord
 
   validates :first_name, :surname, presence: true
   validates :first_name, :surname, length: { maximum: 255 }
-  validates :email, email: true, if: :email?
+  validates :email, email: true, uniqueness: true, if: :email?
   validate :pharmacy_email_or_telephone_present?
 
   acts_as_irish_phone_contact :telephone

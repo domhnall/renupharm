@@ -88,6 +88,12 @@ describe Sales::Contact do
       expect(Sales::Contact.new(@params.merge(telephone: "0"*6))).not_to be_valid
     end
 
+    it "should be invalid when a contact with the same email already exists" do
+      expect(existing_contact = Sales::Contact.new(@params)).to be_valid
+      existing_contact.save!
+      expect(Sales::Contact.new(@params)).not_to be_valid
+    end
+
     describe "setting :telephone" do
       { "41-123-4567" => "0411234567",
         "(41) 123 4567" => "0411234567",

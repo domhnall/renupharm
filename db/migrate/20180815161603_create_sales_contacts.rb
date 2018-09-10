@@ -9,5 +9,6 @@ class CreateSalesContacts < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+    add_index :sales_contacts, :email, unique: true
   end
 end
