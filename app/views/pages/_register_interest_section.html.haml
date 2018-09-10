@@ -7,9 +7,11 @@
             %h4 Want to be kept in the loop?
             %p If you would like to be updated about progress and developments on the RenuPharm platform register your interest here.
         .col-md-7
-          %form.form-inline{:role => "form"}
+          = form_for @sales_contact, class: 'form-inline' do |f|
             .form-group
-              %input#unam.form-control{:placeholder => "Enter your full name", :type => "text"}/
+              = f.text_field :first_name, class: 'form-control', placeholder: I18n.t("sales.contact.first_name")
             .form-group
-              %input#email.form-control{:placeholder => "Enter your email address", :type => "email"}/
-            %button.btn.submit_btn{:type => "submit"} Update me
+              = f.text_field :surname, class: 'form-control', placeholder: I18n.t("sales.contact.surname")
+            .form-group
+              = f.text_field :email, class: 'form-control', placeholder: I18n.t("sales.contact.email")
+            = f.submit "Update me", class: 'btn submit_btn'
