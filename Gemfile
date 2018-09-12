@@ -61,6 +61,10 @@ group :test do
   gem 'database_cleaner'
 end
 
+group :production, :development do
+  gem 'sentry-raven'
+end
+
 # Prototyping
 gem 'bootstrap'
 gem 'jquery-rails'
