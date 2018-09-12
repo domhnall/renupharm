@@ -61,7 +61,7 @@ group :test do
   gem 'database_cleaner'
 end
 
-group :production, :development do
+group :production do
   gem 'sentry-raven'
 end
 
