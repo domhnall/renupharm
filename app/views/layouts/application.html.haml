@@ -13,6 +13,8 @@
     %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1", :name => "viewport"}/
     %link{:href => "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :rel => "stylesheet"}/
     = render 'layouts/favicon'
+    - if Rails.env.production?
+      = render 'layouts/google_analytics'
     = yield :head
 
   %body{"data-offset" => "100", "data-spy" => "scroll", "data-target" => "#navbar-menu"}
