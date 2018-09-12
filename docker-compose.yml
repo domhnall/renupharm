@@ -22,10 +22,6 @@ services:
       - "3000:3000"
     environment:
       PORT: "3000"
-      MYSQL_HOST: "db"
-      MYSQL_USER: "root"
-      MYSQL_PASSWORD: "s2cr2t"
-      MYSQL_DATABASE: "renupharm"
       RAILS_ENV: "development"
       NODE_ENV: "development"
     links:

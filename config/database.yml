@@ -13,22 +13,22 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("MYSQL_USER"){ 'renupharm' } %>
-  password: <%= ENV.fetch("MYSQL_PASSWORD"){ 's2cr2t' } %>
-  host: <%= ENV.fetch("MYSQL_HOST"){ 'mysql_cont' } %>
+  username: root
+  password: s2cr2t
+  host: db
   port: 3306
 #  socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
-  database: <%= ENV.fetch("MYSQL_DATABASE"){ 'renupharm' } %>_development
+  database: renupharm_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: <%= ENV.fetch("MYSQL_DATABASE"){ 'renupharm' } %>_test
+  database: renupharm_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -51,4 +51,7 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV.fetch("MYSQL_DATABASE"){ 'renupharm' } %>_production
+  database: renupharm_production
+  username: <%= Rails.application.credentials.database.fetch(:mysql_user) %>
+  password: <%= Rails.application.credentials.database.fetch(:mysql_password) %>
+  host: <%= Rails.application.credentials.database.fetch(:mysql_host) %>
