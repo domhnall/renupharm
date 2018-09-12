@@ -4,6 +4,9 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:charset => "utf-8"}/
     %title Renupharm
+    - if Rails.env.production?
+      = render 'layouts/google_analytics'
+    = javascript_include_tag "https://cdn.ravenjs.com/3.26.4/raven.min.js", crossorigin: "anonymous"
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -13,8 +16,6 @@
     %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1", :name => "viewport"}/
     %link{:href => "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :rel => "stylesheet"}/
     = render 'layouts/favicon'
-    - if Rails.env.production?
-      = render 'layouts/google_analytics'
     = yield :head
 
   %body{"data-offset" => "100", "data-spy" => "scroll", "data-target" => "#navbar-menu"}
