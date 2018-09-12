@@ -34,7 +34,7 @@
                       = f.radio_button "question_#{i}", false, class: 'form-check-input'
                       = f.label "question_#{i}", t("surveys.survey.response.no"), class: 'form-check-label'
               %li
-                %fieldset.form-group
+                %fieldset.form-group{class: error_keys.include?("question_5") ? 'error' : '' }
                   %p= t("surveys.survey.question_5.question")
                   - SurveyResponse::WASTAGE_BUCKETS.each do |bucket|
                     %div.form-check
