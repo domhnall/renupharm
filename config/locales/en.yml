@@ -43,7 +43,7 @@ en:
         error: There has been an unexpected error. Please contact support at <a href="mailto:dev@renupharm.ie">dev@renupharm.ie</a>.
   surveys:
     heading: RenuPharm Survey
-    intro: RenuPharm is an Irish-owned business aiming to provide an alternative source for pharmaceuticals across Ireland.  Pharmacies registered on the RenuPharm platform will have the option of purchasing medicinal products from other Irish pharmacies who have a temporary over-stock and/or no usage of the same product.
+    intro: RenuPharm is an on-line platform aimed at connecting pharmacies across Ireland, facilitating transactions in their medicinal stock. Offering a unique channel for sourcing medications and a viable means for reducing stock wastage, RenuPharm offers tangible benefits to all parties.
     benefits:
       intro: "The RenuPharm platform offers mutual benefits to the buying and selling pharmacies:"
       buyer: The selling pharmacy can offload stock that may otherwise require disposal, reducing product wastage, man-hours and disposal costs.
@@ -54,7 +54,7 @@ en:
       response:
         yes: "Yes"
         no: "No"
-      intro: We are very interested to gauge your views through completion of this short survey.
+      intro: "We are very interested to gauge your views through completion of this short survey. [ <em>Estimated time 2 mins</em> ]"
       submit: Submit
       question_1:
         question: Would you be willing to purchase a medicinal product with a shorter expiry date at a cheaper price (cf. wholesaler price with a better date)?

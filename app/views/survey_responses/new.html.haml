@@ -19,7 +19,7 @@
                   %li= msg
 
           %p
-            = t('surveys.survey.intro')
+            = t('surveys.survey.intro').html_safe
 
           = form_for @survey_response do |f|
             %ol.survey_questions
