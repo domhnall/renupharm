@@ -9,12 +9,20 @@ body {
 }
 
 #flash_messages {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 100%;
   text-align: center;
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-bottom: 5px;
-  .alert {
-    margin-bottom: 5px;
+  opacity: 80%;
+  z-index: 999;
+  .inner {
+    width: 90%;
+    margin: auto;
+    font-size: 80%;
+    .close {
+      color: inherit;
+    }
   }
 }
 
@@ -89,4 +97,9 @@ section.user_session {
     font-weight: bold;
     text-transform: capitalize;
   }
+}
+
+// Bootstrap alerts customization
+.alert {
+  border: 1px solid;
 }

@@ -10,7 +10,7 @@ class Sales::ContactsController < ApplicationController
       @sales_contact.save!
       redirect_to root_path, flash: { success: I18n.t("pages.index.register_interest.success") }
     else
-      redirect_to root_path, flash: { error: I18n.t("pages.index.register_interest.error").html_safe }
+      redirect_to root_path, flash: { warning: I18n.t("pages.index.register_interest.error") }
     end
   end
 
