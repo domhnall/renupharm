@@ -1,7 +1,7 @@
 class SurveyResponsesController < ApplicationController
   def new
     @survey_response = SurveyResponse.new({
-      sales_contact_attributes: { email: params.fetch(:email, "") }
+      sales_contact_attributes: { email: get_pharmacy && get_pharmacy.email }
     })
   end
 
@@ -44,5 +44,9 @@ class SurveyResponsesController < ApplicationController
 
   def verifier
     RecaptchaResponseVerifier.new(Rails.application.credentials.recaptcha)
+  end
+
+  def get_pharmacy
+    Sales::Pharmacy.find_by_id(params[:sales_pharmacy_id].to_i)
   end
 end
