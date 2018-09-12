@@ -14,16 +14,17 @@
           = link_to "Survey", new_survey_response_path
         %li{:role => "presentation"}
           = link_to "Register interest", "#{root_path}#register_interest"
-        - if user_signed_in?
-          %li.user_nav
-            = link_to "Logout", destroy_user_session_path, method: :delete
-          %li.user_nav
-            = link_to "Account", account_edit_path
-          %li.user_nav
-            = link_to "Dashboard", dashboard_path
-        - else
-          %li.user_nav
-            = link_to "Login", new_user_session_path
+        - if false
+          - if user_signed_in?
+            %li.user_nav
+              = link_to "Logout", destroy_user_session_path, method: :delete
+            %li.user_nav
+              = link_to "Account", account_edit_path
+            %li.user_nav
+              = link_to "Dashboard", dashboard_path
+          - else
+            %li.user_nav
+              = link_to "Login", new_user_session_path
     .attr-nav
       %ul
         %li.side-menu
