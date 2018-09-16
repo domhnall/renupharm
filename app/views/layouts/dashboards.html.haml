@@ -1,0 +1,29 @@
+!!!
+%html{lang: "en"}
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %base{href: "./"}/
+    %meta{charset: "utf-8"}/
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{content: "width=device-width, initial-scale=1.0, shrink-to-fit=no", name: "viewport"}/
+    %meta{content: "RenuPharm Dashboard - Medication exchange for Irish pharmacies", name: "description"}/
+    %meta{content: "RenuPharm", name: "author"}/
+    %meta{content: "Pharmacy,Stock,Medication,Shortage,Exchange,Marketplace,Buy,Sell,Local,Wastage", name: "keyword"}/
+    %title RenuPharm Dashboard
+    - if Rails.env.production?
+      = render 'layouts/google_analytics'
+      = javascript_include_tag "https://cdn.ravenjs.com/3.26.4/raven.min.js", crossorigin: "anonymous"
+    %meta{content: "width=device-width, initial-scale=1, maximum-scale=1", name: "viewport"}/
+    = stylesheet_link_tag    'dashboard/manifest', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'dashboard/manifest', 'data-turbolinks-track': 'reload'
+    = csrf_meta_tags
+    = csp_meta_tag
+    = render 'layouts/favicon'
+  %body.app.header-fixed.sidebar-fixed.aside-menu-fixed.sidebar-lg-show
+    = render 'layouts/dashboards/header'
+    .app-body
+      .sidebar
+        = render 'layouts/dashboards/sidebar_nav'
+      %main.main
+        = render 'layouts/dashboards/main'
+    = render 'layouts/dashboards/footer'

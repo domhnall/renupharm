@@ -1,0 +1,24 @@
+%li{:role => "presentation"}
+  = link_to "Home", root_path
+%li{:role => "presentation"}
+  = link_to "About", "#{root_path}#about"
+%li{:role => "presentation"}
+  = link_to "Survey", new_survey_response_path
+%li{:role => "presentation"}
+  = link_to "Register interest", "#{root_path}#register_interest"
+- if user_signed_in?
+  %li.user_nav.dropdown
+    %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#", role: "button"}
+      %i.fa.fa-user
+    .dropdown-menu
+      .dropdown-header.text-center
+        %strong Account
+      = link_to dashboard_path, class: "dropdown-item" do
+        %i.fa.fa-wrench
+        Dashboard
+      = link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do
+        %i.fa.fa-sign-out
+        Logout
+- else
+  %li.user_nav
+    = link_to "Login", new_user_session_path

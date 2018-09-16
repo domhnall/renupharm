@@ -1,0 +1,27 @@
+%header.app-header.navbar
+  %button.navbar-toggler.sidebar-toggler.d-lg-none.mr-auto{"data-toggle" => "sidebar-show", type: "button"}
+    %span.navbar-toggler-icon
+  %a.navbar-brand{href: root_path}
+    = image_tag("logo_colour.png", alt: "RenuPharm Logo", height: 30, class: "navbar-brand-full")
+  %button.navbar-toggler.sidebar-toggler.d-md-down-none{"data-toggle" => "sidebar-lg-show", type: "button"}
+    %span.navbar-toggler-icon
+  %ul.nav.navbar-nav.ml-auto
+    %li.nav-item.dropdown
+      %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#", role: "button"}
+        = image_tag "placeholder-user", alt: "Avatar", class: "img-avatar"
+      .dropdown-menu.dropdown-menu-right
+        .dropdown-header.text-center
+          %strong Account
+        %a.dropdown-item{href: "#"}
+          %i.fa.fa-user
+          Profile
+        %a.dropdown-item{href: account_edit_path}
+          %i.fa.fa-wrench
+          Security
+        %a.dropdown-item{href: "#"}
+          %i.fa.fa-usd
+          Payments
+        .divider
+        %a.dropdown-item{href: destroy_user_session_path, data: {method: :delete}}
+          %i.icon-logout
+          Logout

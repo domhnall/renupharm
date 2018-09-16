@@ -46,6 +46,14 @@ body {
   text-align: center;
 }
 
+nav.navbar.bootsnav ul.nav {
+  li.user_nav.dropdown {
+    a.dropdown-toggle:after {
+      content: none;
+    }
+  }
+}
+
 // Survey page
 .survey {
   margin: 10px;
@@ -97,6 +105,10 @@ section.user_session {
     font-weight: bold;
     text-transform: capitalize;
   }
+}
+
+.alert-notice {
+  @extend .alert-info;
 }
 
 // Bootstrap alerts customization

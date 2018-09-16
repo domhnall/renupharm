@@ -1,0 +1,14 @@
+//= require '../sentry'
+//= require jquery
+//= require rails-ujs
+//= require activestorage
+//= require './popper'
+//= require bootstrap
+//= require './pace'
+//= require './perfect-scrollbar'
+//= require './coreui-utilities'
+//= require './coreui'
+//= require './Chart'
+//= require './custom-tooltips'
+//= require './renupharm_custom'
+//= require turbolinks
