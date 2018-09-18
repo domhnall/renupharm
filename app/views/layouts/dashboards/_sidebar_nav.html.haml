@@ -1,8 +1,9 @@
 %nav.sidebar-nav
   %ul.nav
     %li.nav-item
-      %a.nav-link{href: "#"}
-        RenuPharm
+      %a.nav-link{href: dashboard_path}
+        %i.nav-icon.icon-speedometer
+        Dashboard
     %li.divider
     %li.nav-title Pharmacy
     %li.nav-item
@@ -55,13 +56,13 @@
         Pharmacies
       %ul.nav-dropdown-items
         %li.nav-item
-          %a.nav-link{href: "#"}
+          %a.nav-link{href: admin_sales_pharmacies_path}
             Shops
         %li.nav-item
-          %a.nav-link{href: "#"}
+          %a.nav-link{href: admin_sales_contacts_path}
             Contacts
         %li.nav-item
-          %a.nav-link{href: "#"}
+          %a.nav-link{href: admin_survey_responses_path}
             Survey Responses
     %li.nav-item.nav-dropdown
       %a.nav-link.nav-dropdown-toggle{href: "#"}
@@ -78,7 +79,7 @@
           %a.nav-link{href: "#"}
             Historical
     %li.nav-item
-      %a.nav-link{href: "#"}
+      %a.nav-link{href: admin_users_path}
         %i.nav-icon.fa.fa-users
         Users
 %button.sidebar-minimizer.brand-minimizer{type: "button"}

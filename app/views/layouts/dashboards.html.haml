@@ -25,5 +25,7 @@
       .sidebar
         = render 'layouts/dashboards/sidebar_nav'
       %main.main
-        = render 'layouts/dashboards/main'
+        .container-fluid
+          .animated.fadeIn
+            = yield
     = render 'layouts/dashboards/footer'
