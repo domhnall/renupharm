@@ -111,6 +111,14 @@ section.user_session {
   @extend .alert-info;
 }
 
+.alert-alert {
+  @extend .alert-warning;
+}
+
+.alert-error {
+  @extend .alert-danger;
+}
+
 // Bootstrap alerts customization
 .alert {
   border: 1px solid;

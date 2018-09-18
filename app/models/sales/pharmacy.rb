@@ -10,6 +10,10 @@ class Sales::Pharmacy < ApplicationRecord
 
   acts_as_irish_phone_contact [:telephone_1, :telephone_2]
 
+  def address
+    [address_1, address_2, address_3].compact.join(", ")
+  end
+
   private
 
   def telephone_or_email_present

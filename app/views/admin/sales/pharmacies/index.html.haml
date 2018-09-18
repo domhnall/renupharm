@@ -1,0 +1,30 @@
+.row
+  .col-md-12
+    .card
+      %table#sales_pharmacies.table
+        %thead
+          %tr
+            %td
+              Name
+            %td
+              Proprietor
+            %td
+              Address
+            %td
+              Email
+            %td
+              Telephone
+            %td
+              Fax
+        %tbody
+          - @pharmacies.each do |pharmacy|
+            %tr
+              %td= pharmacy.name
+              %td= pharmacy.proprietor
+              %td= pharmacy.address
+              %td= pharmacy.email
+              %td= pharmacy.telephone_1
+              %td= pharmacy.telephone_2
+
+:javascript
+  let table = new DataTable("#sales_pharmacies");
