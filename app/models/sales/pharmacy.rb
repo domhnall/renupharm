@@ -14,6 +14,10 @@ class Sales::Pharmacy < ApplicationRecord
     [address_1, address_2, address_3].compact.join(", ")
   end
 
+  def full_name
+    "#{name} (#{address_3})"
+  end
+
   private
 
   def telephone_or_email_present

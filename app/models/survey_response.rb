@@ -9,6 +9,10 @@ class SurveyResponse < ApplicationRecord
   validates :question_1, :question_2, :question_3, :question_4, inclusion: { in: [true, false] }
   validates :question_5, inclusion: { in: WASTAGE_BUCKETS }
 
+  def respondant_name
+    sales_contact.full_name
+  end
+
   private
 
   def serialize_full_response

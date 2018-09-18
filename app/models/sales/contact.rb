@@ -11,6 +11,15 @@ class Sales::Contact < ApplicationRecord
 
   acts_as_irish_phone_contact :telephone
 
+  def full_name
+    [first_name, surname].join(" ")
+  end
+
+  def pharmacy_name
+    return unless sales_pharmacy
+    sales_pharmacy.full_name
+  end
+
   private
 
   def pharmacy_email_or_telephone_present?

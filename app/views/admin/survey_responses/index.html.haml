@@ -1,3 +1,39 @@
-- @survey_responses.each do |survey_response|
-  %p
-    = survey_response.as_json
+.row
+  .col-md-12
+    .card
+      %table#survey_responses.table
+        %thead
+          %tr
+            %td
+              Respondant
+            %td{ title: t("surveys.survey.question_1.question"), data: { toggle: 'tooltip', placement: 'bottom'} }
+              Question 1
+            %td{ title: t("surveys.survey.question_2.question"), data: { toggle: 'tooltip', placement: 'bottom'} }
+              Question 2
+            %td{ title: t("surveys.survey.question_3.question"), data: { toggle: 'tooltip', placement: 'bottom'} }
+              Question 3
+            %td{ title: t("surveys.survey.question_4.question"), data: { toggle: 'tooltip', placement: 'bottom'} }
+              Question 4
+            %td{ title: t("surveys.survey.question_5.question"), data: { toggle: 'tooltip', placement: 'bottom'} }
+              Question 5
+            %td
+              Additional notes
+        %tbody
+          - @survey_responses.each do |res|
+            %tr
+              %td= res.respondant_name
+              %td
+                %i.fa{ class: res.question_1 ? 'fa-check' : 'fa-times' }
+              %td
+                %i.fa{ class: res.question_2 ? 'fa-check' : 'fa-times' }
+              %td
+                %i.fa{ class: res.question_3 ? 'fa-check' : 'fa-times' }
+              %td
+                %i.fa{ class: res.question_4 ? 'fa-check' : 'fa-times' }
+              %td
+                = res.question_5
+              %td
+                = res.additional_notes
+
+:javascript
+  let table = new DataTable("#survey_responses");
