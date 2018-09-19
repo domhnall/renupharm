@@ -7,7 +7,7 @@ class Sales::Pharmacy < ApplicationRecord
   validates :email, email: true, if: :email?
   validate :telephone_or_email_present
 
-  acts_as_irish_phone_contact [:telephone_1, :telephone_2]
+  acts_as_irish_phone_contact [:telephone, :fax]
 
   def address
     [address_1, address_2, address_3].compact.join(", ")
@@ -20,7 +20,7 @@ class Sales::Pharmacy < ApplicationRecord
   private
 
   def telephone_or_email_present
-    if email.blank? && telephone_1.blank?
+    if email.blank? && telephone.blank?
       errors.add(:base, I18n.t("sales.pharmacy.errors.emaill_or_telephone_required"))
     end
   end

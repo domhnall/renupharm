@@ -18,8 +18,8 @@ Dir.glob(Rails.root.join("db/pharmacy_contact_lists/*.csv")).each do |filename|
       pharmacy.address_1   = address_1
       pharmacy.address_2   = row[2].split(",").drop(2).join(",").strip
       pharmacy.address_3   = row[0]
-      pharmacy.telephone_1 = row[3]
-      pharmacy.telephone_2 = row[4]
+      pharmacy.telephone   = row[3]
+      pharmacy.fax         = row[4]
       pharmacy.email       = row[5]
     end
   end

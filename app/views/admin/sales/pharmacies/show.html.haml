@@ -1,0 +1,51 @@
+.row
+  .col-md-12
+    .card
+      .show_record
+        %h2
+          = @sales_pharmacy.full_name
+        .form-group.row
+          %label.label.col-form-label.col-2
+            = t('sales.pharmacy.name')
+          .col-10
+            %span.form-control
+              = @sales_pharmacy.name
+        .form-group.row
+          %label.label.col-form-label.col-2
+            = t('sales.pharmacy.address_1')
+          .col-10
+            %span.form-control
+              = @sales_pharmacy.address_1
+        .form-group.row
+          %label.label.col-form-label.col-2
+            = t('sales.pharmacy.address_2')
+          .col-10
+            %span.form-control
+              = @sales_pharmacy.address_2
+        .form-group.row
+          %label.label.col-form-label.col-2
+            = t('sales.pharmacy.address_3')
+          .col-10
+            %span.form-control
+              = @sales_pharmacy.address_3
+        .form-group.row
+          %label.label.col-form-label.col-2
+            = t('sales.pharmacy.email')
+          .col-10
+            %span.form-control
+              = @sales_pharmacy.email
+        .form-group.row
+          %label.label.col-form-label.col-2
+            = t('sales.pharmacy.telephone')
+          .col-10
+            %span.form-control
+              = @sales_pharmacy.telephone
+        .form-group.row
+          %label.label.col-form-label.col-2
+            = t('sales.pharmacy.fax')
+          .col-10
+            %span.form-control
+              = @sales_pharmacy.fax
+        .actions
+          = link_to t('general.edit'), edit_admin_sales_pharmacy_path(@sales_pharmacy), class: 'btn btn-primary'
+          = link_to t('general.cancel'), admin_sales_pharmacies_path, class: 'btn btn-light'

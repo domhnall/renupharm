@@ -34,8 +34,19 @@ en:
     record_not_found: "Sorry, the requested item could not be found"
     access_denied: "You do not have access to the requested resource, please contact your administrator."
   general:
+    save: "Save"
+    cancel: "Cancel"
+    delete: "Delete"
+    new: "New"
+    edit: "Edit"
+    confirm_delete: "Are you sure you want to delete this record? This action cannot be undone."
     email_validator:
       error: "is not an email"
+    flash:
+      create_successful: "Successfully created record"
+      update_successful: "Successfully updated record"
+      delete_successful: "Successfully deleted record"
+      error: "There has been an error with your submission, please address the issues below."
   pages:
     index:
       heading: Welcome to RenuPharm
@@ -95,6 +106,15 @@ en:
       errors:
         pharmacy_email_or_telephone_required: "Pharmacy, email or telephone must be supplied"
     pharmacy:
+      name: "Name"
+      proprietor: "Proprietor"
+      address: "Address"
+      address_1: "Address 1"
+      address_2: "Address 2"
+      address_3: "Address 3"
+      email: "Email"
+      telephone: "Telephone"
+      fax: "Fax"
       errors:
         email_or_telephone_required: "Email or telephone must be supplied"
         name_uniqueness: "Name should be unique in a given area"

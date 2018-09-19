@@ -26,6 +26,7 @@
         = render 'layouts/dashboards/sidebar_nav'
       %main.main
         .container-fluid
+          = render 'layouts/shared/flash'
           .animated.fadeIn
             = yield
     = render 'layouts/dashboards/footer'

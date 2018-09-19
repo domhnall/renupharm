@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     namespace :sales do
-      resources :pharmacies, only: [:index]
+      resources :pharmacies
       resources :contacts, only: [:index]
     end
     resources :survey_responses, only: [:index]

@@ -47,6 +47,10 @@ body {
 }
 
 nav.navbar.bootsnav ul.nav {
+  li.user_nav {
+    margin-left: auto;
+  }
+
   li.user_nav.dropdown {
     a.dropdown-toggle:after {
       content: none;
@@ -121,5 +125,5 @@ section.user_session {
 
 // Bootstrap alerts customization
 .alert {
-  border: 1px solid;
+ border: 1px solid;
 }

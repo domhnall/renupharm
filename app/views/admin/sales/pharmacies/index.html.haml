@@ -5,17 +5,18 @@
         %thead
           %tr
             %td
-              Name
+              = t("sales.pharmacies.name")
             %td
-              Proprietor
+              = t("sales.pharmacies.proprietor")
             %td
-              Address
+              = t("sales.pharmacies.address")
             %td
-              Email
+              = t("sales.pharmacies.email")
             %td
-              Telephone
+              = t("sales.pharmacies.telephone")
             %td
-              Fax
+              = t("sales.pharmacies.fax")
+            %td
         %tbody
           - @pharmacies.each do |pharmacy|
             %tr
@@ -23,8 +24,18 @@
               %td= pharmacy.proprietor
               %td= pharmacy.address
               %td= pharmacy.email
-              %td= pharmacy.telephone_1
-              %td= pharmacy.telephone_2
+              %td= pharmacy.telephone
+              %td= pharmacy.fax
+              %td
+                %span.edit
+                  = link_to edit_admin_sales_pharmacy_path(pharmacy) do
+                    %i.fa.fa-pencil
+                %span.view
+                  = link_to admin_sales_pharmacy_path(pharmacy) do
+                    %i.fa.fa-eye
+      .actions
+        = link_to "New", new_admin_sales_pharmacy_path, class: 'btn btn-success'
+
 
 :javascript
   let table = new DataTable("#sales_pharmacies");

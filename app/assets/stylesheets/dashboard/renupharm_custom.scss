@@ -1,7 +1,56 @@
+@import 'bootstrap';
+
 footer.app-footer {
   text-align: center;
   font-size: 75%;
   div {
     width: 100%;
+  }
+}
+
+.card:first-of-type {
+  margin-top: 20px;
+}
+
+.container-fluid {
+  .alert {
+    margin-top: 1rem;
+    margin-bottom: 0;
+  }
+}
+
+.card {
+  h2 {
+    margin: 10px;
+    margin-left: 0px;
+  }
+
+  .show_record {
+    width: 70%;
+    margin: auto;
+    .col-form-label {
+      display: inline-block;
+      width: 24%;
+      text-align: right;
+    }
+    .form-control {
+      display: inline-block;
+      float: right;
+      min-height: 2.5em;
+      width: 75%;
+    }
+    .field_with_errors {
+      display: inline;
+      color: red;
+    }
+  }
+
+  .actions {
+    margin: 10px;
+    float: right;
+    text-align: right;
+    .btn-danger {
+      margin-right: 20px;
+    }
   }
 }

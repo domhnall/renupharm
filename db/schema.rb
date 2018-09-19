@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_09_164700) do
+ActiveRecord::Schema.define(version: 2018_09_19_141110) do
 
   create_table "sales_contacts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "sales_pharmacy_id"
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 2018_09_09_164700) do
     t.string "address_2"
     t.string "address_3"
     t.string "email"
-    t.string "telephone_1"
-    t.string "telephone_2"
+    t.string "telephone"
+    t.string "fax"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
