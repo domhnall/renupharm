@@ -59,6 +59,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'rspec-rails'
   gem 'database_cleaner'
+  gem 'rails-controller-testing'
 end
 
 group :production do
