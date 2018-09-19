@@ -106,4 +106,32 @@ describe Sales::Contact do
       end
     end
   end
+
+  describe "instance method" do
+    describe "#full_name" do
+      it "should return the first_name and surname separated by a space" do
+        expect(Sales::Contact.new(@params.merge(first_name: "John", surname: "Doe")).full_name).to eq "John Doe"
+      end
+
+      it "should just return the first_name if surname is null or blank" do
+        expect(Sales::Contact.new(@params.merge(first_name: "John", surname: "")).full_name).to eq "John"
+        expect(Sales::Contact.new(@params.merge(first_name: "John", surname: nil)).full_name).to eq "John"
+      end
+
+      it "should just return the surname if first name is null or blank" do
+        expect(Sales::Contact.new(@params.merge(first_name: "", surname: "Doe")).full_name).to eq "Doe"
+        expect(Sales::Contact.new(@params.merge(first_name: nil, surname: "Doe")).full_name).to eq "Doe"
+      end
+    end
+
+    describe "#pharmacy_name" do
+      it "should return the sales_pharmacy name" do
+        expect(Sales::Contact.new(@params.merge(sales_pharmacy_id: @pharmacy.id)).pharmacy_name).to eq @pharmacy.full_name
+      end
+
+      it "should return nil if the sales_pharmacy is nil" do
+        expect(Sales::Contact.new(@params.merge(sales_pharmacy_id: nil)).pharmacy_name).to be_nil
+      end
+    end
+  end
 end

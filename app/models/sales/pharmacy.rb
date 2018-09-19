@@ -4,7 +4,6 @@ class Sales::Pharmacy < ApplicationRecord
 
   validates :name, :address_1, :address_3, presence: true
   validates :name, :proprietor, :address_1, :address_2, :address_3, length: { maximum: 255 }
-  #validates :name, uniqueness: { scope: :address_3, message: I18n.t("sales.pharmacy.errors.name_uniqueness") }
   validates :email, email: true, if: :email?
   validate :telephone_or_email_present
 

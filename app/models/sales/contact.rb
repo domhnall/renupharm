@@ -12,7 +12,7 @@ class Sales::Contact < ApplicationRecord
   acts_as_irish_phone_contact :telephone
 
   def full_name
-    [first_name, surname].join(" ")
+    [first_name, surname].select{|n| n.present? }.join(" ")
   end
 
   def pharmacy_name

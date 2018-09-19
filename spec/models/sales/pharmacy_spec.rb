@@ -81,13 +81,13 @@ describe Sales::Pharmacy do
         expect(Sales::Pharmacy.new(@params.merge(email: invalid_email))).not_to be_valid
       end
     end
+  end
 
-    #it "should be invalid if another Sales::Pharmacy exists with the same name in the same area" do
-    #  Sales::Pharmacy.create!(@params)
-    #  new_params = @params.merge(address_1: "99 Bun Road", address_2: "Caketown", telephone_1: "012345678")
-    #  expect(Sales::Pharmace.new(new_params)).not_to be_valid
-    #  expect(Sales::Pharmace.new(new_params.merge(name: "Sandymount Pharmacy on the Blue"))).to be_valid
-    #end
-
+  describe "instance method" do
+    describe "#full_name" do
+      it "should return the pharmacy name with area (address_3) in brackets" do
+        expect(Sales::Pharmacy.new(@params.merge(name: "DrugsRUs", address_3: "Caketown")).full_name).to eq "DrugsRUs (Caketown)"
+      end
+    end
   end
 end
