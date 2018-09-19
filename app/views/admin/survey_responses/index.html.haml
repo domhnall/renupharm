@@ -36,4 +36,6 @@
                 = res.additional_notes
 
 :javascript
-  let table = new DataTable("#survey_responses");
+  (function(event){
+    let table = new DataTable("#survey_responses");
+  })();

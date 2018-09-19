@@ -19,6 +19,15 @@ footer.app-footer {
   }
 }
 
+.nav-dropdown .nav-dropdown-items .nav-item .nav-link:before {
+  font-family: FontAwesome;
+  display: inline-block;
+  padding-right: 6px;
+  margin-left: 10px;
+  vertical-align: middle;
+  content: "\f105";
+}
+
 .card {
   h2 {
     margin: 10px;
@@ -51,6 +60,15 @@ footer.app-footer {
     text-align: right;
     .btn-danger {
       margin-right: 20px;
+    }
+  }
+}
+
+.table {
+  .controls {
+    min-width: 50px;
+    .dataTable-sorter {
+      display: none;
     }
   }
 }

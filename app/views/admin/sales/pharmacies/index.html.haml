@@ -16,7 +16,7 @@
               = t("sales.pharmacies.telephone")
             %td
               = t("sales.pharmacies.fax")
-            %td
+            %td.controls
         %tbody
           - @pharmacies.each do |pharmacy|
             %tr
@@ -26,7 +26,7 @@
               %td= pharmacy.email
               %td= pharmacy.telephone
               %td= pharmacy.fax
-              %td
+              %td.controls
                 %span.edit
                   = link_to edit_admin_sales_pharmacy_path(pharmacy) do
                     %i.fa.fa-pencil
@@ -38,4 +38,6 @@
 
 
 :javascript
-  let table = new DataTable("#sales_pharmacies");
+  (function(event){
+    let table = new DataTable("#sales_pharmacies");
+  })();

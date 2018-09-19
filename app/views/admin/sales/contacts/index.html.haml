@@ -21,4 +21,6 @@
               %td= contact.email
 
 :javascript
-  let table = new DataTable("#sales_contacts");
+  (function(event){
+    let table = new DataTable("#sales_contacts");
+  })();
