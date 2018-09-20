@@ -7,7 +7,7 @@ describe Sales::Pharmacy do
       address_1:  "1a Sandymount Green",
       address_2: "Dublin 4, Irishtown",
       address_3: "Dublin 4",
-      telephone_1: "(01) 283 7188",
+      telephone: "(01) 283 7188",
     }
   end
 
@@ -31,16 +31,16 @@ describe Sales::Pharmacy do
       end
     end
 
-    it "should be invalid when both :telephone_1 and :email are blank" do
-      expect(Sales::Pharmacy.new(@params.merge(telephone_1: nil, email: nil))).not_to be_valid
+    it "should be invalid when both :telephone and :email are blank" do
+      expect(Sales::Pharmacy.new(@params.merge(telephone: nil, email: nil))).not_to be_valid
     end
 
-    it "should be valid when :telephone_1 is blank if :email is supplied" do
-      expect(Sales::Pharmacy.new(@params.merge(telephone_1: nil, email: "dom@dom.com"))).to be_valid
+    it "should be valid when :telephone is blank if :email is supplied" do
+      expect(Sales::Pharmacy.new(@params.merge(telephone: nil, email: "dom@dom.com"))).to be_valid
     end
 
-    it "should be valid when :email is blank if :telephone_1 is supplied" do
-      expect(Sales::Pharmacy.new(@params.merge(telephone_1: "(01) 283 7188", email: nil))).to be_valid
+    it "should be valid when :email is blank if :telephone is supplied" do
+      expect(Sales::Pharmacy.new(@params.merge(telephone: "(01) 283 7188", email: nil))).to be_valid
     end
 
     [:name, :proprietor, :address_1, :address_2, :address_3].each do |attr|
@@ -50,7 +50,7 @@ describe Sales::Pharmacy do
       end
     end
 
-    [:telephone_1, :telephone_2].each do |attr|
+    [:telephone, :fax].each do |attr|
       it "should be invalid when :#{attr} exceeds length of 11 characters" do
         expect(Sales::Pharmacy.new(@params.merge("#{attr}" => "0"*11))).to be_valid
         expect(Sales::Pharmacy.new(@params.merge("#{attr}" => "0"*12))).not_to be_valid
@@ -62,7 +62,7 @@ describe Sales::Pharmacy do
       end
     end
 
-    [:telephone_1, :telephone_2].each do |attr|
+    [:telephone, :fax].each do |attr|
       describe "setting :#{attr}" do
         { "41-123-4567" => "0411234567",
           "(41) 123 4567" => "0411234567",

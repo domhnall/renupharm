@@ -13,7 +13,6 @@ class Admin::Sales::PharmaciesController < Admin::BaseController
 
   def create
     @sales_pharmacy = ::Sales::Pharmacy.new(pharmacy_params)
-    byebug
     if @sales_pharmacy.save
       redirect_to admin_sales_pharmacy_path(@sales_pharmacy), flash: { success: I18n.t("general.flash.create_successful") }
     else

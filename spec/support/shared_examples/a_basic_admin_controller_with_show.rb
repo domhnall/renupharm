@@ -1,17 +1,22 @@
-shared_examples "a basic admin controller" do
+#
+# Requires an @existing resource
+#
+
+shared_examples "a basic admin controller with :show" do |clazz|
   before :all do
-    @user = create_user
-    @admin_user = create_user(email: 'john@renupharm.ie')
+    @user = create_user(email: 'viewer@example.com')
+    @admin_user = create_user(email: 'viewer@renupharm.ie')
+    @clazz = clazz
   end
 
   describe "unauthenticated user" do
     it "should redirect user" do
-      get :index
+      get :show, params: { id: @existing.id }
       expect(response).to redirect_to new_user_session_path
     end
 
     it "should set an appropriate flash message" do
-      get :index
+      get :show, params: { id: @existing.id }
       expect(flash[:alert]).to eq I18n.t("devise.failure.unauthenticated")
     end
   end
@@ -22,12 +27,12 @@ shared_examples "a basic admin controller" do
     end
 
     it "should redirect user" do
-      get :index
+      get :show, params: { id: @existing.id }
       expect(response).to redirect_to root_path
     end
 
     it "should set an appropriate flash message" do
-      get :index
+      get :show, params: { id: @existing.id }
       expect(flash[:error]).to eq I18n.t("errors.access_denied")
     end
 
@@ -37,12 +42,12 @@ shared_examples "a basic admin controller" do
       end
 
       it "should return a successful reponse" do
-        get :index
+        get :show, params: { id: @existing.id }
         expect(response).to have_http_status 200
       end
 
       it "should render the dashboard layout" do
-        get :index
+        get :show, params: { id: @existing.id }
         expect(response).to render_template 'layouts/dashboards'
       end
     end
