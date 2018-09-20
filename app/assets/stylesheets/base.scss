@@ -101,29 +101,3 @@ nav.navbar.bootsnav ul.nav {
   font-weight: bold;
   font-size: 120%;
 }
-
-// Devise customisations
-section.user_session {
-  h2 {
-    text-align: center;
-    font-weight: bold;
-    text-transform: capitalize;
-  }
-}
-
-.alert-notice {
-  @extend .alert-info;
-}
-
-.alert-alert {
-  @extend .alert-warning;
-}
-
-.alert-error {
-  @extend .alert-danger;
-}
-
-// Bootstrap alerts customization
-.alert {
- border: 1px solid;
-}
