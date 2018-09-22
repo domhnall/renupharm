@@ -1,6 +1,10 @@
 /*
- *= require_directory .
- *= require './renupharm_custom'
  *= require '../shared/renupharm_custom'
+ *= require './coreui-icons'
+ *= require './pace'
+ *= require './simple-line-icons'
+ *= require './style'
+ *= require './vanilla-dataTables'
+ *= require './renupharm_custom'
  *= require_self
  */

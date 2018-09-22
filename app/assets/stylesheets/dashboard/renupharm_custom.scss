@@ -10,13 +10,9 @@ footer.app-footer {
   margin-top: 20px;
 }
 
-.nav-dropdown .nav-dropdown-items .nav-item .nav-link:before {
-  font-family: FontAwesome;
-  display: inline-block;
-  padding-right: 6px;
-  margin-left: 10px;
-  vertical-align: middle;
-  content: "\f105";
+.nav-dropdown .nav-dropdown-items .nav-item .nav-link {
+  padding-left: 40px;
+  font-size: 85%;
 }
 
 .card {
