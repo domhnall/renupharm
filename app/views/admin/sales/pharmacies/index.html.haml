@@ -18,21 +18,22 @@
               = t("sales.pharmacies.fax")
             %td.controls
         %tbody
-          - @pharmacies.each do |pharmacy|
-            %tr
-              %td= pharmacy.name
-              %td= pharmacy.proprietor
-              %td= pharmacy.address
-              %td= pharmacy.email
-              %td= pharmacy.telephone
-              %td= pharmacy.fax
-              %td.controls
-                %span.edit
-                  = link_to edit_admin_sales_pharmacy_path(pharmacy) do
-                    %i.fa.fa-pencil
-                %span.view
-                  = link_to admin_sales_pharmacy_path(pharmacy) do
-                    %i.fa.fa-eye
+          - @pharmacies.find_in_batches(batch_size: 100) do |pharmacy_group|
+            - pharmacy_group.each do |pharmacy|
+              %tr
+                %td= pharmacy.name
+                %td= pharmacy.proprietor
+                %td= pharmacy.address
+                %td= pharmacy.email
+                %td= pharmacy.telephone
+                %td= pharmacy.fax
+                %td.controls
+                  %span.edit
+                    = link_to edit_admin_sales_pharmacy_path(pharmacy) do
+                      %i.fa.fa-pencil-alt
+                  %span.view
+                    = link_to admin_sales_pharmacy_path(pharmacy) do
+                      %i.fa.fa-eye
       .actions
         = link_to "New", new_admin_sales_pharmacy_path, class: 'btn btn-success'
 
