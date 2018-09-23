@@ -18,7 +18,7 @@
               = t("sales.pharmacy.fax")
             %td.controls
         %tbody
-          - @pharmacies.find_in_batches(batch_size: 100) do |pharmacy_group|
+          - Sales::Pharmacy.find_in_batches(batch_size: 100) do |pharmacy_group|
             - pharmacy_group.each do |pharmacy|
               %tr
                 %td= pharmacy.name
