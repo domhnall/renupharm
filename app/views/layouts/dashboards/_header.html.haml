@@ -11,7 +11,7 @@
         = image_tag "placeholder-user.png", alt: "Avatar", class: "img-avatar"
       .dropdown-menu.dropdown-menu-right
         .dropdown-header.text-center
-          %strong Account
+          %strong= current_user.email
         %a.dropdown-item{href: "#"}
           %i.fa.fa-user
           Profile

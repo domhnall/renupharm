@@ -10,14 +10,14 @@
   %li.user_nav.dropdown{:role => "presentation"}
     %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#", role: "button"}
       %i.fa.fa-user
-    .dropdown-menu
+    .dropdown-menu.dropdown-menu-right
       .dropdown-header.text-center
-        %strong Account
+        %strong= current_user.email
       = link_to dashboard_path, class: "dropdown-item" do
         %i.fa.fa-wrench
         Dashboard
       = link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do
-        %i.fa.fa-sign-out
+        %i.fa.fa-sign-out-alt
         Logout
 - else
   %li.user_nav{ :role => "presentation" }
