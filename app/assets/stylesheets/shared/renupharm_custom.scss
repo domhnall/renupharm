@@ -26,6 +26,10 @@ body {
   }
 }
 
+.container-fluid #flash_messages {
+  position: static;
+}
+
 .content-navigation {
   border-color: $blue;
   color: darken($blue, 9%);

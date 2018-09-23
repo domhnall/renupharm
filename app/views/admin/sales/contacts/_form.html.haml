@@ -1,0 +1,25 @@
+= form_for [:admin, @sales_contact] do |form|
+  .form-group
+    = form.label :sales_pharmacy_id, t('sales.contact.pharmacy'), class: 'col-form-label'
+    = form.collection_select(:sales_pharmacy_id, Sales::Pharmacy.all, :id, :full_name, {include_blank: true}, {class: 'form-control'})
+  .form-group
+    = form.label :first_name, t('sales.contact.first_name'), class: 'col-form-label'
+    = form.text_field :first_name, class: 'form-control'
+  .form-group
+    = form.label :surname, t('sales.contact.surname'), class: 'col-form-label'
+    = form.text_field :surname, class: 'form-control'
+  .form-group
+    = form.label :telephone, t('sales.contact.telephone'), class: 'col-form-label'
+    = form.text_field :telephone, class: 'form-control'
+  .form-group
+    = form.label :email, t('sales.contact.email'), class: 'col-form-label'
+    = form.text_field :email, class: 'form-control'
+
+  .actions
+    - if @sales_contact.persisted?
+      = link_to t('general.delete'), admin_sales_contact_path(@sales_contact), method: :delete, class: 'btn btn-danger', data: { confirm: t("general.confirm_delete") }
+    = submit_tag t('general.save'), id: 'submit_sales_contact', class: 'btn btn-success'
+    - if @sales_contact.persisted?
+      = link_to t('general.cancel'), admin_sales_contact_path(@sales_contact), class: 'btn btn-light'
+    - else
+      = link_to t('general.cancel'), admin_sales_contacts_path, class: 'btn btn-light'

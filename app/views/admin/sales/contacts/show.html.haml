@@ -1,0 +1,39 @@
+.row
+  .col-md-12
+    .card
+      .show_record
+        %h2
+          = @sales_contact.full_name
+        .form-group.row
+          %label.label.col-form-label.col-2
+            = t('sales.contact.pharmacy')
+          .col-10
+            %span.form-control
+              = @sales_contact.sales_pharmacy&.full_name
+        .form-group.row
+          %label.label.col-form-label.col-2
+            = t('sales.contact.first_name')
+          .col-10
+            %span.form-control
+              = @sales_contact.first_name
+        .form-group.row
+          %label.label.col-form-label.col-2
+            = t('sales.contact.surname')
+          .col-10
+            %span.form-control
+              = @sales_contact.surname
+        .form-group.row
+          %label.label.col-form-label.col-2
+            = t('sales.contact.telephone')
+          .col-10
+            %span.form-control
+              = @sales_contact.telephone
+        .form-group.row
+          %label.label.col-form-label.col-2
+            = t('sales.contact.email')
+          .col-10
+            %span.form-control
+              = @sales_contact.email
+        .actions
+          = link_to t('general.edit'), edit_admin_sales_contact_path(@sales_contact), class: 'btn btn-primary'
+          = link_to t('general.cancel'), admin_sales_contacts_path, class: 'btn btn-light'

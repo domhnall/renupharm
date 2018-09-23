@@ -3,5 +3,5 @@
     .card
       .show_record
         %h2
-          = t("admin.pharmacy.new_title")
+          = t("admin.contact.edit_title", name: @sales_contact.full_name)
         = render 'form'

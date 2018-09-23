@@ -5,17 +5,17 @@
         %thead
           %tr
             %td
-              = t("sales.pharmacies.name")
+              = t("sales.pharmacy.name")
             %td
-              = t("sales.pharmacies.proprietor")
+              = t("sales.pharmacy.proprietor")
             %td
-              = t("sales.pharmacies.address")
+              = t("sales.pharmacy.address")
             %td
-              = t("sales.pharmacies.email")
+              = t("sales.pharmacy.email")
             %td
-              = t("sales.pharmacies.telephone")
+              = t("sales.pharmacy.telephone")
             %td
-              = t("sales.pharmacies.fax")
+              = t("sales.pharmacy.fax")
             %td.controls
         %tbody
           - @pharmacies.find_in_batches(batch_size: 100) do |pharmacy_group|
@@ -35,7 +35,7 @@
                     = link_to admin_sales_pharmacy_path(pharmacy) do
                       %i.fa.fa-eye
       .actions
-        = link_to "New", new_admin_sales_pharmacy_path, class: 'btn btn-success'
+        = link_to t("general.new"), new_admin_sales_pharmacy_path, class: 'btn btn-success'
 
 
 :javascript

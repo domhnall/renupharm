@@ -16,7 +16,8 @@ class Admin::Sales::PharmaciesController < Admin::BaseController
     if @sales_pharmacy.save
       redirect_to admin_sales_pharmacy_path(@sales_pharmacy), flash: { success: I18n.t("general.flash.create_successful") }
     else
-      render 'new', flash: { error: I18n.t("general.flash.error") }
+      flash[:error] = I18n.t("general.flash.error")
+      render 'new'
     end
   end
 
@@ -29,7 +30,8 @@ class Admin::Sales::PharmaciesController < Admin::BaseController
     if @sales_pharmacy.update_attributes(pharmacy_params)
       redirect_to admin_sales_pharmacy_path(@sales_pharmacy), flash: { success: I18n.t("general.flash.update_successful") }
     else
-      render 'edit', flash: { error: I18n.t("general.flash.error") }
+      flash[:error] = I18n.t("general.flash.error")
+      render 'edit'
     end
   end
 

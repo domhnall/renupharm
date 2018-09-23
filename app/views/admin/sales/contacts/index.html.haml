@@ -5,13 +5,14 @@
         %thead
           %tr
             %td
-              Name
+              = t("sales.contact.full_name")
             %td
-              Pharmacy
+              = t("sales.contact.pharmacy")
             %td
-              Telephone
+              = t("sales.contact.telephone")
             %td
-              Email
+              = t("sales.contact.email")
+            %td.controls
         %tbody
           - @sales_contacts.each do |contact|
             %tr
@@ -19,6 +20,16 @@
               %td= contact.pharmacy_name
               %td= contact.telephone
               %td= contact.email
+              %td.controls
+                %span.edit
+                  = link_to edit_admin_sales_contact_path(contact) do
+                    %i.fa.fa-pencil-alt
+                %span.view
+                  = link_to admin_sales_contact_path(contact) do
+                    %i.fa.fa-eye
+      .actions
+        = link_to t("general.new"), new_admin_sales_contact_path, class: 'btn btn-success'
+
 
 :javascript
   (function(event){

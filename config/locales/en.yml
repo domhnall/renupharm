@@ -55,6 +55,13 @@ en:
         success: Thanks for registering your interest. We will keep you up-to-date with platform and product developments.
         already_exists: Thanks for your interest. It looks like that email has already been registered. We will keep you up-to-date with platform and product developments.
         error: There has been an unexpected error. Please contact support at dev@renupharm.ie.
+  admin:
+    pharmacy:
+      editing_title: "Editing %{name}"
+      new_title: "New pharmacy"
+    contact:
+      editing_title: "Editing %{name}"
+      new_title: "New contact"
   surveys:
     heading: RenuPharm Survey
     intro: RenuPharm is an on-line platform aimed at connecting pharmacies across Ireland, facilitating transactions in their medicinal stock. Offering a unique channel for sourcing medications and a viable means for reducing stock wastage, RenuPharm offers tangible benefits to all parties.
@@ -100,8 +107,11 @@ en:
       recaptcha: "Sorry please try to resubmit the survey. Ensure to verify that you are not a robot!"
   sales:
     contact:
+      pharmacy: "Pharmacy"
       first_name: "First name"
       surname: "Surname"
+      full_name: "Name"
+      telephone: "Telephone"
       email: "Email"
       errors:
         pharmacy_email_or_telephone_required: "Pharmacy, email or telephone must be supplied"

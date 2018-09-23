@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   namespace :admin do
     namespace :sales do
       resources :pharmacies
-      resources :contacts, only: [:index]
+      resources :contacts
     end
     resources :survey_responses, only: [:index]
     resources :users, only: [:index]
