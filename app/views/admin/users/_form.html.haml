@@ -1,0 +1,19 @@
+= form_for [:admin, @user] do |form|
+  .form-group
+    = form.label :email, t('user.email'), class: 'col-form-label'
+    = form.email_field :email, class: 'form-control'
+  .form-group
+    = form.label :password, t('user.password'), class: 'col-form-label'
+    = form.text_field :password, class: 'form-control'
+  .form-group
+    = form.label :password_confirmation, t('user.password_confirmation'), class: 'col-form-label'
+    = form.text_field :password_confirmation, class: 'form-control'
+
+  .actions
+    - if @user.persisted?
+      = link_to t('general.delete'), admin_user_path(@user), method: :delete, class: 'btn btn-danger', data: { confirm: t("general.confirm_delete") }
+    = submit_tag t('general.save'), id: 'submit_user', class: 'btn btn-success'
+    - if @user.persisted?
+      = link_to t('general.cancel'), admin_user_path(@user), class: 'btn btn-light'
+    - else
+      = link_to t('general.cancel'), admin_users_path, class: 'btn btn-light'

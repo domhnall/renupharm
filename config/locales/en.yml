@@ -62,6 +62,9 @@ en:
     contact:
       editing_title: "Editing %{name}"
       new_title: "New contact"
+    user:
+      editing_title: "Editing %{name}"
+      new_title: "New user"
   surveys:
     heading: RenuPharm Survey
     intro: RenuPharm is an on-line platform aimed at connecting pharmacies across Ireland, facilitating transactions in their medicinal stock. Offering a unique channel for sourcing medications and a viable means for reducing stock wastage, RenuPharm offers tangible benefits to all parties.
@@ -152,3 +155,10 @@ en:
       awaiting_confirmation: "Currently waiting confirmation for: %{unconfirmed_email}"
       leave_blank_for_no_change: "(leave blank if you don't want to change it)"
       minimum_length: "%{min} characters minimum"
+  user:
+    email: "Email"
+    password: "Password"
+    password_confirmation: "Confirm password"
+    created_at: "Created"
+    updated_at: "Updated"
+    current_sign_in_at: "Last sign in"

@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       resources :contacts
     end
     resources :survey_responses, only: [:index]
-    resources :users, only: [:index]
+    resources :users
   end
 
   root 'pages#index'
