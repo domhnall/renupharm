@@ -52,6 +52,7 @@
               = t('surveys.survey.interested.intro')
 
             = f.fields_for :sales_contact do |scf|
+              = scf.hidden_field :sales_pharmacy_id
               .form-group{ class: error_keys.include?('sales_contact.first_name') ? 'error' : '' }
                 = scf.label :first_name, t('surveys.survey.interested.first_name_label')
                 = scf.text_field :first_name, class: 'form-control'

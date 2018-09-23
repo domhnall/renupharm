@@ -8,7 +8,7 @@ class Admin::Sales::PharmaciesController < Admin::BaseController
   end
 
   def show
-    @sales_pharmacy = Sales::Pharmacy.find(params.fetch(:id).to_i)
+    @sales_pharmacy = ::Sales::Pharmacy.find(params.fetch(:id).to_i)
   end
 
   def create

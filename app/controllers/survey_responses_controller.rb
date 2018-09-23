@@ -1,7 +1,8 @@
 class SurveyResponsesController < ApplicationController
   def new
     @survey_response = SurveyResponse.new({
-      sales_contact_attributes: { email: get_pharmacy && get_pharmacy.email }
+      sales_contact_attributes: { sales_pharmacy_id: get_pharmacy&.id,
+                                  email: get_pharmacy && get_pharmacy.email }
     })
   end
 
@@ -29,11 +30,11 @@ class SurveyResponsesController < ApplicationController
   end
 
   def sales_contact_params
-    [ :first_name, :surname, :email, :telephone]
+    [ :sales_pharmacy_id, :first_name, :surname, :email, :telephone]
   end
 
   def existing_contact(email)
-    Sales::Contact.find_by_email(email)
+    @_sales_contact ||= Sales::Contact.find_by_email(email)
   end
 
   def verify_recaptcha(survey_response)
@@ -47,6 +48,6 @@ class SurveyResponsesController < ApplicationController
   end
 
   def get_pharmacy
-    Sales::Pharmacy.find_by_id(params[:sales_pharmacy_id].to_i)
+    @_sales_pharmacy ||= Sales::Pharmacy.find_by_id(params[:sales_pharmacy_id].to_i)
   end
 end
