@@ -41,13 +41,13 @@ You will need to authenticate your docker client with ECS
 Then paste the generated login command to your local terminal.
 Now configure the ECS CLI to allow deployments:
 
-> ecs-cli configure --cluster renupharm --region eu-west-1 --default-launch-type EC2 --config-name renupharm
+> ecs-cli configure --cluster renupharm-new --region eu-west-1 --default-launch-type EC2 --config-name renupharm-new
 > ecs-cli configure profile --profile-name domhnall-renupharm --access-key <AWS_ACCESS_KEY_ID> --secret-key <AWS_SECRET_ACCESS_KEY>
 
 The credentials are taken from the account under which you intend to use to connect to AWS.
 We want to create a cluster to deploy our containers to:
 
-> ecs-cli up --keypair domhnall-renupharm --capability-iam --size 1 --instance-type t2.micro --cluster-config renupharm
+> ecs-cli up --keypair domhnall-renupharm --capability-iam --size 1 --instance-type t2.small --cluster-config renupharm-new
 
 ## Deploying new nginx image
 
@@ -65,7 +65,7 @@ Generate a docker image, tag it and push to the AWS registry
 
 Run docker-compose up on the ECS cluster
 
-> ecs-cli compose --cluster-config renupharm --file docker-compose.production.yml up
+> ecs-cli compose --cluster-config renupharm-new --file docker-compose.production.yml up
 > ecs-cli ps
 
 
@@ -74,8 +74,7 @@ Run docker-compose up on the ECS cluster
 
 
 ## Running tests
-
-> docker-compose run -e "RAILS_ENV=test" app bundle exec rspec spec/**/*
+> docker-compose run -e "RAILS_ENV=test" app bundle exec rspec path/to/tests
 
 
 ## Debugging
@@ -92,3 +91,6 @@ Place your `byebug` statement where you want to break in then attach to
 the running container as
 
 > docker attach renupharm_app_1
+
+
+
