@@ -1,7 +1,7 @@
 class SurveyResponse < ApplicationRecord
   WASTAGE_BUCKETS = %w(lt_200 200_500 500_1000 gt_1000).freeze
 
-  belongs_to :sales_contact, class_name: 'Sales::Contact'
+  belongs_to :sales_contact, class_name: 'Sales::Contact', optional: true
   before_save :serialize_full_response
 
   accepts_nested_attributes_for :sales_contact
@@ -10,7 +10,7 @@ class SurveyResponse < ApplicationRecord
   validates :question_5, inclusion: { in: WASTAGE_BUCKETS }
 
   def respondant_name
-    sales_contact.full_name
+    sales_contact&.full_name
   end
 
   private

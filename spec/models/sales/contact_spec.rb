@@ -7,7 +7,7 @@ describe Sales::Contact do
       address_1: '99 Bun Road',
       address_2: 'Caketown',
       address_3: 'Bunland',
-      telephone_1: '(01)2345678'
+      telephone: '(01)2345678'
     })
     @params = {
       sales_pharmacy_id: @pharmacy.id,
@@ -132,6 +132,26 @@ describe Sales::Contact do
       it "should return nil if the sales_pharmacy is nil" do
         expect(Sales::Contact.new(@params.merge(sales_pharmacy_id: nil)).pharmacy_name).to be_nil
       end
+    end
+  end
+
+  describe "on destroy" do
+    before :all do
+      @contact = Sales::Contact.create!(@params)
+      @survey_response = SurveyResponse.create!({
+        sales_contact_id: @contact.id,
+        question_1: true,
+        question_2: false,
+        question_3: true,
+        question_4: false,
+        question_5: 'lt_200'
+      })
+    end
+
+    it "should nullify FK on any related survey responses" do
+      expect(@survey_response.reload.sales_contact_id).to eq @contact.id
+      @contact.destroy
+      expect(@survey_response.reload.sales_contact_id).to be_nil
     end
   end
 end

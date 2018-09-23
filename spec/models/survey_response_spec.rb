@@ -54,4 +54,16 @@ describe SurveyResponse do
     survey_response = SurveyResponse.create!(@params)
     expect(survey_response.full_response).to eq @params.as_json
   end
+
+  describe "instance method" do
+    describe "#respondant_name" do
+      it "should return the full name for the associated sales_contact" do
+        expect(SurveyResponse.create!(@params).respondant_name).to eq "Billy Bob"
+      end
+
+      it "should return nil if the associated sales_contact is absent" do
+        expect(SurveyResponse.create!(@params.merge(sales_contact_id: nil)).respondant_name).to be_nil
+      end
+    end
+  end
 end
