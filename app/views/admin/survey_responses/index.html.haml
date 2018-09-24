@@ -21,7 +21,8 @@
         %tbody
           - @survey_responses.each do |res|
             %tr
-              %td= res.respondant_name
+              %td
+                = res.sales_contact ? link_to(res.respondant_name, admin_sales_contact_path(res.sales_contact)) : nil
               %td
                 %i.fa{ class: res.question_1 ? 'fa-check' : 'fa-times' }
               %td
