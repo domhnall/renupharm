@@ -14,7 +14,7 @@ occurrence:
 * Run certbot-auto from the commandline which should install the certs
 
   > cd ~/letsencrypt
-  > ./certbot-auto certonly -d renupharm.ie -d www.renupharm.ie
+  > ./certbot-auto certonly --nginx -d renupharm.ie -d www.renupharm.ie
 
 * With certs in place, rebuild nginx container with SSL block in place
 * Redeploy to ECS
