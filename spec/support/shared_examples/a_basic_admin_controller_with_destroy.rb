@@ -48,7 +48,7 @@ shared_examples "a basic admin controller with :destroy" do |clazz|
       end
 
       it "should delete the specified entity" do
-        orig_json = @clazz.find(@update_params.fetch(:id)).to_json
+        orig_json = @clazz.find(@existing.id).to_json
         expect(@clazz.where(id: @existing.id)).not_to be_empty
         delete :destroy, params: { id: @existing.id }
         expect(@clazz.where(id: @existing.id)).to be_empty

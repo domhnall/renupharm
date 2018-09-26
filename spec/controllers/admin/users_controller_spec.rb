@@ -13,21 +13,12 @@ describe Admin::UsersController do
         password_confirmation: "PeggyPeggy"
       }
     }
-
-    @update_params = {
-      id: @existing.id,
-      user: {
-        password: "PeggyPeggy",
-        password_confirmation: "PeggyPeggy"
-      }
-    }
   end
 
   it_behaves_like "a basic admin controller with :index"
   it_behaves_like "a basic admin controller with :show"
   it_behaves_like "a basic admin controller with :edit"
   it_behaves_like "a basic admin controller with :create", User
-  it_behaves_like "a basic admin controller with :update", User
   it_behaves_like "a basic admin controller with :destroy", User
 
   describe "an authenticated admin" do
