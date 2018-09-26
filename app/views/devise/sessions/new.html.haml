@@ -1,26 +1,31 @@
 %section.user_session
-  .container
-    .row
-      .col-3
-      .col-6.col-xs-12
+  .container.card
+    .row.card-body
+      .col-2
+      .col-8.col-xs-12
         %h2
           = t("devise.sessions.log_in")
 
         = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-          .field.form-group
-            = f.label :email
-            = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control'
+          .input-group.mb-3
+            .input-group-prepend
+              %span.input-group-text
+                %i.fa.fa-user
+            = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: t("user.email")
 
-          .field.form-group
-            = f.label :password
-            = f.password_field :password, autocomplete: "current-password", class: 'form-control'
+          .input-group.mb-4
+            .input-group-prepend
+              %span.input-group-text
+                %i.fa.fa-lock
+            = f.password_field :password, autocomplete: "current-password", class: 'form-control', placeholder: t("user.password")
 
-          .field.form-group
-            = f.check_box :remember_me, class: 'form-check'
-            = f.label :remember_me
+          .row.actions
+            .col-6.left
+              = link_to "Forgot your password?", new_password_path(resource_name)
+            .col-6.right
+              = f.submit t("devise.sessions.log_in"), class: 'btn btn-success'
+              .remember_me
+                = f.label :remember_me
+                = f.check_box :remember_me, class: 'form-check'
 
-          .actions
-            = f.submit t("devise.sessions.log_in"), class: 'btn btn-success'
-
-        = render "devise/shared/links"
-      .col-3
+      .col-2

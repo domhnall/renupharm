@@ -672,3 +672,29 @@ footer {
     }
   }
 }
+
+.user_session {
+  .row.actions {
+    font-size: 80%;
+    .left {
+      float: left;
+      text-align: left;
+    }
+    .right {
+      text-align: right;
+      input.btn-success {
+        margin-bottom: 5px;
+      }
+      .remember_me {
+        display: block;
+        clear: both;
+        text-align: right;
+        .form-check {
+          display: inline-block;
+          margin-left: 10px;
+          top: 2px;
+        }
+      }
+    }
+  }
+}
