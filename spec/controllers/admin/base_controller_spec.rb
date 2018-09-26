@@ -53,7 +53,7 @@ describe Admin::BaseController, type: :controller do
 
       it "should render the dashboard layout" do
         get :index
-        expect(response).to render_template 'layouts/dashboards'
+        expect(response.body).to eq "Hello World"
       end
     end
   end

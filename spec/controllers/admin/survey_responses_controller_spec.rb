@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Admin::SurveyResponsesController do
   include Factories
 
-  it_behaves_like "a basic admin controller"
+  it_behaves_like "a basic admin controller with :index"
 
   describe "an authenticated admin" do
     before :all do

@@ -14,7 +14,13 @@ describe Admin::UsersController do
       }
     }
 
-    @update_params = @create_params.merge(id: @existing.id)
+    @update_params = {
+      id: @existing.id,
+      user: {
+        password: "PeggyPeggy",
+        password_confirmation: "PeggyPeggy"
+      }
+    }
   end
 
   it_behaves_like "a basic admin controller with :index"

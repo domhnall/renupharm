@@ -54,7 +54,7 @@ describe Sales::ContactsController do
 
       it "should set an appropriate flash message" do
         post :create, params: @revised_contact_params
-        expect(flash[:error]).to eq I18n.t("pages.index.register_interest.error")
+        expect(flash[:warning]).to eq I18n.t("pages.index.register_interest.error")
       end
     end
 

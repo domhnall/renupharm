@@ -2,6 +2,18 @@ require 'rails_helper'
 
 describe SurveyResponsesController do
   render_views
+
+  before :all do
+    @sales_pharmacy = Sales::Pharmacy.create!({
+      name: "Sandymount Pharmacy on the Green",
+      address_1:  "1a Sandymount Green",
+      address_2: "Dublin 4, Irishtown",
+      address_3: "Dublin 4",
+      telephone: "(01) 283 7188",
+      email: "bobby@davro.com"
+    })
+  end
+
   describe "#new" do
     it "should return a successful response" do
       get :new
@@ -13,8 +25,8 @@ describe SurveyResponsesController do
       expect(response.body).to include I18n.t("surveys.survey.intro")
     end
 
-    it "should autopopulate the email field if supplied" do
-      get :new, params: { email: "bobby@davro.com" }
+    it "should autopopulate the email field if :sales_pharmacy_id supplied" do
+      get :new, params: { sales_pharmacy_id: @sales_pharmacy.id }
       expect(response.body).to include "bobby@davro.com"
     end
   end
