@@ -8,6 +8,8 @@ services:
      - /usr/local/renupharm/mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "s2cr2t"
+  redis:
+    image: redis
   app:
     build:
       context: .
@@ -24,6 +26,8 @@ services:
       PORT: "3000"
       RAILS_ENV: "development"
       NODE_ENV: "development"
+      RAILS_ENV: "development"
+      JOB_WORKER_URL: "redis://redis:6379/0"
     links:
       - db:mysql_cont
     depends_on:
@@ -50,5 +54,19 @@ services:
       - .:/production
     ports:
       - "3035:3035"
+  sidekiq:
+    image: renupharm_app:latest
+    command: bundle exec sidekiq -q default -q mailers
+    volumes:
+      - .:/production
+    depends_on:
+      - db
+      - redis
+    environment:
+      PORT: "3000"
+      RAILS_ENV: "development"
+      NODE_ENV: "development"
+      RAILS_ENV: "development"
+      JOB_WORKER_URL: "redis://redis:6379/0"
 volumes:
   public-volume:

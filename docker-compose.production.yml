@@ -1,5 +1,7 @@
 version: '3'
 services:
+  redis:
+    image: redis
   app_1:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
     environment:
@@ -7,6 +9,7 @@ services:
       RAILS_ENV: "production"
       RACK_ENV: "production"
       NODE_ENV: "development"
+      JOB_WORKER_URL: "redis://redis:6379/0"
     command: bash -c "rm -f /production/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - public-volume:/production/public/
@@ -18,9 +21,23 @@ services:
       RAILS_ENV: "production"
       RACK_ENV: "production"
       NODE_ENV: "development"
+      JOB_WORKER_URL: "redis://redis:6379/0"
     command: bash -c "rm -f /production/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - public-volume:/production/public/
+  sidekiq:
+    image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
+    command: bundle exec sidekiq -q default -q mailers
+    volumes:
+      - .:/production
+    depends_on:
+      - redis
+    environment:
+      PORT: "3000"
+      RAILS_ENV: "production"
+      RACK_ENV: "production"
+      NODE_ENV: "development"
+      JOB_WORKER_URL: "redis://redis:6379/0"
   web:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-nginx
     volumes:
