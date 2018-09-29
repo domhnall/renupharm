@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe Sales::Pharmacy do
+  include Factories
+
   before :all do
     @params = {
       name: "Sandymount Pharmacy on the Green",
@@ -88,6 +90,22 @@ describe Sales::Pharmacy do
       it "should return the pharmacy name with area (address_3) in brackets" do
         expect(Sales::Pharmacy.new(@params.merge(name: "DrugsRUs", address_3: "Caketown")).full_name).to eq "DrugsRUs (Caketown)"
       end
+    end
+  end
+
+  describe "destruction" do
+    before :all do
+      @admin = create_user(email: 'ron@renupharm.ie')
+      @pharmacy = Sales::Pharmacy.new(@params).tap do |pharmacy|
+        pharmacy.comments << Comment.new(user: @admin, body: "This pharmacy is my favourite")
+        pharmacy.save!
+      end
+    end
+
+    it "should destroy all associated comments" do
+      orig_count = Comment.count
+      @pharmacy.destroy
+      expect(Comment.count).to eq orig_count-1
     end
   end
 end

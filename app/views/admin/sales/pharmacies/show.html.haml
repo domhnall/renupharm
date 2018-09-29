@@ -49,3 +49,9 @@
         .actions
           = link_to t('general.edit'), edit_admin_sales_pharmacy_path(@sales_pharmacy), class: 'btn btn-primary'
           = link_to t('general.cancel'), admin_sales_pharmacies_path, class: 'btn btn-light'
+
+    .card
+      .comments
+        %h2
+          = t("sales.pharmacy.comments")
+        = render 'admin/sales/comments/comment_list', commentable: @sales_pharmacy

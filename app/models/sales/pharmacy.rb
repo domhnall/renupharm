@@ -2,6 +2,8 @@ class Sales::Pharmacy < ApplicationRecord
   include EmailValidatable
   include ActsAsIrishPhoneContact
 
+  has_many :comments, as: :commentable, dependent: :destroy
+
   validates :name, :address_1, :address_3, presence: true
   validates :name, :proprietor, :address_1, :address_2, :address_3, length: { maximum: 255 }
   validates :email, email: true, if: :email?

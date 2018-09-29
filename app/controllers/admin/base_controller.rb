@@ -5,6 +5,6 @@ class Admin::BaseController < AuthenticatedController
   private
 
   def ensure_is_admin
-    raise Errors::AccessDenied unless current_user.email =~ /@renupharm.ie\Z/
+    raise Errors::AccessDenied unless current_user.is_admin?
   end
 end

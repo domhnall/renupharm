@@ -39,6 +39,8 @@ en:
     delete: "Delete"
     new: "New"
     edit: "Edit"
+    update: "Update"
+    add: "Add"
     confirm_delete: "Are you sure you want to delete this record? This action cannot be undone."
     email_validator:
       error: "is not an email"
@@ -128,6 +130,7 @@ en:
       email: "Email"
       telephone: "Telephone"
       fax: "Fax"
+      comments: "Comments"
       errors:
         email_or_telephone_required: "Email or telephone must be supplied"
         name_uniqueness: "Name should be unique in a given area"
@@ -162,3 +165,7 @@ en:
     created_at: "Created"
     updated_at: "Updated"
     current_sign_in_at: "Last sign in"
+  comment:
+    commented_by: "created by <strong>%{commenter}</strong>"
+    commented_at: "commented at <strong>%{commented_at}</strong>"
+    new_comment: "New comment"

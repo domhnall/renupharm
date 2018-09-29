@@ -14,6 +14,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 Rails.application.config.assets.precompile += %w(
   dashboard/manifest.js
+  dashboard/admin/manifest.js
   dashboard/manifest.css
   dashboard/main.js
 )

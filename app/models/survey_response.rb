@@ -8,6 +8,7 @@ class SurveyResponse < ApplicationRecord
 
   validates :question_1, :question_2, :question_3, :question_4, inclusion: { in: [true, false] }
   validates :question_5, inclusion: { in: WASTAGE_BUCKETS }
+  validates :additional_notes, length: {maximum: 5000}, allow_blank: true
 
   def respondant_name
     sales_contact&.full_name

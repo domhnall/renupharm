@@ -43,6 +43,11 @@ describe SurveyResponse do
     end
   end
 
+  it "should be invalid if additional_details exceeds 5000 characters" do
+    expect(SurveyResponse.new(@params.merge({additional_notes: "a"*4999}))).to be_valid
+    expect(SurveyResponse.new(@params.merge({additional_notes: "a"*5001}))).not_to be_valid
+  end
+
   it "should set the field :full_response on saving" do
     survey_response = SurveyResponse.new(@params)
     expect(survey_response.full_response).to be_nil

@@ -1,3 +1,8 @@
+// Utility classes
+.hidden {
+  display: none;
+}
+
 footer.app-footer {
   text-align: center;
   font-size: 75%;
@@ -69,3 +74,37 @@ footer.app-footer {
     }
   }
 }
+
+.card {
+  .comments{
+    width: 70%;
+    margin: auto;
+  }
+}
+
+li.comment {
+  list-style: none;
+  width: 95%;
+  margin: auto;
+  .card {
+    padding: 20px;
+    .meta {
+      font-size: 80%;
+      font-style: italic;
+      margin-bottom: 20px;
+      .commented_by {
+        display: inline-block;
+        width: 45%;
+        float: left;
+        text-align: left;
+      }
+      .commented_at {
+        display: inline-block;
+        width: 45%;
+        float: right;
+        text-align: right;
+      }
+    }
+  }
+}
+
