@@ -28,7 +28,7 @@ describe "dashboard page" do
     it "should be able to access the dashboard page" do
       get dashboard_path
       expect(response.status).to eq 200
-      ["Profile", "Security", "Logout"].each do |account_menu_item|
+      ["Profile", "Account", "Logout"].each do |account_menu_item|
         expect(response.body).to include account_menu_item
       end
     end
