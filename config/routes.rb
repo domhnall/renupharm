@@ -24,7 +24,9 @@ Rails.application.routes.draw do
       resources :pharmacies do
         resources :comments, only: [:create, :update, :destroy]
       end
-      resources :contacts
+      resources :contacts do
+        resources :comments, only: [:create, :update, :destroy]
+      end
     end
     resources :survey_responses, only: [:index]
     resources :users

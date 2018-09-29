@@ -118,6 +118,7 @@ en:
       full_name: "Name"
       telephone: "Telephone"
       email: "Email"
+      comments: "Comments"
       errors:
         pharmacy_email_or_telephone_required: "Pharmacy, email or telephone must be supplied"
     pharmacy:
@@ -169,3 +170,4 @@ en:
     commented_by: "created by <strong>%{commenter}</strong>"
     commented_at: "commented at <strong>%{commented_at}</strong>"
     new_comment: "New comment"
+    none_present: "There are no existing comments"

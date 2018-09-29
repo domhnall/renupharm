@@ -3,6 +3,7 @@ class Sales::Contact < ApplicationRecord
   include ActsAsIrishPhoneContact
   belongs_to :sales_pharmacy, class_name: 'Sales::Pharmacy', optional: true
   has_many :survey_responses, foreign_key: :sales_contact_id, dependent: :nullify
+  has_many :comments, as: :commentable, dependent: :destroy
 
   validates :first_name, :surname, presence: true
   validates :first_name, :surname, length: { maximum: 255 }

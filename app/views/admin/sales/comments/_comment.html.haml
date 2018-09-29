@@ -12,11 +12,12 @@
     .show{ class: comment.persisted? ? '' : 'hidden' }
       %p= comment.body
       .actions
-        = link_to t("general.edit"), "#", class: 'btn btn-info edit_comment_btn'
+        = link_to t("general.edit"), "#", class: 'btn btn-primary edit_comment_btn'
     .edit{ class: comment.persisted? ? 'hidden' : '' }
       = form_for [:admin, comment.commentable, comment] do |f|
         = f.text_area :body, class: 'form-control', rows: 5
         .actions
           = f.submit comment.persisted? ? t("general.update") : t("general.save"), class: 'btn btn-primary'
           = link_to t('general.cancel'), "#", class: 'btn btn-secondary cancel_edit_comment_btn'
-          = link_to t('general.delete'), [:admin, comment.commentable, comment], method: :delete, class: 'btn btn-danger', data: { confirm: t("general.confirm_delete") }
+          - if comment.persisted?
+            = link_to t('general.delete'), [:admin, comment.commentable, comment], method: :delete, class: 'btn btn-danger', data: { confirm: t("general.confirm_delete") }

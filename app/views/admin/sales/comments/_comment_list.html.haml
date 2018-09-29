@@ -1,4 +1,6 @@
 .comment_list_wrapper
+  - if commentable.comments_count==0
+    %p.no_comments= t("comment.none_present")
   %ul.comment_list
     - commentable.comments.each do |comment|
       %li.comment

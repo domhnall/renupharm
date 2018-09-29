@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe Sales::Contact do
+  include Factories
+
   before :all do
     @pharmacy = Sales::Pharmacy.create!({
       name: 'PurePharmacy',
@@ -135,9 +137,13 @@ describe Sales::Contact do
     end
   end
 
-  describe "on destroy" do
+  describe "destruction" do
     before :all do
-      @contact = Sales::Contact.create!(@params)
+      @admin = create_user(email: 'ron@renupharm.ie')
+      @contact = Sales::Contact.new(@params).tap do |contact|
+        contact.comments << Comment.new(user: @admin, body: "This guy is very approachable, but a bit mental.")
+        contact.save!
+      end
       @survey_response = SurveyResponse.create!({
         sales_contact_id: @contact.id,
         question_1: true,
@@ -152,6 +158,13 @@ describe Sales::Contact do
       expect(@survey_response.reload.sales_contact_id).to eq @contact.id
       @contact.destroy
       expect(@survey_response.reload.sales_contact_id).to be_nil
+    end
+
+    it "should destroy all associated comments" do
+      orig_count = Comment.count
+      @contact.comments.reload
+      @contact.destroy
+      expect(Comment.count).to eq orig_count-1
     end
   end
 end

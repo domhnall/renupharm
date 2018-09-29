@@ -57,6 +57,10 @@ footer.app-footer {
 }
 
 .table {
+  span.comments_count {
+    display: inline-block;
+    float: right;
+  }
   .controls {
     min-width: 50px;
     .dataTable-sorter {
@@ -108,3 +112,7 @@ li.comment {
   }
 }
 
+.no_comments {
+  font-style: italic;
+  text-align: center;
+}

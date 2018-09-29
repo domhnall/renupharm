@@ -21,7 +21,11 @@
           - Sales::Pharmacy.find_in_batches(batch_size: 100) do |pharmacy_group|
             - pharmacy_group.each do |pharmacy|
               %tr
-                %td= pharmacy.name
+                %td
+                  = pharmacy.name
+                  %span.comments_count
+                    - if pharmacy.comments_count>0
+                      %i.fa.fa-comments
                 %td= pharmacy.proprietor
                 %td= pharmacy.address
                 %td= pharmacy.email

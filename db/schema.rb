@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_27_200641) do
+ActiveRecord::Schema.define(version: 2018_09_29_164323) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "body"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_200641) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "comments_count", default: 0
     t.index ["email"], name: "index_sales_contacts_on_email", unique: true
     t.index ["sales_pharmacy_id"], name: "index_sales_contacts_on_sales_pharmacy_id"
   end
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_200641) do
     t.string "fax"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "comments_count", default: 0
   end
 
   create_table "survey_responses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
