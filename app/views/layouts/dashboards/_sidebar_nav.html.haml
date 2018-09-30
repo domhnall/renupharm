@@ -37,27 +37,29 @@
           %a.nav-link{href: dashboard_path(dummy: true)}
             %i.nav-icon.fa.fa-chevron-right
             Completed
-    %li.divider
-    %li.nav-title Admin
-    %li.nav-item.nav-dropdown
-      %a.nav-link.nav-dropdown-toggle{href: dashboard_path(dummy: true)}
-        %i.nav-icon.fa.fa-plus-circle
-        Pharmacies
-      %ul.nav-dropdown-items
-        %li.nav-item
-          %a.nav-link{href: admin_sales_pharmacies_path}
-            %i.nav-icon.fa.fa-chevron-right
-            Shops
-        %li.nav-item
-          %a.nav-link{href: admin_sales_contacts_path}
-            %i.nav-icon.fa.fa-chevron-right
-            Contacts
-        %li.nav-item
-          %a.nav-link{href: admin_survey_responses_path}
-            %i.nav-icon.fa.fa-chevron-right
-            Survey Responses
-    %li.nav-item
-      %a.nav-link{href: admin_users_path}
-        %i.nav-icon.fa.fa-users
-        Users
+
+    - if current_user.is_admin?
+      %li.divider
+      %li.nav-title Admin
+      %li.nav-item.nav-dropdown
+        %a.nav-link.nav-dropdown-toggle{href: dashboard_path(dummy: true)}
+          %i.nav-icon.fa.fa-plus-circle
+          Pharmacies
+        %ul.nav-dropdown-items
+          %li.nav-item
+            %a.nav-link{href: admin_sales_pharmacies_path}
+              %i.nav-icon.fa.fa-chevron-right
+              Shops
+          %li.nav-item
+            %a.nav-link{href: admin_sales_contacts_path}
+              %i.nav-icon.fa.fa-chevron-right
+              Contacts
+          %li.nav-item
+            %a.nav-link{href: admin_survey_responses_path}
+              %i.nav-icon.fa.fa-chevron-right
+              Survey Responses
+      %li.nav-item
+        %a.nav-link{href: admin_users_path}
+          %i.nav-icon.fa.fa-users
+          Users
 %button.sidebar-minimizer.brand-minimizer{type: "button"}
