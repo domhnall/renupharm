@@ -16,5 +16,6 @@
  *= require './color'
  *= require './custom'
  *= require './preloader'
+ *= require './renupharm_custom'
  *= require_self
  */
