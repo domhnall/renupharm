@@ -171,3 +171,7 @@ en:
     commented_at: "commented at <strong>%{commented_at}</strong>"
     new_comment: "New comment"
     none_present: "There are no existing comments"
+    flash:
+      create_successful: "Successfully added a comment to this record"
+      update_successful: "Successfully updated your comment"
+      delete_successful: "Successfully removed your comment from this record"
