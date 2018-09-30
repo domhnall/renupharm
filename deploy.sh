@@ -28,6 +28,10 @@ if docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_tests; then
 
   # Deploy the updated image
   ecs-cli compose --cluster-config renupharm-new --file docker-compose.production.yml up
+
+  # Run any outstanding migrations
+  APP_CONTAINER=`ssh ec2-user@renupharm.ie "docker ps --format \"{{.Names}}\" | grep app1"`
+  ssh ec2-user@renupharm.ie "docker exec ${APP_CONTAINER} bundle exec rake db:migrate"
 else
   echo "TEST SUITE FAILED. ABORTING DEPLOY" && exit 1
 fi
