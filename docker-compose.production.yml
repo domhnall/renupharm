@@ -13,7 +13,8 @@ services:
     command: bash -c "rm -f /production/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - public-volume:/production/public/
-
+    links:
+      - redis
   app_2:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
     environment:
@@ -25,12 +26,12 @@ services:
     command: bash -c "rm -f /production/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - public-volume:/production/public/
+    links:
+      - redis
   sidekiq:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
     command: bundle exec sidekiq -q default -q mailers
-    volumes:
-      - .:/production
-    depends_on:
+    links:
       - redis
     environment:
       PORT: "3000"
