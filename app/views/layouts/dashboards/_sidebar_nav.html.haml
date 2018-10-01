@@ -38,7 +38,7 @@
             %i.nav-icon.fa.fa-chevron-right
             Completed
 
-    - if current_user.is_admin?
+    - if current_user.admin?
       %li.divider
       %li.nav-title Admin
       %li.nav-item.nav-dropdown
