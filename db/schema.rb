@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_29_164323) do
+ActiveRecord::Schema.define(version: 2018_10_03_135844) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "body"
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 2018_09_29_164323) do
     t.string "question_5"
     t.text "additional_notes"
     t.json "full_response"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["sales_contact_id"], name: "index_survey_responses_on_sales_contact_id"
   end
 
