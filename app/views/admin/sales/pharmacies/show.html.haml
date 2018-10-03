@@ -48,7 +48,7 @@
               = @sales_pharmacy.fax
         .actions
           = link_to t('general.edit'), edit_admin_sales_pharmacy_path(@sales_pharmacy), class: 'btn btn-primary'
-          = link_to t('general.cancel'), admin_sales_pharmacies_path, class: 'btn btn-light'
+          = link_to t('general.cancel'), :back, class: 'btn btn-light'
 
     .card
       .comments
