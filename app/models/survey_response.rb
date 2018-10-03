@@ -17,6 +17,6 @@ class SurveyResponse < ApplicationRecord
   private
 
   def serialize_full_response
-    self.full_response = self.as_json(except: [:id, :full_response])
+    self.full_response = self.as_json(except: [:id, :full_response, :created_at, :updated_at])
   end
 end
