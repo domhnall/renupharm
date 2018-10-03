@@ -17,17 +17,15 @@ Chart.defaults.global.tooltips.mode = 'index';
 Chart.defaults.global.tooltips.position = 'nearest';
 Chart.defaults.global.tooltips.custom = CustomTooltips; // eslint-disable-next-line no-unused-vars
 
-var cardChart1 = new Chart($('#card-chart1'), {
+var pharmacies = JSON.parse($('#sales_pharmacies .data').html());
+pharmacies.datasets.forEach(function(ds){
+  ds.backgroundColor = getStyle('--primary');
+  ds.borderColor = 'rgba(255,255,255,.55)';
+});
+
+var pharmaciesChart = new Chart($('#sales_pharmacies canvas'), {
   type: 'line',
-  data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [{
-      label: 'My First dataset',
-      backgroundColor: getStyle('--primary'),
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [65, 59, 84, 84, 51, 55, 40]
-    }]
-  },
+  data: pharmacies,
   options: {
     maintainAspectRatio: false,
     legend: {
@@ -48,8 +46,8 @@ var cardChart1 = new Chart($('#card-chart1'), {
         display: false,
         ticks: {
           display: false,
-          min: 35,
-          max: 89
+          min: Math.min.apply(null, pharmacies.datasets[0].data)-20,
+          max: Math.max.apply(null, pharmacies.datasets[0].data)+50
         }
       }]
     },

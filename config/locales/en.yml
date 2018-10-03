@@ -49,6 +49,33 @@ en:
       update_successful: "Successfully updated record"
       delete_successful: "Successfully deleted record"
       error: "There has been an error with your submission, please address the issues below."
+  month:
+    long:
+      1: "January"
+      2: "February"
+      3: "March"
+      4: "April"
+      5: "May"
+      6: "June"
+      7: "July"
+      8: "August"
+      9: "September"
+      10: "October"
+      11: "November"
+      12: "December"
+    short:
+      1: "Jan"
+      2: "Feb"
+      3: "Mar"
+      4: "Apr"
+      5: "May"
+      6: "Jun"
+      7: "Jul"
+      8: "Aug"
+      9: "Sept"
+      10: "Oct"
+      11: "Nov"
+      12: "Dec"
   pages:
     index:
       heading: Welcome to RenuPharm
