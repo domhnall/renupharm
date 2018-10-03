@@ -21,6 +21,10 @@ class Sales::Contact < ApplicationRecord
     sales_pharmacy.full_name
   end
 
+  def email=(val)
+    super(val.blank? ? nil : val)
+  end
+
   private
 
   def pharmacy_email_or_telephone_present?
