@@ -1,5 +1,10 @@
 class Admin::Sales::PharmaciesController < Admin::BaseController
   def index
+    @page        = params.fetch(:page, 1).to_i
+    @per_page    = [params.fetch(:per_page, 25).to_i, 50].min
+    @total_count = ::Sales::Pharmacy.count
+    @total_pages = (@total_count/@per_page).ceil
+    @pharmacies  = ::Sales::Pharmacy.order(:name).limit(@per_page).offset((@page-1)*@per_page)
   end
 
   def new

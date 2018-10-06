@@ -8,6 +8,9 @@ class SurveyResponsesController < ApplicationController
 
   def create
     contact = Sales::Contact.find_by_email(params[:survey_response][:sales_contact_attributes][:email])
+    #contact = if params[:survey_response][:sales_contact_attributes][:email].present?
+    #  Sales::Contact.find_by_email(params[:survey_response][:sales_contact_attributes][:email])
+    #end
     @survey_response = SurveyResponse.new(filtered_params(contact && contact.id))
     verify_recaptcha(@survey_response)
     if @survey_response.valid? && @survey_response.save

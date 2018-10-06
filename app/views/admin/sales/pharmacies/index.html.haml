@@ -4,45 +4,36 @@
       %table#sales_pharmacies.table
         %thead
           %tr
-            %td
+            %th
               = t("sales.pharmacy.name")
-            %td
+            %th
               = t("sales.pharmacy.proprietor")
-            %td
+            %th
               = t("sales.pharmacy.address")
-            %td
+            %th
               = t("sales.pharmacy.email")
-            %td
+            %th
               = t("sales.pharmacy.telephone")
-            %td
-              = t("sales.pharmacy.fax")
-            %td.controls
         %tbody
-          - Sales::Pharmacy.find_in_batches(batch_size: 100) do |pharmacy_group|
-            - pharmacy_group.each do |pharmacy|
-              %tr
-                %td
-                  = pharmacy.name
-                  %span.comments_count
-                    - if pharmacy.comments_count>0
-                      %i.fa.fa-comments
-                %td= pharmacy.proprietor
-                %td= pharmacy.address
-                %td= pharmacy.email
-                %td= pharmacy.telephone
-                %td= pharmacy.fax
-                %td.controls
-                  %span.edit
-                    = link_to edit_admin_sales_pharmacy_path(pharmacy) do
-                      %i.fa.fa-pencil-alt
-                  %span.view
-                    = link_to admin_sales_pharmacy_path(pharmacy) do
-                      %i.fa.fa-eye
+          - @pharmacies.each do |pharmacy|
+            %tr
+              %td
+                = link_to pharmacy.name, admin_sales_pharmacy_path(pharmacy)
+                %span.comments_count
+                  - if pharmacy.comments_count>0
+                    %i.fa.fa-comments
+              %td= pharmacy.proprietor
+              %td= truncate_with_ellipsis(pharmacy.address, 30)
+              %td= pharmacy.email
+              %td= pharmacy.telephone
+
+      .table_summary_section
+        = t("table.summary", start: ((@page-1)*@per_page)+1, end: [@page*@per_page, @total_count].min, total: @total_count)
+      .pagination_section
+        %nav{ "aria-label" => t("table.pagination.alt") }
+          %ul.pagination
+            - @total_pages.times do |i|
+              %li.page-item{ class: (i+1)==@page ? 'active' : '' }
+                = link_to (i+1), admin_sales_pharmacies_path(page: i+1), class: 'page-link'
       .actions
         = link_to t("general.new"), new_admin_sales_pharmacy_path, class: 'btn btn-success'
-
-
-:javascript
-  (function(event){
-    let table = new DataTable("#sales_pharmacies");
-  })();

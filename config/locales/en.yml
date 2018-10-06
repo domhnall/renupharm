@@ -202,3 +202,7 @@ en:
       create_successful: "Successfully added a comment to this record"
       update_successful: "Successfully updated your comment"
       delete_successful: "Successfully removed your comment from this record"
+  table:
+    summary: "Showing %{start} to %{end} of %{total} entries"
+    pagination:
+      alt: "Table pagination"
