@@ -23,161 +23,71 @@ pharmacies.datasets.forEach(function(ds){
   ds.borderColor = 'rgba(255,255,255,.55)';
 });
 
+var survey_responses = JSON.parse($('#survey_responses .data').html());
+survey_responses.datasets.forEach(function(ds){
+  ds.backgroundColor = getStyle('--info');
+  ds.borderColor = 'rgba(255,255,255,.55)';
+});
+
+var outreach = JSON.parse($('#outreach .data').html());
+outreach.datasets.forEach(function(ds){
+  ds.backgroundColor = 'rgba(255,255,255,.2)';
+  ds.borderColor = 'rgba(255,255,255,.55)';
+});
+
+const shared_chart_options = {
+  maintainAspectRatio: false,
+  legend: {
+    display: false
+  },
+  scales: {
+    xAxes: [{
+      gridLines: {
+        color: 'transparent',
+        zeroLineColor: 'transparent'
+      },
+      ticks: {
+        fontSize: 2,
+        fontColor: 'transparent'
+      }
+    }],
+    yAxes: [{
+      display: false,
+      ticks: {
+        display: false
+      }
+    }]
+  },
+  elements: {
+    line: {
+      tension: 0.00001,
+      borderWidth: 1
+    },
+    point: {
+      radius: 4,
+      hitRadius: 10,
+      hoverRadius: 4
+    }
+  }
+};
+
 var pharmaciesChart = new Chart($('#sales_pharmacies canvas'), {
   type: 'line',
   data: pharmacies,
-  options: {
-    maintainAspectRatio: false,
-    legend: {
-      display: false
-    },
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent'
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent'
-        }
-      }],
-      yAxes: [{
-        display: false,
-        ticks: {
-          display: false,
-          min: Math.min.apply(null, pharmacies.datasets[0].data)-20,
-          max: Math.max.apply(null, pharmacies.datasets[0].data)+50
-        }
-      }]
-    },
-    elements: {
-      line: {
-        borderWidth: 1
-      },
-      point: {
-        radius: 4,
-        hitRadius: 10,
-        hoverRadius: 4
-      }
-    }
-  }
+  options: shared_chart_options
 }); // eslint-disable-next-line no-unused-vars
 
-var cardChart2 = new Chart($('#card-chart2'), {
+var survey_responses_chart = new Chart($('#survey_responses canvas'), {
   type: 'line',
-  data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [{
-      label: 'My First dataset',
-      backgroundColor: getStyle('--info'),
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [1, 18, 9, 17, 34, 22, 11]
-    }]
-  },
-  options: {
-    maintainAspectRatio: false,
-    legend: {
-      display: false
-    },
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent'
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent'
-        }
-      }],
-      yAxes: [{
-        display: false,
-        ticks: {
-          display: false,
-          min: -4,
-          max: 39
-        }
-      }]
-    },
-    elements: {
-      line: {
-        tension: 0.00001,
-        borderWidth: 1
-      },
-      point: {
-        radius: 4,
-        hitRadius: 10,
-        hoverRadius: 4
-      }
-    }
-  }
-}); // eslint-disable-next-line no-unused-vars
+  data: survey_responses,
+  options: shared_chart_options
+});
 
-var cardChart3 = new Chart($('#card-chart3'), {
+var outreach_chart = new Chart($('#outreach canvas'), {
   type: 'line',
-  data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [{
-      label: 'My First dataset',
-      backgroundColor: 'rgba(255,255,255,.2)',
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [78, 81, 80, 45, 34, 12, 40]
-    }]
-  },
-  options: {
-    maintainAspectRatio: false,
-    legend: {
-      display: false
-    },
-    scales: {
-      xAxes: [{
-        display: false
-      }],
-      yAxes: [{
-        display: false
-      }]
-    },
-    elements: {
-      line: {
-        borderWidth: 2
-      },
-      point: {
-        radius: 0,
-        hitRadius: 10,
-        hoverRadius: 4
-      }
-    }
-  }
-}); // eslint-disable-next-line no-unused-vars
-
-var cardChart4 = new Chart($('#card-chart4'), {
-  type: 'bar',
-  data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'January', 'February', 'March', 'April'],
-    datasets: [{
-      label: 'My First dataset',
-      backgroundColor: 'rgba(255,255,255,.2)',
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [78, 81, 80, 45, 34, 12, 40, 85, 65, 23, 12, 98, 34, 84, 67, 82]
-    }]
-  },
-  options: {
-    maintainAspectRatio: false,
-    legend: {
-      display: false
-    },
-    scales: {
-      xAxes: [{
-        display: false,
-        barPercentage: 0.6
-      }],
-      yAxes: [{
-        display: false
-      }]
-    }
-  }
-}); // eslint-disable-next-line no-unused-vars
+  data: outreach,
+  options: shared_chart_options
+});
 
 var mainChart = new Chart($('#main-chart'), {
   type: 'line',

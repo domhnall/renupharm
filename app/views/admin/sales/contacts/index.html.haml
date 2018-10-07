@@ -1,39 +1,9 @@
 .row
   .col-md-12
     .card
-      %table#sales_contacts.table
-        %thead
-          %tr
-            %td
-              = t("sales.contact.full_name")
-            %td
-              = t("sales.contact.pharmacy")
-            %td
-              = t("sales.contact.telephone")
-            %td
-              = t("sales.contact.email")
-            %td.controls
-        %tbody
-          - @sales_contacts.each do |contact|
-            %tr
-              %td
-                = contact.full_name
-                %span.comments_count
-                  - if contact.comments_count>0
-                    %i.fa.fa-comments
-              %td= contact.pharmacy_name
-              %td= contact.telephone
-              %td= contact.email
-              %td.controls
-                %span.edit
-                  = link_to edit_admin_sales_contact_path(contact) do
-                    %i.fa.fa-pencil-alt
-                %span.view
-                  = link_to admin_sales_contact_path(contact) do
-                    %i.fa.fa-eye
+      = render 'table', sales_contacts: @sales_contacts, with_pharmacy: true
       .actions
         = link_to t("general.new"), new_admin_sales_contact_path, class: 'btn btn-success'
-
 
 :javascript
   (function(event){

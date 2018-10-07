@@ -1,3 +1,6 @@
+// Variables
+$border_grey: #c8ced3;
+
 // Utility classes
 .hidden {
   display: none;
@@ -44,6 +47,11 @@ footer.app-footer {
       display: inline;
       color: red;
     }
+    .attr_value {
+      position: absolute;
+      margin-top: 10px;
+      margin-left: 20px;
+    }
   }
 
   .actions {
@@ -84,7 +92,7 @@ footer.app-footer {
 }
 
 .card {
-  .comments{
+  .comments, .contact_responses {
     width: 70%;
     margin: auto;
   }
@@ -119,4 +127,27 @@ li.comment {
 .no_comments {
   font-style: italic;
   text-align: center;
+}
+
+.contact_responses, .pharmacy_contacts {
+  h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.contact_responses {
+  .show_record {
+    margin-bottom: 50px;
+  }
+  .survey_question_response {
+    position: absolute;
+    top: 5px;
+    margin-left: 10px;
+  }
+}
+
+.pharmacy_contacts {
+  width: 70%;
+  margin: auto;
 }

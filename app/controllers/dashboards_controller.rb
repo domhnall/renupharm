@@ -1,5 +1,11 @@
 class DashboardsController < AuthenticatedController
   def show
+    get_data_for_admin_charts if current_user.admin?
+  end
+
+  private
+
+  def get_data_for_admin_charts
     @total_sales_pharmacies     = Sales::Pharmacy.count
     @pharmacies_chart_presenter = Presenters::ChartPresenter.new(get_week_labels).tap do |presenter|
       presenter.add_dataset("Pharmacies added", pharmacies_by_week)
@@ -10,10 +16,11 @@ class DashboardsController < AuthenticatedController
       presenter.add_dataset("Surveys completed", survey_responses_by_week)
     end
 
-    @total_outreach             = Sales::Pharmacy.joins(:comments)
+    @total_outreach             = Sales::Pharmacy.joins(:comments).distinct.count
+    @outreach_chart_presenter   = Presenters::ChartPresenter.new(get_week_labels).tap do |presenter|
+      presenter.add_dataset("Contacted", pharmacies_contacted_by_week)
+    end
   end
-
-  private
 
   def get_week_endings
     @_week_endings ||= (1..6).to_a.reverse
@@ -33,6 +40,12 @@ class DashboardsController < AuthenticatedController
   def survey_responses_by_week
     get_week_endings.map do |end_date|
       SurveyResponse.where(created_at: (end_date-7.days)..end_date).count
+    end
+  end
+
+  def pharmacies_contacted_by_week
+    get_week_endings.map do |end_date|
+      Sales::Pharmacy.joins(:comments).where(comments: {created_at: (end_date-7.days)..end_date}).distinct.count
     end
   end
 end

@@ -1,0 +1,28 @@
+%table#sales_contacts.table
+  %thead
+    %tr
+      %td= t("sales.contact.full_name")
+      - if with_pharmacy
+        %td= t("sales.contact.pharmacy")
+      %td= t("sales.contact.telephone")
+      %td= t("sales.contact.email")
+      %td.controls
+  %tbody
+    - sales_contacts.each do |contact|
+      %tr
+        %td
+          = contact.full_name
+          %span.comments_count
+            - if contact.comments_count>0
+              %i.fa.fa-comments
+        - if with_pharmacy
+          %td= contact.pharmacy_name
+        %td= contact.telephone
+        %td= contact.email
+        %td.controls
+          %span.edit
+            = link_to edit_admin_sales_contact_path(contact) do
+              %i.fa.fa-pencil-alt
+          %span.view
+            = link_to admin_sales_contact_path(contact) do
+              %i.fa.fa-eye

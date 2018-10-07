@@ -3,6 +3,7 @@ class Sales::Pharmacy < ApplicationRecord
   include ActsAsIrishPhoneContact
 
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :sales_contacts, class_name: "Sales::Contact", foreign_key: :sales_pharmacy_id, dependent: :nullify
 
   validates :name, :address_1, :address_3, presence: true
   validates :name, :proprietor, :address_1, :address_2, :address_3, length: { maximum: 255 }

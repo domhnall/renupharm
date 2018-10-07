@@ -110,14 +110,19 @@ en:
       intro: "We are very interested to gauge your views through completion of this short survey. [ <em>Estimated time 2 mins</em> ]"
       submit: Submit
       question_1:
+        label: "Question 1"
         question: Would you be willing to purchase a medicinal product with a shorter expiry date at a cheaper price (cf. wholesaler price with a better date)?
       question_2:
+        label: "Question 2"
         question: Would you like the opportunity to sell-on stock, with no forseeable usage, at a reduced price?
       question_3:
+        label: "Question 3"
         question: Have you ever been impacted by drug shortages or sourcing issues?
       question_4:
+        label: "Question 4"
         question: Would you be happy to supply a shorter-dated medication to your customers, provided the typical usage of the product would imply the product would be consumed before the expiry date?
       question_5:
+        label: "Question 5"
         question: Could you estimate the amount of stock that goes out of date each month in your pharmacy (cost price)?
         labels:
           lt_200: "< €200"
@@ -125,7 +130,8 @@ en:
           "500_1000": "€500 - €1000"
           gt_1000: "> €1000"
       additional_notes:
-        label: "If you would like to provide additional details relating to any of your responses, please do so here:"
+        label: "Additional notes"
+        question: "If you would like to provide additional details relating to any of your responses, please do so here:"
       interested:
         intro: If you are interested in learning more about the RenuPharm service, and to be kept up-to-date please enter your details below.
         first_name_label: "First name:"
@@ -146,6 +152,7 @@ en:
       telephone: "Telephone"
       email: "Email"
       comments: "Comments"
+      survey_responses: "Survey Responses"
       errors:
         pharmacy_email_or_telephone_required: "Pharmacy, email or telephone must be supplied"
     pharmacy:
@@ -159,6 +166,7 @@ en:
       telephone: "Telephone"
       fax: "Fax"
       comments: "Comments"
+      sales_contacts: "Sales Contacts"
       errors:
         email_or_telephone_required: "Email or telephone must be supplied"
         name_uniqueness: "Name should be unique in a given area"

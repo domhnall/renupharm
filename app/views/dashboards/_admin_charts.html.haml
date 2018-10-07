@@ -1,0 +1,40 @@
+.row
+  .col-sm-6.col-lg-4
+    .card.text-white.bg-primary
+      .card-body.pb-0
+        .btn-group.float-right
+          %button.btn.btn-transparent.dropdown-toggle.p-0{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", type: "button"}
+            %i.icon-settings
+          .dropdown-menu.dropdown-menu-right
+            %a.dropdown-item{href: admin_sales_pharmacies_path} View all
+        .text-value= @total_sales_pharmacies
+        %div Sales Pharmacies
+      #sales_pharmacies.chart-wrapper.mt-3.mx-3{style: "height:70px;"}
+        .data.hidden
+          = @pharmacies_chart_presenter.present
+        %canvas.chart{height: "70"}
+  / /.col
+  .col-sm-6.col-lg-4
+    .card.text-white.bg-info
+      .card-body.pb-0
+        %button.btn.btn-transparent.p-0.float-right{type: "button"}
+          = link_to admin_survey_responses_path do
+            %i.icon-location-pin
+        .text-value= @total_survey_responses
+        %div Survey Responses
+      #survey_responses.chart-wrapper.mt-3.mx-3{style: "height:70px;"}
+        .data.hidden
+          = @survey_chart_presenter.present
+        %canvas.chart{height: "70"}
+  / /.col
+  .col-sm-6.col-lg-4
+    .card.text-white.bg-warning
+      .card-body.pb-0
+        .text-value= @total_outreach
+        %div Pharmacies Contacted
+      #outreach.chart-wrapper.mt-3{style: "height:70px;"}
+        .data.hidden
+          = @outreach_chart_presenter.present
+        %canvas.chart{height: "70"}
+  / /.col
+/ /.row
