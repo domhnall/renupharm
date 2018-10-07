@@ -41,6 +41,12 @@ describe Admin::Sales::PharmaciesController do
         address_3: "Caketown",
         email: "joe@bloggs.com"
       })
+      @other_pharmacy = Sales::Pharmacy.create!({
+        name: "Manchester United",
+        address_1: "4 Pine Grove",
+        address_3: "Newry",
+        email: "alex@manu.com"
+      })
     end
 
     before :each do
@@ -48,11 +54,15 @@ describe Admin::Sales::PharmaciesController do
     end
 
     describe "#index" do
-      render_views
-
-      it "should display name for each Sales::Pharmacy" do
+      it "should return an entry for each Sales::Pharmacy" do
         get :index
-        expect(response.body).to include @pharmacy.name
+        expect(assigns(:pharmacies).map(&:id)).to include @pharmacy.id
+      end
+
+      it "should allow the user to do a wildcard query by name" do
+        get :index, params: { query: 'Unit' }
+        expect(assigns(:pharmacies).map(&:id)).to include @other_pharmacy.id
+        expect(assigns(:pharmacies).map(&:id)).not_to include @pharmacy.id
       end
     end
   end

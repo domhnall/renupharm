@@ -152,3 +152,14 @@ li.comment {
   width: 70%;
   margin: auto;
 }
+
+.inline_search_form {
+  text-align: right;
+  margin-top: 15px;
+  input {
+    display: inline-block;
+  }
+  .form-control {
+    width: 60%;
+  }
+}

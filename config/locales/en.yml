@@ -41,6 +41,7 @@ en:
     edit: "Edit"
     update: "Update"
     add: "Add"
+    search: "Search"
     confirm_delete: "Are you sure you want to delete this record? This action cannot be undone."
     email_validator:
       error: "is not an email"
