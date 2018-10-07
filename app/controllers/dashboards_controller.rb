@@ -23,7 +23,7 @@ class DashboardsController < AuthenticatedController
   end
 
   def get_week_endings
-    @_week_endings ||= (1..6).to_a.reverse
+    @_week_endings ||= (0..5).to_a.reverse
     .map{ |i| (Time.now - i.weeks).end_of_week }
   end
 
