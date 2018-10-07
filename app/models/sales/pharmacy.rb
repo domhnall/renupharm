@@ -20,6 +20,10 @@ class Sales::Pharmacy < ApplicationRecord
     "#{name} (#{address_3})"
   end
 
+  def completed_survey?
+    sales_contacts.joins(:survey_responses).any?
+  end
+
   private
 
   def telephone_or_email_present

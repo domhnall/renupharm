@@ -19,6 +19,9 @@
             %tr
               %td
                 = link_to pharmacy.name, admin_sales_pharmacy_path(pharmacy)
+                %span.survey_indicator
+                  - if pharmacy.completed_survey?
+                    %i.fa.fa-file-alt
                 %span.comments_count
                   - if pharmacy.comments_count>0
                     %i.fa.fa-comments

@@ -65,9 +65,10 @@ footer.app-footer {
 }
 
 .table {
-  span.comments_count {
+  span.comments_count, span.survey_indicator {
     display: inline-block;
     float: right;
+    margin-left: 5px;
   }
   .controls {
     min-width: 50px;

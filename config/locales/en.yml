@@ -167,6 +167,7 @@ en:
       fax: "Fax"
       comments: "Comments"
       sales_contacts: "Sales Contacts"
+      submit_survey: "Submit Survey"
       errors:
         email_or_telephone_required: "Email or telephone must be supplied"
         name_uniqueness: "Name should be unique in a given area"

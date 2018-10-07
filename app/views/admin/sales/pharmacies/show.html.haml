@@ -47,6 +47,8 @@
             %span.form-control
               = @sales_pharmacy.fax
         .actions
+          - unless @sales_pharmacy.completed_survey?
+            = link_to t('sales.pharmacy.submit_survey'), new_survey_response_path(sales_pharmacy_id: @sales_pharmacy.id), class: 'btn btn-success'
           = link_to t('general.edit'), edit_admin_sales_pharmacy_path(@sales_pharmacy), class: 'btn btn-primary'
           = link_to t('general.cancel'), :back, class: 'btn btn-light'
 
