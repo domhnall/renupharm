@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_03_135844) do
+ActiveRecord::Schema.define(version: 2018_10_09_063553) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "body"
@@ -21,6 +21,17 @@ ActiveRecord::Schema.define(version: 2018_10_03_135844) do
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "first_name"
+    t.string "surname"
+    t.string "telephone"
+    t.string "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "sales_contacts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -91,6 +102,7 @@ ActiveRecord::Schema.define(version: 2018_10_03_135844) do
   end
 
   add_foreign_key "comments", "users"
+  add_foreign_key "profiles", "users"
   add_foreign_key "sales_contacts", "sales_pharmacies"
   add_foreign_key "survey_responses", "sales_contacts"
 end

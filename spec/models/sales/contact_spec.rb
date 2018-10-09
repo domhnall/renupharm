@@ -85,7 +85,7 @@ describe Sales::Contact do
       expect(Sales::Contact.new(@params.merge(telephone: "0"*12))).not_to be_valid
     end
 
-    it "should be invalid when :#{attr} has length of less than 7 characters" do
+    it "should be invalid when :telephone has length of less than 7 characters" do
       expect(Sales::Contact.new(@params.merge(telephone: "0"*7))).to be_valid
       expect(Sales::Contact.new(@params.merge(telephone: "0"*6))).not_to be_valid
     end

@@ -5,7 +5,13 @@ describe User do
     @params = {
       email: "johnny@bravo.com",
       password: "foobar",
-      password_confirmation: "foobar"
+      password_confirmation: "foobar",
+      profile_attributes: {
+        first_name: "James",
+        surname: "Magill",
+        telephone: "(01) 283 7188",
+        role: Profile::Roles::PHARMACY
+      }
     }
   end
 
@@ -33,14 +39,22 @@ describe User do
 
   describe "instance method" do
     describe "#admin?" do
-      it "should return true if :email is from the renupharm.ie domain" do
-        expect(User.new(@params.merge(email: "george@renupharm.ie"))).to be_admin
+      it "should return true if the user has an admin profile" do
+        admin_params = @params.dup.tap do |attrs|
+          attrs[:profile_attributes][:role] = Profile::Roles::ADMIN
+        end
+        expect(User.new(admin_params)).to be_admin
       end
 
-      %w( gmail.com hotmail.com renupharm.com rubbish renu-pharm.ie ).each do |domain|
-        it "should return false if the :email is from the domain #{domain}" do
-          expect(User.new(@params.merge(email: "george@#{domain}"))).not_to be_admin
+      it "should return false if the user has no associated profile" do
+        expect(User.new(@params.except(:profile_attributes))).not_to be_admin
+      end
+
+      it "should return false if the user has an non-admin profile" do
+        pharmacy_params = @params.dup.tap do |attrs|
+          attrs[:profile_attributes][:role] = Profile::Roles::PHARMACY
         end
+        expect(User.new(pharmacy_params)).not_to be_admin
       end
     end
   end
