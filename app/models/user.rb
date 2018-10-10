@@ -13,7 +13,9 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :profile
 
-  delegate :admin?, to: :profile, allow_nil: true
+  delegate :admin?, :full_name, to: :profile
+
+  validates :profile, presence: true
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later

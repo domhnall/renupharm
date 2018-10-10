@@ -203,6 +203,18 @@ en:
     created_at: "Created"
     updated_at: "Updated"
     current_sign_in_at: "Last sign in"
+    heading:
+      security: "Security"
+      profile: "Profile"
+  profile:
+    first_name: "First name"
+    surname: "Surname"
+    telephone: "Telephone"
+    role: "Role"
+    roles:
+      admin: "Admin"
+      pharmacy: "Pharmacy"
+      courier: "Courier"
   comment:
     commented_by: "created by <strong>%{commenter}</strong>"
     commented_at: "commented at <strong>%{commented_at}</strong>"
