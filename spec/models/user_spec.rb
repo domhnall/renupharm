@@ -35,6 +35,10 @@ describe User do
       expect(User.new(@params.merge(password: "foobar", password_confirmation: "hoobar"))).not_to be_valid
       expect(User.new(@params.merge(password: "foobar", password_confirmation: "fooBar"))).not_to be_valid
     end
+
+    it "should not be valid when :profile is not defined" do
+      expect(User.new(@params.except(:profile_attributes))).not_to be_valid
+    end
   end
 
   describe "instance method" do
@@ -88,6 +92,24 @@ describe User do
         expect(Comment.count).to eq orig_count
         expect(Comment.where(user_id: @user.id).count).to eq 0
       end
+    end
+  end
+
+  describe "destruction" do
+    before :each do
+      @user = User.create!(@params.merge(email: "davy@destruction.com"))
+    end
+
+    it "should destroy the User model" do
+      orig_count = User.count
+      @user.destroy
+      expect(User.count).to eq orig_count-1
+    end
+
+    it "should destroy the associated Profile model" do
+      orig_count = Profile.count
+      @user.destroy
+      expect(Profile.count).to eq orig_count-1
     end
   end
 end

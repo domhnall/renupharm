@@ -5,6 +5,7 @@ class Admin::UsersController < Admin::BaseController
 
   def show
     @user = User.find_by_id(params.fetch(:id))
+    @profile = @user.profile
   end
 
   def edit
@@ -12,7 +13,9 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def new
-    @user = User.new
+    @user = User.new.tap do |u|
+      u.build_profile
+    end
   end
 
   def create
@@ -44,6 +47,8 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params
+    .require(:user)
+    .permit(:email, :password, :password_confirmation, profile_attributes: [:first_name, :surname, :telephone, :role])
   end
 end

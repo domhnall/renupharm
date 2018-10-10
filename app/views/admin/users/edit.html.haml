@@ -3,5 +3,5 @@
     .card
       .show_record
         %h2
-          = t("admin.user.edit_title", name: @user.email)
+          = t("admin.user.edit_title", name: @user.full_name)
         = render 'form'
