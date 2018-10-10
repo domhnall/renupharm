@@ -12,6 +12,12 @@
               = @sales_pharmacy.name
         .form-group.row
           %label.label.col-form-label.col-2
+            = t('sales.pharmacy.proprietor')
+          .col-10
+            %span.form-control
+              = @sales_pharmacy.proprietor
+        .form-group.row
+          %label.label.col-form-label.col-2
             = t('sales.pharmacy.address_1')
           .col-10
             %span.form-control
