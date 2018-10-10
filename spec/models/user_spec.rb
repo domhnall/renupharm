@@ -42,6 +42,12 @@ describe User do
   end
 
   describe "instance method" do
+    [:profile, :comments, :admin?, :pharmacy?, :courier?, :full_name].each do |method|
+      it "should respond to :#{method}" do
+        expect(User.new(@params)).to respond_to method
+      end
+    end
+
     describe "#admin?" do
       it "should return true if the user has an admin profile" do
         admin_params = @params.dup.tap do |attrs|
