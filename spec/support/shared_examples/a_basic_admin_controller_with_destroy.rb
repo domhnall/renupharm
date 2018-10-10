@@ -5,7 +5,7 @@
 shared_examples "a basic admin controller with :destroy" do |clazz|
   before :all do
     @user = create_user(email: 'destroyer@example.com')
-    @admin_user = create_user(email: 'destroyer@renupharm.ie')
+    @admin_user = create_admin_user(email: 'destroyer@renupharm.ie')
     @clazz = clazz
   end
 

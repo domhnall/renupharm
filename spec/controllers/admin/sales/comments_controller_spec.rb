@@ -5,7 +5,7 @@ describe Admin::Sales::CommentsController do
 
   before :all do
     @user  = create_user(email: 'joe@schmoe.com')
-    @admin = create_user(email: 'admin@renupharm.ie')
+    @admin = create_admin_user(email: 'admin@renupharm.ie')
 
     @commentable = Sales::Pharmacy.create!({
       name: "Sandymount Pharmacy on the Green",

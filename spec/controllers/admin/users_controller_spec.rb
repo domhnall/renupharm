@@ -10,7 +10,12 @@ describe Admin::UsersController do
       user: {
         email: "dodge@podge.com",
         password: "PeggyPeggy",
-        password_confirmation: "PeggyPeggy"
+        password_confirmation: "PeggyPeggy",
+        profile_attributes: {
+          first_name: "Peggy",
+          surname: "Olsen",
+          role: Profile::Roles::PHARMACY
+        }
       }
     }
   end
@@ -23,7 +28,7 @@ describe Admin::UsersController do
 
   describe "an authenticated admin" do
     before :all do
-      @admin = create_user(email: "dom@renupharm.ie")
+      @admin = create_admin_user(email: "dom@renupharm.ie")
       @user = create_user(email: "gary@digney.com")
     end
 

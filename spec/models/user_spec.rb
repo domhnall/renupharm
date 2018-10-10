@@ -50,10 +50,6 @@ describe User do
         expect(User.new(admin_params)).to be_admin
       end
 
-      it "should return false if the user has no associated profile" do
-        expect(User.new(@params.except(:profile_attributes))).not_to be_admin
-      end
-
       it "should return false if the user has an non-admin profile" do
         pharmacy_params = @params.dup.tap do |attrs|
           attrs[:profile_attributes][:role] = Profile::Roles::PHARMACY
