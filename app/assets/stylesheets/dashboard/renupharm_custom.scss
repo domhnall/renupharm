@@ -169,3 +169,9 @@ li.comment {
     width: 60%;
   }
 }
+
+#survey_responses {
+  .progress-group-prepend {
+    flex: 0 0 50%;
+  }
+}
