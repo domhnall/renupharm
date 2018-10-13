@@ -1,7 +1,7 @@
 = render "admin_charts"
 .row
   .col-md-12
-    .card#survey_responses
-      = render "survey_responses"
+    .card#survey_results
 
-= javascript_include_tag "dashboard/main"
+:javascript
+  document.dispatchEvent(new Event("admin_dashboard:init"));

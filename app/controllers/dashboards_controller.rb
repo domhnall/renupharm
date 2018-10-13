@@ -1,24 +1,9 @@
 class DashboardsController < AuthenticatedController
   def show
     get_data_for_admin_charts if current_user.admin?
-    get_survey_response_data if current_user.admin?
   end
 
   private
-
-  def get_survey_response_data
-    @total_responses = SurveyResponse.count
-    @stats = (0..3).map do |i|
-      {yes: ((SurveyResponse.where("question_#{i+1} = 1").count/@total_responses.to_f)*100).round,
-       no: ((SurveyResponse.where("question_#{i+1} = 0").count/@total_responses.to_f)*100).round }
-    end
-
-    labels = SurveyResponse::WASTAGE_BUCKETS.map{ |b| I18n.t("surveys.survey.question_5.labels.#{b}") }
-    counts = SurveyResponse.group(:question_5).count
-    @wastages_chart_presenter = Presenters::ChartPresenter.new(labels).tap do |presenter|
-      presenter.add_dataset("Cost of medications disposed", SurveyResponse::WASTAGE_BUCKETS.map{ |b| (counts.fetch(b, 0)/@total_responses.to_f)*100 })
-    end
-  end
 
   def get_data_for_admin_charts
     @total_sales_pharmacies     = Sales::Pharmacy.count
