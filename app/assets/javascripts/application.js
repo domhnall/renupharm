@@ -19,4 +19,4 @@
 //= require turbolinks
 //= require_directory .
 //= require_tree ./global
-//= require_tree ./pages
+//= require_tree ./shared

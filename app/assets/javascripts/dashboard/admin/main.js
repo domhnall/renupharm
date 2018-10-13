@@ -1,3 +1,4 @@
+//=require '../../shared/survey'
 /* eslint-disable object-shorthand */
 
 /* global Chart, CustomTooltips, getStyle, hexToRgba */
@@ -92,42 +93,15 @@ var init_admin_dashboard = function(){
 
   var survey_response_container = document.getElementById("survey_results"),
       content = document.createElement('div');
-  fetch("/survey_responses").then(function(res){
+  fetch("/survey_responses?layout=false").then(function(res){
     return res.text();
   }).then(function(html){
     content.innerHTML = html;
     survey_response_container.appendChild(content);
-    init_survey_results();
+    SURVEY.init_survey_results();
   });
 };
 
-var init_survey_results = function(){
-  var wastages_data = JSON.parse($('#wastages .data').html());
-  wastages_data.datasets.forEach(function(ds){
-    ds.backgroundColor = 'rgba(99, 194, 222, 0.5)';
-    ds.borderColor = 'rgba(99, 194, 222, 0.8)';
-    ds.highlightFill = 'rgba(99, 194, 222, 0.75)';
-    ds.highlightStroke = 'rgba(99, 194, 222, 1)';
-  });
-  var barChart = new Chart($('#wastages canvas'), {
-    type: 'bar',
-    data: wastages_data,
-    options: {
-      responsive: true,
-      legend: {
-        display: false
-      },
-      scales: {
-        yAxes: [{
-          ticks: {
-            min: 0,
-            suggestedMax: 100
-          }
-        }]
-      }
-    }
-  });
-};
 
 document.addEventListener("admin_dashboard:init", function() {
   init_admin_dashboard();

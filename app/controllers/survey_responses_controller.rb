@@ -1,5 +1,6 @@
 class SurveyResponsesController < ApplicationController
   def index
+    @total_sales_pharmacies = Sales::Pharmacy.count
     @total_responses = SurveyResponse.count
     @stats = (0..3).map do |i|
       {yes: ((SurveyResponse.where("question_#{i+1} = 1").count/@total_responses.to_f)*100).round,
@@ -11,7 +12,7 @@ class SurveyResponsesController < ApplicationController
     @wastages_chart_presenter = Presenters::ChartPresenter.new(labels).tap do |presenter|
       presenter.add_dataset("Cost of medications disposed", SurveyResponse::WASTAGE_BUCKETS.map{ |b| (counts.fetch(b, 0)/@total_responses.to_f)*100 })
     end
-    render layout: false
+    render layout: params.fetch(:layout, "true")=="false" ? false : true
   end
 
   def new
@@ -23,9 +24,6 @@ class SurveyResponsesController < ApplicationController
 
   def create
     contact = Sales::Contact.find_by_email(params[:survey_response][:sales_contact_attributes][:email])
-    #contact = if params[:survey_response][:sales_contact_attributes][:email].present?
-    #  Sales::Contact.find_by_email(params[:survey_response][:sales_contact_attributes][:email])
-    #end
     @survey_response = SurveyResponse.new(filtered_params(contact && contact.id))
     verify_recaptcha(@survey_response)
     if @survey_response.valid? && @survey_response.save
