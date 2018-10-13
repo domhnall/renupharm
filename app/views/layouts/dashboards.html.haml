@@ -17,6 +17,7 @@
     = stylesheet_link_tag    'dashboard/manifest', media: 'all', 'data-turbolinks-track': 'reload'
     - if current_user && current_user.admin?
       = javascript_include_tag 'dashboard/admin/manifest', 'data-turbolinks-track': 'reload'
+      = javascript_pack_tag 'admin/dashboard.js'
     - else
       = javascript_include_tag 'dashboard/manifest', 'data-turbolinks-track': 'reload'
     = csrf_meta_tags

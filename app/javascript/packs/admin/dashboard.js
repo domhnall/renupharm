@@ -1,17 +1,7 @@
-//=require '../../shared/survey'
-/* eslint-disable object-shorthand */
+import Chart from 'chart.js';
+import Survey from '../survey.js';
 
-/* global Chart, CustomTooltips, getStyle, hexToRgba */
-
-/**
- * --------------------------------------------------------------------------
- * CoreUI Free Boostrap Admin Template (v2.0.0): main.js
- * Licensed under MIT (https://coreui.io/license)
- * --------------------------------------------------------------------------
- */
-
-/* eslint-disable no-magic-numbers */
-var init_admin_dashboard = function(){
+const init_admin_dashboard = function(){
   // Disable the on-canvas tooltip
   Chart.defaults.global.pointHitDetectionRadius = 1;
   Chart.defaults.global.tooltips.enabled = false;
@@ -19,25 +9,25 @@ var init_admin_dashboard = function(){
   Chart.defaults.global.tooltips.position = 'nearest';
   Chart.defaults.global.tooltips.custom = CustomTooltips; // eslint-disable-next-line no-unused-vars
 
-  var pharmacies = JSON.parse($('#sales_pharmacies .data').html());
+  let pharmacies = JSON.parse(document.querySelector('#sales_pharmacies .data').innerHTML);
   pharmacies.datasets.forEach(function(ds){
     ds.backgroundColor = getStyle('--primary');
     ds.borderColor = 'rgba(255,255,255,.55)';
   });
 
-  var survey_responses = JSON.parse($('#survey_responses .data').html());
+  let survey_responses = JSON.parse(document.querySelector('#survey_responses .data').innerHTML);
   survey_responses.datasets.forEach(function(ds){
     ds.backgroundColor = getStyle('--info');
     ds.borderColor = 'rgba(255,255,255,.55)';
   });
 
-  var outreach = JSON.parse($('#outreach .data').html());
+  let outreach = JSON.parse(document.querySelector('#outreach .data').innerHTML);
   outreach.datasets.forEach(function(ds){
     ds.backgroundColor = 'rgba(255,255,255,.2)';
     ds.borderColor = 'rgba(255,255,255,.55)';
   });
 
-  var shared_chart_options = {
+  let shared_chart_options = {
     maintainAspectRatio: false,
     legend: {
       display: false
@@ -73,35 +63,34 @@ var init_admin_dashboard = function(){
     }
   };
 
-  var pharmaciesChart = new Chart($('#sales_pharmacies canvas'), {
+  new Chart(document.querySelector('#sales_pharmacies canvas'), {
     type: 'line',
     data: pharmacies,
     options: shared_chart_options
-  }); // eslint-disable-next-line no-unused-vars
+  });
 
-  var survey_responses_chart = new Chart($('#survey_responses canvas'), {
+  new Chart(document.querySelector('#survey_responses canvas'), {
     type: 'line',
     data: survey_responses,
     options: shared_chart_options
   });
 
-  var outreach_chart = new Chart($('#outreach canvas'), {
+  new Chart(document.querySelector('#outreach canvas'), {
     type: 'line',
     data: outreach,
     options: shared_chart_options
   });
 
-  var survey_response_container = document.getElementById("survey_results"),
+  let survey_response_container = document.getElementById("survey_results"),
       content = document.createElement('div');
   fetch("/survey_responses?layout=false").then(function(res){
     return res.text();
   }).then(function(html){
     content.innerHTML = html;
     survey_response_container.appendChild(content);
-    SURVEY.init_survey_results();
+    Survey.init_survey_results();
   });
 };
-
 
 document.addEventListener("admin_dashboard:init", function() {
   init_admin_dashboard();

@@ -14,5 +14,4 @@
 //= require_tree '../../global'
 //= require '../renupharm_custom'
 //= require_tree './pages'
-//= require './main'
 //= require turbolinks
