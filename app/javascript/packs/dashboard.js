@@ -1,1 +1,1 @@
-//import '../survey';
+import '../dashboard';
