@@ -71,3 +71,21 @@
               #g-recaptcha-container{ data: {sitekey: Rails.application.credentials.recaptcha[:site_key] } }
                 %script{src: "https://www.google.com/recaptcha/api.js?onload=onload_recaptcha&render=explicit", async: true, defer: true}
               = submit_tag t('surveys.survey.submit'), id: 'submit_survey', class: 'btn btn-info', disabled: true, "aria-disabled" => true
+:javascript
+  var recaptcha_successful = function(){
+    const submit_btn = document.querySelector("input#submit_survey");
+    submit_btn.disabled = false;
+    submit_btn.setAttribute("aria-disabled", false);
+  };
+
+
+  var onload_recaptcha = function(){
+    var container = document.getElementById('g-recaptcha-container');
+    container.innerHTML = '';
+    var recaptcha = document.createElement('div');
+    grecaptcha.render(recaptcha, {
+      sitekey: container.dataset.sitekey,
+      callback: 'recaptcha_successful'
+    });
+    container.appendChild(recaptcha);
+  };
