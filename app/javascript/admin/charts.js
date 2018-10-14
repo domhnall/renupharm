@@ -1,7 +1,8 @@
 import Chart from 'chart.js';
-import Survey from '../survey.js';
+import Survey from '../survey/survey.js';
+import '../survey/style.scss';
 
-const init_admin_dashboard = function(){
+const init_admin_charts = function(){
   // Disable the on-canvas tooltip
   Chart.defaults.global.pointHitDetectionRadius = 1;
   Chart.defaults.global.tooltips.enabled = false;
@@ -92,6 +93,4 @@ const init_admin_dashboard = function(){
   });
 };
 
-document.addEventListener("admin_dashboard:init", function() {
-  init_admin_dashboard();
-});
+export default init_admin_charts;

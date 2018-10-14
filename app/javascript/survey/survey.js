@@ -1,9 +1,6 @@
 import Chart from 'chart.js';
-document.addEventListener('turbolinks:load', () => {
-  survey.init_survey_results();
-});
 
-const survey = {
+const Survey = {
   init_survey_results: function(){
     if(!document.querySelector("#wastages .data")) {
       return;
@@ -37,4 +34,4 @@ const survey = {
   }
 };
 
-export default survey;
+export default Survey;
