@@ -1,0 +1,9 @@
+.hidden {
+  display: none;
+}
+
+.survey_results {
+  .progress-group-prepend {
+    flex: 0 0 50%;
+  }
+}

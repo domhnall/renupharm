@@ -11,6 +11,7 @@ class Profile < ApplicationRecord
 
   include ActsAsIrishPhoneContact
   belongs_to :user
+  has_one_attached :avatar
 
   validates :first_name, presence: true, length: {minimum: 2, maximum: 30}
   validates :surname, presence: true, length: {minimum: 2, maximum: 30}

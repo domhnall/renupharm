@@ -34,7 +34,7 @@ describe Admin::Sales::PharmaciesController do
 
   describe "an authenticated admin" do
     before :all do
-      @admin = create_user(email: 'dom@renupharm.ie')
+      @admin = create_admin_user(email: 'dom@renupharm.ie')
       @pharmacy = Sales::Pharmacy.create!({
         name: "Bloggs",
         address_1: "8a Greenan Road",

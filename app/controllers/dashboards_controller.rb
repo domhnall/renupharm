@@ -13,6 +13,7 @@ class DashboardsController < AuthenticatedController
 
     @total_survey_responses     = SurveyResponse.count
     @survey_chart_presenter     = Presenters::ChartPresenter.new(get_week_labels).tap do |presenter|
+
       presenter.add_dataset("Surveys completed", survey_responses_by_week)
     end
 

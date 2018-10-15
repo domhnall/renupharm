@@ -14,11 +14,14 @@
       = render 'layouts/google_analytics'
       = javascript_include_tag "https://cdn.ravenjs.com/3.26.4/raven.min.js", crossorigin: "anonymous"
     %meta{content: "width=device-width, initial-scale=1, maximum-scale=1", name: "viewport"}/
+    = javascript_include_tag 'dashboard/manifest', 'data-turbolinks-track': 'reload'
     = stylesheet_link_tag    'dashboard/manifest', media: 'all', 'data-turbolinks-track': 'reload'
     - if current_user && current_user.admin?
-      = javascript_include_tag 'dashboard/admin/manifest', 'data-turbolinks-track': 'reload'
+      = javascript_pack_tag 'admin'
+      = stylesheet_pack_tag 'admin'
     - else
-      = javascript_include_tag 'dashboard/manifest', 'data-turbolinks-track': 'reload'
+      = javascript_pack_tag 'dashboard'
+      = stylesheet_pack_tag 'dashboard'
     = csrf_meta_tags
     = csp_meta_tag
     = render 'layouts/favicon'

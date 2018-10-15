@@ -1,5 +1,4 @@
 class Admin::BaseController < AuthenticatedController
-  layout 'dashboards'
   before_action :ensure_is_admin
 
   private

@@ -35,19 +35,25 @@ describe User do
       expect(User.new(@params.merge(password: "foobar", password_confirmation: "hoobar"))).not_to be_valid
       expect(User.new(@params.merge(password: "foobar", password_confirmation: "fooBar"))).not_to be_valid
     end
+
+    it "should not be valid when :profile is not defined" do
+      expect(User.new(@params.except(:profile_attributes))).not_to be_valid
+    end
   end
 
   describe "instance method" do
+    [:profile, :comments, :admin?, :pharmacy?, :courier?, :full_name].each do |method|
+      it "should respond to :#{method}" do
+        expect(User.new(@params)).to respond_to method
+      end
+    end
+
     describe "#admin?" do
       it "should return true if the user has an admin profile" do
         admin_params = @params.dup.tap do |attrs|
           attrs[:profile_attributes][:role] = Profile::Roles::ADMIN
         end
         expect(User.new(admin_params)).to be_admin
-      end
-
-      it "should return false if the user has no associated profile" do
-        expect(User.new(@params.except(:profile_attributes))).not_to be_admin
       end
 
       it "should return false if the user has an non-admin profile" do
@@ -88,6 +94,24 @@ describe User do
         expect(Comment.count).to eq orig_count
         expect(Comment.where(user_id: @user.id).count).to eq 0
       end
+    end
+  end
+
+  describe "destruction" do
+    before :each do
+      @user = User.create!(@params.merge(email: "davy@destruction.com"))
+    end
+
+    it "should destroy the User model" do
+      orig_count = User.count
+      @user.destroy
+      expect(User.count).to eq orig_count-1
+    end
+
+    it "should destroy the associated Profile model" do
+      orig_count = Profile.count
+      @user.destroy
+      expect(Profile.count).to eq orig_count-1
     end
   end
 end

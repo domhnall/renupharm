@@ -11,7 +11,7 @@ describe Admin::BaseController, type: :controller do
 
   before :all do
     @user = create_user
-    @admin_user = create_user(email: 'john@renupharm.ie')
+    @admin_user = create_admin_user(email: 'john@renupharm.ie')
   end
 
   describe "unauthenticated user" do

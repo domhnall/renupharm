@@ -2,8 +2,10 @@
   .col-md-12
     .card
       .show_record
-        %h2
-          = @user.email
+        %h2= @user.full_name
+
+        %h3= t('user.heading.security')
+
         .form-group.row
           %label.label.col-form-label.col-2
             = t('user.email')
@@ -28,6 +30,38 @@
           .col-10
             %span.form-control
               = @user.updated_at
+
+        %h3= t('user.heading.profile')
+
+        .row
+          .col-7
+            .form-group.row
+              %label.label.col-form-label.col-2
+                = t('profile.first_name')
+              .col-10
+                %span.form-control
+                  = @profile.first_name
+            .form-group.row
+              %label.label.col-form-label.col-2
+                = t('profile.surname')
+              .col-10
+                %span.form-control
+                  = @profile.surname
+            .form-group.row
+              %label.label.col-form-label.col-2
+                = t('profile.telephone')
+              .col-10
+                %span.form-control
+                  = @profile.telephone
+            .form-group.row
+              %label.label.col-form-label.col-2
+                = t('profile.role')
+              .col-10
+                %span.form-control
+                  = t("profile.roles.#{@profile.role}")
+          .col-5
+            = image_tag((@profile.avatar.attached? ? @profile.avatar : "placeholder-user.png"), class: 'img-avatar')
+
         .actions
           = link_to t('general.edit'), edit_admin_user_path(@user), class: 'btn btn-primary'
           = link_to t('general.cancel'), admin_users_path, class: 'btn btn-light'

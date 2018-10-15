@@ -5,7 +5,7 @@
 shared_examples "a basic admin controller with :edit" do |clazz|
   before :all do
     @user = create_user(email: 'editor@example.com')
-    @admin_user = create_user(email: 'editor@renupharm.ie')
+    @admin_user = create_admin_user(email: 'editor@renupharm.ie')
     @clazz = clazz
   end
 

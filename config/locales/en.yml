@@ -34,6 +34,8 @@ en:
     record_not_found: "Sorry, the requested item could not be found"
     access_denied: "You do not have access to the requested resource, please contact your administrator."
   general:
+    "yes": "Yes"
+    "no": "No"
     save: "Save"
     cancel: "Cancel"
     delete: "Delete"
@@ -203,6 +205,23 @@ en:
     created_at: "Created"
     updated_at: "Updated"
     current_sign_in_at: "Last sign in"
+    heading:
+      security: "Security"
+      profile: "Profile"
+  profile:
+    first_name: "First name"
+    surname: "Surname"
+    telephone: "Telephone"
+    role: "Role"
+    created_at: "Created"
+    updated_at: "Updated"
+    roles:
+      admin: "Admin"
+      pharmacy: "Pharmacy"
+      courier: "Courier"
+    heading:
+      show: "Your Profile"
+      edit: "Edit Profile"
   comment:
     commented_by: "created by <strong>%{commenter}</strong>"
     commented_at: "commented at <strong>%{commented_at}</strong>"
@@ -216,3 +235,33 @@ en:
     summary: "Showing %{start} to %{end} of %{total} entries"
     pagination:
       alt: "Table pagination"
+  sidebar:
+    headings:
+      dashboard: "Dashboard"
+      pharmacy: "Pharmacy"
+      courier: "Courier"
+      admin: "Admin"
+    pharmacy:
+      browse_marketplace: "Browse Marketplace"
+      my_shop: "My Shop"
+      sales: "Sales"
+      purchases: "Purchases"
+    courier:
+      headings:
+        deliveries: "Deliveries"
+      deliveries:
+        scheduled: "Scheduled"
+        completed: "Completed"
+    admin:
+      headings:
+        sales: "Sales"
+        marketplace: "Marketplace"
+        users: "Users"
+      sales:
+        pharmacies: "Pharmacies"
+        contacts: "Contacts"
+        survey_responses: "Survey Responses"
+      marketplace:
+        browse_marketplace: "Browse Marketplace"
+        network_pharmacies: "Network Pharmacies"
+        orders: "Orders"
