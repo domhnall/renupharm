@@ -213,10 +213,15 @@ en:
     surname: "Surname"
     telephone: "Telephone"
     role: "Role"
+    created_at: "Created"
+    updated_at: "Updated"
     roles:
       admin: "Admin"
       pharmacy: "Pharmacy"
       courier: "Courier"
+    heading:
+      show: "Your Profile"
+      edit: "Edit Profile"
   comment:
     commented_by: "created by <strong>%{commenter}</strong>"
     commented_at: "commented at <strong>%{commented_at}</strong>"

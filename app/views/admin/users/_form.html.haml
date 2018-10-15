@@ -15,18 +15,24 @@
   %h3= t('user.heading.profile')
 
   = form.fields_for :profile do |profile_form|
-    .form-group
-      = profile_form.label :first_name, t('profile.first_name'), class: 'col-form-label'
-      = profile_form.text_field :first_name, class: 'form-control'
-    .form-group
-      = profile_form.label :surname, t('profile.surname'), class: 'col-form-label'
-      = profile_form.text_field :surname, class: 'form-control'
-    .form-group
-      = profile_form.label :telephone, t('profile.telephone'), class: 'col-form-label'
-      = profile_form.text_field :telephone, class: 'form-control'
-    .form-group
-      = profile_form.label :role, t('profile.role'), class: 'col-form-label'
-      = profile_form.select :role, options_for_select(Profile::Roles::valid_roles.map{ |r| [t("profile.roles.#{r}"),r] }), {}, class: 'form-control'
+    .row
+      .col-7
+        .form-group
+          = profile_form.label :first_name, t('profile.first_name'), class: 'col-form-label'
+          = profile_form.text_field :first_name, class: 'form-control'
+        .form-group
+          = profile_form.label :surname, t('profile.surname'), class: 'col-form-label'
+          = profile_form.text_field :surname, class: 'form-control'
+        .form-group
+          = profile_form.label :telephone, t('profile.telephone'), class: 'col-form-label'
+          = profile_form.text_field :telephone, class: 'form-control'
+        .form-group
+          = profile_form.label :role, t('profile.role'), class: 'col-form-label'
+          = profile_form.select :role, options_for_select(Profile::Roles::valid_roles.map{ |r| [t("profile.roles.#{r}"),r] }), {}, class: 'form-control'
+      .col-5
+        .form-group
+          = image_tag((avatar = @user.profile.avatar).attached? ? avatar : "placeholder-user.png", class: 'img-avatar')
+          = profile_form.file_field :avatar
 
   .actions
     - if @user.persisted?

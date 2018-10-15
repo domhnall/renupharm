@@ -33,30 +33,35 @@
 
         %h3= t('user.heading.profile')
 
-        .form-group.row
-          %label.label.col-form-label.col-2
-            = t('profile.first_name')
-          .col-10
-            %span.form-control
-              = @profile.first_name
-        .form-group.row
-          %label.label.col-form-label.col-2
-            = t('profile.surname')
-          .col-10
-            %span.form-control
-              = @profile.surname
-        .form-group.row
-          %label.label.col-form-label.col-2
-            = t('profile.telephone')
-          .col-10
-            %span.form-control
-              = @profile.telephone
-        .form-group.row
-          %label.label.col-form-label.col-2
-            = t('profile.role')
-          .col-10
-            %span.form-control
-              = t("profile.roles.#{@profile.role}")
+        .row
+          .col-7
+            .form-group.row
+              %label.label.col-form-label.col-2
+                = t('profile.first_name')
+              .col-10
+                %span.form-control
+                  = @profile.first_name
+            .form-group.row
+              %label.label.col-form-label.col-2
+                = t('profile.surname')
+              .col-10
+                %span.form-control
+                  = @profile.surname
+            .form-group.row
+              %label.label.col-form-label.col-2
+                = t('profile.telephone')
+              .col-10
+                %span.form-control
+                  = @profile.telephone
+            .form-group.row
+              %label.label.col-form-label.col-2
+                = t('profile.role')
+              .col-10
+                %span.form-control
+                  = t("profile.roles.#{@profile.role}")
+          .col-5
+            = image_tag((@profile.avatar.attached? ? @profile.avatar : "placeholder-user.png"), class: 'img-avatar')
+
         .actions
           = link_to t('general.edit'), edit_admin_user_path(@user), class: 'btn btn-primary'
           = link_to t('general.cancel'), admin_users_path, class: 'btn btn-light'

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resources :survey_responses, only: [:index, :new, :create]
   resource :dashboard, only: [:show]
+  resource :profile, only: [:show, :edit, :update]
 
   namespace :sales do
     resources :contacts, only: [:create]
