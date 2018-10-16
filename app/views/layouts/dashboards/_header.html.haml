@@ -8,7 +8,7 @@
   %ul.nav.navbar-nav.ml-auto
     %li.nav-item.dropdown
       %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#", role: "button"}
-        = image_tag((avatar = current_user.profile.avatar).attached? ? avatar : "placeholder-user.png", class: 'img-avatar')
+        = image_tag((avatar = current_user.profile.avatar).attached? ? avatar.variant(resize: "100x100") : "placeholder-user.png", class: 'img-avatar')
       .dropdown-menu.dropdown-menu-right
         .dropdown-header.text-center
           %strong= current_user.email
