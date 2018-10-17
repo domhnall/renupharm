@@ -5,6 +5,12 @@ describe Admin::UsersController do
 
   before :all do
     @existing = create_user(email: "existing@user.com")
+    # This hack ensures the timestamp changes on User model on update, so
+    # we can use the shared :update specs
+    # Without this timestamp update the model looks unchanged as the JSON
+    # representation is not updated until the email change is confirmed by
+    # the user.
+    sleep 1
 
     @create_params = {
       user: {
