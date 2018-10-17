@@ -20,6 +20,7 @@ describe Admin::UsersController do
     }
     @update_params = @create_params.merge(id: @existing.id).tap do |update_params|
       update_params[:user][:email] = "stoge@podge.com"
+      update_params[:user][:profile_attributes][:id] = @existing.profile.id
     end
   end
 
