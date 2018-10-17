@@ -265,3 +265,7 @@ en:
         browse_marketplace: "Browse Marketplace"
         network_pharmacies: "Network Pharmacies"
         orders: "Orders"
+  marketplace:
+    listing:
+      errors:
+        minimum_expiry: "Valid Marketplace listings must have a minium shelf-life of %{days} days"

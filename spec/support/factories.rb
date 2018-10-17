@@ -20,4 +20,7 @@ module Factories
       user.profile.update_column(:role, Profile::Roles::ADMIN)
     end
   end
+
+  def create_pharmacy(attrs = {})
+  end
 end

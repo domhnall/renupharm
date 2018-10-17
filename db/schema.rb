@@ -44,17 +44,69 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "marketplace_agents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_pharmacy_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_pharmacy_id"], name: "index_marketplace_agents_on_marketplace_pharmacy_id"
+    t.index ["user_id"], name: "index_marketplace_agents_on_user_id"
+  end
+
+  create_table "marketplace_line_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_order_id"
+    t.bigint "marketplace_listing_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_listing_id"], name: "index_marketplace_line_items_on_marketplace_listing_id"
+    t.index ["marketplace_order_id"], name: "index_marketplace_line_items_on_marketplace_order_id"
+  end
+
+  create_table "marketplace_listings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_pharmacy_id"
+    t.bigint "marketplace_product_id"
+    t.integer "quantity"
+    t.integer "price_cents"
+    t.date "expiry"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_pharmacy_id"], name: "index_marketplace_listings_on_marketplace_pharmacy_id"
+    t.index ["marketplace_product_id"], name: "index_marketplace_listings_on_marketplace_product_id"
+  end
+
+  create_table "marketplace_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_agent_id"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_agent_id"], name: "index_marketplace_orders_on_marketplace_agent_id"
+  end
+
   create_table "marketplace_pharmacies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
+    t.text "description"
     t.string "address_1"
     t.string "address_2"
     t.string "address_3"
     t.string "telephone"
+    t.string "fax"
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_marketplace_pharmacies_on_email", unique: true
     t.index ["name"], name: "index_marketplace_pharmacies_on_name", unique: true
+  end
+
+  create_table "marketplace_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_pharmacy_id"
+    t.string "name"
+    t.text "description"
+    t.string "unit_size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_pharmacy_id"], name: "index_marketplace_products_on_marketplace_pharmacy_id"
+    t.index ["name", "unit_size"], name: "index_marketplace_products_on_name_and_unit_size", unique: true
   end
 
   create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -136,6 +188,14 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
   end
 
   add_foreign_key "comments", "users"
+  add_foreign_key "marketplace_agents", "marketplace_pharmacies"
+  add_foreign_key "marketplace_agents", "users"
+  add_foreign_key "marketplace_line_items", "marketplace_listings"
+  add_foreign_key "marketplace_line_items", "marketplace_orders"
+  add_foreign_key "marketplace_listings", "marketplace_pharmacies"
+  add_foreign_key "marketplace_listings", "marketplace_products"
+  add_foreign_key "marketplace_orders", "marketplace_agents"
+  add_foreign_key "marketplace_products", "marketplace_pharmacies"
   add_foreign_key "profiles", "users"
   add_foreign_key "sales_contacts", "sales_pharmacies"
   add_foreign_key "survey_responses", "sales_contacts"
