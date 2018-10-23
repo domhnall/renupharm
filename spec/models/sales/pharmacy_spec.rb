@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Sales::Pharmacy do
-  include Factories
+  include Factories::Base
 
   before :all do
     @params = {

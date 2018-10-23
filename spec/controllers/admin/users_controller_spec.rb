@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Admin::UsersController do
-  include Factories
+  include Factories::Base
 
   before :all do
     @existing = create_user(email: "existing@user.com")

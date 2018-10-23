@@ -269,3 +269,6 @@ en:
     listing:
       errors:
         minimum_expiry: "Valid Marketplace listings must have a minium shelf-life of %{days} days"
+    order:
+      errors:
+        max_line_items: "Valid orders can only have %{max} line items, please remove some items from your basket."

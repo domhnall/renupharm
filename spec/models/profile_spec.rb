@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Profile do
-  include Factories
+  include Factories::Base
 
   before :all do
     @user = create_user(email: "pete@murphy.com")

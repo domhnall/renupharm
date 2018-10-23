@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe "login" do
-  include Factories
 
   describe "non authenticated user" do
     it "should be able to login" do

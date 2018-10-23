@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe AuthenticatedController, type: :controller do
-  include Factories
+  include Factories::Base
 
   controller do
     def index

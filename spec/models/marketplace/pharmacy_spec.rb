@@ -1,6 +1,23 @@
 require 'rails_helper'
 
 describe Marketplace::Pharmacy do
+
+  [ :name,
+    :description,
+    :email,
+    :address_1,
+    :address_2,
+    :address_3,
+    :telephone,
+    :fax,
+    :image,
+    :agents,
+    :products ].each do |method|
+    it "should respond to :#{method}" do
+      expect(Marketplace::Pharmacy.new).to respond_to method
+    end
+  end
+
   describe "instantiation" do
     before :all do
       @params = {
