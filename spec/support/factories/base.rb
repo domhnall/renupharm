@@ -35,7 +35,7 @@ module Factories
     end
 
     def create_johnny
-      johnny = Factories.create_user({
+      johnny = create_user({
         email: "johnny@renupharm.ie",
         profile_attributes: {
           first_name: "Johnny",

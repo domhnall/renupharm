@@ -8,6 +8,8 @@ class Marketplace::Product < ApplicationRecord
     class_name: "Marketplace::Listing",
     foreign_key: :marketplace_product_id
 
+  has_many_attached :images
+
   validates :name, :description, :unit_size, presence: true
   validates :name, length: { minimum: 3, maximum: 255 }
   validates :unit_size, length: { minimum: 1, maximum: 255 }

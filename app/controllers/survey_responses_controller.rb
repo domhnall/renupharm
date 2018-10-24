@@ -2,9 +2,15 @@ class SurveyResponsesController < ApplicationController
   def index
     @total_sales_pharmacies = Sales::Pharmacy.count
     @total_responses = SurveyResponse.count
-    @stats = (0..3).map do |i|
-      {yes: ((SurveyResponse.where("question_#{i+1} = 1").count/@total_responses.to_f)*100).round,
-       no: ((SurveyResponse.where("question_#{i+1} = 0").count/@total_responses.to_f)*100).round }
+    @stats = if @total_responses>0
+      (0..3).map do |i|
+        {yes: ((SurveyResponse.where("question_#{i+1} = 1").count/@total_responses.to_f)*100).round,
+         no: ((SurveyResponse.where("question_#{i+1} = 0").count/@total_responses.to_f)*100).round }
+      end
+    else
+      (0..3).map do |i|
+        { yes: 0, no: 0 }
+      end
     end
 
     labels = SurveyResponse::WASTAGE_BUCKETS.map{ |b| I18n.t("surveys.survey.question_5.labels.#{b}") }

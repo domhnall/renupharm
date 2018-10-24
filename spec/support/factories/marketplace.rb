@@ -1,5 +1,7 @@
 module Factories
   module Marketplace
+    include Factories::Base
+
     def create_pharmacy(attrs = {})
       ::Marketplace::Pharmacy.create({
         name: attrs.fetch(:name){ "Larusso's Pharmacy" },
@@ -62,10 +64,5 @@ module Factories
         })
       end.reload
     end
-
-    def create_user(attrs = {})
-      Class.new.extend(Factories::Base).create_user(attrs)
-    end
-
   end
 end
