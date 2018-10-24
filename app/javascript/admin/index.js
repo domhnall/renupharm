@@ -1,3 +1,5 @@
+import '../dashboard/style.scss';
+import './style.scss';
 import init_charts from './charts';
 import init_comments from './comments';
 

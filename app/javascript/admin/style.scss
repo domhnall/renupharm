@@ -1,0 +1,39 @@
+// Marketplace
+.active_indicator {
+  display: inline;
+  position: relative;
+  width: 50px;
+  height: 25px;
+  color: white;
+  font-size: x-small;
+  font-weight: bold;
+  padding: 5px;
+  top: -10px;
+  border-radius: 0.3rem;
+  text-align: center;
+  &.active {
+    background: green;
+    &:before {
+      content: "active";
+    }
+  }
+  &.inactive {
+    background: red;
+    &:before {
+      content: "inactive";
+    }
+  }
+}
+
+td .active_indicator {
+  float: right;
+}
+
+.pharmacy_agents, .pharmacy_products, .pharmacy_listings {
+  width: 70%;
+  margin: auto;
+  h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
