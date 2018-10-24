@@ -2,6 +2,17 @@ require 'rails_helper'
 
 describe Marketplace::Pharmacy do
 
+  before :all do
+    @params = {
+      name: "Sandymount Pharmacy on the Green",
+      address_1:  "1a Sandymount Green",
+      address_2: "Dublin 4, Irishtown",
+      address_3: "Dublin 4",
+      telephone: "(01) 283 7188",
+      email: "grainne@sandymount.ie"
+    }
+  end
+
   [ :name,
     :description,
     :email,
@@ -12,24 +23,14 @@ describe Marketplace::Pharmacy do
     :fax,
     :image,
     :agents,
-    :products ].each do |method|
+    :products,
+    :address ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Pharmacy.new).to respond_to method
     end
   end
 
   describe "instantiation" do
-    before :all do
-      @params = {
-        name: "Sandymount Pharmacy on the Green",
-        address_1:  "1a Sandymount Green",
-        address_2: "Dublin 4, Irishtown",
-        address_3: "Dublin 4",
-        telephone: "(01) 283 7188",
-        email: "grainne@sandymount.ie"
-      }
-    end
-
     it "should be valid when all mandatory attributes are supplied" do
       expect(Marketplace::Pharmacy.new(@params)).to be_valid
     end
@@ -102,6 +103,18 @@ describe Marketplace::Pharmacy do
       expect(existing_contact = Marketplace::Pharmacy.new(@params)).to be_valid
       existing_contact.save!
       expect(Marketplace::Pharmacy.new(@params.merge(name: "Alternative", email: "alt@sandymount.ie"))).to be_valid
+    end
+  end
+
+  describe "instance method" do
+    describe "#address" do
+      it "should return a comma separated list of the address components" do
+        expect(Marketplace::Pharmacy.new(@params).address).to eq "1a Sandymount Green, Dublin 4, Irishtown, Dublin 4"
+      end
+
+      it "should return strip out any nil components without leaving commas" do
+        expect(Marketplace::Pharmacy.new(@params.merge(address_2: "")).address).to eq "1a Sandymount Green, Dublin 4"
+      end
     end
   end
 end

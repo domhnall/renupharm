@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
   create_table "marketplace_agents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "marketplace_pharmacy_id"
     t.bigint "user_id"
+    t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_agents_on_marketplace_pharmacy_id"
@@ -92,6 +93,7 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.string "telephone"
     t.string "fax"
     t.string "email"
+    t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_marketplace_pharmacies_on_email", unique: true
@@ -103,6 +105,7 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.string "name"
     t.text "description"
     t.string "unit_size"
+    t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_products_on_marketplace_pharmacy_id"

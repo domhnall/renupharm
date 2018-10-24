@@ -272,3 +272,17 @@ en:
     order:
       errors:
         max_line_items: "Valid orders can only have %{max} line items, please remove some items from your basket."
+    pharmacy:
+      name: "Name"
+      description: "Description"
+      address: "Address"
+      address_1: "Address 1"
+      address_2: "Address 2"
+      address_3: "Address 3"
+      email: "Email"
+      telephone: "Telephone"
+      fax: "Fax"
+      active: "Active"
+      messages:
+        deactive: "Deactivate"
+        confirm_deactivation: "Are you sure you want to deactivate this pharmacy? This will deactive all their products and delist all of their stock."

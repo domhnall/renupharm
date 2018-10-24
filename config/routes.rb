@@ -31,6 +31,11 @@ Rails.application.routes.draw do
     end
     resources :survey_responses, only: [:index]
     resources :users
+
+    namespace :marketplace do
+      resources :pharmacies, only: [:index, :new, :create, :show, :edit, :update]
+      resources :orders, only: [:index, :edit, :update]
+    end
   end
 
   root 'pages#index'
