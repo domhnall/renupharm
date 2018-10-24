@@ -9,7 +9,16 @@ describe Marketplace::Listing do
     :expiry,
     :product,
     :active,
-    :acceptable_expiry? ].each do |method|
+    :acceptable_expiry?,
+    :product_name,
+    :product_description,
+    :product_unit_size,
+    :product_images,
+    :seller_name,
+    :seller_address,
+    :seller_telephone,
+    :seller_email,
+    :seller_image ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Listing.new).to respond_to method
     end

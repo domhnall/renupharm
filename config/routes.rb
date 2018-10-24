@@ -20,6 +20,11 @@ Rails.application.routes.draw do
     resources :contacts, only: [:create]
   end
 
+  namespace :marketplace do
+    root to: "listings#index"
+    resource :order, only: [:new, :create, :show]
+  end
+
   namespace :admin do
     namespace :sales do
       resources :pharmacies do

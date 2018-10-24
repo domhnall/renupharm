@@ -8,7 +8,7 @@
       %li.divider
       %li.nav-title= t("sidebar.headings.pharmacy")
       %li.nav-item
-        %a.nav-link{href: dashboard_path(dummy: true)}
+        %a.nav-link{href: marketplace_root_path}
           %i.nav-icon.fa.fa-shopping-cart
           = t("sidebar.pharmacy.browse_marketplace")
       %li.nav-item
@@ -67,7 +67,7 @@
           = t("sidebar.admin.headings.marketplace")
         %ul.nav-dropdown-items
           %li.nav-item
-            %a.nav-link{href: dashboard_path(dummy: true)}
+            %a.nav-link{href: marketplace_root_path}
               %i.nav-icon.fa.fa-chevron-right
               = t("sidebar.admin.marketplace.browse_marketplace")
           %li.nav-item

@@ -6,4 +6,8 @@ module ApplicationHelper
   def truncate_with_ellipsis(str, limit=100)
     str[0..limit] + " …"
   end
+
+  def format_date(date)
+    date.strftime("%Y-%m-%d")
+  end
 end

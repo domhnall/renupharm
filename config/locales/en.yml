@@ -44,6 +44,9 @@ en:
     update: "Update"
     add: "Add"
     search: "Search"
+    previous: "Previous"
+    next: "Next"
+    see_more: "See more"
     confirm_delete: "Are you sure you want to delete this record? This action cannot be undone."
     email_validator:
       error: "is not an email"
@@ -266,7 +269,20 @@ en:
         network_pharmacies: "Network Pharmacies"
         orders: "Orders"
   marketplace:
+    product:
+      name: "Name"
+      description: "Description"
+      unit_size: "Unit size"
+      listings: "Listings"
+      images: "Images"
     listing:
+      quantity: "Quantity"
+      expiry: "Expiry"
+      price_cents: "Price cents"
+      labels:
+        sold_by: "Sold by"
+        buy_now: "Buy now"
+        expires: "Expires:"
       errors:
         minimum_expiry: "Valid Marketplace listings must have a minium shelf-life of %{days} days"
     order:

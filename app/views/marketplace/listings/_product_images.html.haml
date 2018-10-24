@@ -1,0 +1,11 @@
+#product_carousel.carousel.slide{data: {ride: "carousel", interval: "0"}}
+  .carousel-inner
+    - product_images.each_with_index do |image, i|
+      .carousel-item{ class: i==0 ? 'active' : '' }
+        = image_tag(image, class: "d-block w-100")
+  %a.carousel-control-prev{"data-slide" => "prev", :href => "#product_carousel", :role => "button"}
+    %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+    %span.sr-only= t("general.previous")
+  %a.carousel-control-next{"data-slide" => "next", :href => "#product_carousel", :role => "button"}
+    %span.carousel-control-next-icon{"aria-hidden" => "true"}
+    %span.sr-only= t("general.next")
