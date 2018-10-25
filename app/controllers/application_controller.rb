@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
-  rescue_from Errors::AccessDenied do |exception|
+  include Pundit
+
+  rescue_from Errors::AccessDenied, Pundit::NotAuthorizedError do |exception|
     flash[:error] ||= I18n.t('errors.access_denied')
-    redirect_to root_path
+    redirect_to(request.referrer || root_path)
   end
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
