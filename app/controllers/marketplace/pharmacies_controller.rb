@@ -1,16 +1,20 @@
 class Marketplace::PharmaciesController < AuthenticatedController
   def show
-    @marketplace_pharmacy = ::Marketplace::Pharmacy.active.find(params.fetch(:id).to_i)
+    @marketplace_pharmacy = ::Marketplace::Pharmacy.find(params.fetch(:id).to_i)
+    authorize @marketplace_pharmacy
     render 'marketplace/shared/pharmacies/show'
   end
 
   def edit
+    @marketplace_pharmacy = ::Marketplace::Pharmacy.find(params.fetch(:id).to_i)
+    authorize @marketplace_pharmacy
     @marketplace_pharmacy = ::Marketplace::Pharmacy.active.where(id: current_user.pharmacy.id).find(params.fetch(:id).to_i)
     render 'marketplace/shared/pharmacies/edit'
   end
 
   def update
-    @marketplace_pharmacy = ::Marketplace::Pharmacy.active.where(id: current_user.pharmacy.id).find(params.fetch(:id).to_i)
+    @marketplace_pharmacy = ::Marketplace::Pharmacy.find(params.fetch(:id).to_i)
+    authorize @marketplace_pharmacy
     if @marketplace_pharmacy.update_attributes(pharmacy_params)
       redirect_to marketplace_pharmacy_path(@marketplace_pharmacy), flash: { success: I18n.t("general.flash.update_successful") }
     else

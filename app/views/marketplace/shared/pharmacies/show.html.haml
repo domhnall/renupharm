@@ -19,7 +19,7 @@
             = image_tag((image = @marketplace_pharmacy.image).attached? ? image.variant(resize: "400x400") : "placeholder-pharmacy.jpg", class: 'img-avatar')
           .address
             = @marketplace_pharmacy.address
-        - if current_user.admin?
+        - if policy(@marketplace_pharmacy).edit?
           .actions
             = link_to t('general.edit'), edit_admin_marketplace_pharmacy_path(@marketplace_pharmacy), class: 'btn btn-primary'
             = link_to t('general.cancel'), :back, class: 'btn btn-light'
@@ -29,7 +29,7 @@
         %h2
           = t("marketplace.pharmacy.listings")
 
-    - if current_user.admin?
+    - if policy(@marketplace_pharmacy).edit?
       .card
         .pharmacy_agents
           %h2
