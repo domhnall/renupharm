@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   namespace :marketplace do
     root to: "listings#index"
     resource :order, only: [:new, :create, :show]
+    resources :pharmacies, only: [:show, :edit, :update]
   end
 
   namespace :admin do

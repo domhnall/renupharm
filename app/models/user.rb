@@ -10,6 +10,8 @@ class User < ApplicationRecord
 
   has_many :comments, dependent: :nullify
   has_one :profile, dependent: :destroy
+  has_one :agent, class_name: "Marketplace::Agent"
+  has_one :pharmacy, through: :agent
 
   accepts_nested_attributes_for :profile
 

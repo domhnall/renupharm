@@ -14,6 +14,7 @@ class Admin::Marketplace::PharmaciesController < Admin::BaseController
 
   def show
     @marketplace_pharmacy = ::Marketplace::Pharmacy.find(params.fetch(:id).to_i)
+    render "marketplace/shared/pharmacies/show"
   end
 
   def create
@@ -28,6 +29,7 @@ class Admin::Marketplace::PharmaciesController < Admin::BaseController
 
   def edit
     @marketplace_pharmacy = ::Marketplace::Pharmacy.find(params.fetch(:id).to_i)
+    render "marketplace/shared/pharmacies/edit"
   end
 
   def update
@@ -36,7 +38,7 @@ class Admin::Marketplace::PharmaciesController < Admin::BaseController
       redirect_to admin_marketplace_pharmacy_path(@marketplace_pharmacy), flash: { success: I18n.t("general.flash.update_successful") }
     else
       flash[:error] = I18n.t("general.flash.error")
-      render 'edit'
+      render "marketplace/shared/pharmacies/edit"
     end
   end
 

@@ -1,0 +1,43 @@
+.row
+  .col-md-12
+    .card
+      .row
+        .col-7
+          %h2.name
+            = @marketplace_pharmacy.name
+          .description
+            = @marketplace_pharmacy.description
+          .contact_details
+            .email
+              = @marketplace_pharmacy.email
+            .telephone
+              = @marketplace_pharmacy.telephone
+            .fax
+              = @marketplace_pharmacy.fax
+        .col-5
+          .image
+            = image_tag((image = @marketplace_pharmacy.image).attached? ? image.variant(resize: "400x400") : "placeholder-pharmacy.jpg", class: 'img-avatar')
+          .address
+            = @marketplace_pharmacy.address
+        - if current_user.admin?
+          .actions
+            = link_to t('general.edit'), edit_admin_marketplace_pharmacy_path(@marketplace_pharmacy), class: 'btn btn-primary'
+            = link_to t('general.cancel'), :back, class: 'btn btn-light'
+
+    .card
+      .pharmacy_listings
+        %h2
+          = t("marketplace.pharmacy.listings")
+
+    - if current_user.admin?
+      .card
+        .pharmacy_agents
+          %h2
+            = t("marketplace.pharmacy.agents")
+          = #render 'admin/sales/comments/comment_list', commentable: @sales_pharmacy
+
+      .card
+        .pharmacy_products
+          %h2
+            = t("marketplace.pharmacy.products")
+

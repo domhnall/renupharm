@@ -20,6 +20,8 @@ class Marketplace::Pharmacy < ApplicationRecord
 
   acts_as_irish_phone_contact [:telephone, :fax]
 
+  scope :active, ->{ where(active: true) }
+
   def address
     [address_1, address_2, address_3].reject{|a| a.blank? }.join(", ")
   end
