@@ -39,7 +39,7 @@ describe Admin::Sales::ContactsController do
 
   describe "an authenticated admin" do
     before :all do
-      @admin = create_user(email: 'dom@renupharm.ie')
+      @admin = create_admin_user(email: 'dom@renupharm.ie')
       @contact = Sales::Contact.create!({
         first_name: "Gary",
         surname: "Digney",

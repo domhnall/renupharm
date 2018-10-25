@@ -6,7 +6,7 @@
           .card-body
             %h2= t("devise.registrations.edit_account")
 
-            = form_for(resource, as: resource_name, url: account_path(resource_name), html: { method: :put }) do |f|
+            = form_for(resource, as: resource_name, url: account_path, html: { method: :put }) do |f|
               = devise_error_messages!
 
               .field.form-group
@@ -43,4 +43,4 @@
             %h2= t("devise.registrations.cancel_my_account")
             %p
               = t("devise.registrations.want_to_cancel_account")
-              = button_to t("devise.registrations.cancel_my_account"), account_path(resource_name), data: { confirm: t("devise.registrations.confirm_cancel") }, method: :delete, class: 'btn btn-danger'
+              = button_to t("devise.registrations.cancel_my_account"), account_path, data: { confirm: t("devise.registrations.confirm_cancel") }, method: :delete, class: 'btn btn-danger'

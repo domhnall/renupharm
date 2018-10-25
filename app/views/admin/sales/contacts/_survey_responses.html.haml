@@ -1,0 +1,38 @@
+- survey_responses.each do |res|
+  .show_record
+    .form-group.row
+      %label.label.col-form-label.col-4{ title: t("surveys.survey.question_1.question"), data: { toggle: 'tooltip', placement: 'bottom'} }
+        = t("surveys.survey.question_1.label")
+      .col-8
+        %span.survey_question_response
+          %i.fa{ class: res.question_1 ? 'fa-check' : 'fa-times' }
+    .form-group.row
+      %label.label.col-form-label.col-4{ title: t("surveys.survey.question_2.question"), data: { toggle: 'tooltip', placement: 'bottom'} }
+        = t("surveys.survey.question_2.label")
+      .col-8
+        %span.survey_question_response
+          %i.fa{ class: res.question_2 ? 'fa-check' : 'fa-times' }
+    .form-group.row
+      %label.label.col-form-label.col-4{ title: t("surveys.survey.question_3.question"), data: { toggle: 'tooltip', placement: 'bottom'} }
+        = t("surveys.survey.question_3.label")
+      .col-8
+        %span.survey_question_response
+          %i.fa{ class: res.question_3 ? 'fa-check' : 'fa-times' }
+    .form-group.row
+      %label.label.col-form-label.col-4{ title: t("surveys.survey.question_4.question"), data: { toggle: 'tooltip', placement: 'bottom'} }
+        = t("surveys.survey.question_4.label")
+      .col-8
+        %span.survey_question_response
+          %i.fa{ class: res.question_4 ? 'fa-check' : 'fa-times' }
+    .form-group.row
+      %label.label.col-form-label.col-4{ title: t("surveys.survey.question_5.question"), data: { toggle: 'tooltip', placement: 'bottom'} }
+        = t("surveys.survey.question_5.label")
+      .col-8
+        %span.survey_question_response
+          %i.fa{ class: res.question_5 ? 'fa-check' : 'fa-times' }
+    .form-group.row
+      %label.label.col-form-label.col-4{ title: t("surveys.survey.additional_notes.question"), data: { toggle: 'tooltip', placement: 'bottom'} }
+        = t("surveys.survey.additional_notes.label")
+      .col-8
+        %span.form-control.survey_question_response
+          = res.additional_notes

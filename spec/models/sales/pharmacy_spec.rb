@@ -91,6 +91,57 @@ describe Sales::Pharmacy do
         expect(Sales::Pharmacy.new(@params.merge(name: "DrugsRUs", address_3: "Caketown")).full_name).to eq "DrugsRUs (Caketown)"
       end
     end
+
+    describe "#completed_survey?" do
+      before :all do
+        @sales_pharmacy = Sales::Pharmacy.create!({
+          name: "Sandymount Pharmacy on the Green",
+          address_1:  "1a Sandymount Green",
+          address_2: "Dublin 4, Irishtown",
+          address_3: "Dublin 4",
+          telephone: "(01) 283 7188",
+        })
+
+        @contact_without_survey = Sales::Contact.new({
+          first_name: 'Bobby',
+          surname: 'Boucher',
+          telephone: '(01)2345678',
+          email: 'bobby@boucher.com'
+        })
+
+        @contact_with_survey = Sales::Contact.new({
+          first_name: 'Mel',
+          surname: 'Gibson',
+          telephone: '(01)2345678',
+          email: 'mel@hollywood.com'
+        }).tap do |contact|
+          contact.survey_responses << SurveyResponse.create!({
+            question_1: true,
+            question_2: true,
+            question_3: true,
+            question_4: true,
+            question_5: "200_500",
+            additional_notes: "I would need delivery the next day"
+          })
+          contact.save!
+        end
+      end
+
+      it "should return true if any contact at the pharmacy has completed the survey" do
+        @sales_pharmacy.sales_contacts << @contact_with_survey
+        expect(@sales_pharmacy.reload.completed_survey?).to be_truthy
+      end
+
+      it "should return false if there are no contacts associated with the pharmacy" do
+        @sales_pharmacy.sales_contacts = []
+        expect(@sales_pharmacy.reload.completed_survey?).to be_falsey
+      end
+
+      it "should return false if the contacts at the pharmacy have no associated survey responses" do
+        @sales_pharmacy.sales_contacts << @contact_without_survey
+        expect(@sales_pharmacy.reload.completed_survey?).to be_falsey
+      end
+    end
   end
 
   describe "destruction" do

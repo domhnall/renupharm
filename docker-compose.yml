@@ -46,9 +46,7 @@ services:
     links:
       - app
   webpacker:
-    build:
-      context: .
-      dockerfile: ./docker/app/Dockerfile
+    image: renupharm_app:latest
     command: bash -c "WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server"
     volumes:
       - .:/production

@@ -1,3 +1,6 @@
+// Variables
+$border_grey: #c8ced3;
+
 // Utility classes
 .hidden {
   display: none;
@@ -44,6 +47,17 @@ footer.app-footer {
       display: inline;
       color: red;
     }
+    .attr_value {
+      position: absolute;
+      margin-top: 10px;
+      margin-left: 20px;
+    }
+    h3 {
+      margin: 5px 0px 5px 10px;
+      text-transform: uppercase;
+      font-size: 110%;
+      font-weight: bold;
+    }
   }
 
   .actions {
@@ -57,9 +71,10 @@ footer.app-footer {
 }
 
 .table {
-  span.comments_count {
+  span.comments_count, span.survey_indicator {
     display: inline-block;
     float: right;
+    margin-left: 5px;
   }
   .controls {
     min-width: 50px;
@@ -67,6 +82,10 @@ footer.app-footer {
       display: none;
     }
   }
+}
+
+.dataTable-container {
+  overflow-x: auto;
 }
 
 .user_session {
@@ -80,7 +99,7 @@ footer.app-footer {
 }
 
 .card {
-  .comments{
+  .comments, .contact_responses {
     width: 70%;
     margin: auto;
   }
@@ -115,4 +134,38 @@ li.comment {
 .no_comments {
   font-style: italic;
   text-align: center;
+}
+
+.contact_responses, .pharmacy_contacts {
+  h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.contact_responses {
+  .show_record {
+    margin-bottom: 50px;
+  }
+  .survey_question_response {
+    position: absolute;
+    top: 5px;
+    margin-left: 10px;
+  }
+}
+
+.pharmacy_contacts {
+  width: 70%;
+  margin: auto;
+}
+
+.inline_search_form {
+  text-align: right;
+  margin-top: 15px;
+  input {
+    display: inline-block;
+  }
+  .form-control {
+    width: 60%;
+  }
 }

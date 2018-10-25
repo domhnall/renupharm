@@ -85,7 +85,7 @@ describe Sales::Contact do
       expect(Sales::Contact.new(@params.merge(telephone: "0"*12))).not_to be_valid
     end
 
-    it "should be invalid when :#{attr} has length of less than 7 characters" do
+    it "should be invalid when :telephone has length of less than 7 characters" do
       expect(Sales::Contact.new(@params.merge(telephone: "0"*7))).to be_valid
       expect(Sales::Contact.new(@params.merge(telephone: "0"*6))).not_to be_valid
     end
@@ -133,6 +133,20 @@ describe Sales::Contact do
 
       it "should return nil if the sales_pharmacy is nil" do
         expect(Sales::Contact.new(@params.merge(sales_pharmacy_id: nil)).pharmacy_name).to be_nil
+      end
+    end
+
+    describe "#email=" do
+      it "should set the email field to the value passed" do
+        expect(Sales::Contact.new(@params.merge(email: "joe@example.com")).email).to eq "joe@example.com"
+      end
+
+      it "should set the value to nil if the value passed is nil" do
+        expect(Sales::Contact.new(@params.merge(email: nil)).email).to be_nil
+      end
+
+      it "should set the value to nil if the value passed is blank" do
+        expect(Sales::Contact.new(@params.merge(email: "")).email).to be_nil
       end
     end
   end

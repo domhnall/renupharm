@@ -1,4 +1,20 @@
 class SurveyResponsesController < ApplicationController
+  def index
+    @total_sales_pharmacies = Sales::Pharmacy.count
+    @total_responses = SurveyResponse.count
+    @stats = (0..3).map do |i|
+      {yes: ((SurveyResponse.where("question_#{i+1} = 1").count/@total_responses.to_f)*100).round,
+       no: ((SurveyResponse.where("question_#{i+1} = 0").count/@total_responses.to_f)*100).round }
+    end
+
+    labels = SurveyResponse::WASTAGE_BUCKETS.map{ |b| I18n.t("surveys.survey.question_5.labels.#{b}") }
+    counts = SurveyResponse.group(:question_5).count
+    @wastages_chart_presenter = Presenters::ChartPresenter.new(labels).tap do |presenter|
+      presenter.add_dataset("Cost of medications disposed", SurveyResponse::WASTAGE_BUCKETS.map{ |b| (counts.fetch(b, 0)/@total_responses.to_f)*100 })
+    end
+    render layout: params.fetch(:layout, "true")=="false" ? false : true
+  end
+
   def new
     @survey_response = SurveyResponse.new({
       sales_contact_attributes: { sales_pharmacy_id: get_pharmacy&.id,

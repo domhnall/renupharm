@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     get :cookies_policy
   end
 
-  resources :survey_responses, only: [:new, :create]
+  resources :survey_responses, only: [:index, :new, :create]
   resource :dashboard, only: [:show]
 
   namespace :sales do

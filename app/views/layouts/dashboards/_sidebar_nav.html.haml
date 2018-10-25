@@ -3,61 +3,83 @@
     %li.nav-item
       %a.nav-link{href: dashboard_path}
         %i.nav-icon.fa.fa-chart-line
-        Dashboard
-    %li.divider
-    %li.nav-title Pharmacy
-    %li.nav-item
-      %a.nav-link{href: dashboard_path(dummy: true)}
-        %i.nav-icon.fa.fa-shopping-cart
-        Browse marketplace
-    %li.nav-item
-      %a.nav-link{href: dashboard_path(dummy: true)}
-        %i.nav-icon.fa.fa-euro-sign
-        My Shop
-    %li.nav-item
-      %a.nav-link{href: dashboard_path(dummy: true)}
-        %i.nav-icon.fa.fa-sign-out-alt
-        Sales
-    %li.nav-item
-      %a.nav-link{href: dashboard_path(dummy: true)}
-        %i.nav-icon.fa.fa-sign-in-alt
-        Purchases
-    %li.divider
-    %li.nav-title Courier
-    %li.nav-item.nav-dropdown
-      %a.nav-link.nav-dropdown-toggle{href: dashboard_path(dummy: true)}
-        %i.nav-icon.fa.fa-truck
-        Deliveries
-      %ul.nav-dropdown-items
-        %li.nav-item
-          %a.nav-link{href: dashboard_path(dummy: true)}
-            %i.nav-icon.fa.fa-chevron-right
-            Scheduled
-        %li.nav-item
-          %a.nav-link{href: dashboard_path(dummy: true)}
-            %i.nav-icon.fa.fa-chevron-right
-            Completed
-    %li.divider
-    %li.nav-title Admin
-    %li.nav-item.nav-dropdown
-      %a.nav-link.nav-dropdown-toggle{href: dashboard_path(dummy: true)}
-        %i.nav-icon.fa.fa-plus-circle
-        Pharmacies
-      %ul.nav-dropdown-items
-        %li.nav-item
-          %a.nav-link{href: admin_sales_pharmacies_path}
-            %i.nav-icon.fa.fa-chevron-right
-            Shops
-        %li.nav-item
-          %a.nav-link{href: admin_sales_contacts_path}
-            %i.nav-icon.fa.fa-chevron-right
-            Contacts
-        %li.nav-item
-          %a.nav-link{href: admin_survey_responses_path}
-            %i.nav-icon.fa.fa-chevron-right
-            Survey Responses
-    %li.nav-item
-      %a.nav-link{href: admin_users_path}
-        %i.nav-icon.fa.fa-users
-        Users
+        = t("sidebar.headings.dashboard")
+    - if current_user.pharmacy?
+      %li.divider
+      %li.nav-title= t("sidebar.headings.pharmacy")
+      %li.nav-item
+        %a.nav-link{href: dashboard_path(dummy: true)}
+          %i.nav-icon.fa.fa-shopping-cart
+          = t("sidebar.pharmacy.browse_marketplace")
+      %li.nav-item
+        %a.nav-link{href: dashboard_path(dummy: true)}
+          %i.nav-icon.fa.fa-euro-sign
+          = t("sidebar.pharmacy.my_shop")
+      %li.nav-item
+        %a.nav-link{href: dashboard_path(dummy: true)}
+          %i.nav-icon.fa.fa-sign-out-alt
+          = t("sidebar.pharmacy.sales")
+      %li.nav-item
+        %a.nav-link{href: dashboard_path(dummy: true)}
+          %i.nav-icon.fa.fa-sign-in-alt
+          = t("sidebar.pharmacy.purchases")
+
+    - if current_user.courier?
+      %li.divider
+      %li.nav-title= t("sidebar.headings.courier")
+      %li.nav-item.nav-dropdown
+        %a.nav-link.nav-dropdown-toggle{href: dashboard_path(dummy: true)}
+          %i.nav-icon.fa.fa-truck
+          = t("sidebard.courier.heading.deliveries")
+        %ul.nav-dropdown-items
+          %li.nav-item
+            %a.nav-link{href: dashboard_path(dummy: true)}
+              %i.nav-icon.fa.fa-chevron-right
+              = t("sidebar.courier.deliveries.scheduled")
+          %li.nav-item
+            %a.nav-link{href: dashboard_path(dummy: true)}
+              %i.nav-icon.fa.fa-chevron-right
+              = t("sidebar.courier.deliveries.completed")
+
+    - if current_user.admin?
+      %li.divider
+      %li.nav-title= t("sidebar.headings.admin")
+      %li.nav-item.nav-dropdown
+        %a.nav-link.nav-dropdown-toggle{href: "#"}
+          %i.nav-icon.fa.fa-plus-circle
+          = t("sidebar.admin.headings.sales")
+        %ul.nav-dropdown-items
+          %li.nav-item
+            %a.nav-link{href: admin_sales_pharmacies_path}
+              %i.nav-icon.fa.fa-chevron-right
+              = t("sidebar.admin.sales.phamacies")
+          %li.nav-item
+            %a.nav-link{href: admin_sales_contacts_path}
+              %i.nav-icon.fa.fa-chevron-right
+              = t("sidebar.admin.sales.contacts")
+          %li.nav-item
+            %a.nav-link{href: admin_survey_responses_path}
+              %i.nav-icon.fa.fa-chevron-right
+              = t("sidebar.admin.sales.survey_responses")
+      %li.nav-item.nav-dropdown
+        %a.nav-link.nav-dropdown-toggle{href: "#"}
+          %i.nav-icon.fa.fa-plus-circle
+          = t("sidebar.admin.headings.marketplace")
+        %ul.nav-dropdown-items
+          %li.nav-item
+            %a.nav-link{href: dashboard_path(dummy: true)}
+              %i.nav-icon.fa.fa-chevron-right
+              = t("sidebar.admin.marketplace.browse_marketplace")
+          %li.nav-item
+            %a.nav-link{href: dashboard_path(dummy: true)}
+              %i.nav-icon.fa.fa-chevron-right
+              = t("sidebar.admin.marketplace.network_pharmacies")
+          %li.nav-item
+            %a.nav-link{href: dashboard_path(dummy: true)}
+              %i.nav-icon.fa.fa-chevron-right
+              = t("sidebar.admin.marketplace.orders")
+      %li.nav-item
+        %a.nav-link{href: admin_users_path}
+          %i.nav-icon.fa.fa-users
+          = t("sidebar.admin.headings.users")
 %button.sidebar-minimizer.brand-minimizer{type: "button"}

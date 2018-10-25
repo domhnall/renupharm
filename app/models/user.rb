@@ -8,13 +8,19 @@ class User < ApplicationRecord
          :lockable,
          :trackable
 
-  has_many :comments
+  has_many :comments, dependent: :nullify
+  has_one :profile, dependent: :destroy
+
+  accepts_nested_attributes_for :profile
+
+  delegate :full_name,
+           :admin?,
+           :pharmacy?,
+           :courier?, to: :profile
+
+  validates :profile, presence: true
 
   def send_devise_notification(notification, *args)
-      devise_mailer.send(notification, self, *args).deliver_later
-  end
-
-  def is_admin?
-    email =~ /@renupharm.ie\Z/
+    devise_mailer.send(notification, self, *args).deliver_later
   end
 end

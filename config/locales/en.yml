@@ -34,6 +34,8 @@ en:
     record_not_found: "Sorry, the requested item could not be found"
     access_denied: "You do not have access to the requested resource, please contact your administrator."
   general:
+    "yes": "Yes"
+    "no": "No"
     save: "Save"
     cancel: "Cancel"
     delete: "Delete"
@@ -41,6 +43,7 @@ en:
     edit: "Edit"
     update: "Update"
     add: "Add"
+    search: "Search"
     confirm_delete: "Are you sure you want to delete this record? This action cannot be undone."
     email_validator:
       error: "is not an email"
@@ -49,6 +52,33 @@ en:
       update_successful: "Successfully updated record"
       delete_successful: "Successfully deleted record"
       error: "There has been an error with your submission, please address the issues below."
+  month:
+    long:
+      1: "January"
+      2: "February"
+      3: "March"
+      4: "April"
+      5: "May"
+      6: "June"
+      7: "July"
+      8: "August"
+      9: "September"
+      10: "October"
+      11: "November"
+      12: "December"
+    short:
+      1: "Jan"
+      2: "Feb"
+      3: "Mar"
+      4: "Apr"
+      5: "May"
+      6: "Jun"
+      7: "Jul"
+      8: "Aug"
+      9: "Sept"
+      10: "Oct"
+      11: "Nov"
+      12: "Dec"
   pages:
     index:
       heading: Welcome to RenuPharm
@@ -83,14 +113,19 @@ en:
       intro: "We are very interested to gauge your views through completion of this short survey. [ <em>Estimated time 2 mins</em> ]"
       submit: Submit
       question_1:
+        label: "Question 1"
         question: Would you be willing to purchase a medicinal product with a shorter expiry date at a cheaper price (cf. wholesaler price with a better date)?
       question_2:
+        label: "Question 2"
         question: Would you like the opportunity to sell-on stock, with no forseeable usage, at a reduced price?
       question_3:
+        label: "Question 3"
         question: Have you ever been impacted by drug shortages or sourcing issues?
       question_4:
+        label: "Question 4"
         question: Would you be happy to supply a shorter-dated medication to your customers, provided the typical usage of the product would imply the product would be consumed before the expiry date?
       question_5:
+        label: "Question 5"
         question: Could you estimate the amount of stock that goes out of date each month in your pharmacy (cost price)?
         labels:
           lt_200: "< €200"
@@ -98,7 +133,8 @@ en:
           "500_1000": "€500 - €1000"
           gt_1000: "> €1000"
       additional_notes:
-        label: "If you would like to provide additional details relating to any of your responses, please do so here:"
+        label: "Additional notes"
+        question: "If you would like to provide additional details relating to any of your responses, please do so here:"
       interested:
         intro: If you are interested in learning more about the RenuPharm service, and to be kept up-to-date please enter your details below.
         first_name_label: "First name:"
@@ -119,6 +155,7 @@ en:
       telephone: "Telephone"
       email: "Email"
       comments: "Comments"
+      survey_responses: "Survey Responses"
       errors:
         pharmacy_email_or_telephone_required: "Pharmacy, email or telephone must be supplied"
     pharmacy:
@@ -132,6 +169,8 @@ en:
       telephone: "Telephone"
       fax: "Fax"
       comments: "Comments"
+      sales_contacts: "Sales Contacts"
+      submit_survey: "Submit Survey"
       errors:
         email_or_telephone_required: "Email or telephone must be supplied"
         name_uniqueness: "Name should be unique in a given area"
@@ -166,6 +205,18 @@ en:
     created_at: "Created"
     updated_at: "Updated"
     current_sign_in_at: "Last sign in"
+    heading:
+      security: "Security"
+      profile: "Profile"
+  profile:
+    first_name: "First name"
+    surname: "Surname"
+    telephone: "Telephone"
+    role: "Role"
+    roles:
+      admin: "Admin"
+      pharmacy: "Pharmacy"
+      courier: "Courier"
   comment:
     commented_by: "created by <strong>%{commenter}</strong>"
     commented_at: "commented at <strong>%{commented_at}</strong>"
@@ -175,3 +226,37 @@ en:
       create_successful: "Successfully added a comment to this record"
       update_successful: "Successfully updated your comment"
       delete_successful: "Successfully removed your comment from this record"
+  table:
+    summary: "Showing %{start} to %{end} of %{total} entries"
+    pagination:
+      alt: "Table pagination"
+  sidebar:
+    headings:
+      dashboard: "Dashboard"
+      pharmacy: "Pharmacy"
+      courier: "Courier"
+      admin: "Admin"
+    pharmacy:
+      browse_marketplace: "Browse Marketplace"
+      my_shop: "My Shop"
+      sales: "Sales"
+      purchases: "Purchases"
+    courier:
+      headings:
+        deliveries: "Deliveries"
+      deliveries:
+        scheduled: "Scheduled"
+        completed: "Completed"
+    admin:
+      headings:
+        sales: "Sales"
+        marketplace: "Marketplace"
+        users: "Users"
+      sales:
+        pharmacies: "Pharmacies"
+        contacts: "Contacts"
+        survey_responses: "Survey Responses"
+      marketplace:
+        browse_marketplace: "Browse Marketplace"
+        network_pharmacies: "Network Pharmacies"
+        orders: "Orders"

@@ -1,0 +1,38 @@
+.card.survey_results
+  .card-header Survey Reponses
+  .card-body
+    .row
+      .col-sm-6
+        .callout.callout-info
+          %small.text-muted Total Pharmacies
+          %br/
+          %strong.h4
+            = @total_sales_pharmacies
+      .col-sm-6
+        .callout.callout-danger
+          %small.text-muted Total Responses
+          %br/
+          %strong.h4
+            = @total_responses
+    %hr.mt-0/
+
+    - 4.times do |i|
+      %h3= t("surveys.survey.question_#{i+1}.label")
+      .progress-group.mb-4
+        .progress-group-prepend
+          %span.progress-group-text
+            = t("surveys.survey.question_#{i+1}.question")
+        .progress-group-bars
+          .progress
+            .progress-bar.bg-success{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => @stats[i][:yes], role: "progressbar", style: "width: #{@stats[i][:yes]}%", title: "#{@stats[i][:yes]}%"}
+              = t("general.yes")
+          .progress
+            .progress-bar.bg-danger{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => @stats[i][:no], role: "progressbar", style: "width: #{@stats[i][:no]}%", title: "#{@stats[i][:no]}%"}
+              = t("general.no")
+
+    %h3= t("surveys.survey.question_5.label")
+    %p.progress-group-text= t("surveys.survey.question_5.question")
+    #wastages.chart-wrapper.mt-3.mx-3
+      .data.hidden
+        = @wastages_chart_presenter.present
+      %canvas

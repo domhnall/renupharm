@@ -8,35 +8,42 @@
           %label.label.col-form-label.col-2
             = t('sales.contact.pharmacy')
           .col-10
-            %span.form-control
-              = @sales_contact.sales_pharmacy&.full_name
+            %span.attr_value
+              - if pharmacy = @sales_contact.sales_pharmacy
+                = link_to pharmacy.full_name, admin_sales_pharmacy_path(pharmacy)
         .form-group.row
           %label.label.col-form-label.col-2
             = t('sales.contact.first_name')
           .col-10
-            %span.form-control
+            %span.form-control.attr_value
               = @sales_contact.first_name
         .form-group.row
           %label.label.col-form-label.col-2
             = t('sales.contact.surname')
           .col-10
-            %span.form-control
+            %span.form-control.attr_value
               = @sales_contact.surname
         .form-group.row
           %label.label.col-form-label.col-2
             = t('sales.contact.telephone')
           .col-10
-            %span.form-control
+            %span.form-control.attr_value
               = @sales_contact.telephone
         .form-group.row
           %label.label.col-form-label.col-2
             = t('sales.contact.email')
           .col-10
-            %span.form-control
+            %span.form-control.attr_value
               = @sales_contact.email
         .actions
           = link_to t('general.edit'), edit_admin_sales_contact_path(@sales_contact), class: 'btn btn-primary'
           = link_to t('general.cancel'), admin_sales_contacts_path, class: 'btn btn-light'
+
+    .card
+      .contact_responses
+        %h2
+          = t("sales.contact.survey_responses")
+        = render 'survey_responses', survey_responses: @sales_contact.survey_responses
 
     .card
       .comments

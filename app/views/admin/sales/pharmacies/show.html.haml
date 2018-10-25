@@ -12,6 +12,12 @@
               = @sales_pharmacy.name
         .form-group.row
           %label.label.col-form-label.col-2
+            = t('sales.pharmacy.proprietor')
+          .col-10
+            %span.form-control
+              = @sales_pharmacy.proprietor
+        .form-group.row
+          %label.label.col-form-label.col-2
             = t('sales.pharmacy.address_1')
           .col-10
             %span.form-control
@@ -47,8 +53,16 @@
             %span.form-control
               = @sales_pharmacy.fax
         .actions
+          - unless @sales_pharmacy.completed_survey?
+            = link_to t('sales.pharmacy.submit_survey'), new_survey_response_path(sales_pharmacy_id: @sales_pharmacy.id), class: 'btn btn-success'
           = link_to t('general.edit'), edit_admin_sales_pharmacy_path(@sales_pharmacy), class: 'btn btn-primary'
-          = link_to t('general.cancel'), admin_sales_pharmacies_path, class: 'btn btn-light'
+          = link_to t('general.cancel'), :back, class: 'btn btn-light'
+
+    .card
+      .pharmacy_contacts
+        %h2
+          = t("sales.pharmacy.sales_contacts")
+        = render 'admin/sales/contacts/table', sales_contacts: @sales_pharmacy.sales_contacts, with_pharmacy: false
 
     .card
       .comments
