@@ -42,7 +42,14 @@ describe User do
   end
 
   describe "instance method" do
-    [:profile, :comments, :admin?, :pharmacy?, :courier?, :full_name].each do |method|
+    [:profile,
+     :comments,
+     :agent,
+     :pharmacy,
+     :admin?,
+     :pharmacy?,
+     :courier?,
+     :full_name].each do |method|
       it "should respond to :#{method}" do
         expect(User.new(@params)).to respond_to method
       end

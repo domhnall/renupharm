@@ -9,7 +9,8 @@ module Factories
         address_2: attrs.fetch(:address_2){ "Caketown" },
         address_3: attrs.fetch(:address_3){ "Dundalk" },
         email: attrs.fetch(:email){ "damo@renupharm.ie" },
-        telephone: attrs.fetch(:telephone){ "01234567" }
+        telephone: attrs.fetch(:telephone){ "01234567" },
+        active: attrs.fetch(:active){ false }
       }).tap do |pharmacy|
         pharmacy.image.attach(io: File.open("#{Rails.root}/spec/support/images/store_1.jpeg"), filename: "larusso.jpeg")
         pharmacy.save!

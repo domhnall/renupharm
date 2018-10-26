@@ -21,12 +21,12 @@ class Marketplace::Listing < ApplicationRecord
   delegate :name, :description, :unit_size, :images, to: :product, prefix: true
   delegate :name, :address, :telephone, :email, :image, to: :pharmacy, prefix: :seller
 
-  def acceptable_expiry?
-    expiry && expiry > (Date.today + ACCEPTABLE_EXPIRY_DAYS.days)
+  def self.currency_symbol
+    CURRENCY_SYMBOLS[:eur]
   end
 
-  def currency_symbol
-    CURRENCY_SYMBOLS[:eur]
+  def acceptable_expiry?
+    expiry && expiry > (Date.today + ACCEPTABLE_EXPIRY_DAYS.days)
   end
 
   def price_major
@@ -38,7 +38,7 @@ class Marketplace::Listing < ApplicationRecord
   end
 
   def display_price
-    "#{currency_symbol}#{decimal_price}"
+    "#{Marketplace::Listing::currency_symbol}#{decimal_price}"
   end
 
   private

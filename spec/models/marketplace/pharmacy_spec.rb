@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe Marketplace::Pharmacy do
+  include Factories::Marketplace
 
   before :all do
     @params = {
@@ -103,6 +104,33 @@ describe Marketplace::Pharmacy do
       expect(existing_contact = Marketplace::Pharmacy.new(@params)).to be_valid
       existing_contact.save!
       expect(Marketplace::Pharmacy.new(@params.merge(name: "Alternative", email: "alt@sandymount.ie"))).to be_valid
+    end
+  end
+
+  describe "scope" do
+    before :all do
+      @harrietts = create_pharmacy({
+        name: "Harriett's Potion Shop",
+        email: "harry@harrietts.com",
+        active: true
+      })
+      @mcardles = create_pharmacy({
+        name: "McArdle's",
+        email: "harry@mcardles.com",
+        active: true
+      })
+    end
+
+    describe "#active" do
+      it "should include all pharmacies where :active is true" do
+        expect(Marketplace::Pharmacy.active.map(&:email)).to match_array %w(harry@harrietts.com harry@mcardles.com)
+      end
+
+      it "should exclude pharmacies where :active is false" do
+        @mcardles.update_column(:active, false)
+        expect(Marketplace::Pharmacy.active.map(&:email)).to include "harry@harrietts.com"
+        expect(Marketplace::Pharmacy.active.map(&:email)).not_to include "harry@mcardles.com"
+      end
     end
   end
 

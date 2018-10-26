@@ -14,6 +14,8 @@ describe Marketplace::Listing do
     :product_description,
     :product_unit_size,
     :product_images,
+    :seller,
+    :pharmacy,
     :seller_name,
     :seller_address,
     :seller_telephone,
@@ -69,6 +71,46 @@ describe Marketplace::Listing do
     it "should be valid if listing marked as inactive, regardless of expiry" do
       expect(Marketplace::Listing.new(@params.merge(active: false, expiry: Date.today+2.days))).to be_valid
       expect(Marketplace::Listing.new(@params.merge(active: false, expiry: Date.today-28.days))).to be_valid
+    end
+  end
+
+  describe "class method" do
+    describe "#currency_symbol" do
+      it "should return €" do
+        expect(Marketplace::Listing::currency_symbol).to eq "€"
+      end
+    end
+  end
+
+  describe "instance method" do
+    describe "#display_price" do
+      it "should return a String" do
+        expect(Marketplace::Listing.new(price_cents: 9589).display_price).to be_a String
+      end
+
+      it "should return the rounded decimal price prefixed the EUR symbol" do
+        expect(Marketplace::Listing.new(price_cents: 9589).display_price).to eq "€95.89"
+      end
+    end
+
+    describe "#price_major" do
+      it "should return a String" do
+        expect(Marketplace::Listing.new(price_cents: 9589).price_major).to be_a String
+      end
+
+      it "should return the integer EUR component of the price" do
+        expect(Marketplace::Listing.new(price_cents: 9589).price_major).to eq "95"
+      end
+    end
+
+    describe "#price_minor" do
+      it "should return a String" do
+        expect(Marketplace::Listing.new(price_cents: 9589).price_minor).to be_a String
+      end
+
+      it "should return the integer cent component of the price" do
+        expect(Marketplace::Listing.new(price_cents: 9589).price_minor).to eq "89"
+      end
     end
   end
 end

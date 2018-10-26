@@ -18,7 +18,7 @@
                 = link_to listing.seller_name, marketplace_pharmacy_path(listing.seller)
           .col-6
             .price
-              %span.currency_symbol= listing.currency_symbol
+              %span.currency_symbol= Marketplace::Listing::currency_symbol
               %span.price_major= listing.price_major
               %span.price_delimiter
               %span.price_minor= listing.price_minor
