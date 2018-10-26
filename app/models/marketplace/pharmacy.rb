@@ -13,7 +13,8 @@ class Marketplace::Pharmacy < ApplicationRecord
   has_one_attached :image
 
   validates :name, :address_1, :address_3, :telephone, presence: true
-  validates :name, :address_1, :address_2, :address_3, length: { minimum: 3, maximum: 255 }
+  validates :name, :address_1, :address_3, length: { minimum: 3, maximum: 255 }
+  validates :address_2, length: { minimum: 3, maximum: 255 }, if: :address_2
   validates :description, length: { maximum: 1000 }
   validates :email, email: true
   validates :name, :email, uniqueness: true

@@ -36,6 +36,11 @@ describe Marketplace::Pharmacy do
       expect(Marketplace::Pharmacy.new(@params)).to be_valid
     end
 
+    it "should be valid when :address_2 is not supplied" do
+      expect(Marketplace::Pharmacy.new(@params.merge(address_2: nil))).to be_valid
+    end
+
+
     [ :name,
       :address_1,
       :address_3,
