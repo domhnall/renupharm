@@ -3,9 +3,9 @@
     .col-5
       .product_images
         - if listing.product_images.any?
-          = render 'product_images', {product_images: listing.product_images}
+          = render 'marketplace/shared/product_images', {product_images: listing.product_images}
         - else
-          = image_tag("placeholder-user.png", class: 'img-avatar')
+          = image_tag("placeholder-product.jpg", class: 'img-avatar')
     .col-7
       .product_details
         .row

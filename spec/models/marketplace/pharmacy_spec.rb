@@ -25,6 +25,7 @@ describe Marketplace::Pharmacy do
     :image,
     :agents,
     :products,
+    :listings,
     :address ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Pharmacy.new).to respond_to method

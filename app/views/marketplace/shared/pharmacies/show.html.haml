@@ -1,6 +1,6 @@
 .row
   .col-md-12
-    .card
+    .card#pharmacy_profile
       .row
         .col-7
           %h2.name
@@ -9,35 +9,50 @@
             = @marketplace_pharmacy.description
           .contact_details
             .email
-              = @marketplace_pharmacy.email
+              %label.label= t("marketplace.pharmacy.email")
+              .value= @marketplace_pharmacy.email
             .telephone
-              = @marketplace_pharmacy.telephone
+              %label.label= t("marketplace.pharmacy.telephone")
+              .value= @marketplace_pharmacy.telephone
             .fax
-              = @marketplace_pharmacy.fax
+              %label.label= t("marketplace.pharmacy.fax")
+              .value= @marketplace_pharmacy.fax
         .col-5
           .image
             = image_tag((image = @marketplace_pharmacy.image).attached? ? image.variant(resize: "400x400") : "placeholder-pharmacy.jpg", class: 'img-avatar')
           .address
-            = @marketplace_pharmacy.address
+            %label.label= t("marketplace.pharmacy.address")
+            %ul
+              %li= @marketplace_pharmacy.address_1
+              %li= @marketplace_pharmacy.address_2
+              %li= @marketplace_pharmacy.address_3
         - if policy(@marketplace_pharmacy).edit?
           .actions
             = link_to t('general.edit'), edit_admin_marketplace_pharmacy_path(@marketplace_pharmacy), class: 'btn btn-primary'
-            = link_to t('general.cancel'), :back, class: 'btn btn-light'
 
     .card
       .pharmacy_listings
         %h2
           = t("marketplace.pharmacy.listings")
+        #marketplace_listings
+          = render partial: 'marketplace/listings/listing', collection: @marketplace_pharmacy.listings
+        .actions
+          = #link_to t("general.add"), new_marketplace_listing_path(marketplace_pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
 
     - if policy(@marketplace_pharmacy).edit?
       .card
         .pharmacy_agents
           %h2
             = t("marketplace.pharmacy.agents")
-          = #render 'admin/sales/comments/comment_list', commentable: @sales_pharmacy
+          = render partial: 'marketplace/shared/pharmacies/agent', collection: @marketplace_pharmacy.agents
+          .actions
+            = #link_to t("general.add"), new_marketplace_agent_path(marketplace_pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
 
       .card
         .pharmacy_products
           %h2
             = t("marketplace.pharmacy.products")
+          = render partial: 'marketplace/shared/pharmacies/product', collection: @marketplace_pharmacy.products
+          .actions
+            = #link_to t("general.add"), new_marketplace_product_path(marketplace_pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
 

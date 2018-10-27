@@ -1,0 +1,46 @@
+@import '../style.scss';
+
+#pharmacy_profile {
+  padding: 20px;
+  .description {
+    font-size: 110%;
+  }
+
+  .contact_details {
+    font-size: 90%;
+    margin-top: 10px;
+    display: table;
+  }
+
+  .email, .telephone, .fax {
+    display: table-row;
+  }
+
+  .label {
+    display: table-cell;
+    color: $border_grey;
+  }
+
+  .value {
+    display: table-cell;
+    padding-left: 20px;
+  }
+
+  .address {
+    margin-top: 10px;
+    li {
+      list-style-type: none;
+      font-size: 90%;
+    }
+  }
+
+}
+
+.pharmacy_agents, .pharmacy_products, .pharmacy_listings {
+  width: 90%;
+  margin: auto;
+  h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}

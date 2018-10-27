@@ -1,80 +1,8 @@
 // Variables
 $border_grey: #c8ced3;
 
-#marketplace_listings {
-  .listing {
-    .product_images {
-      margin: 10px;
-    }
-    .product_details {
-      padding: 10px;
-      .price {
-        font-weight: bold;
-        font-family: "Trajan";
-        font-size: 200%;
-        .price_major {
-          font-size: 180%;
-        }
-        .price_delimiter:after{
-          content: "."
-        }
-      }
-      .amount {
-        font-size: 90%;
-        color: $border_grey;
-        .label {
-          font-weight: bold;
-        }
-      }
-      .unit_size, .quantity, .expiry {
-        display: table;
-      }
-      .label, .value {
-        display: table-cell;
-        vertical-align: middle;
-      }
-      .label {
-        float: right;
-        margin-right: 5px;
-      }
-      .expiry {
-        margin-top: 10px;
-        color: red;
-      }
-      .seller {
-        .sold_by {
-          font-size: small;
-        }
-        .seller_name {
-          font-weight: bold;
-          font-size: 110%;
-        }
-      }
-      .name {
-        font-size: 200%;
-        font-weight: bold;
-        font-family: "Trajan";
-      }
-      .description {
-        margin-top: 10px;
-      }
-    }
-    .see_more {
-      font-size: x-small;
-      padding: 2px;
-      float: right;
-      margin-right: 20px;
-    }
-    .cta {
-      display: block;
-      clear: both;
-      text-align: center;
-      font-weight: bold;
-      margin: auto;
-      margin: 40px auto 10px auto;
-      .btn {
-        width: 80%;
-      }
-    }
-  }
+.name, .price {
+  font-weight: bold;
+  font-family: "Trajan";
+  font-size: 200%;
 }

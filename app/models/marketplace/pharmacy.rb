@@ -10,6 +10,8 @@ class Marketplace::Pharmacy < ApplicationRecord
     class_name: "Marketplace::Product",
     foreign_key: :marketplace_pharmacy_id
 
+  has_many :listings, through: :products
+
   has_one_attached :image
 
   validates :name, :address_1, :address_3, :telephone, presence: true

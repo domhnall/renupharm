@@ -1,0 +1,15 @@
+.card.product
+  .row
+    .col-5
+      .product_images
+        - if product.images.any?
+          = render 'marketplace/shared/product_images', {product_images: product.images}
+        - else
+          = image_tag("placeholder-product.jpg", class: 'img-avatar')
+    .col-7
+      .description
+        = truncate_with_ellipsis(product.description, 250)
+      .amount
+        .unit_size
+          %span.label= t("marketplace.product.unit_size") + ":"
+          %span.value= product.unit_size
