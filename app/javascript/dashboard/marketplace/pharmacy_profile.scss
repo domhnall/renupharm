@@ -16,16 +16,6 @@
     display: table-row;
   }
 
-  .label {
-    display: table-cell;
-    color: $border_grey;
-  }
-
-  .value {
-    display: table-cell;
-    padding-left: 20px;
-  }
-
   .address {
     margin-top: 10px;
     li {
@@ -43,4 +33,18 @@
     margin-top: 20px;
     margin-bottom: 20px;
   }
+  .card.agent {
+    padding: 20px;
+  }
 }
+
+.label {
+  display: table-cell;
+  color: $border_grey;
+}
+
+.value {
+  display: table-cell;
+  padding-left: 20px;
+}
+

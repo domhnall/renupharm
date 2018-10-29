@@ -302,3 +302,7 @@ en:
       messages:
         deactive: "Deactivate"
         confirm_deactivation: "Are you sure you want to deactivate this pharmacy? This will deactive all their products and delist all of their stock."
+    agent:
+      full_name: "Name"
+      email: "Email"
+      telephone: "Telephone"

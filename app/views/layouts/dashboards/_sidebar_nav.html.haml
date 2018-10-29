@@ -12,7 +12,7 @@
           %i.nav-icon.fa.fa-shopping-cart
           = t("sidebar.pharmacy.browse_marketplace")
       %li.nav-item
-        %a.nav-link{href: dashboard_path(dummy: true)}
+        %a.nav-link{href: marketplace_pharmacy_path(current_user.pharmacy)}
           %i.nav-icon.fa.fa-euro-sign
           = t("sidebar.pharmacy.my_shop")
       %li.nav-item

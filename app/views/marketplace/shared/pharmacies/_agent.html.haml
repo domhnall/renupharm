@@ -1,2 +1,10 @@
-%p
-  = agent.user.email
+.card.agent
+  .full_name
+    %label.label= t("marketplace.agent.full_name")
+    .value= agent.full_name
+  .email
+    %label.label= t("marketplace.agent.email")
+    .value= agent.email
+  .telephonw
+    %label.label= t("marketplace.agent.telephone")
+    .value= agent.telephone
