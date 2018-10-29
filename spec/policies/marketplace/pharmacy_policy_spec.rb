@@ -20,12 +20,39 @@ describe Marketplace::PharmacyPolicy do
 
   describe "instance method" do
     describe "#show?" do
-      it "should return true for any user and any pharmacy" do
+      it "should return true for any active pharmacy" do
         expect(Marketplace::PharmacyPolicy.new(@other_user, @pharmacy).show?).to be_truthy
+      end
+
+      it "should return true for any inactive pharmacy if user is an agent of the pharmacy" do
+        @pharmacy.update_column(:active, false)
+        expect(Marketplace::PharmacyPolicy.new(@user, @pharmacy).show?).to be_truthy
+      end
+
+      describe "inactive pharmacy" do
+        before :each do
+          @pharmacy.update_column(:active, false)
+        end
+
+        it "should return false for a user not associated with the pharmacy" do
+          expect(Marketplace::PharmacyPolicy.new(@other_user, @pharmacy).show?).to be_falsey
+        end
+
+        it "should return true for if user is an agent of the pharmacy" do
+          expect(Marketplace::PharmacyPolicy.new(@user, @pharmacy).show?).to be_truthy
+        end
+
+        it "should return true if user is an admin" do
+          expect(Marketplace::PharmacyPolicy.new(@admin_user, @pharmacy).show?).to be_truthy
+        end
       end
     end
 
     describe "#update?" do
+      before :all do
+        @pharmacy.reload
+      end
+
       it "should return true if user is an admin" do
         expect(Marketplace::PharmacyPolicy.new(@admin_user, @pharmacy).update?).to be_truthy
       end
@@ -41,6 +68,7 @@ describe Marketplace::PharmacyPolicy do
       it "should return false if user is an agent of the pharmacy, but pharamcy is inactive" do
         expect(Marketplace::PharmacyPolicy.new(@user, @pharmacy).update?).to be_truthy
         @pharmacy.update_column(:active, false)
+        @pharmacy.reload
         expect(Marketplace::PharmacyPolicy.new(@user, @pharmacy).update?).to be_falsey
       end
     end
