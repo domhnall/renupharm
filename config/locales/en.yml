@@ -1,4 +1,3 @@
-# Files in the config/locales directory are used for internationalization
 # and are automatically loaded by Rails. If you want to use locales other
 # than English, add the necessary files in this directory.
 #
@@ -100,6 +99,9 @@ en:
     user:
       editing_title: "Editing %{name}"
       new_title: "New user"
+    agent:
+      editing_title: "Editing %{name}"
+      new_title: "New agent for %{pharmacy_name}"
   surveys:
     heading: RenuPharm Survey
     intro: RenuPharm is an on-line platform aimed at connecting pharmacies across Ireland, facilitating transactions in their medicinal stock. Offering a unique channel for sourcing medications and a viable means for reducing stock wastage, RenuPharm offers tangible benefits to all parties.

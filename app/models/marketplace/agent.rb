@@ -16,4 +16,6 @@ class Marketplace::Agent < ApplicationRecord
   delegate :full_name,
            :telephone,
            :email, to: :user
+
+  accepts_nested_attributes_for :user
 end
