@@ -8,6 +8,20 @@ class Marketplace::ListingsController < AuthenticatedController
     @listings    = get_scope(@query).order("marketplace_products.name").limit(@per_page).offset((@page-1)*@per_page)
   end
 
+  def new
+    @listing = pharmacy.listings.build
+    authorize @listing, :new
+  end
+
+  def create
+  end
+
+  def edit
+  end
+
+  def update
+  end
+
   private
 
   def get_scope(query)
@@ -15,4 +29,12 @@ class Marketplace::ListingsController < AuthenticatedController
     ::Marketplace::Listing.joins(:product).where("marketplace_products.name LIKE ?", "%#{query}%")
   end
 
+  def pharmacy
+    return unless pharmacy_id
+    @_pharmacy ||= ::Marketplace::Pharmacy.find(pharmacy_id.to_i)
+  end
+
+  def pharmacy_id
+    params.fetch(:pharmacy_id){ nil }
+  end
 end

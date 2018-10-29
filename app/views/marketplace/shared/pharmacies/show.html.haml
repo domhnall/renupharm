@@ -36,8 +36,9 @@
           = t("marketplace.pharmacy.listings")
         #marketplace_listings
           = render partial: 'marketplace/listings/listing', collection: @marketplace_pharmacy.listings
-        .actions
-          = #link_to t("general.add"), new_marketplace_listing_path(marketplace_pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
+        - if policy(@marketplace_pharmacy.listings.build).create?
+          .actions
+            = link_to t("general.add"), new_marketplace_pharmacy_listing_path(pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
 
     - if policy(@marketplace_pharmacy).edit?
       .card
@@ -45,14 +46,16 @@
           %h2
             = t("marketplace.pharmacy.agents")
           = render partial: 'marketplace/shared/pharmacies/agent', collection: @marketplace_pharmacy.agents
-          .actions
-            = #link_to t("general.add"), new_marketplace_agent_path(marketplace_pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
+          - if policy(@marketplace_pharmacy.agents.build).create?
+            .actions
+              = link_to t("general.add"), new_admin_marketplace_pharmacy_agent_path(pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
 
       .card
         .pharmacy_products
           %h2
             = t("marketplace.pharmacy.products")
           = render partial: 'marketplace/shared/pharmacies/product', collection: @marketplace_pharmacy.products
-          .actions
-            = #link_to t("general.add"), new_marketplace_product_path(marketplace_pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
+          - if policy(@marketplace_pharmacy.products.build).create?
+            .actions
+              = link_to t("general.add"), new_marketplace_pharmacy_product_path(pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
 

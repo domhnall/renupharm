@@ -23,7 +23,10 @@ Rails.application.routes.draw do
   namespace :marketplace do
     root to: "listings#index"
     resource :order, only: [:new, :create, :show]
-    resources :pharmacies, only: [:show, :edit, :update]
+    resources :pharmacies, only: [:show, :edit, :update] do
+      resources :products, only: [:index, :new, :create, :edit, :update]
+      resources :listings, only: [:index, :new, :create, :edit, :update]
+    end
   end
 
   namespace :admin do
@@ -39,7 +42,9 @@ Rails.application.routes.draw do
     resources :users
 
     namespace :marketplace do
-      resources :pharmacies, only: [:index, :new, :create, :show, :edit, :update]
+      resources :pharmacies, only: [:index, :new, :create, :show, :edit, :update] do
+        resources :agents, only: [:new, :create, :edit, :update]
+      end
       resources :orders, only: [:index, :edit, :update]
     end
   end
