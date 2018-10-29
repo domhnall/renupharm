@@ -8,15 +8,15 @@ class Marketplace::ProductPolicy < AuthenticatedApplicationPolicy
   end
 
   def show?
-    (pharmacy.active? && product.active?) || user.pharmacy==pharmacy || user.admin?
+    (pharmacy.active? && product.active?) || user.admin? || user.pharmacy==pharmacy
   end
 
   def create?
-    (user.pharmacy==pharmacy && pharmacy.active?) || user.admin?
+    user.admin? || (user.pharmacy==pharmacy && pharmacy.active?)
   end
 
   def update?
-    (user.pharmacy==pharmacy && pharmacy.active?) || user.admin?
+    user.admin? || (user.pharmacy==pharmacy && pharmacy.active?)
   end
 
   private

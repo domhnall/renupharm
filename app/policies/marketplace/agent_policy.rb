@@ -1,6 +1,6 @@
 class Marketplace::AgentPolicy < AuthenticatedApplicationPolicy
   def show?
-    (pharmacy.active? && agent.active?) || user.pharmacy==pharmacy || user.admin?
+    (pharmacy.active? && agent.active?) || user.admin? || user.pharmacy==pharmacy
   end
 
   def create?
