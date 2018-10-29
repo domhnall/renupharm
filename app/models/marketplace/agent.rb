@@ -12,4 +12,8 @@ class Marketplace::Agent < ApplicationRecord
     ->{ where({ state: Marketplace::Orders::State::IN_PROGRESS }) },
     class_name: "Marketplace::Order",
     foreign_key: :marketplace_agent_id
+
+  delegate :full_name,
+           :telephone,
+           :email, to: :user
 end

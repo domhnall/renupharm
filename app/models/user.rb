@@ -16,6 +16,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :profile
 
   delegate :full_name,
+           :telephone,
            :admin?,
            :pharmacy?,
            :courier?, to: :profile

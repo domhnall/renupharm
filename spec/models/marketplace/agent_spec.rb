@@ -7,7 +7,10 @@ describe Marketplace::Agent do
   [ :user,
     :pharmacy,
     :orders,
-    :current_order ].each do |method|
+    :current_order,
+    :full_name,
+    :telephone,
+    :email ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Agent.new).to respond_to method
     end
@@ -17,14 +20,6 @@ describe Marketplace::Agent do
     before :all do
       @user = create_user(email: "daniel@sandymount.ie")
       @pharmacy = create_pharmacy
-      #@pharmacy = Marketplace::Pharmacy.create!({
-      #  name: "Sandymount Pharmacy on the Green",
-      #  address_1:  "1a Sandymount Green",
-      #  address_2: "Dublin 4, Irishtown",
-      #  address_3: "Dublin 4",
-      #  telephone: "(01) 283 7188",
-      #  email: "grainne@sandymount.ie"
-      #})
       @params = {
         user_id: @user.id,
         marketplace_pharmacy_id: @pharmacy.id

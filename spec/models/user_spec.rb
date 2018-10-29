@@ -49,7 +49,9 @@ describe User do
      :admin?,
      :pharmacy?,
      :courier?,
-     :full_name].each do |method|
+     :full_name,
+     :email,
+     :telephone ].each do |method|
       it "should respond to :#{method}" do
         expect(User.new(@params)).to respond_to method
       end
