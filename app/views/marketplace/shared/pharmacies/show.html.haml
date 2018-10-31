@@ -36,7 +36,7 @@
           = t("marketplace.pharmacy.listings")
         #marketplace_listings
           = render partial: 'marketplace/listings/listing', collection: @marketplace_pharmacy.listings
-        - if policy(@marketplace_pharmacy.listings.build).create?
+        - if policy(@marketplace_pharmacy.listings.build(pharmacy: @marketplace_pharmacy)).create?
           .actions
             = link_to t("general.add"), new_marketplace_pharmacy_listing_path(pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
 

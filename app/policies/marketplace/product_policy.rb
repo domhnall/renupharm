@@ -1,6 +1,7 @@
 class Marketplace::ProductPolicy < AuthenticatedApplicationPolicy
-  class Scope
+  class Scope < Scope
     def resolve
+      return scope.all if user.admin?
       scope
       .where(active: true)
       .where("marketplace_pharmacy_id IS NULL OR marketplace_pharmacy_id = ?", user.pharmacy.id)

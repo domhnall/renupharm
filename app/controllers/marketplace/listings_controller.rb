@@ -10,10 +10,22 @@ class Marketplace::ListingsController < AuthenticatedController
 
   def new
     @listing = pharmacy.listings.build
-    authorize @listing, :new
+    @products = policy_scope(Marketplace::Product)
+    authorize @listing, :new?
   end
 
   def create
+    @listing = pharmacy.listings.build(listing_params).tap do |listing|
+      listing.product = get_product
+    end
+    authorize @listing, :create?
+    if @listing.valid? && @listing.save!
+      redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t('marketplace.listing.flash.create_successful') }
+    else
+      flash.now[:warning] = I18n.t('marketplace.listing.flash.error')
+      @products = policy_scope(Marketplace::Product)
+      render :new
+    end
   end
 
   def edit
@@ -25,8 +37,8 @@ class Marketplace::ListingsController < AuthenticatedController
   private
 
   def get_scope(query)
-    return ::Marketplace::Listing.joins(:product) if query.size<3
-    ::Marketplace::Listing.joins(:product).where("marketplace_products.name LIKE ?", "%#{query}%")
+    return ::Marketplace::Listing.joins(:product).active_listings if query.size<3
+    ::Marketplace::Listing.joins(:product).active_listings.where("marketplace_products.name LIKE ?", "%#{query}%")
   end
 
   def pharmacy
@@ -36,5 +48,13 @@ class Marketplace::ListingsController < AuthenticatedController
 
   def pharmacy_id
     params.fetch(:pharmacy_id){ nil }
+  end
+
+  def get_product
+    policy_scope(Marketplace::Product).find(listing_params.fetch(:marketplace_product_id))
+  end
+
+  def listing_params
+    params.require(:marketplace_listing).permit(:marketplace_product_id, :quantity, :expiry, :price_cents, :active)
   end
 end

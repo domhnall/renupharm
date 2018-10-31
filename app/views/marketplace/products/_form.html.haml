@@ -19,6 +19,9 @@
       .form-group
         = form.label :unit_size, t('marketplace.product.unit_size'), class: 'col-form-label'
         = form.text_field :unit_size, class: 'form-control'
+      .form-group
+        = form.label :active, t('marketplace.product.active'), class: 'col-form-label col-form-check-label'
+        = form.check_box :active, class: 'col-form-check-input'
   .row.actions
     = submit_tag t('general.save'), id: 'submit_product', class: 'btn btn-success'
     = link_to t('general.cancel'), :back, class: 'btn btn-light'

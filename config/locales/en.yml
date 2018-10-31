@@ -275,6 +275,7 @@ en:
       name: "Name"
       description: "Description"
       unit_size: "Unit size"
+      active: "Active"
       listings: "Listings"
       images: "Images"
       labels:
@@ -285,15 +286,24 @@ en:
         update_successful: "Successfully updated product"
         error: "There has been an error with your submission, please review and try again."
     listing:
+      product: "Product"
       quantity: "Quantity"
       expiry: "Expiry"
-      price_cents: "Price cents"
+      price_cents: "Price (in cents)"
+      active: "Active"
       labels:
         sold_by: "Sold by"
         buy_now: "Buy now"
         expires: "Expires:"
       errors:
         minimum_expiry: "Valid Marketplace listings must have a minium shelf-life of %{days} days"
+      labels:
+        new_listing: "Add new listing"
+        edit_listing: "Editing listing for '%{product_name}'"
+      flash:
+        create_successful: "Successfully created new listing"
+        update_successful: "Successfully updated listing"
+        error: "There has been an error with your submission, please review and try again."
     order:
       errors:
         max_line_items: "Valid orders can only have %{max} line items, please remove some items from your basket."

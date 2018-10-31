@@ -10,7 +10,10 @@ class Marketplace::Listing < ApplicationRecord
     class_name: "Marketplace::Product",
     foreign_key: :marketplace_product_id
 
-  has_one :pharmacy, through: :product
+  belongs_to :pharmacy,
+    class_name: "Marketplace::Pharmacy",
+    foreign_key: :marketplace_pharmacy_id
+
   alias_method :seller, :pharmacy
 
   validates :quantity, :price_cents, :expiry, presence: true
@@ -20,6 +23,8 @@ class Marketplace::Listing < ApplicationRecord
 
   delegate :name, :description, :unit_size, :images, to: :product, prefix: true
   delegate :name, :address, :telephone, :email, :image, to: :pharmacy, prefix: :seller
+
+  scope :active_listings, ->{ where(active: true) }
 
   def self.currency_symbol
     CURRENCY_SYMBOLS[:eur]
