@@ -21,7 +21,8 @@ describe Marketplace::Product do
         pharmacy: @pharmacy,
         name: "Paracetomol",
         description: "Some description",
-        unit_size: "40 capsules"
+        unit_size: "40 capsules",
+        active: true
       }
     end
 
@@ -82,6 +83,49 @@ describe Marketplace::Product do
       it "should be invalid when :description is greater than 255 characters" do
         expect(Marketplace::Product.new(@params.merge(description: "a"*1000))).to be_valid
         expect(Marketplace::Product.new(@params.merge(description: "a"*1001))).not_to be_valid
+      end
+    end
+
+    describe "name uniqueness" do
+      before :all do
+        @product = @pharmacy.products.create(@params)
+        @other_pharmacy = create_pharmacy(name: "Other pharmacy", email: "info@otherpharmacy.com")
+      end
+
+      describe "product active" do
+        before :each do
+          @new_params = @params.merge(active: true)
+        end
+
+        it "should be invalid if :name and :unit_size is not unique for the given pharmacy" do
+          expect(@pharmacy.products.build(@new_params)).to be_invalid
+        end
+
+        it "should be valid if :name is unique for the given pharmacy" do
+          expect(@pharmacy.products.build(@new_params.merge(name: "New_name"))).to be_valid
+        end
+
+        it "should be valid if :unit_size is unique for the given pharmacy" do
+          expect(@pharmacy.products.build(@new_params.merge(unit_size: "80 capsules"))).to be_valid
+        end
+
+        it "should be valid if :unit_size is unique for the given pharmacy" do
+          expect(@pharmacy.products.build(@new_params.merge(unit_size: "80 capsules"))).to be_valid
+        end
+
+        it "should be valid if duplicate product belongs to a different pharmacy" do
+          expect(@pharmacy.products.build(@new_params.merge(pharmacy: @other_pharmacy))).to be_valid
+        end
+      end
+
+      describe "product inactive" do
+        before :each do
+          @new_params = @params.merge(active: true)
+        end
+
+        it "should be valid if :name and :unit_size are not unique for the pharmacy" do
+          expect(@pharmacy.products.build(@new_params)).to be_valid
+        end
       end
     end
   end

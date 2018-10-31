@@ -33,7 +33,6 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-    add_index :marketplace_products, [:name, :unit_size], unique: true
 
     create_table :marketplace_listings do |t|
       t.belongs_to :marketplace_pharmacy, foreign_key: true

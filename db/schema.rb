@@ -109,7 +109,6 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_products_on_marketplace_pharmacy_id"
-    t.index ["name", "unit_size"], name: "index_marketplace_products_on_name_and_unit_size", unique: true
   end
 
   create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
