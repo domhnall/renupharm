@@ -277,6 +277,13 @@ en:
       unit_size: "Unit size"
       listings: "Listings"
       images: "Images"
+      labels:
+        new_product: "Add new product"
+        edit_product: "Editing product '%{name}'"
+      flash:
+        create_successful: "Successfully created new product"
+        update_successful: "Successfully updated product"
+        error: "There has been an error with your submission, please review and try again."
     listing:
       quantity: "Quantity"
       expiry: "Expiry"
