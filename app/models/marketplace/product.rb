@@ -14,5 +14,5 @@ class Marketplace::Product < ApplicationRecord
   validates :name, length: { minimum: 3, maximum: 255 }
   validates :unit_size, length: { minimum: 1, maximum: 255 }
   validates :description, length: { minimum: 3, maximum: 1000 }
-  #validates :name, uniqueness: true, scope: [:marketplace_pharmacy_id, :unit_size], if: :active?
+  validates :name, uniqueness: { scope: [:marketplace_pharmacy_id, :unit_size] }, if: :active?
 end

@@ -120,7 +120,7 @@ describe Marketplace::Product do
 
       describe "product inactive" do
         before :each do
-          @new_params = @params.merge(active: true)
+          @new_params = @params.merge(active: false)
         end
 
         it "should be valid if :name and :unit_size are not unique for the pharmacy" do
