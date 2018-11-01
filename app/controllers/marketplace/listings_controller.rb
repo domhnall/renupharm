@@ -29,10 +29,12 @@ class Marketplace::ListingsController < AuthenticatedController
   end
 
   def edit
+    @listing = pharmacy.listings.find(params.fetch(:id))
+    @products = policy_scope(Marketplace::Product)
+    authorize @listing, :edit?
   end
 
   def update
-    byebug
   end
 
   private

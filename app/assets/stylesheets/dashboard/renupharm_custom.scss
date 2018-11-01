@@ -32,6 +32,12 @@ footer.app-footer {
   .show_record {
     width: 70%;
     margin: auto;
+    .form-group {
+      clear: both;
+      textarea {
+        margin-bottom: 1em;
+      }
+    }
     .col-form-label {
       display: inline-block;
       width: 24%;

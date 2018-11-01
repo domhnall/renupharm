@@ -38,6 +38,6 @@ class Marketplace::ProductsController < AuthenticatedController
   end
 
   def product_params
-    params.require(:marketplace_product).permit(:name, :description, :unit_size, :active)
+    params.require(:marketplace_product).permit(:name, :description, :unit_size, :active, images: [])
   end
 end

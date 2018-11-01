@@ -4,11 +4,12 @@
     .col-5
       .product_images
         - if @product.images.any?
-          = render 'marketplace/shared/product_images', {product_images: @product.images}
+          - @product.images.each do |image|
+            = image_tag(image.variant(resize: '500x500'))
         - else
           = image_tag("placeholder-product.jpg", class: 'img-product')
         .form-group
-          = form.file_field :images[0]
+          = form.file_field :images, multiple: true
     .col-7
       .form-group
         = form.label :name, t('marketplace.product.name'), class: 'col-form-label'
