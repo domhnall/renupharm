@@ -2,9 +2,6 @@
 
 #marketplace_listings {
   .listing {
-    .product_images {
-      margin: 10px;
-    }
     .product_details {
       padding: 10px;
       .price {
@@ -68,4 +65,13 @@
       }
     }
   }
+}
+.product_images {
+  .img-product {
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+    border-radius: 2em;
+  }
+  margin: 10px;
 }

@@ -5,7 +5,7 @@
         - if listing.product_images.any?
           = render 'marketplace/shared/product_images', {product_images: listing.product_images}
         - else
-          = image_tag("placeholder-product.jpg", class: 'img-avatar')
+          = image_tag("placeholder-product.jpg", class: 'img-product')
     .col-7
       .product_details
         .row
@@ -42,4 +42,9 @@
             .cta
               = #link_to t("marketplace.listing.labels.buy_now"), marketplace_orders_path, method: :post, data: { marketplace_listing_id: listing.id }, class: 'btn btn-success'
               = link_to t("marketplace.listing.labels.buy_now"), "#", method: :get, data: { marketplace_listing_id: listing.id }, class: 'btn btn-success'
+
+  - if policy(listing).update?
+    .row.actions
+      = link_to t("general.edit"), edit_marketplace_pharmacy_listing_path(listing), class: 'btn btn-info'
+      = link_to t("marketplace.listing.labels.delist"), marketplace_pharmacy_listing_path(listing), method: :patch, data: { active: false }, class: 'btn btn-danger'
 

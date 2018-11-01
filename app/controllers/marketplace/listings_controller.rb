@@ -32,6 +32,7 @@ class Marketplace::ListingsController < AuthenticatedController
   end
 
   def update
+    byebug
   end
 
   private

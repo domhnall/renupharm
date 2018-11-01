@@ -6,7 +6,7 @@
         - if @product.images.any?
           = render 'marketplace/shared/product_images', {product_images: @product.images}
         - else
-          = image_tag("placeholder-product.jpg", class: 'img-avatar')
+          = image_tag("placeholder-product.jpg", class: 'img-product')
         .form-group
           = form.file_field :images[0]
     .col-7

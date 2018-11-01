@@ -295,11 +295,11 @@ en:
         sold_by: "Sold by"
         buy_now: "Buy now"
         expires: "Expires:"
-      errors:
-        minimum_expiry: "Valid Marketplace listings must have a minium shelf-life of %{days} days"
-      labels:
         new_listing: "Add new listing"
         edit_listing: "Editing listing for '%{product_name}'"
+        delist: "Delist"
+      errors:
+        minimum_expiry: "Valid Marketplace listings must have a minium shelf-life of %{days} days"
       flash:
         create_successful: "Successfully created new listing"
         update_successful: "Successfully updated listing"
