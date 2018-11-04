@@ -15,4 +15,15 @@ class Marketplace::Product < ApplicationRecord
   validates :unit_size, length: { minimum: 1, maximum: 255 }
   validates :description, length: { minimum: 3, maximum: 1000 }
   validates :name, uniqueness: { scope: [:marketplace_pharmacy_id, :unit_size] }, if: :active?
+
+  attr_accessor :delete_images
+
+  after_save :clean_up_images!
+
+  private
+
+  def clean_up_images!
+    ids = self.delete_images.split(",").map(&:to_i)
+    self.images.where(id: ids).each(&:purge_later)
+  end
 end

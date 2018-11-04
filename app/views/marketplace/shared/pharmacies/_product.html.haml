@@ -3,7 +3,7 @@
     .col-5
       .product_images
         - if product.images.any?
-          = render "marketplace/shared/product_images", {product_images: product.images}
+          = render "marketplace/shared/product_images", {product: product, context: 'pharmacy_product'}
         - else
           = image_tag("placeholder-product.jpg", class: "img-product")
     .col-7
@@ -15,6 +15,7 @@
         .unit_size
           %span.label= t("marketplace.product.unit_size") + ":"
           %span.value= product.unit_size
-    - if policy(product).edit?
+  - if policy(product).edit?
+    .row
       .actions
         = link_to t("general.edit"), edit_marketplace_pharmacy_product_path(product.pharmacy, product)

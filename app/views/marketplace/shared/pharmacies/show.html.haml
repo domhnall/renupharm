@@ -19,7 +19,7 @@
               .value= @marketplace_pharmacy.fax
         .col-5
           .image
-            = image_tag((image = @marketplace_pharmacy.image).attached? ? image.variant(resize: "400x400") : "placeholder-pharmacy.jpg", class: 'img-avatar')
+            = image_tag((image = @marketplace_pharmacy.image).attached? ? image.variant(resize: "300x300") : "placeholder-pharmacy.jpg", class: 'img-avatar')
           .address
             %label.label= t("marketplace.pharmacy.address")
             %ul

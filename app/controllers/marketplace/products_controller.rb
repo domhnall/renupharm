@@ -24,10 +24,11 @@ class Marketplace::ProductsController < AuthenticatedController
     @product = pharmacy.products.find(params.fetch(:id).to_i)
     authorize @product, :update?
     if @product.update_attributes(product_params)
+      #@product.clean_up_images!
       redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t('marketplace.product.flash.update_successful') }
     else
       flash.now[:warning] = I18n.t('marketplace.product.flash.error')
-      render :new
+      render :edit
     end
   end
 
@@ -38,6 +39,6 @@ class Marketplace::ProductsController < AuthenticatedController
   end
 
   def product_params
-    params.require(:marketplace_product).permit(:name, :description, :unit_size, :active, images: [])
+    params.require(:marketplace_product).permit(:name, :description, :unit_size, :active, :delete_images, images: [])
   end
 end
