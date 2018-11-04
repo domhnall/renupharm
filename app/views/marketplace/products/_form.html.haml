@@ -32,6 +32,7 @@
       .form-group
         = form.label :active, t('marketplace.product.active'), class: 'col-form-label col-form-check-label'
         = form.check_box :active, class: 'col-form-check-input'
-  .row.actions
-    = submit_tag t('general.save'), id: 'submit_product', class: 'btn btn-success'
-    = link_to t('general.cancel'), :back, class: 'btn btn-light'
+  .row
+    .actions
+      = submit_tag t('general.save'), id: 'submit_product', class: 'btn btn-success'
+      = link_to t('general.cancel'), :back, class: 'btn btn-light'
