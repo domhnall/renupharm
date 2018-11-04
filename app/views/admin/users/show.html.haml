@@ -7,59 +7,59 @@
         %h3= t('user.heading.security')
 
         .form-group.row
-          %label.label.col-form-label.col-2
+          %label.label.col-form-label.col-3
             = t('user.email')
-          .col-10
+          .col-9
             %span.form-control
               = @user.email
         .form-group.row
-          %label.label.col-form-label.col-2
+          %label.label.col-form-label.col-3
             = t('user.current_sign_in_at')
-          .col-10
+          .col-9
             %span.form-control
               = @user.current_sign_in_at
         .form-group.row
-          %label.label.col-form-label.col-2
+          %label.label.col-form-label.col-3
             = t('user.created_at')
-          .col-10
+          .col-9
             %span.form-control
               = @user.created_at
         .form-group.row
-          %label.label.col-form-label.col-2
+          %label.label.col-form-label.col-3
             = t('user.updated_at')
-          .col-10
+          .col-9
             %span.form-control
               = @user.updated_at
 
         %h3= t('user.heading.profile')
 
         .row
-          .col-7
+          .col-8
             .form-group.row
-              %label.label.col-form-label.col-2
+              %label.label.col-form-label.col-4
                 = t('profile.first_name')
-              .col-10
+              .col-8
                 %span.form-control
                   = @profile.first_name
             .form-group.row
-              %label.label.col-form-label.col-2
+              %label.label.col-form-label.col-4
                 = t('profile.surname')
-              .col-10
+              .col-8
                 %span.form-control
                   = @profile.surname
             .form-group.row
-              %label.label.col-form-label.col-2
+              %label.label.col-form-label.col-4
                 = t('profile.telephone')
-              .col-10
+              .col-8
                 %span.form-control
                   = @profile.telephone
             .form-group.row
-              %label.label.col-form-label.col-2
+              %label.label.col-form-label.col-4
                 = t('profile.role')
-              .col-10
+              .col-8
                 %span.form-control
                   = t("profile.roles.#{@profile.role}")
-          .col-5
+          .col-4
             = image_tag((@profile.avatar.attached? ? @profile.avatar : "placeholder-user.png"), class: 'img-avatar')
 
         .actions

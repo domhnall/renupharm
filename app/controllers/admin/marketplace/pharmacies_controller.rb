@@ -50,6 +50,19 @@ class Admin::Marketplace::PharmaciesController < Admin::BaseController
   end
 
   def pharmacy_params
-    params.require(:marketplace_pharmacy).permit(:name, :description, :address_1, :address_2, :address_3, :email, :telephone, :fax, :active)
+    params
+    .require(:marketplace_pharmacy)
+    .permit(
+      :name,
+      :description,
+      :address_1,
+      :address_2,
+      :address_3,
+      :email,
+      :telephone,
+      :fax,
+      :active,
+      :image
+    )
   end
 end
