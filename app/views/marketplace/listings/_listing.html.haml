@@ -32,13 +32,11 @@
         .row
           %hr
           .col-12
-            .description
-              = truncate_with_ellipsis(listing.product_description, 250)
+            .description.truncate
+              = listing.product_description
             .expiry
               %span.label= t("marketplace.listing.labels.expires")
               %span.value= format_date(listing.expiry)
-            .see_more.btn.btn-secondary
-              = t("general.see_more")
             .cta
               = #link_to t("marketplace.listing.labels.buy_now"), marketplace_orders_path, method: :post, data: { marketplace_listing_id: listing.id }, class: 'btn btn-success'
               = link_to t("marketplace.listing.labels.buy_now"), "#", method: :get, data: { marketplace_listing_id: listing.id }, class: 'btn btn-success'

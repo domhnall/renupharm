@@ -9,8 +9,8 @@
     .col-7
       .name
         = product.name
-      .description
-        = truncate_with_ellipsis(product.description, 250)
+      .description.truncate
+        = product.description
       .amount
         .unit_size
           %span.label= t("marketplace.product.unit_size") + ":"
