@@ -35,6 +35,15 @@ class Marketplace::ListingsController < AuthenticatedController
   end
 
   def update
+    @listing = pharmacy.listings.find(params.fetch(:id).to_i)
+    authorize @listing, :update?
+    if @listing.update_attributes(listing_params)
+      redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t('marketplace.listing.flash.update_successful') }
+    else
+      flash.now[:warning] = I18n.t('marketplace.listing.flash.error')
+      @products = policy_scope(Marketplace::Product)
+      render :edit
+    end
   end
 
   private

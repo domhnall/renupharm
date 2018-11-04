@@ -298,6 +298,7 @@ en:
         new_listing: "Add new listing"
         edit_listing: "Editing listing for '%{product_name}'"
         delist: "Delist"
+        activate: "Activate"
       errors:
         minimum_expiry: "Valid Marketplace listings must have a minium shelf-life of %{days} days"
       flash:

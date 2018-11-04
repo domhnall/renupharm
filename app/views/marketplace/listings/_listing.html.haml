@@ -42,7 +42,11 @@
               = link_to t("marketplace.listing.labels.buy_now"), "#", method: :get, data: { marketplace_listing_id: listing.id }, class: 'btn btn-success'
 
   - if policy(listing).update?
-    .row.actions
-      = link_to t("general.edit"), edit_marketplace_pharmacy_listing_path(listing.pharmacy, listing), class: 'btn btn-info'
-      = link_to t("marketplace.listing.labels.delist"), marketplace_pharmacy_listing_path(listing.pharmacy, listing), method: :patch, data: { active: false }, class: 'btn btn-danger'
+    .row
+      .actions
+        = link_to t("general.edit"), edit_marketplace_pharmacy_listing_path(listing.pharmacy, listing), class: 'btn btn-info'
+        - if listing.active?
+          = button_to t("marketplace.listing.labels.delist"), marketplace_pharmacy_listing_path(listing.pharmacy, listing), method: :patch, params: {marketplace_listing: { active: false }}, class: 'btn btn-danger'
+        - else
+          = button_to t("marketplace.listing.labels.activate"), marketplace_pharmacy_listing_path(listing.pharmacy, listing), method: :patch, params: {marketplace_listing: { active: true }}, class: 'btn btn-warning'
 
