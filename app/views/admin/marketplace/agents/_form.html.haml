@@ -1,16 +1,8 @@
-=# form_for [:admin, @pharmacy, @agent] do |form|
-= form_for admin_marketplace_pharmacy_agents_path(@pharmacy) do |form|
+- url = @agent.persisted? ? admin_marketplace_pharmacy_agent_path(@agent.pharmacy, @agent) : admin_marketplace_pharmacy_agents_path(@agent.pharmacy)
+= form_for @agent, url: url do |form|
   = form.fields_for :user do |user_form|
-    .form-group
-      = user_form.label :email, t('user.email'), class: 'col-form-label'
-      = user_form.email_field :email, class: 'form-control'
-    .form-group
-      = user_form.label :password, t('user.password'), class: 'col-form-label'
-      = user_form.text_field :password, class: 'form-control'
-    .form-group
-      = user_form.label :password_confirmation, t('user.password_confirmation'), class: 'col-form-label'
-      = user_form.text_field :password_confirmation, class: 'form-control'
+    = render 'admin/users/user_fields', form: user_form
 
   .actions
     = submit_tag t('general.save'), id: 'submit_marketplace_agent', class: 'btn btn-success'
-    = link_to t('general.cancel'), marketplace_pharmacy_path(@pharmacy), class: 'btn btn-light'
+    = link_to t('general.cancel'), marketplace_pharmacy_path(@agent.pharmacy), class: 'btn btn-light'
