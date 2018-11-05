@@ -9,7 +9,6 @@ class Admin::Marketplace::AgentsController < AuthenticatedController
   end
 
   def create
-    byebug
     @agent = pharmacy.agents.build(agent_params)
     authorize @agent, :create?
     if @agent.save

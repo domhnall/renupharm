@@ -56,7 +56,7 @@ shared_examples "a basic admin controller with :update" do |clazz|
 
       it "should redirect the user to the show page" do
         put :update, params: @update_params
-        expect(response).to redirect_to self.send("admin_#{@clazz.to_s.gsub("::","_").downcase}_path", @clazz.find(@update_params.fetch(:id)))
+        expect(response).to redirect_to (@successful_update_redirect || self.send("admin_#{@clazz.to_s.gsub("::","_").downcase}_path", @clazz.find(@update_params.fetch(:id))))
       end
     end
   end

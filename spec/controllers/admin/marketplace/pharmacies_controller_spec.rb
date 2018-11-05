@@ -24,6 +24,7 @@ describe Admin::Marketplace::PharmaciesController do
   it_behaves_like "a basic admin controller with :index"
   it_behaves_like "a basic admin controller with :show"
   it_behaves_like "a basic admin controller with :edit"
+  it_behaves_like "a basic admin controller with :new"
   it_behaves_like "a basic admin controller with :create", Marketplace::Pharmacy
   it_behaves_like "a basic admin controller with :update", Marketplace::Pharmacy
 
