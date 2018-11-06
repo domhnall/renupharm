@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   devise_for :users, skip: :registrations
   devise_scope :user do
     get 'account/edit', to: 'users/registrations#edit'
-    put 'account', to: 'devise/registrations#update'
-    patch 'account', to: 'devise/registrations#update'
-    delete 'account', to: 'devise/registrations#destroy'
+    put 'account', to: 'users/registrations#update'
+    patch 'account', to: 'users/registrations#update'
+    delete 'account', to: 'users/registrations#destroy'
   end
 
   resource :pages, only: [:index], path: '/' do

@@ -92,13 +92,19 @@ nav.navbar.bootsnav ul.nav {
   float: right
 }
 
-.form-group.error, .error_explanation {
+.form-group.error, .error_explanation, #error_explanation {
   @extend .alert;
   @extend .alert-warning;
 }
 
 .no_error .error_message {
   display: none;
+}
+
+#error_explanation {
+  h2 {
+    font-size: 110%;
+  }
 }
 
 .error_explanation .error_message {
