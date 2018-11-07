@@ -26,8 +26,14 @@ class Marketplace::Listing < ApplicationRecord
 
   scope :active_listings, ->{ where(active: true) }
 
+  after_initialize :default_pharmacy_id
+
   def self.currency_symbol
     CURRENCY_SYMBOLS[:eur]
+  end
+
+  def marketplace_pharmacy_id=(pharmacy_id)
+    super(product&.marketplace_pharmacy_id || pharmacy_id)
   end
 
   def acceptable_expiry?
@@ -47,6 +53,11 @@ class Marketplace::Listing < ApplicationRecord
   end
 
   private
+
+  def default_pharmacy_id
+    return unless self.new_record?
+    self.marketplace_pharmacy_id = product&.marketplace_pharmacy_id
+  end
 
   def decimal_price
     sprintf("%0.2f", price_cents/100.to_f)

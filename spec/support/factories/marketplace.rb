@@ -36,25 +36,25 @@ module Factories
 
     def create_agent(attrs = {})
       attrs.fetch(:pharmacy){ create_pharmacy }.agents.create({
-        user: attrs.fetch(:user, create_user(email: "agent@renupharm.ie")),
+        user: attrs.fetch(:user){ create_user(email: "agent@renupharm.ie") },
         active: attrs.fetch(:active){ true }
       })
     end
 
     def create_product(attrs = {})
       attrs.fetch(:pharmacy){ create_pharmacy }.products.create({
-        name: attrs.fetch(:name, "Paracetomol"),
-        unit_size: attrs.fetch(:unit_size, "80 capsules"),
-        description: attrs.fetch(:description, "Some populat drug that we want to populate on our database"),
+        name: attrs.fetch(:name){ "Paracetomol" },
+        unit_size: attrs.fetch(:unit_size){ "80 capsules" },
+        description: attrs.fetch(:description){ "Some popular drug that we want to populate on our database" },
         active: attrs.fetch(:active){ true }
       })
     end
 
     def create_listing(attrs = {})
       attrs.fetch(:product){ create_product(attrs) }.listings.create({
-        quantity: attrs.fetch(:quantity, 1),
-        price_cents: attrs.fetch(:price_cents, 8499),
-        expiry: attrs.fetch(:expiry, Date.today+24.days),
+        quantity: attrs.fetch(:quantity){ 1 },
+        price_cents: attrs.fetch(:price_cents){ 8499 },
+        expiry: attrs.fetch(:expiry){ Date.today+24.days },
         active: attrs.fetch(:active){ true }
       })
     end

@@ -26,18 +26,18 @@ describe Marketplace::Listing do
     end
   end
 
-  describe "instantiation" do
-    before :all do
-      @product = create_product
-      @params = {
-        product: @product,
-        quantity: 2,
-        price_cents: 8999,
-        expiry: Date.today+90.days,
-        active: true
-      }
-    end
+  before :all do
+    @product = create_product
+    @params = {
+      product: @product,
+      quantity: 2,
+      price_cents: 8999,
+      expiry: Date.today+90.days,
+      active: true
+    }
+  end
 
+  describe "instantiation" do
     it "should be valid when all mandatory attributes are supplied" do
       expect(Marketplace::Listing.new(@params)).to be_valid
     end
@@ -71,6 +71,10 @@ describe Marketplace::Listing do
     it "should be valid if listing marked as inactive, regardless of expiry" do
       expect(Marketplace::Listing.new(@params.merge(active: false, expiry: Date.today+2.days))).to be_valid
       expect(Marketplace::Listing.new(@params.merge(active: false, expiry: Date.today-28.days))).to be_valid
+    end
+
+    it "should automatically assign the marketplace_pharmacy_id to match the ID on the product" do
+      expect(Marketplace::Listing.new(@params).marketplace_pharmacy_id).to eq @product.marketplace_pharmacy_id
     end
   end
 
@@ -110,6 +114,31 @@ describe Marketplace::Listing do
 
       it "should return the integer cent component of the price" do
         expect(Marketplace::Listing.new(price_cents: 9589).price_minor).to eq "89"
+      end
+    end
+
+    describe "#marketplace_pharmacy_id=" do
+      before :all do
+        @other_pharmacy = create_pharmacy(name: "Other pharmacy", email: "other@renupharm.ie")
+        @generic_product = Marketplace::Product.create!({
+          name: "Vegetable Oil",
+          unit_size: "1000 ml",
+          description: "Excellent for cooking"
+        })
+      end
+
+      it "should not permit the the marketplace_pharmacy_id to be altered if pharmacy ID exits on the product" do
+        listing = Marketplace::Listing.new(@params)
+        expect(listing.marketplace_pharmacy_id).to eq @product.marketplace_pharmacy_id
+        listing.marketplace_pharmacy_id = @other_pharmacy.id
+        expect(listing.marketplace_pharmacy_id).to eq @product.marketplace_pharmacy_id
+      end
+
+      it "should permit the marketplace_pharmacy_id ot be altered if the pharmacy ID is nil on the product" do
+        listing = Marketplace::Listing.new(@params.merge(product: @generic_product))
+        expect(listing.marketplace_pharmacy_id).to be_nil
+        listing.marketplace_pharmacy_id = @other_pharmacy.id
+        expect(listing.marketplace_pharmacy_id).to eq @other_pharmacy.id
       end
     end
   end
