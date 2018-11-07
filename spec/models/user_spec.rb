@@ -44,8 +44,7 @@ describe User do
   describe "instance method" do
     [:profile,
      :comments,
-     :agent,
-     :pharmacy,
+     :role,
      :admin?,
      :pharmacy?,
      :courier?,

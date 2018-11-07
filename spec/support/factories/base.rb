@@ -8,7 +8,7 @@ module Factories
         user.build_profile(attrs.fetch(:profile_attributes, {
           first_name: "Daffy",
           surname: "Duck",
-          role: Profile::Roles::PHARMACY
+          role: attrs.fetch(:role){ Profile::Roles::PHARMACY }
         }))
         user.skip_confirmation!
         user.save!

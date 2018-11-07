@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include UsersHelper
   include Pundit
 
   rescue_from Errors::AccessDenied, Pundit::NotAuthorizedError do |exception|
