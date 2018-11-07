@@ -16,16 +16,16 @@ describe Marketplace::Agent do
     end
   end
 
-  describe "instantiation" do
-    before :all do
-      @user = create_user(email: "daniel@sandymount.ie")
-      @pharmacy = create_pharmacy
-      @params = {
-        user_id: @user.id,
-        marketplace_pharmacy_id: @pharmacy.id
-      }
-    end
+  before :all do
+    @user = create_user(email: "daniel@sandymount.ie")
+    @pharmacy = create_pharmacy
+    @params = {
+      user_id: @user.id,
+      marketplace_pharmacy_id: @pharmacy.id
+    }
+  end
 
+  describe "instantiation" do
     it "should be valid when all mandatory attributes are supplied" do
       expect(Marketplace::Agent.new(@params)).to be_valid
     end
@@ -36,6 +36,32 @@ describe Marketplace::Agent do
 
     it "should be invalid when :user_id is not supplied" do
       expect(Marketplace::Agent.new(@params.merge(user_id: nil))).not_to be_valid
+    end
+  end
+
+  describe "#current_order" do
+    before :all do
+      @agent = Marketplace::Agent.create!(user_id: @user.id, marketplace_pharmacy_id: @pharmacy.id)
+      product = create_product(pharmacy: create_pharmacy(name: 'MacGregors', email: 'conor@macgregors.com'))
+      @completed_order = create_order(
+        agent: @agent,
+        state: Marketplace::Order::State::COMPLETED,
+        listing: create_listing(product: product)
+      )
+      @current_order = create_order(
+        agent: @agent,
+        state: Marketplace::Order::State::IN_PROGRESS,
+        listing: create_listing(product: product)
+      )
+    end
+
+    it "should return a single in-progress order for the agent" do
+      expect(@agent.reload.current_order.id).to eq @current_order.id
+    end
+
+    it "should return nil where no in-progress orders exist" do
+      @current_order.update_column(:state, Marketplace::Order::State::COMPLETED)
+      expect(@agent.reload.current_order).to be_nil
     end
   end
 end

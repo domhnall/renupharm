@@ -23,6 +23,7 @@ class Marketplace::Product < ApplicationRecord
   private
 
   def clean_up_images!
+    return if self.delete_images.blank?
     ids = self.delete_images.split(",").map(&:to_i)
     self.images.where(id: ids).each(&:purge_later)
   end

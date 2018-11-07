@@ -64,7 +64,7 @@ module Factories
         state: attrs.fetch(:state){ Marketplace::Order::State::IN_PROGRESS },
       }).tap do |order|
         order.line_items.create({
-          listing: attrs.fetch(:listing, create_listing)
+          listing: attrs.fetch(:listing){ create_listing }
         })
       end.reload
     end
