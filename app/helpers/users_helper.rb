@@ -14,4 +14,8 @@ module UsersHelper
       devise_current_user.becomes(Users::Admin)
     end
   end
+
+  def current_order
+    current_user.pharmacy? && current_user&.current_order
+  end
 end

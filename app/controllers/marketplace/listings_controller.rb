@@ -6,6 +6,9 @@ class Marketplace::ListingsController < AuthenticatedController
     @total_count = get_scope(@query).count
     @total_pages = (@total_count/@per_page).ceil
     @listings    = get_scope(@query).order("marketplace_products.name").limit(@per_page).offset((@page-1)*@per_page)
+
+    # Build new line item that will be initialized with different values for each Buy button
+    current_order.line_items.build
   end
 
   def new

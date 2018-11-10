@@ -326,3 +326,15 @@ en:
       full_name: "Name"
       email: "Email"
       telephone: "Telephone"
+    cart:
+      title: "Your basket"
+      order_details:
+        product: "Product details"
+        quantity: "Quantity"
+        price: "Price"
+        total_price: "Total price:"
+      actions:
+        place_order: "Place order"
+        empty_cart: "Empty basket"
+
+

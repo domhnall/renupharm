@@ -22,7 +22,8 @@ Rails.application.routes.draw do
 
   namespace :marketplace do
     root to: "listings#index"
-    resource :order, only: [:new, :create, :show]
+    resource :cart, only: [:show, :update]
+
     resources :pharmacies, only: [:show, :edit, :update] do
       resources :products, only: [:index, :new, :create, :edit, :update]
       resources :listings, only: [:index, :new, :create, :edit, :update]

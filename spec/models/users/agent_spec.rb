@@ -30,7 +30,8 @@ describe Users::Agent do
     [ :profile,
       :role,
       :agent,
-      :pharmacy ].each do |method|
+      :pharmacy,
+      :current_order ].each do |method|
       it "should respond to :#{method}" do
         expect(Users::Agent.new(@params)).to respond_to method
       end

@@ -1,0 +1,24 @@
+.row
+  .col-md-12
+    .card.cart
+      .heading
+        %h2= t("marketplace.cart.title")
+        = render 'empty_cart_button', order: @order
+      %table.order_details
+        %thead
+          %tr
+            %td.product= t("marketplace.cart.order_details.product")
+            %td.quantity= t("marketplace.cart.order_details.quantity")
+            %td.price= t("marketplace.cart.order_details.price")
+        %tbody
+          - @order.line_items.each do |line_item|
+            %tr
+              %td.product=line_item.product.name
+              %td.quantity=line_item.quantity
+              %td.quantity=line_item.display_price
+        %tfoot
+          %td
+          %td.total_price_label= t("marketplace.cart.order_details.total_price")
+          %td.total_price= @order.display_price
+      .row
+        = render 'place_order_button', order: @order

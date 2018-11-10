@@ -6,6 +6,7 @@ describe Marketplace::Order do
 
   [ :state,
     :agent,
+    :user,
     :line_items ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Order.new).to respond_to method

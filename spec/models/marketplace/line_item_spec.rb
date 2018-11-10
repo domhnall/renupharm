@@ -4,7 +4,12 @@ describe Marketplace::LineItem do
   include Factories::Marketplace
 
   [ :order,
-    :listing ].each do |method|
+    :listing,
+    :product,
+    :pharmacy,
+    :quantity,
+    :price_cents,
+    :display_price ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::LineItem.new).to respond_to method
     end

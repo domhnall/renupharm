@@ -38,8 +38,7 @@
               %span.label= t("marketplace.listing.labels.expires")
               %span.value= format_date(listing.expiry)
             .cta
-              = #link_to t("marketplace.listing.labels.buy_now"), marketplace_orders_path, method: :post, data: { marketplace_listing_id: listing.id }, class: 'btn btn-success'
-              = link_to t("marketplace.listing.labels.buy_now"), "#", method: :get, data: { marketplace_listing_id: listing.id }, class: 'btn btn-success'
+              = render "buy_cta", order: current_order, listing: listing
 
   - if policy(listing).update?
     .row

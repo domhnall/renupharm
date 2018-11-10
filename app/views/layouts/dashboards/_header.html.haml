@@ -6,6 +6,10 @@
   %button.navbar-toggler.sidebar-toggler.d-md-down-none{"data-toggle" => "sidebar-lg-show", type: "button"}
     %span.navbar-toggler-icon
   %ul.nav.navbar-nav.ml-auto
+    - if current_order
+      %li.nav-item
+        = link_to marketplace_cart_path do
+          %i.fa.fa-shopping-cart
     %li.nav-item.dropdown
       %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#", role: "button"}
         = image_tag((avatar = current_user.profile.avatar).attached? ? avatar.variant(resize: "100x100") : "placeholder-user.png", class: 'img-avatar')
