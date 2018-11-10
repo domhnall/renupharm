@@ -2,11 +2,13 @@ class Marketplace::Product < ApplicationRecord
   belongs_to :pharmacy,
     class_name: "Marketplace::Pharmacy",
     foreign_key: :marketplace_pharmacy_id,
+    inverse_of: :products,
     optional: true
 
   has_many :listings,
     class_name: "Marketplace::Listing",
-    foreign_key: :marketplace_product_id
+    foreign_key: :marketplace_product_id,
+    inverse_of: :product
 
   has_many_attached :images
 

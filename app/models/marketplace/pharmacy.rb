@@ -4,15 +4,18 @@ class Marketplace::Pharmacy < ApplicationRecord
 
   has_many :agents,
     class_name: "Marketplace::Agent",
-    foreign_key: :marketplace_pharmacy_id
+    foreign_key: :marketplace_pharmacy_id,
+    inverse_of: :pharmacy
 
   has_many :products,
     class_name: "Marketplace::Product",
-    foreign_key: :marketplace_pharmacy_id
+    foreign_key: :marketplace_pharmacy_id,
+    inverse_of: :pharmacy
 
   has_many :listings,
     class_name: "Marketplace::Listing",
-    foreign_key: :marketplace_pharmacy_id
+    foreign_key: :marketplace_pharmacy_id,
+    inverse_of: :pharmacy
 
   has_many :orders, through: :agents
 

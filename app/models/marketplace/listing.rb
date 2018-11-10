@@ -8,11 +8,13 @@ class Marketplace::Listing < ApplicationRecord
 
   belongs_to :product,
     class_name: "Marketplace::Product",
-    foreign_key: :marketplace_product_id
+    foreign_key: :marketplace_product_id,
+    inverse_of: :listings
 
   belongs_to :pharmacy,
     class_name: "Marketplace::Pharmacy",
-    foreign_key: :marketplace_pharmacy_id
+    foreign_key: :marketplace_pharmacy_id,
+    inverse_of: :listings
 
   alias_method :seller, :pharmacy
 

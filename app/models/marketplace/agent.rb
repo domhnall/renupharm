@@ -2,7 +2,8 @@ class Marketplace::Agent < ApplicationRecord
   belongs_to :user
   belongs_to :pharmacy,
     class_name: "Marketplace::Pharmacy",
-    foreign_key: :marketplace_pharmacy_id
+    foreign_key: :marketplace_pharmacy_id,
+    inverse_of: :agents
 
   has_many :orders,
     class_name: "Marketplace::Order",
