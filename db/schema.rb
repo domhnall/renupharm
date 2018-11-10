@@ -79,9 +79,11 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
   create_table "marketplace_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "marketplace_agent_id"
     t.string "state"
+    t.string "reference"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["marketplace_agent_id"], name: "index_marketplace_orders_on_marketplace_agent_id"
+    t.index ["reference"], name: "index_marketplace_orders_on_reference", unique: true
   end
 
   create_table "marketplace_pharmacies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

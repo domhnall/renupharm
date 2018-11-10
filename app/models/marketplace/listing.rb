@@ -21,8 +21,16 @@ class Marketplace::Listing < ApplicationRecord
   validates :price_cents, numericality: { only_integer: true, greater_than: 7999 }
   validate :verify_expiry_acceptable, if: :active
 
-  delegate :name, :description, :unit_size, :images, to: :product, prefix: true
-  delegate :name, :address, :telephone, :email, :image, to: :pharmacy, prefix: :seller
+  delegate :name,
+           :description,
+           :unit_size,
+           :images, to: :product, prefix: true
+
+  delegate :name,
+           :address,
+           :telephone,
+           :email,
+           :image, to: :pharmacy, prefix: :seller
 
   scope :active_listings, ->{ where(active: true) }
 

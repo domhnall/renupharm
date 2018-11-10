@@ -13,10 +13,15 @@ describe Marketplace::Order do
     end
   end
 
+  before :all do
+    @seller = create_pharmacy(name: "Sammy Seller", email: "sammy@seller.com")
+    @product = create_product(pharmacy: @seller)
+    @pharmacy = create_pharmacy(name: "Billy Buyer", email: "billy@buyer.com")
+    @agent = create_agent(pharmacy: @pharmacy)
+  end
+
   describe "instantiation" do
     before :all do
-      @pharmacy = create_pharmacy
-      @agent = create_agent(pharmacy: @pharmacy)
       @params = {
         agent: @agent,
         state: ::Marketplace::Order::State::IN_PROGRESS
@@ -67,6 +72,39 @@ describe Marketplace::Order do
       end
       expect(order.line_items.count).to eq 2
       expect(order).not_to be_valid
+    end
+  end
+
+  describe "instance method" do
+    before :each do
+      @order = Marketplace::Order.create({
+        agent: @agent,
+        state: ::Marketplace::Order::State::IN_PROGRESS
+      }).tap do |order|
+        order.line_items.create(listing: create_listing(product: @product))
+      end
+    end
+
+    describe "#product" do
+      it "should return the product associated with the first line item of the order" do
+        expect(@order.product).to eq @product
+      end
+
+      it "should return nil if the order has no associated line items" do
+        @order.line_items = []
+        expect(@order.product).to be_nil
+      end
+    end
+
+    describe "#seller" do
+      it "should return the seller associated with the first line item of the order" do
+        expect(@order.seller).to eq @seller
+      end
+
+      it "should return nil if the order has no associated line items" do
+        @order.line_items = []
+        expect(@order.seller).to be_nil
+      end
     end
   end
 end

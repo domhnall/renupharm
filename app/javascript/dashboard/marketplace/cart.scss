@@ -6,8 +6,10 @@
   }
   .empty_cart_btn {
     display: inline-block;
-    font-size: 80%;
     width: auto;
+    .btn {
+      font-size: 60%;
+    }
   }
   table.order_details {
     thead td {

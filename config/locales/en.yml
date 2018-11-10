@@ -306,6 +306,14 @@ en:
         update_successful: "Successfully updated listing"
         error: "There has been an error with your submission, please review and try again."
     order:
+      title: "Order Details: %{reference}"
+      product: "Product details"
+      quantity: "Quantity"
+      seller: "Seller"
+      price: "Price"
+      total_price: "Total price:"
+      updated_at: "Updated"
+      state: "Status"
       errors:
         max_line_items: "Valid orders can only have %{max} line items, please remove some items from your basket."
     pharmacy:
@@ -328,11 +336,6 @@ en:
       telephone: "Telephone"
     cart:
       title: "Your basket"
-      order_details:
-        product: "Product details"
-        quantity: "Quantity"
-        price: "Price"
-        total_price: "Total price:"
       actions:
         place_order: "Place order"
         empty_cart: "Empty basket"

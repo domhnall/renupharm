@@ -1,0 +1,24 @@
+table#orders {
+  td.state {
+    text-transform: uppercase;
+    font-size: 80%;
+    i {
+      font-size: 120%;
+    }
+    &.completed {
+      i {
+        color: green;
+      }
+    }
+    &.awaiting_delivery {
+      i {
+        color: blue;
+      }
+    }
+    &.delivering {
+      i {
+        color: orange;
+      }
+    }
+  }
+}

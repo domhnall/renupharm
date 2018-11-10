@@ -8,6 +8,7 @@ class Marketplace::LineItem < ApplicationRecord
     foreign_key: :marketplace_listing_id
 
   delegate :product,
+           :seller,
            :pharmacy,
            :quantity,
            :price_cents,

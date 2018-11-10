@@ -48,9 +48,11 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
     create_table :marketplace_orders do |t|
       t.belongs_to :marketplace_agent, foreign_key: true
       t.string :state
+      t.string :reference
 
       t.timestamps
     end
+    add_index :marketplace_orders, :reference, unique: true
 
     create_table :marketplace_line_items do |t|
       t.belongs_to :marketplace_order, foreign_key: true

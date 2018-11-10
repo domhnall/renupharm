@@ -1,0 +1,45 @@
+.row
+  .col-md-12
+    .row.inline_search_form
+      .col-md-6
+      .col-md-6
+        = form_tag marketplace_orders_path, method: :get do
+          %span.active-purple-4.mb-4
+            = text_field_tag "query", nil, class: "form-control", placeholder: t("general.search"), "aria-label": t("general.search")
+          = submit_tag t("general.search"), class: "btn btn-primary"
+    .card
+      %table#orders.table
+        %thead
+          %tr
+            %th
+              = t("marketplace.order.reference")
+            %th
+              = t("marketplace.order.product")
+            %th
+              = t("marketplace.order.seller")
+            %th
+              = t("marketplace.order.price")
+            %th
+              = t("marketplace.order.updated_at")
+            %th
+              = t("marketplace.order.state")
+        %tbody
+          - @orders.each do |order|
+            %tr
+              %td= link_to order.id, marketplace_order_path(order)
+              %td= order.product.name
+              %td= order.seller.name
+              %td= order.display_price
+              %td= order.updated_at
+              %td.state{ class: order.state }
+                %i.fa.fa-circle
+                = order.state
+
+      .table_summary_section
+        = t("table.summary", start: ((@page-1)*@per_page)+1, end: [@page*@per_page, @total_count].min, total: @total_count)
+      .pagination_section
+        %nav{ "aria-label" => t("table.pagination.alt") }
+          %ul.pagination
+            - @total_pages.times do |i|
+              %li.page-item{ class: (i+1)==@page ? 'active' : '' }
+                = link_to (i+1), marketplace_orders_path(page: i+1), class: 'page-link'

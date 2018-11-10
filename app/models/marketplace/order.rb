@@ -20,11 +20,14 @@ class Marketplace::Order < ApplicationRecord
     foreign_key: :marketplace_order_id
 
   has_one :user, through: :agent
+  has_one :pharmacy, through: :agent
 
   validates :state, presence: true, inclusion: {in: Marketplace::Order::State::valid_states}
   validate :max_line_items
 
   accepts_nested_attributes_for :line_items, allow_destroy: true
+
+  scope :not_in_progress, ->{ where(state: Marketplace::Order::State::valid_states - [Marketplace::Order::State::IN_PROGRESS]) }
 
   # TODO: Reuse logic across models with `acts_as_priceable :price_cents`
   def price_cents
@@ -33,6 +36,14 @@ class Marketplace::Order < ApplicationRecord
 
   def display_price
     "#{Marketplace::Listing::currency_symbol}#{sprintf("%0.2f", price_cents/100.to_f)}"
+  end
+
+  def product
+    line_items.first&.product
+  end
+
+  def seller
+    line_items.first&.seller
   end
 
   private
