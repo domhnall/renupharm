@@ -19,6 +19,11 @@ class Marketplace::Pharmacy < ApplicationRecord
 
   has_many :orders, through: :agents
 
+  has_many :credit_cards,
+    class_name: "Marketplace::CreditCard",
+    foreign_key: :marketplace_pharmacy_id,
+    inverse_of: :pharmacy
+
   has_one_attached :image
 
   validates :name, :address_1, :address_3, :telephone, presence: true

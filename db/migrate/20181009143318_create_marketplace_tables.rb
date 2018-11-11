@@ -60,5 +60,19 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+
+    create_table "marketplace_credit_cards" do |t|
+      t.belongs_to :marketplace_pharmacy, foreign_key: true
+      t.string   :recurring_detail_reference, limit: 255
+      t.string   :holder_name,                limit: 255
+      t.string   :brand,                      limit: 255
+      t.string   :number,                     limit: 255
+      t.integer  :expiry_month,               limit: 4
+      t.integer  :expiry_year,                limit: 4
+      t.string   :tx_reference,               limit: 255
+      t.string   :email,                      limit: 255
+
+      t.timestamps
+    end
   end
 end

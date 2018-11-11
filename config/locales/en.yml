@@ -339,5 +339,17 @@ en:
       actions:
         place_order: "Place order"
         empty_cart: "Empty basket"
+    credit_card:
+      title: "Add new card details for %{pharmacy_name}"
+      number: "Card number"
+      holder_name: "Holder name"
+      expiry_month: "Expiry month (01-12)"
+      expiry_year: "Expiry year (XXXX)"
+      email: "Email"
+      cvc: "CVC"
+      flash:
+        create_successful: "Successfully added new card details"
+        error: "There has been an error adding these card details. Please review and try again, if problems persists please email support: dev@renumpharm.ie"
+        unexpected_error: "There has been an unexpected error. If problems persists please email support: dev@renumpharm.ie"
 
 

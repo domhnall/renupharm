@@ -54,6 +54,21 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.index ["user_id"], name: "index_marketplace_agents_on_user_id"
   end
 
+  create_table "marketplace_credit_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_pharmacy_id"
+    t.string "recurring_detail_reference"
+    t.string "holder_name"
+    t.string "brand"
+    t.string "number"
+    t.integer "expiry_month"
+    t.integer "expiry_year"
+    t.string "tx_reference"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_pharmacy_id"], name: "index_marketplace_credit_cards_on_marketplace_pharmacy_id"
+  end
+
   create_table "marketplace_line_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "marketplace_order_id"
     t.bigint "marketplace_listing_id"
@@ -194,6 +209,7 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
   add_foreign_key "comments", "users"
   add_foreign_key "marketplace_agents", "marketplace_pharmacies"
   add_foreign_key "marketplace_agents", "users"
+  add_foreign_key "marketplace_credit_cards", "marketplace_pharmacies"
   add_foreign_key "marketplace_line_items", "marketplace_listings"
   add_foreign_key "marketplace_line_items", "marketplace_orders"
   add_foreign_key "marketplace_listings", "marketplace_pharmacies"

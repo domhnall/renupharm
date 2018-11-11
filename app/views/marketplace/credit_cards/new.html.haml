@@ -1,0 +1,54 @@
+.row
+  .col-md-12
+    .card
+      .show_record
+        %h2
+          = t("marketplace.credit_card.title", pharmacy_name: @credit_card.pharmacy_name)
+        = javascript_include_tag 'adyen.encrypt'
+        = form_for @credit_card, url:  marketplace_pharmacy_credit_cards_path(@credit_card.pharmacy), html: {id: 'adyen-encrypted-form' } do |form|
+          .form-group
+            %label.holder.col-form-label
+              = t("marketplace.credit_card.number")
+            %input{"data-encrypted-name" => "number", size: "20", type: "text", class: "form-control"}
+          .form-group
+            %label.holder.col-form-label
+              = t("marketplace.credit_card.holder_name")
+            %input{"data-encrypted-name" => "holderName", size: "20", type: "text", class: "form-control"}
+          .form-group
+            %label.number.col-form-label
+              = t("marketplace.credit_card.expiry_month")
+            %input{"data-encrypted-name" => "expiryMonth", size: "2", type: "text", class: "form-control"}
+          .form-group
+            %label.number.col-form-label
+              = t("marketplace.credit_card.expiry_year")
+            %input{"data-encrypted-name" => "expiryYear", size: "4", type: "text", class: "form-control"}
+          .form-group
+            %label.number.col-form-label
+              = t("marketplace.credit_card.cvc")
+            %input{"data-encrypted-name" => "cvc", size: "4", type: "text", class: "form-control"}
+          .form-group
+            = form.label :email, class: "col-form-label"
+            = form.text_field :email, class: "form-control"
+          .form-group
+            %input{"data-encrypted-name" => "generationtime", type: "hidden", value: "#{Time.now.iso8601}"}
+          .actions
+            = submit_tag t('general.save'), id: 'submit_marketplace_credit_card', class: 'btn btn-success'
+:javascript
+  // The form element to encrypt.
+  var form = document.getElementById('adyen-encrypted-form');
+  if(form.length>0) {
+    // See https://github.com/Adyen/CSE-JS/blob/master/Options.md for details on the options to use.
+    var options = {};
+    // Client-side encryption public key
+    var key = "10001|A98F7D8595FCE5BC8FD2C2D928E507854D17E104CA2C478E8132506E"
+      + "B34E4AEBFC3F7C93E95A053BEED182A899F8B64CAA4B7F3B22F8CE1CD879"
+      + "D9CBAB1AEB799E36738E505BD5CD002DF91A903D630B8F7E0F78C97335D2"
+      + "20D1A321E729FAED2B093EB3AC5CF08C2A0B9825046EB47185139D348B01"
+      + "53FCD138468034D1F7E1D13042C05EBABAD88CCA1342F27A257D7AF6B211"
+      + "38EECFE2AEF920098BFDE1A274C4B7FBB61FF6A664149484517BACF479D8"
+      + "F8A34FF684AC89E0DD7316D00A2CAB1F47EAC55BC04F9287A3E4B3BFBA72"
+      + "9707049F07B1996D732C0D91559D488D3F2E2862DD2EB934E89DCA5EA298"
+      + "D868CE00A5C4D355EB6AE6C97F2BE0C1FD37";
+    // Bind encryption options to the form.
+    adyen.encrypt.createEncryptedForm(form, key, options);
+  }
