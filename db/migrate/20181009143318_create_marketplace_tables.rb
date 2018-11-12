@@ -1,15 +1,15 @@
 class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
   def change
     create_table :marketplace_pharmacies do |t|
-      t.string :name
-      t.text :description
-      t.string :address_1
-      t.string :address_2
-      t.string :address_3
-      t.string :telephone
-      t.string :fax
-      t.string :email
-      t.boolean :active
+      t.string     :name
+      t.text       :description
+      t.string     :address_1
+      t.string     :address_2
+      t.string     :address_3
+      t.string     :telephone
+      t.string     :fax
+      t.string     :email
+      t.boolean    :active
 
       t.timestamps
     end
@@ -19,17 +19,17 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
     create_table :marketplace_agents do |t|
       t.belongs_to :marketplace_pharmacy, foreign_key: true
       t.belongs_to :user, foreign_key: true
-      t.boolean :active
+      t.boolean    :active
 
       t.timestamps
     end
 
     create_table :marketplace_products do |t|
       t.belongs_to :marketplace_pharmacy, foreign_key: true
-      t.string :name
-      t.text :description
-      t.string :unit_size
-      t.boolean :active
+      t.string     :name
+      t.text       :description
+      t.string     :unit_size
+      t.boolean    :active
 
       t.timestamps
     end
@@ -37,18 +37,18 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
     create_table :marketplace_listings do |t|
       t.belongs_to :marketplace_pharmacy, foreign_key: true
       t.belongs_to :marketplace_product, foreign_key: true
-      t.integer :quantity
-      t.integer :price_cents
-      t.date :expiry
-      t.boolean :active
+      t.integer    :quantity
+      t.integer    :price_cents
+      t.date       :expiry
+      t.boolean    :active
 
       t.timestamps
     end
 
     create_table :marketplace_orders do |t|
       t.belongs_to :marketplace_agent, foreign_key: true
-      t.string :state
-      t.string :reference
+      t.string     :state
+      t.string     :reference
 
       t.timestamps
     end
@@ -61,16 +61,29 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table "marketplace_credit_cards" do |t|
+    create_table :marketplace_credit_cards do |t|
       t.belongs_to :marketplace_pharmacy, foreign_key: true
-      t.string   :recurring_detail_reference, limit: 255
-      t.string   :holder_name,                limit: 255
-      t.string   :brand,                      limit: 255
-      t.string   :number,                     limit: 255
-      t.integer  :expiry_month,               limit: 4
-      t.integer  :expiry_year,                limit: 4
-      t.string   :tx_reference,               limit: 255
-      t.string   :email,                      limit: 255
+      t.string     :recurring_detail_reference
+      t.string     :holder_name
+      t.string     :brand
+      t.string     :number
+      t.integer    :expiry_month
+      t.integer    :expiry_year
+      t.string     :email
+
+      t.timestamps
+    end
+
+    create_table :marketplace_payments do |t|
+      t.belongs_to :marketplace_credit_card, foreign_key: true
+      t.belongs_to :marketplace_orders, foreign_key: true
+      t.string     :renupharm_reference
+      t.string     :gateway_reference
+      t.integer    :amount_cents
+      t.string     :currency_code
+      t.string     :result_code
+      t.string     :auth_code
+      t.decimal    :vat, precision: 10, scale: 2
 
       t.timestamps
     end

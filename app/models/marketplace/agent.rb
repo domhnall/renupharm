@@ -7,7 +7,8 @@ class Marketplace::Agent < ApplicationRecord
 
   has_many :orders,
     class_name: "Marketplace::Order",
-    foreign_key: :marketplace_agent_id
+    foreign_key: :marketplace_agent_id,
+    inverse_of: :agent
 
   has_one :current_order,
     ->{ where({ state: Marketplace::Order::State::IN_PROGRESS }) },

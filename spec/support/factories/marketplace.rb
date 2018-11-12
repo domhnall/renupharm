@@ -68,5 +68,40 @@ module Factories
         })
       end.reload
     end
+
+    def create_credit_card(attrs = {})
+      attrs.fetch(:pharmacy){ create_pharmacy }.credit_cards.create({
+        number: "1111",
+        expiry_month: 10,
+        expiry_year: 2020,
+        holder_name: "Davy Hughes",
+        brand: "Mastercard",
+        email: "davy:hughes.com",
+        recurring_detail_reference: "addsomelegitimatepspreference"
+      })
+    end
+
+    def create_payment(attrs = {})
+      buyer = create_user(email: "billy@buyer.com")
+      seller = create_user(email: "sally@seller.com")
+
+      selling_pharmacy = create_pharmacy(name: "Seller Shop", email: "sally@seller.com").tap do |pharmacy|
+        pharmacy.agents.create(user: seller)
+      end
+      listing = create_listing(pharmacy: selling_pharmacy)
+
+      buying_pharmacy = create_pharmacy(name: "Buyer Shop", email: "billy@buyer.com").tap do |pharmacy|
+        agent = pharmacy.agents.create(user: buyer)
+        agent.orders.create(state: Marketplace::Order::State::COMPLETED)
+      end
+      credit_card = create_credit_card(pharmacy: buying_pharmacy)
+
+
+      credit_card.payments.create({
+        order: buying_pharmacy.orders.first,
+        amount_cents: 9999,
+        currency_code: "EUR",
+      })
+    end
   end
 end

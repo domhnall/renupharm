@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.string "number"
     t.integer "expiry_month"
     t.integer "expiry_year"
-    t.string "tx_reference"
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -99,6 +98,22 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.datetime "updated_at", null: false
     t.index ["marketplace_agent_id"], name: "index_marketplace_orders_on_marketplace_agent_id"
     t.index ["reference"], name: "index_marketplace_orders_on_reference", unique: true
+  end
+
+  create_table "marketplace_payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_credit_card_id"
+    t.bigint "marketplace_orders_id"
+    t.string "renupharm_reference"
+    t.string "gateway_reference"
+    t.integer "amount_cents"
+    t.string "currency_code"
+    t.string "result_code"
+    t.string "auth_code"
+    t.decimal "vat", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_credit_card_id"], name: "index_marketplace_payments_on_marketplace_credit_card_id"
+    t.index ["marketplace_orders_id"], name: "index_marketplace_payments_on_marketplace_orders_id"
   end
 
   create_table "marketplace_pharmacies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -215,6 +230,8 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
   add_foreign_key "marketplace_listings", "marketplace_pharmacies"
   add_foreign_key "marketplace_listings", "marketplace_products"
   add_foreign_key "marketplace_orders", "marketplace_agents"
+  add_foreign_key "marketplace_payments", "marketplace_credit_cards"
+  add_foreign_key "marketplace_payments", "marketplace_orders", column: "marketplace_orders_id"
   add_foreign_key "marketplace_products", "marketplace_pharmacies"
   add_foreign_key "profiles", "users"
   add_foreign_key "sales_contacts", "sales_pharmacies"

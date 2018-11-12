@@ -13,11 +13,18 @@ class Marketplace::Order < ApplicationRecord
 
   belongs_to :agent,
     class_name: "Marketplace::Agent",
-    foreign_key: :marketplace_agent_id
+    foreign_key: :marketplace_agent_id,
+    inverse_of: :orders
 
   has_many :line_items,
     class_name: "Marketplace::LineItem",
-    foreign_key: :marketplace_order_id
+    foreign_key: :marketplace_order_id,
+    inverse_of: :order
+
+  has_many :payments,
+    class_name: "Marketplace::Payment",
+    foreign_key: :marketplace_order_id,
+    inverse_of: :order
 
   has_one :user, through: :agent
   has_one :pharmacy, through: :agent
