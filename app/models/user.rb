@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include EmailValidatable
+
   devise :database_authenticatable,
          :registerable,
          :confirmable,
@@ -20,6 +22,7 @@ class User < ApplicationRecord
            :pharmacy?,
            :courier?, to: :profile
 
+  validates :email, email: true
   validates :profile, presence: true
 
   def send_devise_notification(notification, *args)

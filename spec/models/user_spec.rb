@@ -39,6 +39,12 @@ describe User do
     it "should not be valid when :profile is not defined" do
       expect(User.new(@params.except(:profile_attributes))).not_to be_valid
     end
+
+    ['john@.com', 'john.smith.com', 'david@localhost', 'rubbish'].each do |invalid_email|
+      it "should be invalid if :email is #{invalid_email} (invalid)" do
+        expect(User.new(@params.merge(email: invalid_email))).not_to be_valid
+      end
+    end
   end
 
   describe "instance method" do
