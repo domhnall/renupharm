@@ -61,7 +61,7 @@ module Factories
 
     def create_order(attrs = {})
       attrs.fetch(:agent){ create_agent }.orders.create({
-        state: attrs.fetch(:state){ Marketplace::Order::State::IN_PROGRESS },
+        state: attrs.fetch(:state){ ::Marketplace::Order::State::IN_PROGRESS },
       }).tap do |order|
         order.line_items.create({
           listing: attrs.fetch(:listing){ create_listing }

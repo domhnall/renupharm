@@ -76,7 +76,7 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
 
     create_table :marketplace_payments do |t|
       t.belongs_to :marketplace_credit_card, foreign_key: true
-      t.belongs_to :marketplace_orders, foreign_key: true
+      t.belongs_to :marketplace_order, foreign_key: true
       t.string     :renupharm_reference
       t.string     :gateway_reference
       t.integer    :amount_cents
