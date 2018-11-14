@@ -8,7 +8,7 @@ class Marketplace::CreditCardsController < AuthenticatedController
     byebug
     @credit_card = pharmacy.credit_cards.build(credit_card_params)
     authorize @credit_card, :create?
-    if @credit_card.valid? && @credit_card.save && @credit_card.authorize!
+    if @credit_card.valid? && @credit_card.save && @credit_card.authorize!(shopper_ip: request.remote_ip)
       redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t('marketplace.credit_card.flash.create_successful') }
     else
       flash.now[:warning] = t('marketplace.credit_card.flash.error')
@@ -27,8 +27,7 @@ class Marketplace::CreditCardsController < AuthenticatedController
 
   def credit_card_params
     params.require(:marketplace_credit_card).permit(:email).merge({
-      encrypted_card: params.fetch("adyen-encrypted-data"),
-      shopper_ip: request.remote_ip
+      encrypted_card: params.fetch("adyen-encrypted-data")
     })
   end
 end
