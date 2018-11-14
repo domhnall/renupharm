@@ -1,4 +1,8 @@
 .place_order_btn.cta
   = form_for order, url: marketplace_cart_path, action: :patch do |form|
-    = form.hidden_field :state, value: 'completed'
-    = form.submit t("marketplace.cart.actions.place_order"), class: 'btn btn-success'
+    = form.hidden_field :state, value: 'placed'
+    - if order.in_progress?
+      = form.submit t("marketplace.cart.actions.place_order"), class: 'btn btn-success', disabled: order.line_items.empty?
+    - else
+      .state{ class: order.state }
+        = t("marketplace.cart.state.#{order.state}")

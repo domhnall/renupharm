@@ -16,6 +16,6 @@ module UsersHelper
   end
 
   def current_order
-    current_user.pharmacy? && current_user&.current_order
+    current_user.pharmacy? && current_user.agent&.current_order
   end
 end

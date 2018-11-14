@@ -27,4 +27,14 @@
       }
     }
   }
+  .state {
+    display: block;
+    width: 80%;
+    margin: 20px auto;
+    font-weight: bold;
+    font-size: 120%;
+    &.placed {
+      color: orange;
+    }
+  }
 }

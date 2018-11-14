@@ -290,6 +290,7 @@ en:
       quantity: "Quantity"
       expiry: "Expiry"
       price_cents: "Price (in cents)"
+      display_price: "Price"
       active: "Active"
       labels:
         sold_by: "Sold by"
@@ -339,6 +340,8 @@ en:
       actions:
         place_order: "Place order"
         empty_cart: "Empty basket"
+      state:
+        placed: "Order placed"
     credit_card:
       title: "Add new card details for %{pharmacy_name}"
       number: "Card number"
@@ -351,5 +354,3 @@ en:
         create_successful: "Successfully added new card details"
         error: "There has been an error adding these card details. Please review and try again, if problems persists please email support: dev@renumpharm.ie"
         unexpected_error: "There has been an unexpected error. If problems persists please email support: dev@renumpharm.ie"
-
-
