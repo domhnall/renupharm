@@ -11,7 +11,7 @@
 
           .field.form-group
             = f.label :password, t("devise.passwords.new_password")
-            - if @minimum_password_length %>
+            - if @minimum_password_length
               %em
                 = t("devise.passwords.minimum_length", min: @minimum_password_length)
             = f.password_field :password, autofocus: true, autocomplete: "new-password", class: 'form-control'
@@ -23,5 +23,5 @@
           .actions
             = f.submit t("devise.passwords.change_my_password"), class: "btn btn-success"
 
-        = render "devise/shared/links" %>
+        = render "devise/shared/links"
       .col-sm-3
