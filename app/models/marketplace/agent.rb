@@ -22,4 +22,6 @@ class Marketplace::Agent < ApplicationRecord
   delegate :name, to: :pharmacy, prefix: true
 
   accepts_nested_attributes_for :user
+
+  scope :active, ->{ where(active: true) }
 end
