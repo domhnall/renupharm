@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.integer "price_cents"
     t.date "expiry"
     t.boolean "active"
+    t.datetime "purchased_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_listings_on_marketplace_pharmacy_id"

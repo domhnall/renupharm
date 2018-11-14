@@ -9,7 +9,7 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
       t.string     :telephone
       t.string     :fax
       t.string     :email
-      t.boolean    :active
+      t.boolean    :active, default: true
 
       t.timestamps
     end
@@ -19,7 +19,7 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
     create_table :marketplace_agents do |t|
       t.belongs_to :marketplace_pharmacy, foreign_key: true
       t.belongs_to :user, foreign_key: true
-      t.boolean    :active
+      t.boolean    :active, default: true
 
       t.timestamps
     end
@@ -29,7 +29,7 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
       t.string     :name
       t.text       :description
       t.string     :unit_size
-      t.boolean    :active
+      t.boolean    :active, default: true
 
       t.timestamps
     end
@@ -40,7 +40,8 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
       t.integer    :quantity
       t.integer    :price_cents
       t.date       :expiry
-      t.boolean    :active
+      t.boolean    :active, default: true
+      t.datetime   :purchased_at
 
       t.timestamps
     end
@@ -70,6 +71,7 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
       t.integer    :expiry_month
       t.integer    :expiry_year
       t.string     :email
+      t.boolean    :active, default: true
 
       t.timestamps
     end

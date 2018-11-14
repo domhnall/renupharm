@@ -34,7 +34,7 @@ class Marketplace::Listing < ApplicationRecord
            :email,
            :image, to: :pharmacy, prefix: :seller
 
-  scope :active_listings, ->{ where(active: true) }
+  scope :active_listings, ->{ where(active: true).where(purchased_at: nil) }
 
   after_initialize :default_pharmacy_id
 
