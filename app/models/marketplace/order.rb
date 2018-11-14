@@ -2,12 +2,12 @@ class Marketplace::Order < ApplicationRecord
   MAX_LINE_ITEMS = 1
   module State
     IN_PROGRESS = "in_progress"
-    AWAITING_DELIVERY = "awaiting_delivery"
+    PLACED = "placed"
     DELIVERY_IN_PROGRESS = "delivering"
     COMPLETED = "completed"
 
     def self.valid_states
-      [IN_PROGRESS, AWAITING_DELIVERY, DELIVERY_IN_PROGRESS, COMPLETED]
+      [IN_PROGRESS, PLACED, DELIVERY_IN_PROGRESS, COMPLETED]
     end
   end
 
@@ -51,6 +51,12 @@ class Marketplace::Order < ApplicationRecord
 
   def seller
     line_items.first&.seller
+  end
+
+  State::valid_states.each do |state|
+    define_method("#{state}?") do
+      self.state==state
+    end
   end
 
   private

@@ -106,5 +106,21 @@ describe Marketplace::Order do
         expect(@order.seller).to be_nil
       end
     end
+
+    Marketplace::Order::State::valid_states.each do |state|
+      other_state = (Marketplace::Order::State::valid_states - [state]).sample
+
+      describe "##{state}?" do
+        it "should return true when the state is '#{state}'" do
+          @order.state = state
+          expect(@order.send("#{state}?")).to be_truthy
+        end
+
+        it "should return false when the state is '#{other_state}'" do
+          @order.state = other_state
+          expect(@order.send("#{state}?")).to be_falsey
+        end
+      end
+    end
   end
 end

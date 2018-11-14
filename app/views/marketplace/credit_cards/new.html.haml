@@ -4,7 +4,6 @@
       .show_record
         %h2
           = t("marketplace.credit_card.title", pharmacy_name: @credit_card.pharmacy_name)
-        = javascript_include_tag 'adyen.encrypt'
         = form_for @credit_card, url:  marketplace_pharmacy_credit_cards_path(@credit_card.pharmacy), html: {id: 'adyen-encrypted-form' } do |form|
           .form-group
             %label.holder.col-form-label

@@ -17,5 +17,4 @@ Rails.application.config.assets.precompile += %w(
   dashboard/admin/manifest.js
   dashboard/manifest.css
   dashboard/main.js
-  adyen.encrypt.js
 )
