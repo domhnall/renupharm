@@ -15,10 +15,10 @@ class Marketplace::CartsController < AuthenticatedController
 
     if res.success?
       @order.save!
-      flash[:success] = I18n.t("general.flash.update_successful")
+      flash[:success] = I18n.t("marketplace.cart.flash.update_successful")
     else
       res.errors.each{ |e| @order.errors.add(:base, e.message) }
-      flash[:error] = I18n.t("general.flash.error")
+      flash[:error] = I18n.t("marketplace.cart.flash.error")
     end
     render 'show'
   end

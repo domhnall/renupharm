@@ -342,6 +342,9 @@ en:
         empty_cart: "Empty basket"
       state:
         placed: "Order placed"
+      flash:
+        update_successful: "Successfully updated your order"
+        error: "There has been an error processing this update to your order. Please address the errors below and resubmit. If problems persist, please contact support."
     credit_card:
       title: "Add new card details for %{pharmacy_name}"
       number: "Card number"
