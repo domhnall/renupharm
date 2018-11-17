@@ -32,7 +32,7 @@
             = link_to t('general.edit'), edit_admin_marketplace_pharmacy_path(@marketplace_pharmacy), class: 'btn btn-primary'
 
     .card
-      .pharmacy_listings
+      #pharmacy_listings
         %h2
           = t("marketplace.pharmacy.listings")
         #marketplace_listings
@@ -43,7 +43,7 @@
 
     - if policy(@marketplace_pharmacy).edit?
       .card
-        .pharmacy_agents
+        #pharmacy_agents
           %h2
             = t("marketplace.pharmacy.agents")
           = render partial: 'marketplace/shared/pharmacies/agent', collection: @marketplace_pharmacy.agents
@@ -52,7 +52,7 @@
               = link_to t("general.add"), new_admin_marketplace_pharmacy_agent_path(pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
 
       .card
-        .pharmacy_products
+        #pharmacy_products
           %h2
             = t("marketplace.pharmacy.products")
           = render partial: 'marketplace/shared/pharmacies/product', collection: @marketplace_pharmacy.products
@@ -61,7 +61,7 @@
               = link_to t("general.add"), new_marketplace_pharmacy_product_path(pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
 
       .card
-        .pharmacy_credit_cards
+        #pharmacy_credit_cards
           %h2
             = t("marketplace.pharmacy.credit_cards")
           = render partial: 'marketplace/shared/pharmacies/credit_card', collection: @marketplace_pharmacy.credit_cards

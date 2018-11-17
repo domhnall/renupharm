@@ -344,7 +344,10 @@ en:
         placed: "Order placed"
       flash:
         update_successful: "Successfully updated your order"
-        error: "There has been an error processing this update to your order. Please address the errors below and resubmit. If problems persist, please contact support."
+      errors:
+        message: "There appears to have been a problem. Please address the following errors to progress your order. If problems persist please <a href=\"mailto:dev@renupharm.ie\">contact support</a>"
+        no_credit_card: "Must have a default credit card set up for your pharmacy. Set one up <a href=\"%{url}\">here</a>."
+        failed_payment: "There has been a problem processing your payment. Please check your payment method."
     credit_card:
       title: "Add new card details for %{pharmacy_name}"
       number: "Card number"

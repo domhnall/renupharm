@@ -1,0 +1,6 @@
+- if order.errors.any?
+  .error_container
+    %p= t("marketplace.cart.errors.message").html_safe
+    %ul.errors
+      - order.errors.each do |key, message|
+        %li= message.html_safe

@@ -1,4 +1,6 @@
 class Services::Marketplace::OrderCompleter
+  include Rails.application.routes.url_helpers
+
   attr_reader :order
 
   def initialize(order: order, shopper_ip: shopper_ip)
@@ -23,14 +25,16 @@ class Services::Marketplace::OrderCompleter
   private
 
   def validate_card_present
-    raise Services::Error, "Must have a default credit card set up for pharmacy." if order.pharmacy.credit_cards.empty?
+    if order.pharmacy.credit_cards.empty?
+      raise Services::Error, I18n.t("marketplace.cart.errors.no_credit_card", url: marketplace_pharmacy_path(order.pharmacy) + "#pharmacy_credit_cards")
+    end
   end
 
   def take_payment
     credit_card.take_payment!(amount_cents: @order.price_cents, shopper_ip: @shopper_ip)
   rescue Exception => e
     #send_support_email
-    raise Services::Error, "There was a error taking payment, please contact support."
+    raise Services::Error, I18n.t("marketplace.cart.errors.failed_payment")
   end
 
   def remove_listing
@@ -41,7 +45,6 @@ class Services::Marketplace::OrderCompleter
   end
 
   def send_emails
-    byebug
     buying_pharmacy.agents.active.each do |agent|
       Marketplace::OrderMailer.purchase_notification(agent_id: agent.id, order_id: @order.id).deliver_later
     end

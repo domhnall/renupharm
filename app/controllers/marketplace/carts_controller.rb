@@ -18,7 +18,6 @@ class Marketplace::CartsController < AuthenticatedController
       flash[:success] = I18n.t("marketplace.cart.flash.update_successful")
     else
       res.errors.each{ |e| @order.errors.add(:base, e.message) }
-      flash[:error] = I18n.t("marketplace.cart.flash.error")
     end
     render 'show'
   end
