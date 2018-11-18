@@ -133,8 +133,11 @@ describe Marketplace::CartsController do
         end
 
         describe "on failure" do
+          render_views
+
           before :each do
-            @service_double = double('service', call: OpenStruct.new(success?: false, errors: [StandardError.new("Dummy error")]))
+            @errors = [StandardError.new("Dummy error"), StandardError.new("Yummy mirror")]
+            @service_double = double('service', call: OpenStruct.new(success?: false, errors: @errors))
             allow(::Services::Marketplace::OrderCompleter).to receive(:new).and_return(@service_double)
           end
 
@@ -143,9 +146,11 @@ describe Marketplace::CartsController do
             expect(response).to render_template :show
           end
 
-          it "should set a flash message to indicate that an error has occurred" do
+          it "should reflect the service errors to the user" do
             put :update, params: @place_order_params
-            expect(flash[:error]).to eq I18n.t("marketplace.cart.flash.error")
+            @errors.map(&:message).each do |error_msg|
+              expect(response.body).to include error_msg
+            end
           end
         end
       end
