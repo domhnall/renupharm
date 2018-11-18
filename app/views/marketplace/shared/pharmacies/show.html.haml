@@ -34,9 +34,9 @@
     .card
       #pharmacy_listings
         %h2
-          = t("marketplace.pharmacy.listings")
+          = t("marketplace.pharmacy.active_listings")
         #marketplace_listings
-          = render partial: 'marketplace/listings/listing', collection: @marketplace_pharmacy.listings
+          = render partial: 'marketplace/listings/listing', collection: @marketplace_pharmacy.listings.active_listings
         - if policy(@marketplace_pharmacy.listings.build).create?
           .actions
             = link_to t("general.add"), new_marketplace_pharmacy_listing_path(pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
