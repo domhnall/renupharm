@@ -7,7 +7,8 @@ describe Marketplace::Order do
   [ :state,
     :agent,
     :user,
-    :line_items ].each do |method|
+    :line_items,
+    :payment ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Order.new).to respond_to method
     end
@@ -120,6 +121,18 @@ describe Marketplace::Order do
           @order.state = other_state
           expect(@order.send("#{state}?")).to be_falsey
         end
+      end
+    end
+
+    describe "#reference" do
+      it "should return the renupharm_reference from the associated payment" do
+        allow(@order).to receive(:payment).and_return(Marketplace::Payment.new(renupharm_reference: "Beetlejuice"))
+        expect(@order.reference).to eq "Beetlejuice"
+      end
+
+      it "should return nil where no associated payment exists" do
+        allow(@order).to receive(:payment).and_return(nil)
+        expect(@order.reference).to be_nil
       end
     end
   end

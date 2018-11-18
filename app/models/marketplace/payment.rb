@@ -2,7 +2,7 @@ class Marketplace::Payment < ApplicationRecord
   belongs_to :order,
     class_name: "Marketplace::Order",
     foreign_key: :marketplace_order_id,
-    inverse_of: :payments,
+    inverse_of: :payment,
     optional: true
 
   belongs_to :credit_card,
@@ -14,6 +14,10 @@ class Marketplace::Payment < ApplicationRecord
   before_save :set_renupharm_reference
 
   validates :amount_cents, :currency_code, presence: true
+
+  def reference
+    self.renupharm_reference
+  end
 
   private
 

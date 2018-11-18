@@ -49,6 +49,7 @@ class Marketplace::CreditCard < ApplicationRecord
   def take_payment!(options = {})
     populate_recurring_detail_reference unless recurring_detail_reference
     self.payments.create!({
+      order: options.fetch(:order),
       currency_code: options.fetch(:currency_code, "EUR"),
       amount_cents: options.fetch(:amount_cents)
     }).tap do |payment|

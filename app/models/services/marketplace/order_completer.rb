@@ -31,7 +31,11 @@ class Services::Marketplace::OrderCompleter
   end
 
   def take_payment
-    credit_card.take_payment!(amount_cents: @order.price_cents, shopper_ip: @shopper_ip)
+    credit_card.take_payment!({
+      order: @order,
+      amount_cents: @order.price_cents,
+      shopper_ip: @shopper_ip
+    })
   rescue Exception => e
     #send_support_email
     raise Services::Error, I18n.t("marketplace.cart.errors.failed_payment")

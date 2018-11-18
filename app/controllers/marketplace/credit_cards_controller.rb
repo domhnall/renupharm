@@ -5,7 +5,6 @@ class Marketplace::CreditCardsController < AuthenticatedController
   end
 
   def create
-    byebug
     @credit_card = pharmacy.credit_cards.build(credit_card_params)
     authorize @credit_card, :create?
     if @credit_card.valid? && @credit_card.save && @credit_card.authorize!(shopper_ip: request.remote_ip)

@@ -4,7 +4,12 @@ describe Marketplace::Payment do
   include Factories::Marketplace
 
   [ :order,
-    :credit_card ].each do |method|
+    :credit_card,
+    :renupharm_reference,
+    :gateway_reference,
+    :reference,
+    :amount_cents,
+    :currency_code ].each do |method|
     it "should respond to method :#{method}" do
       expect(Marketplace::Payment.new).to respond_to method
     end
@@ -76,6 +81,20 @@ describe Marketplace::Payment do
       expect(@payment.renupharm_reference).to be_nil
       @payment.save!
       expect(@payment.renupharm_reference).not_to be_nil
+    end
+  end
+
+  describe "instance method" do
+    before :each do
+      @payment = Marketplace::Payment.new(@params)
+    end
+
+    describe "#reference" do
+      it "should return the :renupharm_reference" do
+        expect(@payment.reference).to eq @payment.renupharm_reference
+        @payment.renupharm_reference = "Hip-hop. Hippedy-hip-hop don't stop"
+        expect(@payment.reference).to eq @payment.renupharm_reference
+      end
     end
   end
 end

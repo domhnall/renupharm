@@ -21,7 +21,7 @@ class Marketplace::Order < ApplicationRecord
     foreign_key: :marketplace_order_id,
     inverse_of: :order
 
-  has_many :payments,
+  has_one :payment,
     class_name: "Marketplace::Payment",
     foreign_key: :marketplace_order_id,
     inverse_of: :order
@@ -35,6 +35,10 @@ class Marketplace::Order < ApplicationRecord
   accepts_nested_attributes_for :line_items, allow_destroy: true
 
   scope :not_in_progress, ->{ where(state: Marketplace::Order::State::valid_states - [Marketplace::Order::State::IN_PROGRESS]) }
+
+  delegate :reference,
+    to: :payment,
+    allow_nil: true
 
   # TODO: Reuse logic across models with `acts_as_priceable :price_cents`
   def price_cents
