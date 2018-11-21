@@ -74,6 +74,6 @@ class Services::Marketplace::OrderCompleter
   end
 
   def selling_pharmacy
-    @_seller ||= listing.pharmacy
+    @_seller ||= listing.selling_pharmacy
   end
 end

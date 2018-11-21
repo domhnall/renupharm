@@ -1,23 +1,60 @@
 table#orders {
+  &.purchases .buyer {
+    display: none
+  }
+  &.sales .seller {
+    display: none
+  }
   td.state {
     text-transform: uppercase;
     font-size: 80%;
     i {
       font-size: 120%;
     }
-    &.completed {
+  }
+
+  &.purchases td.state {
+    &.placed {
       i {
-        color: green;
+        color: blue;
       }
     }
     &.awaiting_delivery {
       i {
-        color: blue;
+        color: orange;
       }
     }
     &.delivering {
       i {
         color: orange;
+      }
+    }
+    &.delivered {
+      i {
+        color: green;
+      }
+    }
+  }
+
+  &.sales td.state {
+    &.placed {
+      i {
+        color: red;
+      }
+    }
+    &.awaiting_delivery {
+      i {
+        color: orange;
+      }
+    }
+    &.delivering {
+      i {
+        color: blue;
+      }
+    }
+    &.delivered {
+      i {
+        color: green;
       }
     }
   }

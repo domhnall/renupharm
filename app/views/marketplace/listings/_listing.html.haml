@@ -15,7 +15,7 @@
             .seller
               %span.sold_by= t("marketplace.listing.labels.sold_by")
               %span.seller_name
-                = link_to listing.seller_name, marketplace_pharmacy_path(listing.seller)
+                = link_to listing.seller_name, marketplace_pharmacy_path(listing.selling_pharmacy)
           .col-6
             .price
               %span.currency_symbol= Marketplace::Listing::currency_symbol

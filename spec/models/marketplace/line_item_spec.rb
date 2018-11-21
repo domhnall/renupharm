@@ -6,7 +6,7 @@ describe Marketplace::LineItem do
   [ :order,
     :listing,
     :product,
-    :seller,
+    :selling_pharmacy,
     :pharmacy,
     :quantity,
     :price_cents,

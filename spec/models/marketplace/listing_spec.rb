@@ -14,7 +14,7 @@ describe Marketplace::Listing do
     :product_description,
     :product_unit_size,
     :product_images,
-    :seller,
+    :selling_pharmacy,
     :pharmacy,
     :seller_name,
     :seller_address,

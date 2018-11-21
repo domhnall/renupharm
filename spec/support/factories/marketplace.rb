@@ -76,7 +76,7 @@ module Factories
         expiry_year: 2020,
         holder_name: "Davy Hughes",
         brand: "Mastercard",
-        email: "davy:hughes.com",
+        email: "davy@hughes.com",
         recurring_detail_reference: "addsomelegitimatepspreference"
       })
     end
@@ -92,7 +92,9 @@ module Factories
 
       buying_pharmacy = create_pharmacy(name: "Buyer Shop", email: "billy@buyer.com").tap do |pharmacy|
         agent = pharmacy.agents.create(user: buyer)
-        agent.orders.create(state: Marketplace::Order::State::COMPLETED)
+        agent.orders.create(state: ::Marketplace::Order::State::COMPLETED).tap do |order|
+          order.line_items.create(listing: listing)
+        end
       end
       credit_card = create_credit_card(pharmacy: buying_pharmacy)
 

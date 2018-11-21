@@ -40,6 +40,8 @@ class Marketplace::Order < ApplicationRecord
     to: :payment,
     allow_nil: true
 
+  alias_method :buying_pharmacy, :pharmacy
+
   # TODO: Reuse logic across models with `acts_as_priceable :price_cents`
   def price_cents
     self.line_items.reduce(0){|sum,li| sum+=li.price_cents }
@@ -53,8 +55,8 @@ class Marketplace::Order < ApplicationRecord
     line_items.first&.product
   end
 
-  def seller
-    line_items.first&.seller
+  def selling_pharmacy
+    line_items.first&.selling_pharmacy
   end
 
   State::valid_states.each do |state|

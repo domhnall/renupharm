@@ -29,6 +29,8 @@ Rails.application.routes.draw do
       resources :credit_cards, only: [:new, :create]
       resources :products, only: [:index, :new, :create, :edit, :update]
       resources :listings, only: [:index, :new, :create, :edit, :update]
+      resources :purchases, only: [:index, :show]
+      resources :sales, only: [:index, :show]
     end
   end
 

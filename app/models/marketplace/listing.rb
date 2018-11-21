@@ -16,7 +16,7 @@ class Marketplace::Listing < ApplicationRecord
     foreign_key: :marketplace_pharmacy_id,
     inverse_of: :listings
 
-  alias_method :seller, :pharmacy
+  alias_method :selling_pharmacy, :pharmacy
 
   validates :quantity, :price_cents, :expiry, presence: true
   validates :quantity, numericality: { only_integer: true, greater_than: 0 }

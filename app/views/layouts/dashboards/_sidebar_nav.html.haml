@@ -16,11 +16,11 @@
           %i.nav-icon.fa.fa-euro-sign
           = t("sidebar.pharmacy.my_shop")
       %li.nav-item
-        %a.nav-link{href: dashboard_path(dummy: true)}
+        %a.nav-link{href: marketplace_pharmacy_sales_path(current_user.pharmacy)}
           %i.nav-icon.fa.fa-sign-out-alt
           = t("sidebar.pharmacy.sales")
       %li.nav-item
-        %a.nav-link{href: marketplace_orders_path}
+        %a.nav-link{href: marketplace_pharmacy_purchases_path(current_user.pharmacy)}
           %i.nav-icon.fa.fa-sign-in-alt
           = t("sidebar.pharmacy.purchases")
 

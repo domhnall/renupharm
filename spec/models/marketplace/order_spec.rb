@@ -99,12 +99,12 @@ describe Marketplace::Order do
 
     describe "#seller" do
       it "should return the seller associated with the first line item of the order" do
-        expect(@order.seller).to eq @seller
+        expect(@order.selling_pharmacy).to eq @seller
       end
 
       it "should return nil if the order has no associated line items" do
         @order.line_items = []
-        expect(@order.seller).to be_nil
+        expect(@order.selling_pharmacy).to be_nil
       end
     end
 
