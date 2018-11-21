@@ -44,10 +44,20 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "marketplace_accounts_fees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_payment_id"
+    t.string "type"
+    t.decimal "amount_cents", precision: 10, scale: 2
+    t.string "currency_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_payment_id"], name: "index_marketplace_accounts_fees_on_marketplace_payment_id"
+  end
+
   create_table "marketplace_agents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "marketplace_pharmacy_id"
     t.bigint "user_id"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_agents_on_marketplace_pharmacy_id"
@@ -63,6 +73,7 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.integer "expiry_month"
     t.integer "expiry_year"
     t.string "email"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_credit_cards_on_marketplace_pharmacy_id"
@@ -83,7 +94,7 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.integer "quantity"
     t.integer "price_cents"
     t.date "expiry"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.datetime "purchased_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -126,7 +137,7 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.string "telephone"
     t.string "fax"
     t.string "email"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_marketplace_pharmacies_on_email", unique: true
@@ -138,7 +149,7 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.string "name"
     t.text "description"
     t.string "unit_size"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_products_on_marketplace_pharmacy_id"
@@ -223,6 +234,7 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
   end
 
   add_foreign_key "comments", "users"
+  add_foreign_key "marketplace_accounts_fees", "marketplace_payments"
   add_foreign_key "marketplace_agents", "marketplace_pharmacies"
   add_foreign_key "marketplace_agents", "users"
   add_foreign_key "marketplace_credit_cards", "marketplace_pharmacies"

@@ -10,6 +10,12 @@ class Marketplace::Payment < ApplicationRecord
     foreign_key: :marketplace_credit_card_id,
     inverse_of: :payments
 
+  has_many :fees,
+    class_name: "Marketplace::Accounts::Fee",
+    foreign_key: :marketplace_payment_id,
+    dependent: :destroy,
+    inverse_of: :payment
+
   after_initialize :default_attributes
   before_save :set_renupharm_reference
 

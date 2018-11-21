@@ -12,17 +12,28 @@ class Services::Marketplace::OrderCompleter
 
   def call
     validate_card_present
+    validate_listing_available
     take_payment
     remove_listing
+    calculate_fees
     send_emails
     contact_courier
     @response
   rescue Services::Error => e
     @errors << e
     @response
+  rescue Exception => e
+    Admin::ErrorMailer.payment_error(order: @order, error: e).deliver_later
+    raise Services::Error, I18n.t("general.error")
   end
 
   private
+
+  def validate_listing_available
+    if order.listings.active_listings.count != order.listings.count
+      raise Services::Error, I18n.t("marketplace.cart.errors.listing_unavailable")
+    end
+  end
 
   def validate_card_present
     if order.pharmacy.credit_cards.empty?
@@ -37,14 +48,26 @@ class Services::Marketplace::OrderCompleter
       shopper_ip: @shopper_ip
     })
   rescue Exception => e
-    #send_support_email
+    Admin::ErrorMailer.payment_error(order: @order, error: e).deliver_later
     raise Services::Error, I18n.t("marketplace.cart.errors.failed_payment")
   end
 
   def remove_listing
-    order.line_items.map(&:listing).each do |listing|
+    order.line_items.each do |line_item|
+      listing = line_item.listing
       listing.purchased_at = Time.now
       listing.save!
+
+      (listing.line_items - [line_item]).each(&:destroy)
+    end
+  end
+
+  def calculate_fees
+    [ Marketplace::Accounts::SellerFee,
+      Marketplace::Accounts::CourierFee,
+      Marketplace::Accounts::PaymentGatewayFee,
+      Marketplace::Accounts::ResidualFee ].each do |calculator|
+      calculator.new(payment: @order.payment).calculate!
     end
   end
 

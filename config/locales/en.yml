@@ -349,6 +349,7 @@ en:
         message: "There appears to have been a problem. Please address the following errors to progress your order. If problems persist please <a href=\"mailto:dev@renupharm.ie\">contact support</a>"
         no_credit_card: "Must have a default credit card set up for your pharmacy. Set one up <a href=\"%{url}\">here</a>."
         failed_payment: "There has been a problem processing your payment. Please check your payment method."
+        listing_unavailable: "Unfortunately it seems that one of the items in your cart is no longer available. If problems persist please <a href=\"mailto:dev@renupharm.ie\">contact support</a>"
     credit_card:
       title: "Add new card details for %{pharmacy_name}"
       number: "Card number"

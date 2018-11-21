@@ -89,5 +89,14 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+
+    create_table :marketplace_accounts_fees do |t|
+      t.belongs_to :marketplace_payment, foreign_key: true
+      t.string     :type
+      t.decimal    :amount_cents, precision: 10, scale: 2
+      t.string     :currency_code
+
+      t.timestamps
+    end
   end
 end
