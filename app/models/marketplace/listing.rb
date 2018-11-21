@@ -16,6 +16,11 @@ class Marketplace::Listing < ApplicationRecord
     foreign_key: :marketplace_pharmacy_id,
     inverse_of: :listings
 
+  has_many :line_items,
+    class_name: "Marketplace::LineItem",
+    foreign_key: :marketplace_listing_id,
+    inverse_of: :listing
+
   alias_method :selling_pharmacy, :pharmacy
 
   validates :quantity, :price_cents, :expiry, presence: true

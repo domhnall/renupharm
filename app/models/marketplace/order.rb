@@ -28,6 +28,7 @@ class Marketplace::Order < ApplicationRecord
 
   has_one :user, through: :agent
   has_one :pharmacy, through: :agent
+  has_many :listings, through: :line_items
 
   validates :state, presence: true, inclusion: {in: Marketplace::Order::State::valid_states}
   validate :max_line_items

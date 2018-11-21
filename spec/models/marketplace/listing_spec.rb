@@ -20,7 +20,8 @@ describe Marketplace::Listing do
     :seller_address,
     :seller_telephone,
     :seller_email,
-    :seller_image ].each do |method|
+    :seller_image,
+    :line_items ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Listing.new).to respond_to method
     end
