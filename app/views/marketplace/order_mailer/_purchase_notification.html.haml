@@ -1,45 +1,49 @@
-%br/
-%p
-  = "Hi #{@agent.full_name}"
-%p
-  = "We are please to confirm that your RenuPharm order has now been placed and is pending delivery."
-%br/
-%br/
-%br/
-%h3= "Order details"
-%ul{style: "padding: 0;margin: 10px 0 0 20px;"}
-  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
-    %strong{ style: "margin-right: 5px" }
-      = t("marketplace.listing.product")
-    = @listing.product_name
-  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
-    %strong{ style: "margin-right: 5px" }
-      = t("marketplace.product.unit_size")
-    = @listing.product_unit_size
-  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
-    %strong{ style: "margin-right: 5px" }
-      = t("marketplace.listing.quantity")
-    = @listing.quantity
-  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
-    %strong{ style: "margin-right: 5px" }
-      = t("marketplace.listing.expiry")
-    = l(@listing.expiry, format: :short)
-  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
-    %strong{ style: "margin-right: 5px" }
-      = t("marketplace.listing.display_price")
-    = @listing.display_price
-  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
-    %strong{ style: "margin-right: 5px" }
-      = "Selling pharmacy"
-    = @listing.seller_name
-  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
-    %strong{ style: "margin-right: 5px" }
-      = "Purchaser"
-    = @order.agent.full_name
-%br/
-%br/
-%p
-  = "If you have any questions or problems relating to this order please contact support."
-%br/
-%p
-  = "Thanks for using RenuPharm"
+%table.module{:border => "0", :cellpadding => "0", :cellspacing => "0", "data-type" => "text", :role => "module", :style => "table-layout: fixed;", :width => "100%"}
+  %tr
+    %td{:bgcolor => "", :height => "100%", :style => "padding:20px 45px 20px 45px;line-height:22px;text-align:inherit;", :valign => "top"}
+      %div{:style => "text-align: left; color:#333333;"}
+        %p
+          = "Hi #{@agent.full_name}"
+        %p
+          = "We are please to confirm that your RenuPharm order has now been placed and is pending delivery."
+        %br/
+        %br/
+        %br/
+        %h3= "Order details"
+        %ul{style: "padding: 0;margin: 10px 0 0 20px;"}
+          %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+            %strong{ style: "margin-right: 5px" }
+              = t("marketplace.listing.product")
+            = @listing.product_name
+          %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+            %strong{ style: "margin-right: 5px" }
+              = t("marketplace.product.unit_size")
+            = @listing.product_unit_size
+          %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+            %strong{ style: "margin-right: 5px" }
+              = t("marketplace.listing.quantity")
+            = @listing.quantity
+          %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+            %strong{ style: "margin-right: 5px" }
+              = t("marketplace.listing.expiry")
+            = l(@listing.expiry, format: :short)
+          %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+            %strong{ style: "margin-right: 5px" }
+              = t("marketplace.listing.display_price")
+            = @listing.display_price
+          %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+            %strong{ style: "margin-right: 5px" }
+              = "Selling pharmacy"
+            = @listing.seller_name
+          %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+            %strong{ style: "margin-right: 5px" }
+              = "Purchaser"
+            = @order.agent.full_name
+        %br/
+        %br/
+        = render "layouts/shared/mailer_cta", cta_url: marketplace_order_url(@order), cta_text: "View on RenuPharm"
+        %p
+          = "If you have any questions or problems relating to this order please contact support."
+        %br/
+        %p
+          = "Thanks for using RenuPharm"
