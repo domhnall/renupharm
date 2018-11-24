@@ -1,0 +1,9 @@
+%table.module{:border => "0", :cellpadding => "0", :cellspacing => "0", "data-type" => "text", :role => "module", :style => "table-layout: fixed;", :width => "100%"}
+  %tr
+    %td{:bgcolor => "", :height => "100%", :style => "padding:20px 45px 20px 45px;line-height:22px;text-align:inherit;", :valign => "top"}
+      %div{:style => "text-align: left; color:#333333;"}
+        %p
+          Hello #{@resource.email}!
+        %p Your account has been locked due to an excessive number of unsuccessful sign in attempts.
+        %p Click the link below to unlock your account:
+        = render "layouts/shared/mailer_cta", {cta_url: unlock_url(@resource, unlock_token: @token), cta_text: "Unlock my account"}
