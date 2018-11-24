@@ -5,7 +5,7 @@
 shared_examples "a basic admin controller with :create" do |clazz, options = {}|
   before :all do
     @user ||= create_user(email: 'creator@example.com')
-    @admin_user = create_admin_user(email: 'creator@renupharm.ie')
+    @admin_user ||= create_admin_user(email: 'creator@renupharm.ie')
     @clazz = clazz
     @create_params ||= {}
   end

@@ -44,7 +44,7 @@ Rails.application.routes.draw do
       end
     end
     resources :survey_responses, only: [:index]
-    resources :users
+    resources :users, only: [:index, :show, :edit, :update, :destroy]
 
     namespace :marketplace do
       resources :pharmacies, only: [:index, :new, :create, :show, :edit, :update] do

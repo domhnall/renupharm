@@ -5,14 +5,7 @@ module UsersHelper
 
   def current_user
     return unless devise_current_user
-    @_renupharm_user ||= case devise_current_user.role
-    when Profile::Roles::PHARMACY
-      devise_current_user.becomes(Users::Agent)
-    when Profile::Roles::COURIER
-      devise_current_user.becomes(Users::Courier)
-    when Profile::Roles::ADMIN
-      devise_current_user.becomes(Users::Admin)
-    end
+    @_renupharm_user ||= devise_current_user.to_type
   end
 
   def current_order

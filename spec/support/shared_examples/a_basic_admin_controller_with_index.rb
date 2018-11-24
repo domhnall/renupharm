@@ -1,7 +1,7 @@
 shared_examples "a basic admin controller with :index" do
   before :all do
-    @user = create_user
-    @admin_user = create_admin_user(email: 'john@renupharm.ie')
+    @user ||= create_user
+    @admin_user ||= create_admin_user(email: 'john@renupharm.ie')
   end
 
   describe "unauthenticated user" do

@@ -1,7 +1,7 @@
 shared_examples "a basic admin controller with :new" do |clazz|
   before :all do
-    @user = create_user(email: 'builder@example.com')
-    @admin_user = create_admin_user(email: 'builder@renupharm.ie')
+    @user ||= create_user(email: 'builder@example.com')
+    @admin_user ||= create_admin_user(email: 'builder@renupharm.ie')
     @clazz = clazz
     @additional_params ||= {}
   end

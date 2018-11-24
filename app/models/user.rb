@@ -28,4 +28,15 @@ class User < ApplicationRecord
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
   end
+
+  def to_type
+    case self.role
+    when Profile::Roles::PHARMACY
+      self.becomes(Users::Agent)
+    when Profile::Roles::COURIER
+      self.becomes(Users::Courier)
+    when Profile::Roles::ADMIN
+      self.becomes(Users::Admin)
+    end
+  end
 end
