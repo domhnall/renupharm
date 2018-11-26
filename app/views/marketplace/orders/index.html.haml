@@ -1,12 +1,5 @@
 .row
   .col-md-12
-    .row.inline_search_form
-      .col-md-6
-      .col-md-6
-        = form_tag marketplace_orders_path, method: :get do
-          %span.active-purple-4.mb-4
-            = text_field_tag "query", nil, class: "form-control", placeholder: t("general.search"), "aria-label": t("general.search")
-          = submit_tag t("general.search"), class: "btn btn-primary"
     .card
       - if @orders.any?
         %table#orders.table{class: @orders.first.class.to_s.split("::").last.tableize }
