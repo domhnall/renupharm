@@ -41,15 +41,16 @@ class Marketplace::Order < ApplicationRecord
     to: :payment,
     allow_nil: true
 
+  delegate :price_cents,
+           :price_major,
+           :price_minor,
+           :currency_symbol,
+           :display_price, to: :price
+
   alias_method :buying_pharmacy, :pharmacy
 
-  # TODO: Reuse logic across models with `acts_as_priceable :price_cents`
-  def price_cents
-    self.line_items.reduce(0){|sum,li| sum+=li.price_cents }
-  end
-
-  def display_price
-    "#{Marketplace::Listing::currency_symbol}#{sprintf("%0.2f", price_cents/100.to_f)}"
+  def price
+    @price ||= Price.new(self.line_items.reduce(0){|sum,li| sum+=li.price_cents })
   end
 
   def product

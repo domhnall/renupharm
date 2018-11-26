@@ -79,14 +79,6 @@ describe Marketplace::Listing do
     end
   end
 
-  describe "class method" do
-    describe "#currency_symbol" do
-      it "should return €" do
-        expect(Marketplace::Listing::currency_symbol).to eq "€"
-      end
-    end
-  end
-
   describe "instance method" do
     describe "#display_price" do
       it "should return a String" do

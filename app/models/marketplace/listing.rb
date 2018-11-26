@@ -1,10 +1,5 @@
 class Marketplace::Listing < ApplicationRecord
   ACCEPTABLE_EXPIRY_DAYS = 7
-  CURRENCY_SYMBOLS = {
-    gbp: "£",
-    usd: "$",
-    eur: "€"
-  }
 
   belongs_to :product,
     class_name: "Marketplace::Product",
@@ -39,13 +34,14 @@ class Marketplace::Listing < ApplicationRecord
            :email,
            :image, to: :pharmacy, prefix: :seller
 
+  delegate :price_major,
+           :price_minor,
+           :currency_symbol,
+           :display_price, to: :price
+
   scope :active_listings, ->{ where(active: true).where(purchased_at: nil) }
 
   after_initialize :default_pharmacy_id
-
-  def self.currency_symbol
-    CURRENCY_SYMBOLS[:eur]
-  end
 
   def marketplace_pharmacy_id=(pharmacy_id)
     super(product&.marketplace_pharmacy_id || pharmacy_id)
@@ -55,16 +51,8 @@ class Marketplace::Listing < ApplicationRecord
     expiry && expiry > (Date.today + ACCEPTABLE_EXPIRY_DAYS.days)
   end
 
-  def price_major
-    decimal_price.split('.')[0]
-  end
-
-  def price_minor
-    decimal_price.split('.')[1]
-  end
-
-  def display_price
-    "#{Marketplace::Listing::currency_symbol}#{decimal_price}"
+  def price
+    @price ||= Price.new(self.price_cents)
   end
 
   private
