@@ -5,6 +5,7 @@ describe Admin::Marketplace::PharmaciesController do
 
   before :all do
     @existing = create_pharmacy(name: "McArdle's", email: "harry@mcardles.com")
+    @user = create_agent(pharmacy: @existing, user: create_user(email: "tester@test.com")).user
 
     @create_params = {
       marketplace_pharmacy: {

@@ -1,4 +1,4 @@
-class Admin::Marketplace::AgentsController < AuthenticatedController
+class Admin::Marketplace::AgentsController < Admin::BaseController
   def new
     @agent = pharmacy.agents.build.tap do |agent|
       agent.user = User.new.tap do |user|

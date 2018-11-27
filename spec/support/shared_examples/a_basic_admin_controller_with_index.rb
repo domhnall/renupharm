@@ -1,6 +1,6 @@
 shared_examples "a basic admin controller with :index" do
   before :all do
-    @user ||= create_user
+    @user ||= create_agent.user
     @admin_user ||= create_admin_user(email: 'john@renupharm.ie')
   end
 
