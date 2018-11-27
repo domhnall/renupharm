@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   namespace :marketplace do
     root to: "listings#index"
     resource :cart, only: [:show, :update]
-    resources :orders, only: [:index, :show]
+    resources :orders, only: [:show]
 
     resources :pharmacies, only: [:show, :edit, :update] do
       resources :credit_cards, only: [:new, :create]
@@ -50,7 +50,7 @@ Rails.application.routes.draw do
       resources :pharmacies, only: [:index, :new, :create, :show, :edit, :update] do
         resources :agents, only: [:new, :create, :edit, :update]
       end
-      resources :orders, only: [:index, :edit, :update]
+      resources :orders, only: [:index, :show, :edit, :update]
     end
   end
 
