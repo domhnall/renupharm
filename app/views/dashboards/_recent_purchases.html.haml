@@ -1,0 +1,17 @@
+%h4.card-title.mb-0 Recent Purchases
+
+- if purchases.any?
+
+  %ul
+    - purchases.each do |order|
+      %li.order
+        .product_name= link_to order.product.name, marketplace_order_path(order)
+        .order_value= order.display_price
+        .updated_at= order.updated_at
+
+  .actions
+    = link_to t("general.see_more"), marketplace_pharmacy_purchases_path(current_user.pharmacy)
+
+- else
+
+  %p.no_recent_activity= t("dashboard.pharmacy.no_recent_purchases")

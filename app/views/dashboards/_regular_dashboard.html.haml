@@ -1,5 +1,57 @@
-%p
-  = "Hello #{current_user.email}"
+.row
+  .col-md-12
+    .card
+      .card-body
+        .row
+          .col-sm-4
+            .callout.callout-info
+              %small.text-muted Total Purchases
+              %br/
+              %strong
+                .h4= @total_purchases_count
+                .value= @total_purchases_value.display_price
+          .col-sm-4
+            .callout.callout-success
+              %small.text-muted Total Sales
+              %br/
+              %strong
+                .h4= @total_sales_count
+                .value= @total_sales_value.display_price
+          .col-sm-4
+            .callout.callout-warning
+              %small.text-muted Total Active Listings
+              %br/
+              %strong
+                .h4= @total_active_listings_count
+                .value= @total_active_listings_value.display_price
+        %hr.mt-0/
 
-%p
-  This is a regular user dashboard and it still needs to be implemented
+        - max_value = ([@total_sales_value, @total_purchases_value].map(&:price_cents).max)*1.3
+        .sales_purchases_progress
+          .progress-group.mb-4
+            .progress-group-bars
+              .progress.dynamic{ data: { width: "#{@total_purchases_value.price_cents*100/max_value}%" } }
+                .progress-label= t("sidebar.pharmacy.purchases")
+                .progress-bar.bg-info{"aria-valuemax" => max_value, "aria-valuemin" => "0", "aria-valuenow" => @total_purchases_value.price_cents, role: "progressbar", style: "width: 0.0%", title: @total_purchases_value.price_cents }
+              .progress.dynamic{ data: { width: "#{@total_sales_value.price_cents*100/max_value}%" } }
+                .progress-label= t("sidebar.pharmacy.sales")
+                .progress-bar.bg-success{"aria-valuemax" => max_value, "aria-valuemin" => "0", "aria-valuenow" => @total_sales_value.price_cents, role: "progressbar", style: "width: 0.0%", title: @total_sales_value.price_cents }
+
+.row
+  .col-sm-6.col-lg-4
+    .card.border-info
+      .recent_purchases.card-body.pb-0
+        = render "recent_purchases", purchases: @recent_purchases
+
+  .col-sm-6.col-lg-4
+    .card.border-success
+      .recent_sales.card-body.pb-0
+        = render "recent_sales", sales: @recent_sales
+
+  .col-sm-6.col-lg-4
+    .card.border-warning
+      .recent_listings.card-body.pb-0
+        = render "recent_listings", listings: @recent_listings
+
+:javascript
+  document.dispatchEvent(new Event("regular_dashboard:init"));

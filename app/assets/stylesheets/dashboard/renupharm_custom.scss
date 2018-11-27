@@ -183,3 +183,25 @@ li.comment {
   }
 }
 
+.recent_purchases, .recent_sales, .recent_listings {
+  font-size: 85%;
+  min-height: 20px;
+  .no_recent_activity {
+    width: 100%;
+    font-style: italic;
+    text-align: center;
+    margin: 50px auto;
+  }
+  ul {
+    padding: 5px;
+    list-style-type: none;
+    display: table;
+    li {
+      display: table-row;
+      margin: 20px auto;
+      .product_name, .sale_value, .purchase_value, .order_value, .updated_at, .created_at {
+        display: table-cell;
+      }
+    }
+  }
+}

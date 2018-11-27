@@ -270,6 +270,11 @@ en:
         browse_marketplace: "Browse Marketplace"
         network_pharmacies: "Network Pharmacies"
         orders: "Orders"
+  dashboard:
+    pharmacy:
+      no_recent_purchases: "No recent purchases"
+      no_recent_sales: "No recent sales"
+      no_recent_listings: "No recent listings"
   marketplace:
     product:
       name: "Name"
