@@ -8,7 +8,7 @@ class Marketplace::ListingsController < AuthenticatedController
     @listings    = get_scope(@query).order("marketplace_products.name").limit(@per_page).offset((@page-1)*@per_page)
 
     # Build new line item that will be initialized with different values for each Buy button
-    current_order.line_items.build
+    current_order.line_items.build if current_user.pharmacy?
   end
 
   def new
