@@ -1,14 +1,30 @@
 class Marketplace::ProductsController < AuthenticatedController
+  def index
+    @page        = params.fetch(:page, 1).to_i
+    @per_page    = [params.fetch(:per_page, 25).to_i, 50].min
+    @query       = params.fetch(:query, "")
+    @total_count = get_scope(@query).count
+    @total_pages = (@total_count/@per_page).ceil
+
+    @products = get_scope(@query).limit(@per_page).offset((@page-1)*@per_page)
+  end
+
+  def show
+    @product = get_scope.find(params.fetch(:id).to_i)
+    authorize @product, :show?
+  end
+
   def new
-    @product = pharmacy.products.build
+    @product = Marketplace::Product.new(pharmacy: pharmacy)
+    @url = pharmacy ? marketplace_pharmacy_products_path(pharmacy) : marketplace_products_path
     authorize @product, :new?
   end
 
   def create
-    @product = pharmacy.products.build(product_params)
+    @product = Marketplace::Product.new(product_params.merge(marketplace_pharmacy_id: pharmacy&.id))
     authorize @product, :create?
     if @product.valid? && @product.save
-      redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t('marketplace.product.flash.create_successful') }
+      redirect_to marketplace_product_path(@product), flash: { success: I18n.t('marketplace.product.flash.create_successful') }
     else
       flash.now[:warning] = I18n.t('marketplace.product.flash.error')
       render :new
@@ -16,16 +32,17 @@ class Marketplace::ProductsController < AuthenticatedController
   end
 
   def edit
-    @product = pharmacy.products.find(params.fetch(:id).to_i)
+    @product = get_scope.find(params.fetch(:id).to_i)
+    @url = pharmacy ? marketplace_pharmacy_product_path(pharmacy, @product) : marketplace_product_path(@product)
     authorize @product, :edit?
   end
 
   def update
-    @product = pharmacy.products.find(params.fetch(:id).to_i)
+    @product = get_scope.find(params.fetch(:id).to_i)
     authorize @product, :update?
     if @product.update_attributes(product_params)
       #@product.clean_up_images!
-      redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t('marketplace.product.flash.update_successful') }
+      redirect_to marketplace_product_path(@product), flash: { success: I18n.t('marketplace.product.flash.update_successful') }
     else
       flash.now[:warning] = I18n.t('marketplace.product.flash.error')
       render :edit
@@ -34,8 +51,14 @@ class Marketplace::ProductsController < AuthenticatedController
 
   private
 
+  def get_scope(query="")
+    return scope = policy_scope(::Marketplace::Product) if query.size<3
+    scope.where("name LIKE ?", "%#{query}%")
+  end
+
   def pharmacy
-    @_pharmacy ||= ::Marketplace::Pharmacy.find(params.fetch(:pharmacy_id).to_i)
+    return unless current_user.pharmacy? && params.fetch(:pharmacy_id, nil)==current_user.pharmacy.id
+    current_user.pharmacy
   end
 
   def product_params

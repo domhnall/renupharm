@@ -18,4 +18,4 @@
   - if policy(product).edit?
     .row
       .actions
-        = link_to t("general.edit"), edit_marketplace_pharmacy_product_path(product.pharmacy, product)
+        = link_to t("general.edit"), product.pharmacy ? edit_marketplace_pharmacy_product_path(product.pharmacy, product) : edit_marketplace_product_path(product)

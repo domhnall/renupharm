@@ -274,6 +274,7 @@ en:
         browse_marketplace: "Browse Marketplace"
         network_pharmacies: "Network Pharmacies"
         orders: "Orders"
+        products: "Products"
   dashboard:
     pharmacy:
       no_recent_purchases: "No recent purchases"

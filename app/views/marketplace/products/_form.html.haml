@@ -1,5 +1,4 @@
-- url = @product.persisted? ? marketplace_pharmacy_product_path(@product.pharmacy, @product) : marketplace_pharmacy_products_path(@product.pharmacy)
-= form_for @product, url: url do |form|
+= form_for @product, url: @url do |form|
   .row
     .col-5
       .product_images
