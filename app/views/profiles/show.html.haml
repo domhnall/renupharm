@@ -30,12 +30,12 @@
               %label.label.col-form-label
                 = t('profile.created_at')
               %span.form-control
-                = @profile.created_at
+                = l(@profile.created_at, format: :long)
             .form-group
               %label.label.col-form-label
                 = t('profile.updated_at')
               %span.form-control
-                = @profile.updated_at
+                = l(@profile.updated_at, format: :long)
           .col-5
             = image_tag((@profile.avatar.attached? ? @profile.avatar : "placeholder-user.png"), class: 'img-avatar')
 

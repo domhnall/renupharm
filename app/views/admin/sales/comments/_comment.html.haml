@@ -4,7 +4,7 @@
       .commented_by
         = t("comment.commented_by", commenter: h(comment.user&.email)).html_safe
       .commented_at
-        = t("comment.commented_at", commented_at: h(comment.updated_at)).html_safe
+        = t("comment.commented_at", commented_at: h(l(comment.updated_at, format: :long))).html_safe
   - else
     %h3= t("comment.new_comment")
 

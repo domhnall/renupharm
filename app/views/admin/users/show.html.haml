@@ -23,13 +23,13 @@
             = t('user.created_at')
           .col-9
             %span.form-control
-              = @user.created_at
+              = l(@user.created_at, format: :long)
         .form-group.row
           %label.label.col-form-label.col-3
             = t('user.updated_at')
           .col-9
             %span.form-control
-              = @user.updated_at
+              = l(@user.updated_at, format: :long)
 
         %h3= t('user.heading.profile')
 

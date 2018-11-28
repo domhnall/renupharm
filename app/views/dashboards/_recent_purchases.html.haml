@@ -7,7 +7,7 @@
       %li.order
         .product_name= link_to order.product.name, marketplace_order_path(order)
         .order_value= order.display_price
-        .updated_at= order.updated_at
+        .updated_at= l(order.updated_at, format: :long)
 
   .actions
     = link_to t("general.see_more"), marketplace_pharmacy_purchases_path(current_user.pharmacy)

@@ -20,7 +20,7 @@
                 %td.buyer= order.pharmacy.name
                 %td.seller= order.selling_pharmacy&.name
                 %td= order.display_price
-                %td= order.updated_at
+                %td= l(order.updated_at, format: :long)
                 %td.state{ class: order.state, title: t("marketplace.order.states.#{order.state}") }
                   %i.fa.fa-circle
 

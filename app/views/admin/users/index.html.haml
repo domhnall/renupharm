@@ -18,8 +18,8 @@
             %tr
               %td= user.email
               %td= user.current_sign_in_at
-              %td= user.created_at
-              %td= user.updated_at
+              %td= l(user.created_at, format: :long)
+              %td= l(user.updated_at, format: :long)
               %td.controls
                 %span.edit
                   = link_to edit_admin_user_path(user) do
