@@ -4,13 +4,21 @@ describe Marketplace::ProductPolicy do
   include Factories::Marketplace
 
   before :all do
-    @user = create_user(email: 'user@pharmacy.com')
-    @other_user = create_user(email: 'user@otherpharmacy.com')
-    @admin_user = create_admin_user(email: 'admin@renupharm.ie')
     @pharmacy = create_pharmacy.tap do |pharmacy|
-      pharmacy.agents.create(user: @user)
       pharmacy.products << (@product = create_product(pharmacy: pharmacy))
     end.reload
+
+    @user = create_agent(
+      pharmacy: @pharmacy,
+      user: create_user(email: 'user@pharmacy.com')
+    ).user.becomes(Users::Agent)
+
+    @other_user = create_agent(
+      pharmacy: create_pharmacy(name: "McGrew's", email: "jim@mcgrew.com"),
+      user: create_user(email: 'user@otherpharmacy.com')
+    ).user.becomes(Users::Agent)
+
+    @admin_user = create_admin_user(email: 'admin@renupharm.ie').becomes(Users::Admin)
   end
 
   describe "instantiation" do

@@ -2,14 +2,14 @@ class Marketplace::ProductPolicy < AuthenticatedApplicationPolicy
   class Scope < Scope
     def resolve
       return scope.all if user.admin?
-      scope
-      .where(active: true)
-      .where("marketplace_pharmacy_id IS NULL OR marketplace_pharmacy_id = ?", user.pharmacy.id)
+      scope.where("(marketplace_pharmacy_id IS NULL AND active = ?) OR marketplace_pharmacy_id = ?", true, user.pharmacy.id)
     end
   end
 
   def show?
-    (pharmacy.active? && product.active?) || user.admin? || user.pharmacy==pharmacy
+    user.admin? ||
+    user.pharmacy==pharmacy ||
+    (product.active? && (pharmacy.nil? || pharmacy.active?))
   end
 
   def create?
