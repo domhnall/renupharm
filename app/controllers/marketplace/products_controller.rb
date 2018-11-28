@@ -39,9 +39,9 @@ class Marketplace::ProductsController < AuthenticatedController
 
   def update
     @product = get_scope.find(params.fetch(:id).to_i)
+    @product.assign_attributes(product_params.merge(marketplace_pharmacy_id: pharmacy&.id))
     authorize @product, :update?
-    if @product.update_attributes(product_params)
-      #@product.clean_up_images!
+    if @product.valid? && @product.save!
       redirect_to marketplace_product_path(@product), flash: { success: I18n.t('marketplace.product.flash.update_successful') }
     else
       flash.now[:warning] = I18n.t('marketplace.product.flash.error')
@@ -57,7 +57,7 @@ class Marketplace::ProductsController < AuthenticatedController
   end
 
   def pharmacy
-    return unless current_user.pharmacy? && params.fetch(:pharmacy_id, nil)==current_user.pharmacy.id
+    return unless current_user.pharmacy? && params.fetch(:pharmacy_id, nil).to_i==current_user.pharmacy.id
     current_user.pharmacy
   end
 

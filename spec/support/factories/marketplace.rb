@@ -42,7 +42,9 @@ module Factories
     end
 
     def create_product(attrs = {})
-      attrs.fetch(:pharmacy){ create_pharmacy }.products.create({
+      pharmacy = attrs.fetch(:pharmacy){ create_pharmacy }
+      ::Marketplace::Product.create({
+        pharmacy: pharmacy,
         name: attrs.fetch(:name){ "Paracetomol" },
         unit_size: attrs.fetch(:unit_size){ "80 capsules" },
         description: attrs.fetch(:description){ "Some popular drug that we want to populate on our database" },
