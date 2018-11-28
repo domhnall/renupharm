@@ -1,0 +1,35 @@
+.row
+  .col-md-12
+    .card.cart
+      .show_record
+        .heading
+          %h2= t("marketplace.order.title", reference: @order.reference)
+        %table.order_details
+          %thead
+            %tr
+              %td.product= t("marketplace.order.product")
+              %td.quantity= t("marketplace.order.quantity")
+              %td.price= t("marketplace.order.price")
+          %tbody
+            - @order.line_items.each do |line_item|
+              %tr
+                %td.product=line_item.product.name
+                %td.quantity=line_item.quantity
+                %td.quantity=line_item.display_price
+          %tfoot
+            %td
+            %td.total_price_label= t("marketplace.order.total_price")
+            %td.total_price= @order.display_price
+        = form_for [:admin, @order] do |f|
+          .row
+            .col-12
+              %fieldset.form-group{class: error_keys.include?(:state) ? 'error' : '' }
+                %p= t("marketplace.order.state")
+                - Marketplace::Order::State.valid_states.each do |state|
+                  %div.form-check
+                    = f.radio_button :state, state, class: 'form-check-input'
+                    = f.label :state, t("marketplace.order.states.#{state}"), class: 'form-check-label'
+
+          .actions
+            = submit_tag t('general.save'), id: 'submit_marketplace_order', class: 'btn btn-success'
+            = link_to t('general.cancel'), admin_marketplace_orders_path, class: 'btn btn-light'

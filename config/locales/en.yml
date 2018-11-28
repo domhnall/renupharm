@@ -320,6 +320,12 @@ en:
       total_price: "Total price:"
       updated_at: "Updated"
       state: "Status"
+      reference: "Reference"
+      states:
+        in_progress: "In progress"
+        placed: "Placed"
+        delivering: "Delivering"
+        completed: "Completed"
       errors:
         max_line_items: "Valid orders can only have %{max} line items, please remove some items from your basket."
     pharmacy:

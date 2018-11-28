@@ -23,7 +23,7 @@ class Marketplace::OrderPolicy < AuthenticatedApplicationPolicy
   end
 
   def update?
-    order.user==user
+    user.admin? || order.user==user
   end
 
   private
