@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe Admin::Sales::PharmaciesController do
   include Factories::Base
+  include Factories::Marketplace
 
   before :all do
     @existing = Sales::Pharmacy.create!({

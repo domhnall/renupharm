@@ -4,7 +4,10 @@ describe Marketplace::ListingsController do
   include Factories::Marketplace
 
   before :all do
-    @user = create_user(email: "stuart@baggs.com")
+    @user = create_agent(
+      pharmacy: create_pharmacy,
+      user: create_user(email: "stuart@baggs.com")
+    ).user.becomes(Users::Agent)
   end
 
   describe "#index" do

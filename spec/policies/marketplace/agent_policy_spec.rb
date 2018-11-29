@@ -4,14 +4,27 @@ describe Marketplace::AgentPolicy do
   include Factories::Marketplace
 
   before :all do
-    @user = create_user(email: 'user@pharmacy.com')
-    @other_user = create_user(email: 'other_user@pharmacy.com')
-    @other_pharmacy_user = create_user(email: 'user@otherpharmacy.com')
+    @pharmacy = create_pharmacy
+
+    @agent = create_agent(
+      pharmacy: @pharmacy,
+      user: create_user(email: 'user@pharmacy.com')
+    )
+    @user = @agent.user.becomes(Users::Agent)
+
+    @other_agent = create_agent(
+      pharmacy: @pharmacy,
+      user: create_user(email: 'other-user@pharmacy.com')
+    )
+    @other_user = @other_agent.user.becomes(Users::Agent)
+
+    @other_pharmacy_agent = create_agent(
+      pharmacy: create_pharmacy(name: "Bagg's Pharmacy", email: "billy@baggs.com"),
+      user: create_user(email: 'user@otherpharmacy.com')
+    )
+    @other_pharmacy_user = @other_pharmacy_agent.user.becomes(Users::Agent)
+
     @admin_user = create_admin_user(email: 'admin@renupharm.ie')
-    @pharmacy = create_pharmacy.tap do |pharmacy|
-      @agent = pharmacy.agents.create(user: @user, active: true)
-      @other_agent = pharmacy.agents.create(user: @other_user, active: true)
-    end
   end
 
   describe "instantiation" do

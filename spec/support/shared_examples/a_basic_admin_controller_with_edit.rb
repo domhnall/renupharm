@@ -5,8 +5,13 @@
 #
 
 shared_examples "a basic admin controller with :edit" do |clazz|
+  include Factories::Marketplace
+
   before :all do
-    @user ||= create_user(email: 'editor@example.com')
+    @user ||= create_agent(
+      pharmacy: create_pharmacy(name: "Editor's", email: "admin@editors.com"),
+      user: create_user(email: 'editor@example.com')
+    ).user.becomes(Users::Agent)
     @admin_user ||= create_admin_user(email: 'editor@renupharm.ie')
     @clazz = clazz
     @additional_params ||= {}

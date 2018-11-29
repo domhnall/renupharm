@@ -1,6 +1,11 @@
 shared_examples "a basic admin controller with :new" do |clazz|
+  include Factories::Marketplace
+
   before :all do
-    @user ||= create_user(email: 'builder@example.com')
+    @user ||= create_agent(
+      pharmacy: create_pharmacy(name: "Builder's", email: "barry@builders.com"),
+      user: create_user(email: 'builder@example.com')
+    ).user.becomes(Users::Agent)
     @admin_user ||= create_admin_user(email: 'builder@renupharm.ie')
     @clazz = clazz
     @additional_params ||= {}

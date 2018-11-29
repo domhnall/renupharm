@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 describe Admin::Sales::CommentsController do
-  include Factories::Base
+  include Factories::Marketplace
 
   before :all do
-    @user  = create_user(email: 'joe@schmoe.com')
+    @user  = create_agent(
+      user: create_user(email: 'joe@schmoe.com')
+    ).user.becomes(Users::Agent)
     @admin = create_admin_user(email: 'admin@renupharm.ie')
 
     @commentable = Sales::Pharmacy.create!({

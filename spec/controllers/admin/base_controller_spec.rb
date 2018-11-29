@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Admin::BaseController, type: :controller do
-  include Factories::Base
+  include Factories::Marketplace
 
   controller do
     def index
@@ -10,7 +10,7 @@ describe Admin::BaseController, type: :controller do
   end
 
   before :all do
-    @user = create_user
+    @user = create_agent.user.becomes(Users::Agent)
     @admin_user = create_admin_user(email: 'john@renupharm.ie')
   end
 

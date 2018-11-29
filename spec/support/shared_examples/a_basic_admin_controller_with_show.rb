@@ -3,8 +3,13 @@
 #
 
 shared_examples "a basic admin controller with :show" do |clazz|
+  include Factories::Marketplace
+
   before :all do
-    @user ||= create_user(email: 'viewer@example.com')
+    @user ||= create_agent(
+      pharmacy: create_pharmacy(name: "Viewer's", email: "vivek@viewers.com"),
+      user: create_user(email: 'viewer@example.com')
+    ).user.becomes(Users::Agent)
     @admin_user ||= create_admin_user(email: 'viewer@renupharm.ie')
     @clazz = clazz
     @additional_params ||= {}

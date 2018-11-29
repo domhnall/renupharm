@@ -4,11 +4,15 @@ describe Marketplace::PharmaciesController do
   include Factories::Marketplace
 
   before :all do
-    @user = create_user(email: "stuart@baggs.com")
-    @other_user = create_user(email: "dave@other.com")
-    @pharmacy = create_pharmacy(name: "Baggs Boutique", email: "info@baggs.com").tap do |pharmacy|
-      pharmacy.agents.create(user: @user)
-    end
+    @pharmacy = create_pharmacy(name: "Baggs Boutique", email: "info@baggs.com")
+    @user = create_agent(
+      pharmacy: @pharmacy,
+      user: create_user(email: "stuart@baggs.com")
+    ).user.becomes(Users::Agent)
+    @other_user = create_agent(
+      pharmacy: create_pharmacy(name: "Stewart's", email: "stu@stewarts.com"),
+      user: create_user(email: "dave@other.com")
+    ).user.becomes(Users::Agent)
   end
 
   describe "#show" do

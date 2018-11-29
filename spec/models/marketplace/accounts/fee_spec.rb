@@ -11,21 +11,22 @@ describe Marketplace::Accounts::Fee do
   describe "instantiation" do
     before :all do
       @params = {
+        payment: Marketplace::Payment.new,
         amount_cents: 999,
         currency_code: "EUR"
       }
     end
 
     it "should be valid where all required parameters are supplied" do
-      expect(Marketplace::Accounts::Fee.new(@params)).to be_valid?
+      expect(Marketplace::Accounts::Fee.new(@params)).to be_valid
     end
 
     it "should be invalid where :amount_cents is not supplied" do
-      expect(Marketplace::Accounts::Fee.new(@params.merge(amount_cents: nil))).not_to be_valid?
+      expect(Marketplace::Accounts::Fee.new(@params.merge(amount_cents: nil))).not_to be_valid
     end
 
     it "should be invalid where :currency_code is not supplied" do
-      expect(Marketplace::Accounts::Fee.new(@params.merge(currency_code: nil))).not_to be_valid?
+      expect(Marketplace::Accounts::Fee.new(@params.merge(currency_code: nil))).not_to be_valid
     end
   end
 

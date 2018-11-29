@@ -114,7 +114,7 @@ describe Marketplace::Product do
         end
 
         it "should be valid if duplicate product belongs to a different pharmacy" do
-          expect(@pharmacy.products.build(@new_params.merge(pharmacy: @other_pharmacy))).to be_valid
+          expect(Marketplace::Product.new(@new_params.merge(pharmacy: @other_pharmacy))).to be_valid
         end
       end
 

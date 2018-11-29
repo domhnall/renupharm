@@ -14,7 +14,6 @@ describe Marketplace::CreditCard do
     :email,
     :pharmacy_name,
     :encrypted_card,
-    :shopper_ip,
     :authorize! ].each do |method|
     it "should respond to method :#{method}" do
       expect(Marketplace::CreditCard.new).to respond_to method

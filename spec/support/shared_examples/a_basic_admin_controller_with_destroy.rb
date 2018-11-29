@@ -3,8 +3,13 @@
 #
 
 shared_examples "a basic admin controller with :destroy" do |clazz|
+  include Factories::Marketplace
+
   before :all do
-    @user ||= create_user(email: 'destroyer@example.com')
+    @user ||= create_agent(
+      pharmacy: create_pharmacy(name: "Destroyer's", email: "des@destroyers.com"),
+      user: create_user(email: 'destroyer@example.com')
+    ).user.becomes(Users::Agent)
     @admin_user ||= create_admin_user(email: 'destroyer@renupharm.ie')
     @clazz = clazz
   end

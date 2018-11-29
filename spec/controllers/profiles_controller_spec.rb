@@ -1,10 +1,13 @@
 require 'rails_helper'
 
 describe ProfilesController do
-  include Factories::Base
+  include Factories::Marketplace
 
   before :all do
-    @user = create_user(email: "stuart@baggs.com")
+    @user = create_agent(
+      pharmacy: create_pharmacy(name: "Bagg's Pharmacy", email: "billy@baggs.com"),
+      email: create_user(email: "stuart@baggs.com")
+    ).user.becomes(Users::Agent)
   end
 
   describe "#show" do
