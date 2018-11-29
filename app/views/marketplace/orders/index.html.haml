@@ -1,29 +1,33 @@
+- type = params[:controller].split("/").last
 .row
   .col-md-12
     .card
-      - if @orders.any?
-        %table#orders.table{class: @orders.first.class.to_s.split("::").last.tableize }
-          %thead
+      %table#orders.table{class: type}
+        %thead
+          %tr
+            %th= t("marketplace.order.reference")
+            %th= t("marketplace.order.product")
+            %th.buyer= t("marketplace.order.buyer")
+            %th.seller= t("marketplace.order.seller")
+            %th= t("marketplace.order.price")
+            %th= t("marketplace.order.updated_at")
+            %th= t("marketplace.order.state")
+        %tbody
+          - if @orders.empty?
             %tr
-              %th= t("marketplace.order.reference")
-              %th= t("marketplace.order.product")
-              %th.buyer= t("marketplace.order.buyer")
-              %th.seller= t("marketplace.order.seller")
-              %th= t("marketplace.order.price")
-              %th= t("marketplace.order.updated_at")
-              %th= t("marketplace.order.state")
-          %tbody
-            - @orders.each do |order|
-              %tr
-                %td= link_to order.reference, marketplace_order_path(order)
-                %td= order.product&.name
-                %td.buyer= order.pharmacy.name
-                %td.seller= order.selling_pharmacy&.name
-                %td= order.display_price
-                %td= l(order.updated_at, format: :long)
-                %td.state{ class: order.state, title: t("marketplace.order.states.#{order.state}") }
-                  %i.fa.fa-circle
+              %td.no_orders{colspan: 7}= t("marketplace.order.messages.empty_#{type}")
+          - @orders.each do |order|
+            %tr
+              %td= link_to order.reference, marketplace_order_path(order)
+              %td= order.product&.name
+              %td.buyer= order.pharmacy.name
+              %td.seller= order.selling_pharmacy&.name
+              %td= order.display_price
+              %td= l(order.updated_at, format: :long)
+              %td.state{ class: order.state, title: t("marketplace.order.states.#{order.state}") }
+                %i.fa.fa-circle
 
+      - if @orders.any?
         .table_summary_section
           = t("table.summary", start: ((@page-1)*@per_page)+1, end: [@page*@per_page, @total_count].min, total: @total_count)
         .pagination_section

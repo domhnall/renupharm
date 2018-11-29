@@ -333,6 +333,10 @@ en:
         completed: "Completed"
       errors:
         max_line_items: "Valid orders can only have %{max} line items, please remove some items from your basket."
+      messages:
+        empty_purchases: "There are no purchases matching this condition."
+        empty_sales: "There are no sales matching this condition."
+        empty_orders: "There are no orders matching this condition."
     pharmacy:
       name: "Name"
       description: "Description"

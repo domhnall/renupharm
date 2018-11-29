@@ -183,14 +183,18 @@ li.comment {
   }
 }
 
+.no_orders {
+  width: 100%;
+  font-style: italic;
+  text-align: center;
+  margin: 50px auto;
+}
+
 .recent_purchases, .recent_sales, .recent_listings {
   font-size: 85%;
   min-height: 20px;
   .no_recent_activity {
-    width: 100%;
-    font-style: italic;
-    text-align: center;
-    margin: 50px auto;
+    @extend .no_orders;
   }
   ul {
     padding: 5px;
