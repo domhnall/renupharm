@@ -3,6 +3,8 @@ require 'rails_helper'
 describe Marketplace::Accounts::Fee do
   [ :amount_cents,
     :currency_code,
+    :buying_pharmacy,
+    :selling_pharmacy,
     :calculate! ].each do |method|
     it "should respond to method :#{method}" do
       expect(Marketplace::Accounts::Fee.new).to respond_to method

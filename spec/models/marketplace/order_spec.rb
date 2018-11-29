@@ -9,7 +9,8 @@ describe Marketplace::Order do
     :user,
     :line_items,
     :listings,
-    :payment ].each do |method|
+    :payment,
+    :fees ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Order.new).to respond_to method
     end

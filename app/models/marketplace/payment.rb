@@ -21,6 +21,9 @@ class Marketplace::Payment < ApplicationRecord
 
   validates :amount_cents, :currency_code, presence: true
 
+  delegate :buying_pharmacy,
+           :selling_pharmacy, to: :order, allow_nil: true
+
   def reference
     self.renupharm_reference
   end

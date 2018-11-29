@@ -6,6 +6,9 @@ class Marketplace::Accounts::Fee < ApplicationRecord
 
   validates :amount_cents, :currency_code, presence: true
 
+  delegate :buying_pharmacy,
+           :selling_pharmacy, to: :payment
+
   def calculate!
     raise NotImplementedError, "This should be implemented in a subclass"
   end

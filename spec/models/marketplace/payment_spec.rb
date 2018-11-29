@@ -10,7 +10,9 @@ describe Marketplace::Payment do
     :reference,
     :amount_cents,
     :currency_code,
-    :fees ].each do |method|
+    :fees,
+    :selling_pharmacy,
+    :buying_pharmacy ].each do |method|
     it "should respond to method :#{method}" do
       expect(Marketplace::Payment.new).to respond_to method
     end
