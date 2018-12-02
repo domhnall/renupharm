@@ -70,8 +70,10 @@ end
 gem 'bootstrap'
 gem 'jquery-rails'
 gem 'http'
-gem 'devise'
-gem 'sidekiq'
-gem 'aws-sdk-s3'
-gem 'pundit'
-gem 'rest-client'
+gem 'devise'        # Authentication
+gem 'sidekiq'       # Background job
+gem 'aws-sdk-s3'    # File uploads
+gem 'pundit'        # Authorization
+gem 'rest-client'   # For Adyen calls
+
+gem 'sunspot_rails' # Rails integration for Solr
