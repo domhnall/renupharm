@@ -1,4 +1,14 @@
 class Marketplace::Product < ApplicationRecord
+  searchable do
+    text :name, boost: 3.0
+    text :description, boost: 2.0
+    text :pharmacy_name, :pharmacy_description, :pharmacy_address
+    integer :marketplace_pharmacy_id
+    time :created_at
+    time :updated_at
+    boolean :active
+  end
+
   belongs_to :pharmacy,
     class_name: "Marketplace::Pharmacy",
     foreign_key: :marketplace_pharmacy_id,
@@ -17,6 +27,10 @@ class Marketplace::Product < ApplicationRecord
   validates :unit_size, length: { minimum: 1, maximum: 255 }
   validates :description, length: { minimum: 3, maximum: 1000 }
   validates :name, uniqueness: { scope: [:marketplace_pharmacy_id, :unit_size] }, if: :active?
+
+  delegate :name,
+           :description,
+           :address, to: :pharmacy, prefix: true, allow_nil: true
 
   attr_accessor :delete_images
 

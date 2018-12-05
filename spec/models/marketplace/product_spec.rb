@@ -8,6 +8,9 @@ describe Marketplace::Product do
     :description,
     :unit_size,
     :pharmacy,
+    :pharmacy_name,
+    :pharmacy_description,
+    :pharmacy_address,
     :listings ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Product.new).to respond_to method
