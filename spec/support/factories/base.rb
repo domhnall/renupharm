@@ -2,12 +2,12 @@ module Factories
   module Base
     def create_user(attrs = {})
       User.new.tap do |user|
-        user.email = attrs.fetch(:email, 'daffy@duck.com')
+        user.email = attrs.fetch(:email, Faker::Internet.email)
         user.password = 'foobar'
         user.password_confirmation = 'foobar'
         user.build_profile(attrs.fetch(:profile_attributes, {
-          first_name: "Daffy",
-          surname: "Duck",
+          first_name: Faker::Name.first_name,
+          surname: Faker::Name.last_name,
           role: attrs.fetch(:role){ Profile::Roles::PHARMACY }
         }))
         user.skip_confirmation!

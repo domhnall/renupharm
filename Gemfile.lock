@@ -102,6 +102,8 @@ GEM
     erubi (1.7.1)
     erubis (2.7.0)
     execjs (2.7.0)
+    faker (1.9.1)
+      i18n (>= 0.7)
     faraday (0.15.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
@@ -329,6 +331,7 @@ DEPENDENCIES
   chromedriver-helper
   database_cleaner
   devise
+  faker
   haml-rails
   http
   jbuilder (~> 2.5)

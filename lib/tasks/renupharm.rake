@@ -101,4 +101,15 @@ namespace :renupharm do
       end
     end
   end
+
+  task populate_marketplace: [:environment] do
+    include Factories::Marketplace
+    5.times do
+      create_pharmacy.tap do |pharmacy|
+        10.times{ create_listing(pharmacy: pharmacy, with_images: true) }
+      end
+    end
+    Rake::Task["sunspot:reindex"].invoke
+  end
+
 end
