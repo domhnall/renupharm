@@ -1,10 +1,10 @@
 class Admin::Marketplace::PharmaciesController < Admin::BaseController
   def index
     @page        = params.fetch(:page, 1).to_i
-    @per_page    = [params.fetch(:per_page, 25).to_i, 50].min
+    @per_page    = [params.fetch(:per_page, 20).to_i, 50].min
     @query       = params.fetch(:query, "")
     @total_count = get_scope(@query).count
-    @total_pages = (@total_count/@per_page).ceil
+    @total_pages = (@total_count/@per_page.to_f).ceil
     @pharmacies  = get_scope(@query).order(:name).limit(@per_page).offset((@page-1)*@per_page)
   end
 

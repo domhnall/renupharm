@@ -1,13 +1,5 @@
 class Marketplace::Product < ApplicationRecord
-  searchable do
-    text :name, boost: 3.0
-    text :description, boost: 2.0
-    text :pharmacy_name, :pharmacy_description, :pharmacy_address
-    integer :marketplace_pharmacy_id
-    time :created_at
-    time :updated_at
-    boolean :active
-  end
+  include Marketplace::Sunspot::Product
 
   belongs_to :pharmacy,
     class_name: "Marketplace::Pharmacy",

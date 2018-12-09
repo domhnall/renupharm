@@ -1,4 +1,6 @@
 class Marketplace::Listing < ApplicationRecord
+  include Marketplace::Sunspot::Listing
+
   ACCEPTABLE_EXPIRY_DAYS = 7
 
   belongs_to :product,
@@ -29,6 +31,7 @@ class Marketplace::Listing < ApplicationRecord
            :images, to: :product, prefix: true
 
   delegate :name,
+           :description,
            :address,
            :telephone,
            :email,
