@@ -28,11 +28,8 @@
                 %i.fa.fa-circle
 
       - if @orders.any?
-        .table_summary_section
-          = t("table.summary", start: ((@page-1)*@per_page)+1, end: [@page*@per_page, @total_count].min, total: @total_count)
-        .pagination_section
-          %nav{ "aria-label" => t("table.pagination.alt") }
-            %ul.pagination
-              - @total_pages.times do |i|
-                %li.page-item{ class: (i+1)==@page ? 'active' : '' }
-                  = link_to (i+1), marketplace_orders_path(page: i+1), class: 'page-link'
+        = render "shared/pagination", { total_count: @total_count,
+          page: @page,
+          per_page: @per_page,
+          path_generator: ->(opts){ marketplace_orders_path(opts) },
+          path_params: {} }
