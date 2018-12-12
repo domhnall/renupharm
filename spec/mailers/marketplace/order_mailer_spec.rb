@@ -17,8 +17,7 @@ describe Marketplace::OrderMailer do
       @mail = Marketplace::OrderMailer.purchase_notification(agent_id: @buying_agent.id, order_id: @order.id)
     end
 
-    it 'should send a sale notification email' do
-      expect(@mail).not_to be_nil
+    it 'should set an appropriate subject for a purchase notification email' do
       expect(@mail.subject).to eq I18n.t("mailers.marketplace.order_mailer.purchase_notification.subject")
     end
 
@@ -26,34 +25,7 @@ describe Marketplace::OrderMailer do
       expect(@mail.to).to include @buying_agent.email
     end
 
-    describe 'mail content' do
-      before :all do
-        mail = Marketplace::OrderMailer.purchase_notification(agent_id: @buying_agent.id, order_id: @order.id)
-        @html_contents = mail.body.parts.select{ |part| part.content_type =~ /text\/html/}.first
-        @text_contents = mail.body.parts.select{ |part| part.content_type =~ /text\/plain/}.first
-      end
-
-      it 'should be composed of html and text parts' do
-        expect(@html_contents).not_to be_nil
-        expect(@text_contents).not_to be_nil
-      end
-
-      [ :text, :html ].each do |part|
-        describe "#{part} part" do
-          before :all do
-            @contents = self.instance_variable_get("@#{part}_contents")
-          end
-
-          it 'should refer to the product name' do
-            expect(@contents.body).to include @listing.product_name
-          end
-
-          it 'should include the transaction reference' do
-            expect(@contents.body).to include @order.reference
-          end
-        end
-      end
-    end
+    it_should_behave_like "a basic mailer with html and text", %w(@listing.product_name @order.reference)
   end
 
   describe "#sale_notification" do
@@ -61,8 +33,7 @@ describe Marketplace::OrderMailer do
       @mail = Marketplace::OrderMailer.sale_notification(agent_id: @selling_agent.id, order_id: @order.id)
     end
 
-    it 'should send a sale notification email' do
-      expect(@mail).not_to be_nil
+    it 'should set an appropriate subject for a sale notifcation email' do
       expect(@mail.subject).to eq I18n.t("mailers.marketplace.order_mailer.sale_notification.subject")
     end
 
@@ -70,33 +41,6 @@ describe Marketplace::OrderMailer do
       expect(@mail.to).to include @selling_agent.email
     end
 
-    describe 'mail content' do
-      before :all do
-        mail = Marketplace::OrderMailer.sale_notification(agent_id: @selling_agent.id, order_id: @order.id)
-        @html_contents = mail.body.parts.select{ |part| part.content_type =~ /text\/html/}.first
-        @text_contents = mail.body.parts.select{ |part| part.content_type =~ /text\/plain/}.first
-      end
-
-      it 'should be composed of html and text parts' do
-        expect(@html_contents).not_to be_nil
-        expect(@text_contents).not_to be_nil
-      end
-
-      [ :text, :html ].each do |part|
-        describe "#{part} part" do
-          before :all do
-            @contents = self.instance_variable_get("@#{part}_contents")
-          end
-
-          it 'should refer to the product name' do
-            expect(@contents.body).to include @listing.product_name
-          end
-
-          it 'should include the transaction reference' do
-            expect(@contents.body).to include @order.reference
-          end
-        end
-      end
-    end
+    it_should_behave_like "a basic mailer with html and text", %w(@listing.product_name @order.reference)
   end
 end

@@ -390,3 +390,5 @@ en:
           subject: "Your RenuPharm order has been placed"
         sale_notification:
           subject: "Your RenuPharm Marketplace listing has been purchased!"
+      delisting_mailer:
+        delisting_notification: "Your RenuPharm listing has been deactivated"

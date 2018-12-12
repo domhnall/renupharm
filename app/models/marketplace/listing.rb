@@ -30,7 +30,8 @@ class Marketplace::Listing < ApplicationRecord
            :unit_size,
            :images, to: :product, prefix: true
 
-  delegate :name,
+  delegate :id,
+           :name,
            :description,
            :address,
            :telephone,

@@ -16,6 +16,7 @@ describe Marketplace::Listing do
     :product_images,
     :selling_pharmacy,
     :pharmacy,
+    :seller_id,
     :seller_name,
     :seller_address,
     :seller_telephone,

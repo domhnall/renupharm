@@ -9,8 +9,17 @@ describe Services::Marketplace::ExpiredListingProcessor do
     end
   end
 
+  class DummyDelistingMailer
+    def self.delisting_notification(agent_id: nil, listing_id: nil)
+      OpenStruct.new(deliver_later: "Done")
+    end
+  end
+
   [ :date,
     :min_expiry_days,
+    :admin_mailer_class,
+    :delisting_mailer_class,
+    :response,
     :call ].each do |method|
     it "should respond to the method :#{method}" do
       expect( Services::Marketplace::ExpiredListingProcessor.new ).to respond_to method
@@ -47,7 +56,7 @@ describe Services::Marketplace::ExpiredListingProcessor do
 
   describe "instance method" do
     before :all do
-      @service = Services::Marketplace::ExpiredListingProcessor.new(date: @next_week, admin_mailer_class: DummyAdminMailer)
+      @service = Services::Marketplace::ExpiredListingProcessor.new(date: @next_week)
     end
 
     describe "#call" do
@@ -77,7 +86,27 @@ describe Services::Marketplace::ExpiredListingProcessor do
         expect(Marketplace::Listing.where(active: true).map(&:id)).to include @purchased_listing.id
       end
 
+      it "should send an email to each agent of the selling pharmacy" do
+        service = Services::Marketplace::ExpiredListingProcessor.new(
+          date: @next_week,
+          min_expiry_days: 5,
+          delisting_mailer_class: DummyDelistingMailer
+        )
+
+        # Only a single listing in scope here. Lets create multiple agents  ...
+        @near_expiry_listing_1.pharmacy.agents << create_agent
+
+        @near_expiry_listing_1.pharmacy.agents.map(&:id).each do |id|
+          expect(DummyDelistingMailer).to receive(:delisting_notification).with(listing_id: @near_expiry_listing_1.id, agent_id: id).and_call_original
+        end
+        service.call
+      end
+
       describe "when error is thrown" do
+        before :all do
+          @service = Services::Marketplace::ExpiredListingProcessor.new(date: @next_week, admin_mailer_class: DummyAdminMailer)
+        end
+
         describe "where error is a Service::Error" do
           before :each do
             allow_any_instance_of(::Marketplace::Listing).to receive(:save!).and_raise(Services::Error, "Dummy error")
