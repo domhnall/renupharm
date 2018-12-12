@@ -23,7 +23,11 @@ class Services::Marketplace::OrderCompleter
     @errors << e
     @response
   rescue Exception => e
-    Admin::ErrorMailer.payment_error(order: @order, error: e).deliver_later
+    Admin::ErrorMailer.payment_error(
+      order_id: @order.id,
+      message: e.message,
+      backtrace: e.backtrace
+    ).deliver_later
     raise Services::Error, I18n.t("general.error")
   end
 
@@ -48,7 +52,11 @@ class Services::Marketplace::OrderCompleter
       shopper_ip: @shopper_ip
     })
   rescue Exception => e
-    Admin::ErrorMailer.payment_error(order: @order, error: e).deliver_later
+    Admin::ErrorMailer.payment_error(
+      order_id: @order.id,
+      message: e.message,
+      backtrace: e.backtrace
+    ).deliver_later
     raise Services::Error, I18n.t("marketplace.cart.errors.failed_payment")
   end
 

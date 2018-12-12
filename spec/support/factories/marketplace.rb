@@ -83,7 +83,8 @@ module Factories
         quantity: attrs.fetch(:quantity){ 1 },
         price_cents: attrs.fetch(:price_cents){ (8000+rand*7000).floor },
         expiry: attrs.fetch(:expiry){ Date.today+24.days },
-        active: attrs.fetch(:active){ true }
+        active: attrs.fetch(:active){ true },
+        purchased_at: attrs.fetch(:purchased_at){ nil }
       })
     end
 
