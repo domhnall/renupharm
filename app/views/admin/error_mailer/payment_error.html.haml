@@ -1,6 +1,1 @@
-%p= "There has been an error processing a payment for user ID #{@user.id}"
-
-%p Please review to ensure the order was correctly placed, and the payment taken.
-
-%p The stacktrace is show below:
-%p = @error.backtrace
+= render partial: 'admin/error_mailer/payment_error', formats: :html, handlers: :haml
