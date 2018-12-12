@@ -1,6 +1,8 @@
 class Admin::ErrorMailer < ApplicationMailer
   DELIVER_TO = "dev@renupharm.ie"
 
+  after_action :prevent_deliveries_in_development
+
   def batch_error(message:, backtrace:)
     @message   = message
     @backtrace = backtrace
@@ -13,5 +15,11 @@ class Admin::ErrorMailer < ApplicationMailer
     @message   = message
     @backtrace = backtrace
     mail(to: DELIVER_TO, subject: "RenuPharm:: Payment Error")
+  end
+
+  private
+
+  def prevent_deliveries_in_developement
+    mail.perform_deliveries = !Rails.env.development?
   end
 end
