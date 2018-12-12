@@ -58,6 +58,7 @@ en:
       update_successful: "Successfully updated record"
       delete_successful: "Successfully deleted record"
       error: "There has been an error with your submission, please address the issues below."
+    error: "There has been an unexpected error. Please contact support (dev@renupharm.ie)."
   month:
     long:
       1: "January"
@@ -382,3 +383,10 @@ en:
         create_successful: "Successfully added new card details"
         error: "There has been an error adding these card details. Please review and try again, if problems persists please email support: dev@renumpharm.ie"
         unexpected_error: "There has been an unexpected error. If problems persists please email support: dev@renumpharm.ie"
+  mailers:
+    marketplace:
+      order_mailer:
+        purchase_notification:
+          subject: "Your RenuPharm order has been placed"
+        sale_notification:
+          subject: "Your RenuPharm Marketplace listing has been purchased!"

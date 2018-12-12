@@ -1,0 +1,38 @@
+%br/
+%br/
+%h3= "Order details"
+%ul{style: "padding: 0;margin: 10px 0 0 20px;"}
+  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+    %strong{ style: "margin-right: 5px" }
+      = t("marketplace.order.reference")
+    = order.reference
+  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+    %strong{ style: "margin-right: 5px" }
+      = t("marketplace.listing.product")
+    = listing.product_name
+  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+    %strong{ style: "margin-right: 5px" }
+      = t("marketplace.product.unit_size")
+    = listing.product_unit_size
+  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+    %strong{ style: "margin-right: 5px" }
+      = t("marketplace.listing.quantity")
+    = listing.quantity
+  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+    %strong{ style: "margin-right: 5px" }
+      = t("marketplace.listing.expiry")
+    = l(listing.expiry, format: :short)
+  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+    %strong{ style: "margin-right: 5px" }
+      = t("marketplace.listing.display_price")
+    = listing.display_price
+  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+    %strong{ style: "margin-right: 5px" }
+      = "Selling pharmacy"
+    = listing.seller_name
+  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+    %strong{ style: "margin-right: 5px" }
+      = "Purchaser"
+    = order.agent.full_name
+%br/
+%br/
