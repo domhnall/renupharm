@@ -1,71 +1,15 @@
 .row
   .col-md-12
     .card
-      #pharmacy_profile
-        .row
-          .col-7
-            %h2.name
-              = @marketplace_pharmacy.name
-            .description
-              = @marketplace_pharmacy.description
-            .contact_details
-              .email
-                %label.label= t("marketplace.pharmacy.email")
-                .value= @marketplace_pharmacy.email
-              .telephone
-                %label.label= t("marketplace.pharmacy.telephone")
-                .value= @marketplace_pharmacy.telephone
-              .fax
-                %label.label= t("marketplace.pharmacy.fax")
-                .value= @marketplace_pharmacy.fax
-          .col-5
-            .image
-              = image_tag((image = @marketplace_pharmacy.image).attached? ? image.variant(resize: "300x300") : "placeholder-pharmacy.jpg", class: 'img-avatar')
-            .address
-              %label.label= t("marketplace.pharmacy.address")
-              %ul
-                %li= @marketplace_pharmacy.address_1
-                %li= @marketplace_pharmacy.address_2
-                %li= @marketplace_pharmacy.address_3
-        - if policy(@marketplace_pharmacy).edit?
-          .actions
-            = link_to t('general.edit'), edit_admin_marketplace_pharmacy_path(@marketplace_pharmacy), class: 'btn btn-primary'
-
+      = render 'marketplace/shared/pharmacies/profile_tab', pharmacy: @marketplace_pharmacy
     .card
-      #pharmacy_listings
-        %h2
-          = t("marketplace.pharmacy.active_listings")
-        #marketplace_listings
-          = render partial: 'marketplace/listings/listing', collection: @marketplace_pharmacy.listings.active_listings
-        - if policy(@marketplace_pharmacy.listings.build).create?
-          .actions
-            = link_to t("general.add"), new_marketplace_pharmacy_listing_path(pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
-
+      = render 'marketplace/shared/pharmacies/listings_tab', pharmacy: @marketplace_pharmacy
     - if policy(@marketplace_pharmacy).edit?
       .card
-        #pharmacy_agents
-          %h2
-            = t("marketplace.pharmacy.agents")
-          = render partial: 'marketplace/shared/pharmacies/agent', collection: @marketplace_pharmacy.agents
-          - if policy(@marketplace_pharmacy.agents.build).create?
-            .actions
-              = link_to t("general.add"), new_admin_marketplace_pharmacy_agent_path(pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
-
+        = render 'marketplace/shared/pharmacies/agents_tab', pharmacy: @marketplace_pharmacy
       .card
-        #pharmacy_products
-          %h2
-            = t("marketplace.pharmacy.products")
-          = render partial: 'marketplace/shared/pharmacies/product', collection: @marketplace_pharmacy.products
-          - if policy(@marketplace_pharmacy.products.build).create?
-            .actions
-              = link_to t("general.add"), new_marketplace_pharmacy_product_path(pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
-
+        = render 'marketplace/shared/pharmacies/products_tab', pharmacy: @marketplace_pharmacy
       .card
-        #pharmacy_credit_cards
-          %h2
-            = t("marketplace.pharmacy.credit_cards")
-          = render partial: 'marketplace/shared/pharmacies/credit_card', collection: @marketplace_pharmacy.credit_cards
-          - if policy(@marketplace_pharmacy.credit_cards.build).create?
-            .actions
-              = link_to t("general.add"), new_marketplace_pharmacy_credit_card_path(pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"
+        = render 'marketplace/shared/pharmacies/credit_cards_tab', pharmacy: @marketplace_pharmacy
+
 
