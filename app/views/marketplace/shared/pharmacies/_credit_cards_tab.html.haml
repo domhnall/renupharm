@@ -1,7 +1,6 @@
-#pharmacy_credit_cards
-  %h2
-    = t("marketplace.pharmacy.credit_cards")
-  = render partial: 'marketplace/shared/pharmacies/credit_card', collection: pharmacy.credit_cards
-  - if policy(pharmacy.credit_cards.build).create?
-    .actions
-      = link_to t("general.add"), new_marketplace_pharmacy_credit_card_path(pharmacy_id: pharmacy.id), class: "btn btn-success"
+%h2
+  = t("marketplace.pharmacy.credit_cards")
+= render partial: 'marketplace/shared/pharmacies/credit_card', collection: pharmacy.credit_cards
+- if policy(pharmacy.credit_cards.build).create?
+  .actions
+    = link_to t("general.add"), new_marketplace_pharmacy_credit_card_path(pharmacy_id: pharmacy.id), class: "btn btn-success"
