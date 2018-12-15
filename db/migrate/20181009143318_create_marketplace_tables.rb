@@ -98,5 +98,12 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+
+    create_table :marketplace_bank_accounts do |t|
+      t.belongs_to :marketplace_pharmacy, foreign_key: true
+      t.string     :bank_name
+      t.string     :bic
+      t.string     :iban
+    end
   end
 end

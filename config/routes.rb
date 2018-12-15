@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       resources :listings, only: [:index, :new, :create, :edit, :update]
       resources :purchases, only: [:index, :show]
       resources :sales, only: [:index, :show]
+      resource :bank_account, only: [:new, :create, :edit, :update]
     end
   end
 

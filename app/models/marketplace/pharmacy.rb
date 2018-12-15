@@ -24,6 +24,11 @@ class Marketplace::Pharmacy < ApplicationRecord
     foreign_key: :marketplace_pharmacy_id,
     inverse_of: :pharmacy
 
+  has_one :bank_account,
+    class_name: "Marketplace::BankAccount",
+    foreign_key: :marketplace_pharmacy_id,
+    inverse_of: :pharmacy
+
   has_one_attached :image
 
   validates :name, :address_1, :address_3, :telephone, presence: true
@@ -36,6 +41,11 @@ class Marketplace::Pharmacy < ApplicationRecord
   acts_as_irish_phone_contact [:telephone, :fax]
 
   scope :active, ->{ where(active: true) }
+
+
+  delegate :bank_name,
+           :bic,
+           :iban, to: :bank_account, allow_nil: true
 
   def address
     [address_1, address_2, address_3].reject{|a| a.blank? }.join(", ")

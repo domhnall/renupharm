@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
     t.index ["user_id"], name: "index_marketplace_agents_on_user_id"
   end
 
+  create_table "marketplace_bank_accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_pharmacy_id"
+    t.string "bank_name"
+    t.string "bic"
+    t.string "iban"
+    t.index ["marketplace_pharmacy_id"], name: "index_marketplace_bank_accounts_on_marketplace_pharmacy_id"
+  end
+
   create_table "marketplace_credit_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "marketplace_pharmacy_id"
     t.string "recurring_detail_reference"
@@ -237,6 +245,7 @@ ActiveRecord::Schema.define(version: 2018_10_14_173858) do
   add_foreign_key "marketplace_accounts_fees", "marketplace_payments"
   add_foreign_key "marketplace_agents", "marketplace_pharmacies"
   add_foreign_key "marketplace_agents", "users"
+  add_foreign_key "marketplace_bank_accounts", "marketplace_pharmacies"
   add_foreign_key "marketplace_credit_cards", "marketplace_pharmacies"
   add_foreign_key "marketplace_line_items", "marketplace_listings"
   add_foreign_key "marketplace_line_items", "marketplace_orders"

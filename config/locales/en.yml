@@ -350,9 +350,11 @@ en:
       fax: "Fax"
       active: "Active"
       active_listings: "Active listings"
+      bank_details: "Bank details"
       messages:
         deactive: "Deactivate"
         confirm_deactivation: "Are you sure you want to deactivate this pharmacy? This will deactive all their products and delist all of their stock."
+        no_bank_details: "You have not set up bank details yet. <a href=\"%{path}\">Set up account details now</a>."
     agent:
       full_name: "Name"
       email: "Email"
@@ -383,6 +385,17 @@ en:
         create_successful: "Successfully added new card details"
         error: "There has been an error adding these card details. Please review and try again, if problems persists please email support: dev@renumpharm.ie"
         unexpected_error: "There has been an unexpected error. If problems persists please email support: dev@renumpharm.ie"
+    bank_account:
+      bank_name: "Bank name"
+      bic: "BIC"
+      iban: "IBAN"
+      errors:
+        bic_length: "BIC looks incorrect. Should be either 8 or 11 characters in length"
+      new_title: "New bank details"
+      edit_title: "Edit bank details"
+      flash:
+        update_successful: "Successfully updated bank details"
+        error: "There has been a error updating bank details. Address the errors below and resubmit."
   mailers:
     marketplace:
       order_mailer:

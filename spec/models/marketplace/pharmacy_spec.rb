@@ -26,7 +26,11 @@ describe Marketplace::Pharmacy do
     :agents,
     :products,
     :listings,
-    :address ].each do |method|
+    :bank_account,
+    :address,
+    :bank_name,
+    :bic,
+    :iban ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Pharmacy.new).to respond_to method
     end
