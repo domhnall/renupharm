@@ -68,14 +68,7 @@ describe Marketplace::PharmacyPolicy do
         expect(Marketplace::PharmacyPolicy.new(@other_user, @pharmacy).update?).to be_falsey
       end
 
-      it "should return true if user is an agent of the pharmacy" do
-        expect(Marketplace::PharmacyPolicy.new(@user, @pharmacy).update?).to be_truthy
-      end
-
-      it "should return false if user is an agent of the pharmacy, but pharamcy is inactive" do
-        expect(Marketplace::PharmacyPolicy.new(@user, @pharmacy).update?).to be_truthy
-        @pharmacy.update_column(:active, false)
-        @pharmacy.reload
+      it "should return false if user is an agent of the pharmacy" do
         expect(Marketplace::PharmacyPolicy.new(@user, @pharmacy).update?).to be_falsey
       end
     end

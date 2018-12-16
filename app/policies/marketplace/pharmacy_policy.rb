@@ -4,7 +4,7 @@ class Marketplace::PharmacyPolicy < AuthenticatedApplicationPolicy
   end
 
   def update?
-    user.admin? || (user.pharmacy==pharmacy && pharmacy.active?)
+    user.admin?
   end
 
   def create?

@@ -7,10 +7,6 @@ class Marketplace::BankAccountPolicy < AuthenticatedApplicationPolicy
     create?
   end
 
-  def edit?
-    create?
-  end
-
   def update?
     create?
   end
