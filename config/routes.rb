@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     resources :orders, only: [:show]
     resources :products, only: [:index, :show, :new, :create, :edit, :update]
 
-    resources :pharmacies, only: [:show, :edit, :update] do
+    resources :pharmacies, only: [:show] do
       resources :credit_cards, only: [:new, :create]
       resources :products, only: [:index, :show, :new, :create, :edit, :update]
       resources :listings, only: [:index, :new, :create, :edit, :update]
