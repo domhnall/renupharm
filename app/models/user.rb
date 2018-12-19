@@ -17,6 +17,7 @@ class User < ApplicationRecord
 
   delegate :full_name,
            :telephone,
+           :accepted_terms_at,
            :role,
            :admin?,
            :pharmacy?,

@@ -9,7 +9,7 @@ describe "public pages" do
        "SOURCE LOW-COST MEDICATIONS",
        "SAVE TIME AND MONEY"].each do |carousel_text|
         expect(response.body).to include carousel_text
-     end
+      end
     end
 
     it "should be able to access the privacy policy page" do
@@ -28,6 +28,12 @@ describe "public pages" do
       get new_survey_response_path
       expect(response.status).to eq 200
       expect(response.body).to include I18n.t('surveys.heading')
+    end
+
+    it "should be able to access the terms and conditions page" do
+      get terms_and_conditions_pages_path
+      expect(response.status).to eq 200
+      expect(response.body).to include "TERMS AND CONDITIONS"
     end
   end
 end

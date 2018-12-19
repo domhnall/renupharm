@@ -39,5 +39,17 @@ describe AuthenticatedController, type: :controller do
       get :index
       expect(response.body).to eq "Hello World"
     end
+
+    describe "who has not accepted terms" do
+      it "should redirect the user to accept terms" do
+        get :index
+        expect(response).to redirect_to new_user_session_path
+      end
+
+      it "should set an appropriate flash message" do
+        get :index
+        expect(flash[:alert]).to eq I18n.t("devise.failure.unauthenticated")
+      end
+    end
   end
 end

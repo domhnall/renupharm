@@ -232,6 +232,10 @@ en:
     heading:
       show: "Your Profile"
       edit: "Edit Profile"
+    action:
+      accept_terms_and_continue: "Accept & Continue"
+    errors:
+      must_accept_terms: "You must accept the Terms & Conditions before proceeding."
   comment:
     commented_by: "created by <strong>%{commenter}</strong>"
     commented_at: "commented at <strong>%{commented_at}</strong>"

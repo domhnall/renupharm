@@ -111,5 +111,60 @@ describe Profile do
         expect(Profile.new(@params.merge(role: "admin"))).not_to be_pharmacy
       end
     end
+
+    describe "#accepted_terms" do
+      it "should return true when :accepted_terms_at has been set" do
+        expect(Profile.new(@params.merge(accepted_terms_at: Time.now)).accepted_terms).to be_truthy
+      end
+
+      it "should return false when :accepted_terms_at has not been set" do
+        expect(Profile.new(@params.merge(accepted_terms_at: nil)).accepted_terms).to be_falsey
+      end
+    end
+
+    describe "#accepted_terms=" do
+      before :each do
+        @profile = Profile.new(@params)
+      end
+
+      it "should set :accepted_terms_at when passed a boolean value of true" do
+        expect(@profile.accepted_terms_at).to be_nil
+        @profile.accepted_terms = true
+        expect(@profile.accepted_terms_at).not_to be_nil
+      end
+
+      it "should set :accepted_terms_at when passed a boolean value of true" do
+        expect(@profile.accepted_terms_at).to be_nil
+        @profile.accepted_terms = "true"
+        expect(@profile.accepted_terms_at).not_to be_nil
+      end
+
+      it "should not set :accepted_terms_at when a nil value is passed" do
+        expect(@profile.accepted_terms_at).to be_nil
+        @profile.accepted_terms = nil
+        expect(@profile.accepted_terms_at).to be_nil
+      end
+
+      it "should not set :accepted_terms_at when any other value is passed" do
+        expect(@profile.accepted_terms_at).to be_nil
+        @profile.accepted_terms = 32
+        expect(@profile.accepted_terms_at).to be_nil
+      end
+    end
+
+    describe "validating update of record" do
+      before :all do
+        @profile = Profile.create(@params)
+      end
+
+      it "should be invalid if :accepted_terms_at is not set" do
+        expect(@profile).not_to be_valid
+      end
+
+      it "should be valid if :accepted_terms_at is set" do
+        @profile.accepted_terms_at = Time.now
+        expect(@profile).to be_valid
+      end
+    end
   end
 end
