@@ -77,3 +77,14 @@
     display: table-row;
   }
 }
+
+#accept_terms_and_conditions_form {
+  .field_with_errors {
+    display: inline-block;
+    label {
+      padding: 0 5px;
+      border: 1px solid red;
+      border-radius: 0.2rem;
+    }
+  }
+}

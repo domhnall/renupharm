@@ -99,4 +99,36 @@ describe ProfilesController do
       end
     end
   end
+
+  describe "redirect to accept terms behaviour" do
+    before :all do
+      @user.profile.update_column(:accepted_terms_at, nil)
+    end
+
+    before :each do
+      sign_in @user
+    end
+
+    describe "#show" do
+      it "should redirect the user to accept terms if not accepted" do
+        get :show
+        expect(response).to redirect_to accept_terms_and_conditions_profile_path
+      end
+    end
+
+    describe "#accept_terms_and_conditions" do
+      it "should not redirect the user" do
+        get :accept_terms_and_conditions
+        expect(response.status).to eq 200
+      end
+    end
+
+    describe "#update" do
+      it "should not redirect the user" do
+        put :update, params: { id: @user.profile.id, profile: { first_name: 'Jerome' } }
+        expect(response.status).to eq 200
+        expect(response).to render_template 'accept_terms_and_conditions'
+      end
+    end
+  end
 end

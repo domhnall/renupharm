@@ -10,11 +10,14 @@ Rails.application.routes.draw do
   resource :pages, only: [:index], path: '/' do
     get :privacy_policy
     get :cookies_policy
+    get :terms_and_conditions
   end
 
   resources :survey_responses, only: [:index, :new, :create]
   resource :dashboard, only: [:show]
-  resource :profile, only: [:show, :edit, :update]
+  resource :profile, only: [:show, :edit, :update] do
+    get :accept_terms_and_conditions
+  end
 
   namespace :sales do
     resources :contacts, only: [:create]

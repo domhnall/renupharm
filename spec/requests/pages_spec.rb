@@ -29,5 +29,11 @@ describe "public pages" do
       expect(response.status).to eq 200
       expect(response.body).to include I18n.t('surveys.heading')
     end
+
+    it "should be able to access the terms and conditions page" do
+      get terms_and_conditions_path
+      expect(response.status).to eq 200
+      expect(response.body).to include "TERMS AND CONDITIONS"
+    end
   end
 end

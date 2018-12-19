@@ -8,7 +8,8 @@ module Factories
         user.build_profile(attrs.fetch(:profile_attributes, {
           first_name: Faker::Name.first_name,
           surname: Faker::Name.last_name,
-          role: attrs.fetch(:role){ Profile::Roles::PHARMACY }
+          role: attrs.fetch(:role){ Profile::Roles::PHARMACY },
+          accepted_terms_at: Time.now
         }))
         user.skip_confirmation!
         user.save!

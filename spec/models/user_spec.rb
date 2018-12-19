@@ -58,7 +58,8 @@ describe User do
      :courier?,
      :full_name,
      :email,
-     :telephone ].each do |method|
+     :telephone,
+     :accepted_terms_at ].each do |method|
       it "should respond to :#{method}" do
         expect(User.new(@params)).to respond_to method
       end
