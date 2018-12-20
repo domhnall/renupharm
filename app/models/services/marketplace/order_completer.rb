@@ -3,7 +3,7 @@ class Services::Marketplace::OrderCompleter
 
   attr_reader :order
 
-  def initialize(order: order, shopper_ip: shopper_ip)
+  def initialize(order: nil, shopper_ip: nil)
     @order = order
     @shopper_ip = shopper_ip
     @errors = []
