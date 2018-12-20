@@ -19,7 +19,7 @@ class Admin::ErrorMailer < ApplicationMailer
 
   private
 
-  def prevent_deliveries_in_developement
+  def prevent_deliveries_in_development
     mail.perform_deliveries = !Rails.env.development?
   end
 end
