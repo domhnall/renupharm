@@ -7,11 +7,8 @@ describe Marketplace::PharmaciesController do
     @pharmacy = create_pharmacy(name: "Baggs Boutique", email: "info@baggs.com")
     @user = create_agent(
       pharmacy: @pharmacy,
-      user: create_user(email: "stuart@baggs.com")
-    ).user.becomes(Users::Agent)
-    @other_user = create_agent(
-      pharmacy: create_pharmacy(name: "Stewart's", email: "stu@stewarts.com"),
-      user: create_user(email: "dave@other.com")
+      user: create_user(email: "stuart@baggs.com"),
+      superintendent: true
     ).user.becomes(Users::Agent)
   end
 

@@ -19,6 +19,7 @@ class CreateMarketplaceTables < ActiveRecord::Migration[5.2]
     create_table :marketplace_agents do |t|
       t.belongs_to :marketplace_pharmacy, foreign_key: true
       t.belongs_to :user, foreign_key: true
+      t.boolean    :superintendent, default: false
       t.boolean    :active, default: true
 
       t.timestamps

@@ -16,7 +16,7 @@ namespace :renupharm do
 
     # Create selling pharmacy
     larussos = create_larussos.tap do |pharmacy|
-      pharmacy.agents.create(user: daniel)
+      pharmacy.agents.create(user: daniel, superintendent: true)
 
       @valium = pharmacy.products.create({
         name: "Valium",
@@ -98,7 +98,7 @@ namespace :renupharm do
 
     # Create buying pharmacy
     lawrences = create_lawrences.tap do |pharmacy|
-      pharmacy.agents.create(user: johnny).tap do |agent|
+      pharmacy.agents.create(user: johnny, superintendent: true).tap do |agent|
         agent.orders.create(state: Marketplace::Order::State::IN_PROGRESS).tap do |order|
           order.line_items.create(listing: @wart_remedy.listings.first)
         end

@@ -24,4 +24,18 @@ class Marketplace::Agent < ApplicationRecord
   accepts_nested_attributes_for :user
 
   scope :active, ->{ where(active: true) }
+  scope :superintendent, ->{ where(superintendent: true) }
+
+  validate :single_superintendent_pharmacist
+
+  private
+
+  def single_superintendent_pharmacist
+    return unless pharmacy
+    if !superintendent && pharmacy.agents.superintendent.empty?
+      errors.add(:superintendent, I18n.t("marketplace.agent.errors.must_be_superintendent"))
+    elsif superintendent && pharmacy.agents.superintendent.any?
+      errors.add(:superintendent, I18n.t("marketplace.agent.errors.alreday_have_superintendent"))
+    end
+  end
 end

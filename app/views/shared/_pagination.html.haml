@@ -5,4 +5,4 @@
     %ul.pagination
       - (total_count/per_page.to_f).ceil.times do |i|
         %li.page-item{ class: (i+1)==page ? 'active' : '' }
-          = link_to (i+1), path_generator.call(path_params.merge(page: i+1, per_page: per_page)), class: 'page-link'
+          = link_to (i+1), path_with_enriched_query_params(current_request, {page: i+1, per_page: per_page}), class: 'page-link'

@@ -363,6 +363,9 @@ en:
       full_name: "Name"
       email: "Email"
       telephone: "Telephone"
+      errors:
+        must_be_superintendent: "Pharmacy must nominate a superintendent pharmacist before any other functions can be completed."
+        already_have_superintendent: "Pharmacy can only nominate a single superintendent pharmacist."
     cart:
       title: "Your basket"
       actions:

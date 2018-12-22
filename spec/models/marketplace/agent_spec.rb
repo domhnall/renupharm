@@ -21,7 +21,8 @@ describe Marketplace::Agent do
     @pharmacy = create_pharmacy
     @params = {
       user_id: @user.id,
-      marketplace_pharmacy_id: @pharmacy.id
+      marketplace_pharmacy_id: @pharmacy.id,
+      superintendent: true
     }
   end
 
@@ -37,11 +38,20 @@ describe Marketplace::Agent do
     it "should be invalid when :user_id is not supplied" do
       expect(Marketplace::Agent.new(@params.merge(user_id: nil))).not_to be_valid
     end
+
+    it "should be invalid if this is the first agent for pharmacy and is not the superintendent" do
+      expect(Marketplace::Agent.new(@params.merge(superintendent: false))).not_to be_valid
+    end
+
+    it "should be invalid if marked as superintendent but there is an existing superintendent for the pharmacy" do
+      create_agent(pharmacy: @pharmacy, user: create_user, superintendent: true)
+      expect(Marketplace::Agent.new(@params.merge(superintendent: true))).not_to be_valid
+    end
   end
 
   describe "#current_order" do
     before :all do
-      @agent = Marketplace::Agent.create!(user_id: @user.id, marketplace_pharmacy_id: @pharmacy.id)
+      @agent = Marketplace::Agent.create!(user_id: @user.id, marketplace_pharmacy_id: @pharmacy.id, superintendent: true)
       product = create_product(pharmacy: create_pharmacy(name: 'MacGregors', email: 'conor@macgregors.com'))
       @completed_order = create_order(
         agent: @agent,

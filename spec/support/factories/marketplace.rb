@@ -51,9 +51,11 @@ module Factories
     end
 
     def create_agent(attrs = {})
-      attrs.fetch(:pharmacy){ create_pharmacy }.agents.create({
+      pharmacy = attrs.fetch(:pharmacy){ create_pharmacy }
+      pharmacy.agents.create({
         user: attrs.fetch(:user){ create_user(email: Faker::Internet.unique.email) },
-        active: attrs.fetch(:active){ true }
+        active: attrs.fetch(:active){ true },
+        superintendent: attrs.fetch(:superintendent){ pharmacy.agents.superintendent.empty? }
       })
     end
 
@@ -112,12 +114,12 @@ module Factories
 
     def create_payment(attrs = {})
       selling_pharmacy = create_pharmacy.tap do |pharmacy|
-        pharmacy.agents.create(user: create_user)
+        pharmacy.agents.create(user: create_user, superintendent: true)
       end
       listing = create_listing(pharmacy: selling_pharmacy)
 
       buying_pharmacy = create_pharmacy.tap do |pharmacy|
-        agent = pharmacy.agents.create(user: create_user)
+        agent = pharmacy.agents.create(user: create_user, superintendent: true)
         agent.orders.create(state: ::Marketplace::Order::State::COMPLETED).tap do |order|
           order.line_items.create(listing: listing)
         end

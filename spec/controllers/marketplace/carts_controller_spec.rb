@@ -6,7 +6,7 @@ describe Marketplace::CartsController do
   before :all do
     @pharmacy = create_pharmacy(name: "Merdith's", email: "burgess@meredith.com")
     @user = create_user(email: "stuart@baggs.com").becomes(Users::Agent)
-    @agent = @pharmacy.agents.create!(user: @user)
+    @agent = @pharmacy.agents.create!(user: @user, superintendent: true)
   end
 
   describe "#show" do

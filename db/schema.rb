@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2018_12_16_091753) do
   create_table "marketplace_agents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "marketplace_pharmacy_id"
     t.bigint "user_id"
+    t.boolean "superintendent", default: false
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

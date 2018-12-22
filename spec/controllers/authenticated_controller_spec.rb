@@ -41,14 +41,22 @@ describe AuthenticatedController, type: :controller do
     end
 
     describe "who has not accepted terms" do
+      before :all do
+        @user.profile.update_column(:accepted_terms_at, nil)
+      end
+
+      before :each do
+        sign_in @user
+      end
+
       it "should redirect the user to accept terms" do
         get :index
-        expect(response).to redirect_to new_user_session_path
+        expect(response).to redirect_to accept_terms_and_conditions_profile_path
       end
 
       it "should set an appropriate flash message" do
         get :index
-        expect(flash[:alert]).to eq I18n.t("devise.failure.unauthenticated")
+        expect(flash[:alert]).to eq I18n.t("profile.errors.must_accept_terms")
       end
     end
   end
