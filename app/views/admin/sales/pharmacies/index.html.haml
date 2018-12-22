@@ -40,7 +40,7 @@
       = render "shared/pagination", { total_count: @total_count,
         page: @page,
         per_page: @per_page,
-        path_generator: ->(opts){ admin_sales_pharmacies_path(opts) },
+        current_request: request,
         path_params: {q: @query} }
 
       .actions

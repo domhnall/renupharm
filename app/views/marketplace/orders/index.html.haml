@@ -31,5 +31,5 @@
         = render "shared/pagination", { total_count: @total_count,
           page: @page,
           per_page: @per_page,
-          path_generator: ->(opts){ marketplace_orders_path(opts) },
+          current_request: request,
           path_params: {} }
