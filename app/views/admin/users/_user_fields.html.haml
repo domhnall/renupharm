@@ -24,9 +24,13 @@
       .form-group
         = profile_form.label :telephone, t('profile.telephone'), class: 'col-form-label'
         = profile_form.text_field :telephone, class: 'form-control'
-      .form-group
+      .form-group{ class: profile_form.object.role ? 'hidden' : '' }
         = profile_form.label :role, t('profile.role'), class: 'col-form-label'
-        = profile_form.select :role, options_for_select(Profile::Roles::valid_roles.map{ |r| [t("profile.roles.#{r}"),r] }), {}, class: 'form-control'
+        = profile_form.select :role,
+            options_for_select(Profile::Roles::valid_roles.map{ |r| [t("profile.roles.#{r}"),r] }, profile_form.object.role),
+            {},
+            {class: 'form-control'}
+
     .col-4
       .form-group
         = image_tag((avatar = profile_form.object.avatar).attached? ? avatar : "placeholder-user.png", class: 'img-avatar')

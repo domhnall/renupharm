@@ -2,7 +2,7 @@ class Admin::Marketplace::AgentsController < Admin::BaseController
   def new
     @agent = pharmacy.agents.build.tap do |agent|
       agent.user = User.new.tap do |user|
-        user.profile = Profile.new
+        user.profile = Profile.new(role: Profile::Roles::PHARMACY)
       end
     end
     authorize @agent, :new?
