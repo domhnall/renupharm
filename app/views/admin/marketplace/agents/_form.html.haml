@@ -3,6 +3,9 @@
   = form.fields_for :user do |user_form|
     = render 'admin/users/user_fields', form: user_form
 
+  .form-group
+    = form.label :superintendent, t('marketplace.agent.superintendent'), class: 'col-form-label col-form-check-label'
+    = form.check_box :superintendent, class: 'col-form-check-input'
   .actions
     = submit_tag t('general.save'), id: 'submit_marketplace_agent', class: 'btn btn-success'
     = link_to t('general.cancel'), marketplace_pharmacy_path(@agent.pharmacy), class: 'btn btn-light'

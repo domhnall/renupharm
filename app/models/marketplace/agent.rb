@@ -35,7 +35,7 @@ class Marketplace::Agent < ApplicationRecord
     if !superintendent && pharmacy.agents.superintendent.empty?
       errors.add(:superintendent, I18n.t("marketplace.agent.errors.must_be_superintendent"))
     elsif superintendent && pharmacy.agents.superintendent.any?
-      errors.add(:superintendent, I18n.t("marketplace.agent.errors.alreday_have_superintendent"))
+      errors.add(:superintendent, I18n.t("marketplace.agent.errors.already_have_superintendent"))
     end
   end
 end

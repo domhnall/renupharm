@@ -106,7 +106,7 @@ en:
       new_title: "New user"
     agent:
       editing_title: "Editing %{name}"
-      new_title: "New agent for %{pharmacy_name}"
+      new_title: "New agent for <a href=\"%{pharmacy_url}\">%{pharmacy_name}</a>"
   surveys:
     heading: RenuPharm Survey
     intro: RenuPharm is an on-line platform aimed at connecting pharmacies across Ireland, facilitating transactions in their medicinal stock. Offering a unique channel for sourcing medications and a viable means for reducing stock wastage, RenuPharm offers tangible benefits to all parties.
@@ -363,6 +363,7 @@ en:
       full_name: "Name"
       email: "Email"
       telephone: "Telephone"
+      superintendent: "Superintendent?"
       errors:
         must_be_superintendent: "Pharmacy must nominate a superintendent pharmacist before any other functions can be completed."
         already_have_superintendent: "Pharmacy can only nominate a single superintendent pharmacist."

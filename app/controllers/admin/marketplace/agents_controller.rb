@@ -49,7 +49,7 @@ class Admin::Marketplace::AgentsController < Admin::BaseController
 
     new_params
     .require(:marketplace_agent)
-    .permit(user_attributes: [
+    .permit(:superintendent, user_attributes: [
       :email,
       :password,
       :password_confirmation,
