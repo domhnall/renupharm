@@ -57,7 +57,7 @@ describe Marketplace::Order do
       expect(order).to be_valid
     end
 
-    it "should be valid when order has one line item" do
+    it "should be valid when order has a single line item" do
       order = Marketplace::Order.create(@params).tap do |order|
         order.line_items = [Marketplace::LineItem.new(order: order, listing: create_listing(pharmacy: @pharmacy))]
       end
@@ -65,12 +65,22 @@ describe Marketplace::Order do
       expect(order).to be_valid
     end
 
-    it "should be invalid when order has more than one line items" do
-      product = create_product(pharmacy: @pharmacy)
+    it "should be valid when order has line items from a single seller" do
       order = Marketplace::Order.create(@params).tap do |order|
         order.line_items = [
-          Marketplace::LineItem.new(order: order, listing: create_listing(product: product)),
-          Marketplace::LineItem.new(order: order, listing: create_listing(product: product))
+          Marketplace::LineItem.new(order: order, listing: create_listing(pharmacy: @pharmacy)),
+          Marketplace::LineItem.new(order: order, listing: create_listing(pharmacy: @pharmacy))
+        ]
+      end
+      expect(order.line_items.count).to eq 2
+      expect(order).to be_valid
+    end
+
+    it "should be invalid when order has line items from multiple sellers" do
+      order = Marketplace::Order.create(@params).tap do |order|
+        order.line_items = [
+          Marketplace::LineItem.new(order: order, listing: create_listing),
+          Marketplace::LineItem.new(order: order, listing: create_listing)
         ]
       end
       expect(order.line_items.count).to eq 2

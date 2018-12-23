@@ -1,5 +1,4 @@
 class Marketplace::Order < ApplicationRecord
-  MAX_LINE_ITEMS = 1
   module State
     IN_PROGRESS = "in_progress"
     PLACED = "placed"
@@ -32,7 +31,7 @@ class Marketplace::Order < ApplicationRecord
   has_many :fees, through: :payment
 
   validates :state, presence: true, inclusion: {in: Marketplace::Order::State::valid_states}
-  validate :max_line_items
+  validate :line_items_from_single_seller
 
   accepts_nested_attributes_for :line_items, allow_destroy: true
 
@@ -70,9 +69,9 @@ class Marketplace::Order < ApplicationRecord
 
   private
 
-  def max_line_items
-    if self.line_items.count > MAX_LINE_ITEMS
-      errors.add(:base, I18n.t("marketplace.order.errors.max_line_items", max: MAX_LINE_ITEMS))
+  def line_items_from_single_seller
+    if self.line_items.map(&:selling_pharmacy).uniq.count > 1
+      errors.add(:base, I18n.t("marketplace.order.errors.line_items_from_multiple_sellers"))
     end
   end
 end
