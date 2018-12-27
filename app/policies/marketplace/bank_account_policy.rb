@@ -1,10 +1,10 @@
 class Marketplace::BankAccountPolicy < AuthenticatedApplicationPolicy
-  def create?
-    user.admin? || (user.pharmacy==pharmacy && pharmacy.active?)
+  def show?
+    user.admin? || user.pharmacy==pharmacy
   end
 
-  def show?
-    create?
+  def create?
+    user.admin? || (user.superintendent? && user.pharmacy==pharmacy && pharmacy.active?)
   end
 
   def update?

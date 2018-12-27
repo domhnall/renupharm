@@ -6,6 +6,13 @@ describe Marketplace::AgentPolicy do
   before :all do
     @pharmacy = create_pharmacy
 
+    @superintendent_agent = create_agent(
+      pharmacy: @pharmacy,
+      user: create_user(email: 'super@pharmacy.com'),
+      superintendent: true
+    )
+    @superintendent = @superintendent_agent.user.becomes(Users::Agent)
+
     @agent = create_agent(
       pharmacy: @pharmacy,
       user: create_user(email: 'user@pharmacy.com')
@@ -66,6 +73,10 @@ describe Marketplace::AgentPolicy do
       it "should be true where user is an admin" do
         expect(Marketplace::AgentPolicy.new(@admin_user, @pharmacy.agents.build).create?).to be_truthy
       end
+
+      it "should be true where user is superintendent for the pharmacy" do
+        expect(Marketplace::AgentPolicy.new(@superintendent, @pharmacy.agents.build).create?).to be_truthy
+      end
     end
 
     describe "#update?" do
@@ -75,6 +86,10 @@ describe Marketplace::AgentPolicy do
 
       it "should be true where user is an admin" do
         expect(Marketplace::AgentPolicy.new(@admin_user, @other_agent).update?).to be_truthy
+      end
+
+      it "should be true where user is superintendent for the pharmacy" do
+        expect(Marketplace::AgentPolicy.new(@superintendent, @other_agent).update?).to be_truthy
       end
     end
   end

@@ -11,11 +11,11 @@ class Marketplace::CreditCardPolicy < AuthenticatedApplicationPolicy
   end
 
   def create?
-    user.admin? || (user.pharmacy==pharmacy && pharmacy.active?)
+    user.admin? || (user.superintendent? && user.pharmacy==pharmacy && pharmacy.active?)
   end
 
   def update?
-    user.admin? || (user.pharmacy==pharmacy && pharmacy.active?)
+    create?
   end
 
   private

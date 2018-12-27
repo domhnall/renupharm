@@ -8,6 +8,8 @@ class Users::Agent < User
   has_one :pharmacy, through: :agent
   has_one :current_order, through: :agent
 
+  delegate :superintendent?, to: :agent
+
   def create_order!
     return if current_order
     agent.orders.create!({

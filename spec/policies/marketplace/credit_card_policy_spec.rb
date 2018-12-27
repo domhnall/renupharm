@@ -1,15 +1,11 @@
 require 'rails_helper'
 
-describe Marketplace::BankAccountPolicy do
+describe Marketplace::CreditCardPolicy do
   include Factories::Marketplace
 
   before :all do
     @pharmacy = create_pharmacy
-    @bank_account = @pharmacy.build_bank_account(
-      bank_name: "Suffolk & Watt",
-      bic: "BOFIIE2D",
-      iban: "IE64BOFI90583812345678"
-    )
+    @credit_card = create_credit_card(pharmacy: @pharmacy)
 
     @superintendent = create_agent(
       pharmacy: @pharmacy,
@@ -22,72 +18,71 @@ describe Marketplace::BankAccountPolicy do
       user: create_user(email: 'user@pharmacy.com')
     ).user.becomes(Users::Agent)
 
+
     @other_pharmacy_user = create_agent(
       pharmacy: create_pharmacy(name: "Bagg's Pharmacy", email: "billy@baggs.com"),
       user: create_user(email: 'user@otherpharmacy.com')
     ).user.becomes(Users::Agent)
+
+    @other_pharmacy_card = create_credit_card
 
     @admin_user = create_admin_user(email: 'admin@renupharm.ie')
   end
 
   describe "instantiation" do
     it "should throw an error when first parameter supplied is not of type User" do
-      expect{ Marketplace::BankAccountPolicy.new(double("dummy user"), @bank_account) }.to raise_error Pundit::NotAuthorizedError
+      expect{ Marketplace::CreditCardPolicy.new(double("dummy user"), @credit_card) }.to raise_error Pundit::NotAuthorizedError
     end
   end
 
   describe "instance method" do
     describe "#show?" do
       it "should be true where user is an agent of the pharmacy" do
-        expect(Marketplace::BankAccountPolicy.new(@user, @bank_account).show?).to be_truthy
+        expect(Marketplace::CreditCardPolicy.new(@user, @credit_card).show?).to be_truthy
       end
 
       it "should be false where user is not an agent of the pharmacy" do
-        expect(Marketplace::BankAccountPolicy.new(@other_pharmacy_user, @bank_account).show?).to be_falsey
+        expect(Marketplace::CreditCardPolicy.new(@other_pharmacy_user, @credit_card).show?).to be_falsey
       end
 
       it "should be true where user is an admin" do
-        expect(Marketplace::BankAccountPolicy.new(@admin_user, @bank_account).show?).to be_truthy
+        expect(Marketplace::CreditCardPolicy.new(@admin_user, @credit_card).show?).to be_truthy
       end
     end
 
     describe "#create?" do
       it "should be true where user is an admin" do
-        expect(Marketplace::BankAccountPolicy.new(@admin_user, @bank_account).create?).to be_truthy
+        expect(Marketplace::CreditCardPolicy.new(@admin_user, @pharmacy.credit_cards.build).create?).to be_truthy
       end
 
       it "should be false where user is not an agent of the pharmacy" do
-        expect(Marketplace::BankAccountPolicy.new(@other_pharmacy_user, @bank_account).create?).to be_falsey
+        expect(Marketplace::CreditCardPolicy.new(@other_pharmacy_user, @pharmacy.credit_cards.build).create?).to be_falsey
       end
 
       it "should be false where user is a regular agent of the pharmacy" do
-        expect(Marketplace::BankAccountPolicy.new(@user, @bank_account).create?).to be_falsey
+        expect(Marketplace::CreditCardPolicy.new(@user, @pharmacy.credit_cards.build).create?).to be_falsey
       end
 
       it "should be true where user is the superintendent agent of the pharmacy" do
-        expect(Marketplace::BankAccountPolicy.new(@superintendent, @bank_account).create?).to be_truthy
+        expect(Marketplace::CreditCardPolicy.new(@superintendent, @pharmacy.credit_cards.build).create?).to be_truthy
       end
     end
 
     describe "#update?" do
-      before :all do
-        @bank_account.save!
-      end
-
       it "should be true where user is an admin" do
-        expect(Marketplace::BankAccountPolicy.new(@admin_user, @bank_account).update?).to be_truthy
+        expect(Marketplace::CreditCardPolicy.new(@admin_user, @credit_card).update?).to be_truthy
       end
 
       it "should be false where user is not an agent of the pharmacy" do
-        expect(Marketplace::BankAccountPolicy.new(@other_pharmacy_user, @bank_account).update?).to be_falsey
+        expect(Marketplace::CreditCardPolicy.new(@other_pharmacy_user, @credit_card).update?).to be_falsey
       end
 
       it "should be false where user is a regular agent of the pharmacy" do
-        expect(Marketplace::BankAccountPolicy.new(@user, @bank_account).update?).to be_falsey
+        expect(Marketplace::CreditCardPolicy.new(@user, @credit_card).update?).to be_falsey
       end
 
       it "should be true where user is the superintendent agent of the pharmacy" do
-        expect(Marketplace::BankAccountPolicy.new(@superintendent, @bank_account).update?).to be_truthy
+        expect(Marketplace::CreditCardPolicy.new(@superintendent, @credit_card).update?).to be_truthy
       end
     end
   end
