@@ -1,7 +1,5 @@
 = form_for order, url: marketplace_cart_path, action: :patch do |form|
   = form.fields_for :line_items do |line_item_form|
-    - if line_item_form.object.persisted?
-      = line_item_form.hidden_field :_destroy, value: true
-    - else
+    - if !line_item_form.object.persisted?
       = line_item_form.hidden_field :marketplace_listing_id, value: listing.id
   = form.submit t("marketplace.listing.labels.buy_now"), class: 'btn btn-success'

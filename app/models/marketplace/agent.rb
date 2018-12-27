@@ -15,7 +15,11 @@ class Marketplace::Agent < ApplicationRecord
     class_name: "Marketplace::Order",
     foreign_key: :marketplace_agent_id
 
-  delegate :full_name,
+  has_one :profile, through: :user
+
+  delegate :first_name,
+           :surname,
+           :full_name,
            :telephone,
            :email, to: :user
 
@@ -34,7 +38,7 @@ class Marketplace::Agent < ApplicationRecord
     return unless pharmacy
     if !superintendent && pharmacy.agents.superintendent.empty?
       errors.add(:superintendent, I18n.t("marketplace.agent.errors.must_be_superintendent"))
-    elsif superintendent && pharmacy.agents.superintendent.any?
+    elsif superintendent && pharmacy.agents.superintendent.any? && pharmacy.agents.superintendent.first!=self
       errors.add(:superintendent, I18n.t("marketplace.agent.errors.already_have_superintendent"))
     end
   end

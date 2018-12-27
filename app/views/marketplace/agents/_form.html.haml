@@ -1,4 +1,4 @@
-- url = @agent.persisted? ? admin_marketplace_pharmacy_agent_path(@agent.pharmacy, @agent) : admin_marketplace_pharmacy_agents_path(@agent.pharmacy)
+- url = @agent.persisted? ? marketplace_pharmacy_agent_path(@agent.pharmacy, @agent) : marketplace_pharmacy_agents_path(@agent.pharmacy)
 = form_for @agent, url: url do |form|
   = form.fields_for :user do |user_form|
     = render 'admin/users/user_fields', form: user_form

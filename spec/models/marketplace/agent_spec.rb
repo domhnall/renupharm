@@ -9,6 +9,8 @@ describe Marketplace::Agent do
     :orders,
     :current_order,
     :full_name,
+    :first_name,
+    :surname,
     :telephone,
     :email ].each do |method|
     it "should respond to :#{method}" do

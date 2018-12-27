@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       resources :purchases, only: [:index, :show]
       resources :sales, only: [:index, :show]
       resource :bank_account, only: [:new, :create, :edit, :update]
+      resources :agents, only: [:new, :create, :edit, :update]
     end
   end
 
@@ -52,9 +53,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :edit, :update, :destroy]
 
     namespace :marketplace do
-      resources :pharmacies, only: [:index, :new, :create, :show, :edit, :update] do
-        resources :agents, only: [:new, :create, :edit, :update]
-      end
+      resources :pharmacies, only: [:index, :new, :create, :show, :edit, :update]
       resources :orders, only: [:index, :show, :edit, :update]
     end
   end

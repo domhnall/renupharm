@@ -3,4 +3,4 @@
 = render partial: 'marketplace/shared/pharmacies/agent', collection: pharmacy.agents
 - if policy(pharmacy.agents.build).create?
   .actions
-    = link_to t("general.add"), new_admin_marketplace_pharmacy_agent_path(pharmacy_id: pharmacy.id), class: "btn btn-success"
+    = link_to t("general.add"), new_marketplace_pharmacy_agent_path(pharmacy_id: pharmacy.id), class: "btn btn-success"

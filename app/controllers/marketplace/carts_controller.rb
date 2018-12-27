@@ -13,7 +13,7 @@ class Marketplace::CartsController < AuthenticatedController
       ::Services::Response.new
     end
 
-    if res.success?
+    if res.success? && @order.valid?
       @order.save!
       flash[:success] = I18n.t("marketplace.cart.flash.update_successful")
     else

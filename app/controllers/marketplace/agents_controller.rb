@@ -1,4 +1,4 @@
-class Admin::Marketplace::AgentsController < Admin::BaseController
+class Marketplace::AgentsController < AuthenticatedController
   def new
     @agent = pharmacy.agents.build.tap do |agent|
       agent.user = User.new.tap do |user|
@@ -12,7 +12,7 @@ class Admin::Marketplace::AgentsController < Admin::BaseController
     @agent = pharmacy.agents.build(agent_params)
     authorize @agent, :create?
     if @agent.save
-      redirect_to admin_marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t("general.flash.create_successful") }
+      redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t("general.flash.create_successful") }
     else
       flash[:error] = I18n.t("general.flash.error")
       render 'new'
@@ -28,7 +28,7 @@ class Admin::Marketplace::AgentsController < Admin::BaseController
     @agent = pharmacy.agents.find(params.fetch(:id).to_i)
     authorize @agent, :update?
     if @agent.update_attributes(agent_params)
-      redirect_to admin_marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t("general.flash.update_successful") }
+      redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t("general.flash.update_successful") }
     else
       flash[:error] = I18n.t("general.flash.error")
       render 'edit'
@@ -50,11 +50,13 @@ class Admin::Marketplace::AgentsController < Admin::BaseController
     new_params
     .require(:marketplace_agent)
     .permit(:superintendent, user_attributes: [
+      :id,
       :email,
       :password,
       :password_confirmation,
       {
         profile_attributes: [
+          :id,
           :first_name,
           :surname,
           :telephone,

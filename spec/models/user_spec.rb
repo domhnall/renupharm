@@ -57,6 +57,8 @@ describe User do
      :pharmacy?,
      :courier?,
      :full_name,
+     :first_name,
+     :surname,
      :email,
      :telephone,
      :accepted_terms_at ].each do |method|
