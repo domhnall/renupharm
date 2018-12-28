@@ -1,6 +1,4 @@
-%br/
-%br/
-%h3= "Order details"
+%h2= "Order details"
 %ul{style: "padding: 0;margin: 10px 0 0 20px;"}
   %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
     %strong{ style: "margin-right: 5px" }
@@ -8,31 +6,46 @@
     = order.reference
   %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
     %strong{ style: "margin-right: 5px" }
-      = t("marketplace.listing.product")
-    = listing.product_name
-  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
-    %strong{ style: "margin-right: 5px" }
-      = t("marketplace.product.unit_size")
-    = listing.product_unit_size
-  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
-    %strong{ style: "margin-right: 5px" }
-      = t("marketplace.listing.quantity")
-    = listing.quantity
-  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
-    %strong{ style: "margin-right: 5px" }
-      = t("marketplace.listing.expiry")
-    = l(listing.expiry, format: :short)
-  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
-    %strong{ style: "margin-right: 5px" }
-      = t("marketplace.listing.display_price")
-    = listing.display_price
-  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
-    %strong{ style: "margin-right: 5px" }
       = "Selling pharmacy"
-    = listing.seller_name
+    = order.line_items.first.selling_pharmacy.name
   %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
     %strong{ style: "margin-right: 5px" }
       = "Purchaser"
     = order.agent.full_name
+  %li{style: "display: list-item;margin: 10px 0 10px 0px;list-style-position: outside;list-style-type: disc;"}
+    %strong{ style: "margin-right: 5px" }
+      = "Total price"
+    = order.display_price
+
+%br/
+%br/
+
+%table.order_details{ style: "width: 100%" }
+  %thead
+    %tr
+      %td.product
+        %strong= t("marketplace.listing.product")
+      %td.unit_size
+        %strong= t("marketplace.product.unit_size")
+      %td.quantity
+        %strong= t("marketplace.listing.quantity")
+      %td.expiry
+        %strong= t("marketplace.listing.expiry")
+      %td.price
+        %strong= t("marketplace.listing.display_price")
+  %tbody
+    - order.line_items.each do |line_item|
+      %tr
+        %td.product=line_item.product.name
+        %td.product=line_item.product.unit_size
+        %td.quantity=line_item.quantity
+        %td.expiry=l(line_item.expiry, format: :short)
+        %td.price=line_item.display_price
+  %tfoot
+    %td
+    %td
+    %td
+    %td.total_price_label= t("marketplace.order.total_price")
+    %td.total_price= order.display_price
 %br/
 %br/

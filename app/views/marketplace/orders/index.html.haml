@@ -19,7 +19,7 @@
           - @orders.each do |order|
             %tr
               %td= link_to order.reference, marketplace_order_path(order)
-              %td= order.product&.name
+              %td= order.product_names
               %td.buyer= order.pharmacy.name
               %td.seller= order.selling_pharmacy&.name
               %td= order.display_price

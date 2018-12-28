@@ -53,8 +53,8 @@ class Marketplace::Order < ApplicationRecord
     @price ||= Price.new(self.line_items.reduce(0){|sum,li| sum+=li.price_cents })
   end
 
-  def product
-    line_items.first&.product
+  def product_names
+    line_items.map(&:product_name).join(",")
   end
 
   def selling_pharmacy

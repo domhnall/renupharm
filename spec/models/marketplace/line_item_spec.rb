@@ -6,10 +6,12 @@ describe Marketplace::LineItem do
   [ :order,
     :listing,
     :product,
+    :product_name,
     :selling_pharmacy,
     :pharmacy,
     :quantity,
     :price_cents,
+    :expiry,
     :display_price ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::LineItem.new).to respond_to method

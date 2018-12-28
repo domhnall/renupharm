@@ -5,7 +5,7 @@
   %ul
     - purchases.each do |order|
       %li.order
-        .product_name= link_to order.product.name, marketplace_order_path(order)
+        .product_name= link_to order.product_names, marketplace_order_path(order)
         .order_value= order.display_price
         .updated_at= l(order.updated_at, format: :long)
 

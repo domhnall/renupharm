@@ -18,7 +18,8 @@ describe Marketplace::Order do
 
   before :all do
     @seller = create_pharmacy(name: "Sammy Seller", email: "sammy@seller.com")
-    @product = create_product(pharmacy: @seller)
+    @product_a = create_product(pharmacy: @seller)
+    @product_b = create_product(pharmacy: @seller)
     @pharmacy = create_pharmacy(name: "Billy Buyer", email: "billy@buyer.com")
     @agent = create_agent(pharmacy: @pharmacy)
   end
@@ -94,18 +95,23 @@ describe Marketplace::Order do
         agent: @agent,
         state: ::Marketplace::Order::State::IN_PROGRESS
       }).tap do |order|
-        order.line_items.create(listing: create_listing(product: @product))
+        order.line_items.create(listing: create_listing(product: @product_a))
+        order.line_items.create(listing: create_listing(product: @product_b))
       end
     end
 
-    describe "#product" do
-      it "should return the product associated with the first line item of the order" do
-        expect(@order.product).to eq @product
+    describe "#product_names" do
+      it "should return a string" do
+        expect(@order.product_names).to be_a String
       end
 
-      it "should return nil if the order has no associated line items" do
+      it "should return a comma separated list of the product names on the order" do
+        expect(@order.product_names).to eq [@product_a,@product_b].map(&:name).join(",")
+      end
+
+      it "should return a blank string if the order has no associated line items" do
         @order.line_items = []
-        expect(@order.product).to be_nil
+        expect(@order.product_names).to eq ""
       end
     end
 

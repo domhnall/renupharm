@@ -7,7 +7,7 @@
         %p
           = "We are please to confirm that your RenuPharm order has now been placed and is pending delivery."
         %br/
-        = render 'order_details', order: @order, listing: @listing
+        = render 'order_details', order: @order
         %br/
         = render "layouts/shared/mailer_cta", cta_url: marketplace_order_url(@order), cta_text: "View on RenuPharm"
         %p

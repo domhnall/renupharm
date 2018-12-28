@@ -9,12 +9,14 @@
         %thead
           %tr
             %td.product= t("marketplace.order.product")
+            %td.seller= t("marketplace.order.seller")
             %td.quantity= t("marketplace.order.quantity")
             %td.price= t("marketplace.order.price")
         %tbody
           - @order.line_items.each do |line_item|
             %tr
               %td.product=line_item.product.name
+              %td.product=line_item.selling_pharmacy.name
               %td.quantity=line_item.quantity
               %td.quantity=line_item.display_price
         %tfoot
