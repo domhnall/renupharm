@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_16_091753) do
+ActiveRecord::Schema.define(version: 2018_12_28_190602) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 2018_12_16_091753) do
     t.string "reference"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "comments_count", default: 0
     t.index ["marketplace_agent_id"], name: "index_marketplace_orders_on_marketplace_agent_id"
     t.index ["reference"], name: "index_marketplace_orders_on_reference", unique: true
   end

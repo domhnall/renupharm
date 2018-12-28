@@ -19,3 +19,10 @@
           %td
           %td.total_price_label= t("marketplace.order.total_price")
           %td.total_price= @order.display_price
+
+    - if current_user.admin?
+      .card
+        .comments
+          %h2
+            = t("marketplace.order.comments")
+          = render 'admin/comments/comment_list', commentable: @order

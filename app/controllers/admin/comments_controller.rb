@@ -1,4 +1,4 @@
-class Admin::Sales::CommentsController < Admin::BaseController
+class Admin::CommentsController < Admin::BaseController
   layout :none
 
   def create
@@ -32,19 +32,10 @@ class Admin::Sales::CommentsController < Admin::BaseController
   end
 
   def commentable
-    @_commentable ||= if params[:pharmacy_id].present?
-      ::Sales::Pharmacy.find(params.fetch(:pharmacy_id).to_i)
-    elsif params[:contact_id].present?
-      ::Sales::Contact.find(params.fetch(:contact_id).to_i)
-    end
+    raise NotImplementedError, "This should be implemented in a subclassed controller"
   end
 
   def commentable_path
-    case commentable
-    when Sales::Pharmacy
-      admin_sales_pharmacy_path(commentable)
-    when Sales::Contact
-      admin_sales_contact_path(commentable)
-    end
+    raise NotImplementedError, "This should be implemented in a subclassed controller"
   end
 end

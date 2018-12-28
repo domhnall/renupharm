@@ -29,6 +29,7 @@ class Marketplace::Order < ApplicationRecord
   has_one :pharmacy, through: :agent
   has_many :listings, through: :line_items
   has_many :fees, through: :payment
+  has_many :comments, as: :commentable, dependent: :destroy
 
   validates :state, presence: true, inclusion: {in: Marketplace::Order::State::valid_states}
   validate :line_items_from_single_seller

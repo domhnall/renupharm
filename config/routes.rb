@@ -43,10 +43,10 @@ Rails.application.routes.draw do
   namespace :admin do
     namespace :sales do
       resources :pharmacies do
-        resources :comments, only: [:create, :update, :destroy]
+        resources :comments, only: [:create, :update, :destroy], controller: 'pharmacy_comments'
       end
       resources :contacts do
-        resources :comments, only: [:create, :update, :destroy]
+        resources :comments, only: [:create, :update, :destroy], controller: 'contact_comments'
       end
     end
     resources :survey_responses, only: [:index]
@@ -54,7 +54,9 @@ Rails.application.routes.draw do
 
     namespace :marketplace do
       resources :pharmacies, only: [:index, :new, :create, :show, :edit, :update]
-      resources :orders, only: [:index, :show, :edit, :update]
+      resources :orders, only: [:index, :show, :edit, :update] do
+        resources :comments, only: [:create, :update, :destroy], controller: 'order_comments'
+      end
     end
   end
 

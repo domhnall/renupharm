@@ -331,6 +331,7 @@ en:
       updated_at: "Updated"
       state: "Status"
       reference: "Reference"
+      comments: "Comments"
       states:
         in_progress: "In progress"
         placed: "Placed"

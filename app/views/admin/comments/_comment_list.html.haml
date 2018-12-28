@@ -4,9 +4,9 @@
   %ul.comment_list
     - commentable.comments.each do |comment|
       %li.comment
-        = render 'admin/sales/comments/comment', comment: comment
+        = render 'admin/comments/comment', comment: comment
     %li.comment.new_comment.hidden
-      = render 'admin/sales/comments/comment', comment: commentable.comments.build
+      = render 'admin/comments/comment', comment: commentable.comments.build
   .actions
     .btn.btn-success.add_comment_btn
       %i.fa.fa-plus
