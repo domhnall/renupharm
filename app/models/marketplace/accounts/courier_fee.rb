@@ -1,5 +1,7 @@
 class Marketplace::Accounts::CourierFee < Marketplace::Accounts::Fee
-  COURIER_FEE_CENTS = 750
+  FLAT_FEE_CENTS = 800
+  FLAT_FEE_THRESHOLD_CENTS = 8000
+  SURPLUS_PERCENT_FEE = 0.1
 
   def calculate!
     payment.fees.create!({
@@ -12,7 +14,10 @@ class Marketplace::Accounts::CourierFee < Marketplace::Accounts::Fee
   private
 
   def calculate_courier_fee
-    # Based on current 6.1% surcharge for fuel
-    COURIER_FEE_CENTS*1.061
+    FLAT_FEE_CENTS + surplus*SURPLUS_PERCENT_FEE
+  end
+
+  def surplus
+    [(payment.amount_cents-FLAT_FEE_THRESHOLD_CENTS), 0].max
   end
 end
