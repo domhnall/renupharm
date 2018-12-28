@@ -64,6 +64,11 @@ describe Marketplace::Listing do
       expect(Marketplace::Listing.new(@params.merge(price_cents: 800))).not_to be_valid
     end
 
+    it "should be invalid if price_cents is 500 EUR or greater" do
+      expect(Marketplace::Listing.new(@params.merge(price_cents: 49999))).to be_valid
+      expect(Marketplace::Listing.new(@params.merge(price_cents: 50000))).not_to be_valid
+    end
+
     it "should be invalid if expiry is within the next week" do
       expect(Marketplace::Listing.new(@params.merge(expiry: Date.today+7.days))).not_to be_valid
       expect(Marketplace::Listing.new(@params.merge(expiry: Date.today-7.days))).not_to be_valid

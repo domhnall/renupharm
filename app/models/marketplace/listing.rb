@@ -22,7 +22,7 @@ class Marketplace::Listing < ApplicationRecord
 
   validates :quantity, :price_cents, :expiry, presence: true
   validates :quantity, numericality: { only_integer: true, greater_than: 0 }
-  validates :price_cents, numericality: { only_integer: true, greater_than: 800 }
+  validates :price_cents, numericality: { only_integer: true, greater_than: 800, less_than: 50000 }
   validate :verify_expiry_acceptable, if: :active
 
   delegate :name,
