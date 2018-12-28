@@ -13,6 +13,8 @@ class Marketplace::CreditCardsController < AuthenticatedController
       flash.now[:warning] = t('marketplace.credit_card.flash.error')
       render :new
     end
+  rescue Errors::AccessDenied, Pundit::NotAuthorizedError => exception
+    raise e
   rescue StandardError => e
     flash.now[:error] = t('marketplace.credit_card.flash.unexpected_error')
     render :new
