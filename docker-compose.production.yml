@@ -61,8 +61,6 @@ services:
       - solr-precreate
       - default
       - /opt/solr/server/solr/configsets/sunspot
-    links:
-      - db:db
 volumes:
   public-volume:
   solr_indices:
