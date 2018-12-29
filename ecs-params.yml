@@ -2,17 +2,14 @@ version: 1
 task_definition:
   services:
     app_1:
-      cpu_shares: 30
       mem_reservation: 350000000
     app_2:
-      cpu_shares: 30
       mem_reservation: 350000000
     web:
-      cpu_shares: 15
       mem_reservation: 200000000
     sidekiq:
-      cpu_shares: 15
-      mem_reservation: 200000000
+      mem_reservation: 350000000
     redis:
-      cpu_shares: 15
       mem_reservation: 200000000
+    solr:
+      mem_reservation: 350000000
