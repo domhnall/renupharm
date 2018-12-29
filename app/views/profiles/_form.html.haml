@@ -16,7 +16,7 @@
     .col-5
       .form-group
         = image_tag(@profile.avatar.attached? ? @profile.avatar : "placeholder-user.png", class: 'img-avatar')
-        = profile_form.file_field :avatar, class: 'form-control'
+        = profile_form.file_field :avatar, direct_upload: true, class: 'form-control'
 
   .actions
     = submit_tag t('general.save'), id: 'submit_user', class: 'btn btn-success'
