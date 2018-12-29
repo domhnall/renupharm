@@ -1,4 +1,3 @@
-Dir["#{Rails.root}/spec/support/factories/*.rb"].each {|file| require file }
 
 task dev_environment: [:environment] do
   raise StandardError, "Cannot execute on #{Rails.env}" unless Rails.env.development? #if Rails.env.production?
@@ -7,6 +6,7 @@ end
 namespace :renupharm do
   desc "Set up dev database"
   task setup_dev: [:dev_environment, "db:drop", "db:create", "db:migrate", "db:seed"] do
+    Dir["#{Rails.root}/spec/support/factories/*.rb"].each {|file| require file }
     include Factories::Base
     include Factories::Marketplace
 
