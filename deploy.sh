@@ -4,6 +4,9 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
+# Ensure we have added the renupharm key to the key-chain
+ssh-add ~/.ssh/domhnall-renupharm
+
 PROJ_DIR=`pwd`
 
 # Authenticate ECR with docker
@@ -34,8 +37,8 @@ if docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_tests; then
   ssh ec2-user@renupharm.ie "docker exec ${APP_CONTAINER} bundle exec rake db:migrate"
 
   # Update the crontab
-  scp -i ~/keys/domhnall-renupharm.pem config/renupharm.crontab ec2-user@renupharm.ie:/tmp
-  ssh -i ~/keys/domhnall-renupharm.pem ec2-user@renupharm.ie "(crontab -l 2>/dev/null; cat /tmp/renupharm.crontab) | crontab -"
+  scp config/renupharm.crontab ec2-user@renupharm.ie:/tmp
+  ssh ec2-user@renupharm.ie "(crontab -l 2>/dev/null; cat /tmp/renupharm.crontab) | crontab -"
 else
   echo "TEST SUITE FAILED. ABORTING DEPLOY" && exit 1
 fi
