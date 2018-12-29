@@ -1,0 +1,28 @@
+.row
+  .col-7
+    %h2.name
+      = pharmacy.name
+    .description
+      = pharmacy.description
+    .contact_details
+      .email
+        %label.label= t("marketplace.pharmacy.email")
+        .value= pharmacy.email
+      .telephone
+        %label.label= t("marketplace.pharmacy.telephone")
+        .value= pharmacy.telephone
+      .fax
+        %label.label= t("marketplace.pharmacy.fax")
+        .value= pharmacy.fax
+      .address
+        %label.label= t("marketplace.pharmacy.address")
+        %ul
+          %li= pharmacy.address_1
+          %li= pharmacy.address_2
+          %li= pharmacy.address_3
+  .col-5
+    .image
+      = image_tag((image = pharmacy.image).attached? ? image.variant(resize: "300x300") : "placeholder-pharmacy.jpg")
+- if policy(pharmacy).edit?
+  .actions
+    = link_to t('general.edit'), edit_admin_marketplace_pharmacy_path(pharmacy), class: 'btn btn-primary'

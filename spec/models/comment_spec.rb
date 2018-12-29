@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Comment do
-  include Factories
+  include Factories::Base
 
   before :all do
     @admin = create_user(email: 'admin@renupharm.ie')

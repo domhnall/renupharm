@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_09_063553) do
+ActiveRecord::Schema.define(version: 2018_12_28_190602) do
+
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "body"
@@ -23,6 +44,127 @@ ActiveRecord::Schema.define(version: 2018_10_09_063553) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "marketplace_accounts_fees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_payment_id"
+    t.string "type"
+    t.decimal "amount_cents", precision: 10, scale: 2
+    t.string "currency_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_payment_id"], name: "index_marketplace_accounts_fees_on_marketplace_payment_id"
+  end
+
+  create_table "marketplace_agents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_pharmacy_id"
+    t.bigint "user_id"
+    t.boolean "superintendent", default: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_pharmacy_id"], name: "index_marketplace_agents_on_marketplace_pharmacy_id"
+    t.index ["user_id"], name: "index_marketplace_agents_on_user_id"
+  end
+
+  create_table "marketplace_bank_accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_pharmacy_id"
+    t.string "bank_name"
+    t.string "bic"
+    t.string "iban"
+    t.index ["marketplace_pharmacy_id"], name: "index_marketplace_bank_accounts_on_marketplace_pharmacy_id"
+  end
+
+  create_table "marketplace_credit_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_pharmacy_id"
+    t.string "recurring_detail_reference"
+    t.string "holder_name"
+    t.string "brand"
+    t.string "number"
+    t.integer "expiry_month"
+    t.integer "expiry_year"
+    t.string "email"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_pharmacy_id"], name: "index_marketplace_credit_cards_on_marketplace_pharmacy_id"
+  end
+
+  create_table "marketplace_line_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_order_id"
+    t.bigint "marketplace_listing_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_listing_id"], name: "index_marketplace_line_items_on_marketplace_listing_id"
+    t.index ["marketplace_order_id"], name: "index_marketplace_line_items_on_marketplace_order_id"
+  end
+
+  create_table "marketplace_listings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_pharmacy_id"
+    t.bigint "marketplace_product_id"
+    t.integer "quantity"
+    t.integer "price_cents"
+    t.date "expiry"
+    t.boolean "active", default: true
+    t.datetime "purchased_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_pharmacy_id"], name: "index_marketplace_listings_on_marketplace_pharmacy_id"
+    t.index ["marketplace_product_id"], name: "index_marketplace_listings_on_marketplace_product_id"
+  end
+
+  create_table "marketplace_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_agent_id"
+    t.string "state"
+    t.string "reference"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "comments_count", default: 0
+    t.index ["marketplace_agent_id"], name: "index_marketplace_orders_on_marketplace_agent_id"
+    t.index ["reference"], name: "index_marketplace_orders_on_reference", unique: true
+  end
+
+  create_table "marketplace_payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_credit_card_id"
+    t.bigint "marketplace_order_id"
+    t.string "renupharm_reference"
+    t.string "gateway_reference"
+    t.integer "amount_cents"
+    t.string "currency_code"
+    t.string "result_code"
+    t.string "auth_code"
+    t.decimal "vat", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_credit_card_id"], name: "index_marketplace_payments_on_marketplace_credit_card_id"
+    t.index ["marketplace_order_id"], name: "index_marketplace_payments_on_marketplace_order_id"
+  end
+
+  create_table "marketplace_pharmacies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "address_1"
+    t.string "address_2"
+    t.string "address_3"
+    t.string "telephone"
+    t.string "fax"
+    t.string "email"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_marketplace_pharmacies_on_email", unique: true
+    t.index ["name"], name: "index_marketplace_pharmacies_on_name", unique: true
+  end
+
+  create_table "marketplace_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_pharmacy_id"
+    t.string "name"
+    t.text "description"
+    t.string "unit_size"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_pharmacy_id"], name: "index_marketplace_products_on_marketplace_pharmacy_id"
+  end
+
   create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.string "first_name"
@@ -31,6 +173,7 @@ ActiveRecord::Schema.define(version: 2018_10_09_063553) do
     t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "accepted_terms_at"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
@@ -102,6 +245,19 @@ ActiveRecord::Schema.define(version: 2018_10_09_063553) do
   end
 
   add_foreign_key "comments", "users"
+  add_foreign_key "marketplace_accounts_fees", "marketplace_payments"
+  add_foreign_key "marketplace_agents", "marketplace_pharmacies"
+  add_foreign_key "marketplace_agents", "users"
+  add_foreign_key "marketplace_bank_accounts", "marketplace_pharmacies"
+  add_foreign_key "marketplace_credit_cards", "marketplace_pharmacies"
+  add_foreign_key "marketplace_line_items", "marketplace_listings"
+  add_foreign_key "marketplace_line_items", "marketplace_orders"
+  add_foreign_key "marketplace_listings", "marketplace_pharmacies"
+  add_foreign_key "marketplace_listings", "marketplace_products"
+  add_foreign_key "marketplace_orders", "marketplace_agents"
+  add_foreign_key "marketplace_payments", "marketplace_credit_cards"
+  add_foreign_key "marketplace_payments", "marketplace_orders"
+  add_foreign_key "marketplace_products", "marketplace_pharmacies"
   add_foreign_key "profiles", "users"
   add_foreign_key "sales_contacts", "sales_pharmacies"
   add_foreign_key "survey_responses", "sales_contacts"

@@ -1,0 +1,13 @@
+.card.agent
+  .full_name
+    %label.label= t("marketplace.agent.full_name")
+    .value= agent.full_name
+  .email
+    %label.label= t("marketplace.agent.email")
+    .value= agent.email
+  .telephonw
+    %label.label= t("marketplace.agent.telephone")
+    .value= agent.telephone
+  - if policy(agent).edit?
+    .actions
+      = link_to t("general.edit"), edit_marketplace_pharmacy_agent_path(pharmacy_id: agent.pharmacy.id, id: agent.id)

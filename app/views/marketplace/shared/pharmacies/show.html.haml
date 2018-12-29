@@ -1,0 +1,39 @@
+.row
+  .col-md-12
+    .tab-navigation
+      %ul.nav.nav-tabs{:role => "tablist"}
+        %li.nav-item
+          = link_to "Profile", "#pharmacy_profile", {"id"=>"profile-tab", "class"=>"nav-link active show", "aria-controls"=>"pharmacy_profile", "aria-selected"=>"true", "data-toggle"=>"tab", "role"=>"tab"}
+        %li.nav-item
+          = link_to "Listings", "#pharmacy_listings", {"id"=>"listings-tab", "class"=>"nav-link", "aria-controls"=>"pharmacy_listings", "aria-selected"=>"false", "data-toggle"=>"tab", "role"=>"tab"}
+        %li.nav-item
+          = link_to "Agents", "#pharmacy_agents", {"id"=>"agents-tab", "class"=>"nav-link", "aria-controls"=>"pharmacy_agents", "aria-selected"=>"false", "data-toggle"=>"tab", "role"=>"tab"}
+        %li.nav-item
+          = link_to "Products", "#pharmacy_products", {"id"=>"products-tab", "class"=>"nav-link", "aria-controls"=>"pharmacy_products", "aria-selected"=>"false", "data-toggle"=>"tab", "role"=>"tab"}
+        - if policy(Marketplace::CreditCard.new(pharmacy: @marketplace_pharmacy)).show?
+          %li.nav-item
+            = link_to "Purchasing", "#pharmacy_credit_cards", {"id"=>"cards-tab", "class"=>"nav-link", "aria-controls"=>"pharmacy_credit_cards", "aria-selected"=>"false", "data-toggle"=>"tab", "role"=>"tab"}
+        - if policy(Marketplace::BankAccount.new(pharmacy: @marketplace_pharmacy)).show?
+          %li.nav-item
+            = link_to "Payouts", "#pharmacy_bank_details", {"id"=>"bank-tab", "class"=>"nav-link", "aria-controls"=>"pharmacy_bank_details", "aria-selected"=>"false", "data-toggle"=>"tab", "role"=>"tab"}
+
+      .tab-content.clearfix
+        #pharmacy_profile.tab-pane.fade.active.show{ "role"=>"tabpanel", "aria-labelledby"=>"profile-tab"}
+          = render 'marketplace/shared/pharmacies/profile_tab', pharmacy: @marketplace_pharmacy
+
+        #pharmacy_listings.tab-pane.fade{ "role"=>"tabpanel", "aria-labelledby"=>"listings-tab"}
+          = render 'marketplace/shared/pharmacies/listings_tab', pharmacy: @marketplace_pharmacy
+
+        #pharmacy_agents.tab-pane.fade{ "role"=>"tabpanel", "aria-labelledby"=>"agents-tab"}
+          = render 'marketplace/shared/pharmacies/agents_tab', pharmacy: @marketplace_pharmacy
+
+        #pharmacy_products.tab-pane.fade{ "role"=>"tabpanel", "aria-labelledby"=>"products-tab"}
+          = render 'marketplace/shared/pharmacies/products_tab', pharmacy: @marketplace_pharmacy
+
+        - if policy(Marketplace::CreditCard.new(pharmacy: @marketplace_pharmacy)).show?
+          #pharmacy_credit_cards.tab-pane.fade{ "role"=>"tabpanel", "aria-labelledby"=>"cards-tab"}
+            = render 'marketplace/shared/pharmacies/credit_cards_tab', pharmacy: @marketplace_pharmacy
+
+        - if policy(Marketplace::BankAccount.new(pharmacy: @marketplace_pharmacy)).show?
+          #pharmacy_bank_details.tab-pane.fade{ "role"=>"tabpanel", "aria-labelledby"=>"bank-tab"}
+            = render 'marketplace/shared/pharmacies/bank_details_tab', pharmacy: @marketplace_pharmacy

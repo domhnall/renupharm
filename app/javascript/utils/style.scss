@@ -1,0 +1,28 @@
+.truncate {
+  display: inline-block;
+  clear: both;
+}
+
+.see_more, .see_less {
+  font-size: x-small;
+  padding: 2px;
+  float: right;
+  margin-right: 20px;
+}
+
+.sales_purchases_progress {
+  .progress {
+    height: 2rem;
+    .progress-bar {
+      -webkit-transition: width 3.5s ease-in-out;
+      transition: width 3.5s ease-in-out;
+    }
+    .progress-label {
+      font-weight: bold;
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      padding-top: 9px;
+    }
+  }
+}

@@ -3,9 +3,14 @@
 #
 
 shared_examples "a basic admin controller with :update" do |clazz|
+  include Factories::Marketplace
+
   before :all do
-    @user = create_user(email: 'mutator@example.com')
-    @admin_user = create_admin_user(email: 'mutator@renupharm.ie')
+    @user ||= create_agent(
+      pharmacy: create_pharmacy(name: "Updater's", email: "ursula@updaters.com"),
+      user: create_user(email: 'updater@example.com')
+    ).user.becomes(Users::Agent)
+    @admin_user ||= create_admin_user(email: 'updater@renupharm.ie')
     @clazz = clazz
     @update_params ||= {}
   end
@@ -56,7 +61,7 @@ shared_examples "a basic admin controller with :update" do |clazz|
 
       it "should redirect the user to the show page" do
         put :update, params: @update_params
-        expect(response).to redirect_to self.send("admin_#{@clazz.to_s.gsub("::","_").downcase}_path", @clazz.find(@update_params.fetch(:id)))
+        expect(response).to redirect_to (@successful_update_redirect || self.send("admin_#{@clazz.to_s.gsub("::","_").downcase}_path", @clazz.find(@update_params.fetch(:id))))
       end
     end
   end

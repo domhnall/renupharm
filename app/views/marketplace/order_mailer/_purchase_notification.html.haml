@@ -1,0 +1,17 @@
+%table.module{:border => "0", :cellpadding => "0", :cellspacing => "0", "data-type" => "text", :role => "module", :style => "table-layout: fixed;", :width => "100%"}
+  %tr
+    %td{:bgcolor => "", :height => "100%", :style => "padding:20px 45px 20px 45px;line-height:22px;text-align:inherit;", :valign => "top"}
+      %div{:style => "text-align: left; color:#333333;"}
+        %p
+          = "Hi #{@agent.full_name}"
+        %p
+          = "We are please to confirm that your RenuPharm order has now been placed and is pending delivery."
+        %br/
+        = render 'order_details', order: @order
+        %br/
+        = render "layouts/shared/mailer_cta", cta_url: marketplace_order_url(@order), cta_text: "View on RenuPharm"
+        %p
+          = "If you have any questions or problems relating to this order please contact support."
+        %br/
+        %p
+          = "Thanks for using RenuPharm"

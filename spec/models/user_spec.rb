@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe User do
+  include Factories::Base
+
   before :all do
     @params = {
       email: "johnny@bravo.com",
@@ -39,10 +41,27 @@ describe User do
     it "should not be valid when :profile is not defined" do
       expect(User.new(@params.except(:profile_attributes))).not_to be_valid
     end
+
+    ['john@.com', 'john.smith.com', 'david@localhost', 'rubbish'].each do |invalid_email|
+      it "should be invalid if :email is #{invalid_email} (invalid)" do
+        expect(User.new(@params.merge(email: invalid_email))).not_to be_valid
+      end
+    end
   end
 
   describe "instance method" do
-    [:profile, :comments, :admin?, :pharmacy?, :courier?, :full_name].each do |method|
+    [:profile,
+     :comments,
+     :role,
+     :admin?,
+     :pharmacy?,
+     :courier?,
+     :full_name,
+     :first_name,
+     :surname,
+     :email,
+     :telephone,
+     :accepted_terms_at ].each do |method|
       it "should respond to :#{method}" do
         expect(User.new(@params)).to respond_to method
       end
@@ -61,6 +80,41 @@ describe User do
           attrs[:profile_attributes][:role] = Profile::Roles::PHARMACY
         end
         expect(User.new(pharmacy_params)).not_to be_admin
+      end
+    end
+
+    describe "#to_type" do
+      before :all do
+        @pharmacy_user = create_user({
+          email: 'agent@pharmacy.com',
+          role: Profile::Roles::PHARMACY
+        })
+        @admin_user = create_user({
+          email: 'admin@renupharm.ie',
+          role: Profile::Roles::ADMIN
+        })
+        @courier_user = create_user({
+          email: 'courier@dpd.ie',
+          role: Profile::Roles::COURIER
+        })
+      end
+
+      it "should return an instance of Users::Agent where user is a pharmacy agent" do
+        expect(@pharmacy_user.pharmacy?).to be_truthy
+        expect(@pharmacy_user).not_to be_a Users::Agent
+        expect(@pharmacy_user.to_type).to be_a Users::Agent
+      end
+
+      it "should return an instance of Users::Admin where devise_current_user is an admin" do
+        expect(@admin_user.admin?).to be_truthy
+        expect(@admin_user).not_to be_a Users::Admin
+        expect(@admin_user.to_type).to be_a Users::Admin
+      end
+
+      it "should return an instance of Users::Courier where devise_current_user is a courier" do
+        expect(@courier_user.courier?).to be_truthy
+        expect(@courier_user).not_to be_a Users::Courier
+        expect(@courier_user.to_type).to be_a Users::Courier
       end
     end
   end

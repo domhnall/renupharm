@@ -1,0 +1,23 @@
+- url = @listing.persisted? ? marketplace_pharmacy_listing_path(@listing.pharmacy) : marketplace_pharmacy_listings_path(@listing.pharmacy, @listing)
+= form_for @listing, url: url do |form|
+  .row
+    .col-12
+      .product_select
+        .form-group
+          = form.label :marketplace_product_id, t('marketplace.listing.product'), class: 'col-form-label'
+          = form.select :marketplace_product_id, options_for_select(@products.map{ |p| [p.name,p.id] }), {}, class: 'form-control'
+      .form-group
+        = form.label :quantity, t('marketplace.listing.quantity'), class: 'col-form-label'
+        = form.text_field :quantity, class: 'form-control'
+      .form-group
+        = form.label :price_cents, t('marketplace.listing.price_cents'), class: 'col-form-label'
+        = form.text_field :price_cents, class: 'form-control'
+      .form-group
+        = form.label :expiry, t('marketplace.listing.expiry'), class: 'col-form-label'
+        = form.text_field :expiry, class: 'form-control'
+      .form-group
+        = form.label :active, t('marketplace.listing.active'), class: 'col-form-label col-form-check-label'
+        = form.check_box :active, class: 'col-form-check-input'
+  .row.actions
+    = submit_tag t('general.save'), id: 'submit_listing', class: 'btn btn-success'
+    = link_to t('general.cancel'), :back, class: 'btn btn-light'

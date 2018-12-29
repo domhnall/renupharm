@@ -1,0 +1,43 @@
+.row
+  .col-md-12
+    .card
+      .show_record
+        %h2= t("profile.heading.show")
+
+        .row
+          .col-7
+            .form-group
+              %label.label.col-form-label
+                = t('profile.first_name')
+              %span.form-control
+                = @profile.first_name
+            .form-group
+              %label.label.col-form-label
+                = t('profile.surname')
+              %span.form-control
+                = @profile.surname
+            .form-group
+              %label.label.col-form-label
+                = t('profile.telephone')
+              %span.form-control
+                = @profile.telephone
+            .form-group
+              %label.label.col-form-label
+                = t('profile.role')
+              %span.form-control
+                = t("profile.roles.#{@profile.role}")
+            .form-group
+              %label.label.col-form-label
+                = t('profile.created_at')
+              %span.form-control
+                = l(@profile.created_at, format: :long)
+            .form-group
+              %label.label.col-form-label
+                = t('profile.updated_at')
+              %span.form-control
+                = l(@profile.updated_at, format: :long)
+          .col-5
+            = image_tag((@profile.avatar.attached? ? @profile.avatar : "placeholder-user.png"), class: 'img-avatar')
+
+        .actions
+          = link_to t('general.edit'), edit_profile_path, class: 'btn btn-primary'

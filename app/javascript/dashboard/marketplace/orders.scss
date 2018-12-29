@@ -1,0 +1,52 @@
+table#orders {
+  &.purchases .buyer {
+    display: none
+  }
+  &.sales .seller {
+    display: none
+  }
+  td.state i {
+    font-size: 120%;
+  }
+
+  &.purchases td.state, &.orders td.state {
+    &.in_progress {
+      i {
+        color: grey;
+      }
+    }
+    &.placed {
+      i {
+        color: blue;
+      }
+    }
+    &.delivering {
+      i {
+        color: orange;
+      }
+    }
+    &.completed {
+      i {
+        color: green;
+      }
+    }
+  }
+
+  &.sales td.state {
+    &.placed {
+      i {
+        color: red;
+      }
+    }
+    &.delivering {
+      i {
+        color: blue;
+      }
+    }
+    &.completed {
+      i {
+        color: green;
+      }
+    }
+  }
+}

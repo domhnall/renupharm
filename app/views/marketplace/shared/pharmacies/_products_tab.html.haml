@@ -1,0 +1,6 @@
+%h2
+  = t("marketplace.pharmacy.products")
+= render partial: 'marketplace/shared/pharmacies/product', collection: @marketplace_pharmacy.products
+- if policy(@marketplace_pharmacy.products.build).create?
+  .actions
+    = link_to t("general.add"), new_marketplace_pharmacy_product_path(pharmacy_id: @marketplace_pharmacy.id), class: "btn btn-success"

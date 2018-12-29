@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Sales::Contact do
-  include Factories
+  include Factories::Base
 
   before :all do
     @pharmacy = Sales::Pharmacy.create!({

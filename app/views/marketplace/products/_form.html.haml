@@ -1,0 +1,37 @@
+= form_for @product, url: @url do |form|
+  .row
+    .col-5
+      .product_images
+        - if @product.images.any?
+          - @product.images.each do |image|
+            .product_image.clearfix{data: { id: image.id }}
+              .image
+                = image_tag(image.variant(resize: '400x400'), class: 'img-product')
+              .actions
+                .delete_image
+                  %i.fa.fa-trash-alt
+                    - #%input{ id: "marketplace_product_image_#{image.id}", type: "hidden", name: "marketplace_product[images][#{image.id}][_destroy]", value: 1 }
+                .undo.hidden
+                  %i.fa.fa-undo
+        - else
+          = image_tag("placeholder-product.jpg", class: 'img-product')
+      .form-group
+        = form.file_field :images, multiple: true, direct_upload: true
+      = form.hidden_field :delete_images
+    .col-7
+      .form-group
+        = form.label :name, t('marketplace.product.name'), class: 'col-form-label'
+        = form.text_field :name, class: 'form-control'
+      .form-group
+        = form.label :description, t('marketplace.product.description'), class: 'col-form-label'
+        = form.text_area :description, class: 'form-control'
+      .form-group
+        = form.label :unit_size, t('marketplace.product.unit_size'), class: 'col-form-label'
+        = form.text_field :unit_size, class: 'form-control'
+      .form-group
+        = form.label :active, t('marketplace.product.active'), class: 'col-form-label col-form-check-label'
+        = form.check_box :active, class: 'col-form-check-input'
+  .row
+    .actions
+      = submit_tag t('general.save'), id: 'submit_product', class: 'btn btn-success'
+      = link_to t('general.cancel'), :back, class: 'btn btn-light'

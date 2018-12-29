@@ -11,6 +11,7 @@
 //= require './Chart'
 //= require './custom-tooltips'
 //= require './vanilla-dataTables'
+//= require './adyen.encrypt'
 //= require_tree ../global
 //= require './renupharm_custom'
 //= require turbolinks

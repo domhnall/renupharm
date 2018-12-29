@@ -1,0 +1,13 @@
+.card.credit_card
+  .brand
+    %label.label= t("marketplace.credit_card.brand")
+    .value= credit_card.brand
+  .number
+    %label.label= t("marketplace.credit_card.number")
+    .value= credit_card.number
+  .holder
+    %label.label= t("marketplace.credit_card.holder")
+    .value= credit_card.holder_name
+  .expiry
+    %label.label= t("marketplace.credit_card.expiry")
+    .value= "#{credit_card.expiry_month}-#{credit_card.expiry_year}"

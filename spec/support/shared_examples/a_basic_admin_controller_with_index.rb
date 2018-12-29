@@ -1,7 +1,12 @@
 shared_examples "a basic admin controller with :index" do
+  include Factories::Marketplace
+
   before :all do
-    @user = create_user
-    @admin_user = create_admin_user(email: 'john@renupharm.ie')
+    @user ||= create_agent(
+      pharmacy: create_pharmacy(name: "Lister's", email: "lesley@listers.com"),
+      user: create_user(email: 'lister@example.com')
+    ).user.becomes(Users::Agent)
+    @admin_user ||= create_admin_user(email: 'john@renupharm.ie')
   end
 
   describe "unauthenticated user" do

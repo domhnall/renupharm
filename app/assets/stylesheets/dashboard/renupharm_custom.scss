@@ -32,6 +32,12 @@ footer.app-footer {
   .show_record {
     width: 70%;
     margin: auto;
+    .form-group {
+      clear: both;
+      textarea {
+        margin-bottom: 1em;
+      }
+    }
     .col-form-label {
       display: inline-block;
       width: 24%;
@@ -42,6 +48,9 @@ footer.app-footer {
       float: right;
       min-height: 2.5em;
       width: 75%;
+    }
+    .col-form-check-input {
+      margin-left: 5px;
     }
     .field_with_errors {
       display: inline;
@@ -61,11 +70,15 @@ footer.app-footer {
   }
 
   .actions {
-    margin: 10px;
+    width: 80%;
+    margin: 10px auto;
     float: right;
     text-align: right;
     .btn-danger {
       margin-right: 20px;
+    }
+    .button_to {
+      display: inline-block;
     }
   }
 }
@@ -167,5 +180,33 @@ li.comment {
   }
   .form-control {
     width: 60%;
+  }
+}
+
+.no_orders {
+  width: 100%;
+  font-style: italic;
+  text-align: center;
+  margin: 50px auto;
+}
+
+.recent_purchases, .recent_sales, .recent_listings {
+  font-size: 85%;
+  min-height: 20px;
+  .no_recent_activity {
+    @extend .no_orders;
+  }
+  ul {
+    padding: 5px;
+    list-style-type: none;
+    display: table;
+    width: 100%;
+    li {
+      display: table-row;
+      margin: 20px auto;
+      .product_name, .sale_value, .purchase_value, .order_value, .updated_at, .created_at {
+        display: table-cell;
+      }
+    }
   }
 }

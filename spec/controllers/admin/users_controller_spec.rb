@@ -1,10 +1,18 @@
 require 'rails_helper'
 
 describe Admin::UsersController do
-  include Factories
+  include Factories::Base
+  include Factories::Marketplace
 
   before :all do
-    @existing = create_user(email: "existing@user.com")
+    @pharmacy = create_pharmacy(name: "Jones' Pharmacy", email: "john@jones.com")
+    @existing = create_user(email: "existing@user.com").tap do |user|
+      create_agent(pharmacy: @pharmacy, user: user)
+    end
+    @user = create_user(email: "subject@user.com").tap do |user|
+      create_agent(pharmacy: @pharmacy, user: user)
+    end
+
     # This hack ensures the timestamp changes on User model on update, so
     # we can use the shared :update specs
     # Without this timestamp update the model looks unchanged as the JSON
@@ -34,7 +42,6 @@ describe Admin::UsersController do
   it_behaves_like "a basic admin controller with :show"
   it_behaves_like "a basic admin controller with :edit"
   it_behaves_like "a basic admin controller with :update", User
-  it_behaves_like "a basic admin controller with :create", User
   it_behaves_like "a basic admin controller with :destroy", User
 
   describe "an authenticated admin" do

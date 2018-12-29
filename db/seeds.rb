@@ -31,6 +31,9 @@ User.where(email: "dev@renupharm.ie").first_or_create do |user|
   user.email = "dev@renupharm.ie"
   user.password = "handbag"
   user.password_confirmation = "handbag"
+  user.build_profile(first_name: "Domhnall", surname: "Murphy", role: Profile::Roles::ADMIN)
   user.skip_confirmation!
   user.confirm
-end.save!
+end.tap do |user|
+  user.profile.avatar.attach(io: File.open("#{Rails.root}/spec/support/images/miyagi_1.jpeg"), filename: "domhnall.jpg")
+end

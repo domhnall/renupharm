@@ -1,0 +1,23 @@
+.card
+  - if comment.persisted?
+    .meta
+      .commented_by
+        = t("comment.commented_by", commenter: h(comment.user&.email)).html_safe
+      .commented_at
+        = t("comment.commented_at", commented_at: h(l(comment.updated_at, format: :long))).html_safe
+  - else
+    %h3= t("comment.new_comment")
+
+  .body{ data: { id: comment.id } }
+    .show{ class: comment.persisted? ? '' : 'hidden' }
+      %p= comment.body
+      .actions
+        = link_to t("general.edit"), "#", class: 'btn btn-primary edit_comment_btn'
+    .edit{ class: comment.persisted? ? 'hidden' : '' }
+      = form_for [:admin, comment.commentable, comment] do |f|
+        = f.text_area :body, class: 'form-control', rows: 5
+        .actions
+          = f.submit comment.persisted? ? t("general.update") : t("general.save"), class: 'btn btn-primary'
+          = link_to t('general.cancel'), "#", class: 'btn btn-secondary cancel_edit_comment_btn'
+          - if comment.persisted?
+            = link_to t('general.delete'), [:admin, comment.commentable, comment], method: :delete, class: 'btn btn-danger', data: { confirm: t("general.confirm_delete") }

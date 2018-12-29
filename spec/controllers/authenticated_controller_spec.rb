@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe AuthenticatedController, type: :controller do
-  include Factories
+  include Factories::Marketplace
 
   controller do
     def index
@@ -10,7 +10,7 @@ describe AuthenticatedController, type: :controller do
   end
 
   before :all do
-    @user = create_user
+    @user = create_agent.user.becomes(Users::Agent)
   end
 
   describe "unauthenticated user" do
@@ -38,6 +38,26 @@ describe AuthenticatedController, type: :controller do
     it "should reflect the response body returned by the controller" do
       get :index
       expect(response.body).to eq "Hello World"
+    end
+
+    describe "who has not accepted terms" do
+      before :all do
+        @user.profile.update_column(:accepted_terms_at, nil)
+      end
+
+      before :each do
+        sign_in @user
+      end
+
+      it "should redirect the user to accept terms" do
+        get :index
+        expect(response).to redirect_to accept_terms_and_conditions_profile_path
+      end
+
+      it "should set an appropriate flash message" do
+        get :index
+        expect(flash[:alert]).to eq I18n.t("profile.errors.must_accept_terms")
+      end
     end
   end
 end

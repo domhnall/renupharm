@@ -1,4 +1,3 @@
-# Files in the config/locales directory are used for internationalization
 # and are automatically loaded by Rails. If you want to use locales other
 # than English, add the necessary files in this directory.
 #
@@ -30,6 +29,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  time:
+    formats:
+      long: "%d/%m/%Y %H:%M"
+      date: "%d/%m/%Y"
   errors:
     record_not_found: "Sorry, the requested item could not be found"
     access_denied: "You do not have access to the requested resource, please contact your administrator."
@@ -44,6 +47,9 @@ en:
     update: "Update"
     add: "Add"
     search: "Search"
+    previous: "Previous"
+    next: "Next"
+    see_more: "See more"
     confirm_delete: "Are you sure you want to delete this record? This action cannot be undone."
     email_validator:
       error: "is not an email"
@@ -52,6 +58,7 @@ en:
       update_successful: "Successfully updated record"
       delete_successful: "Successfully deleted record"
       error: "There has been an error with your submission, please address the issues below."
+    error: "There has been an unexpected error. Please contact support (dev@renupharm.ie)."
   month:
     long:
       1: "January"
@@ -97,6 +104,9 @@ en:
     user:
       editing_title: "Editing %{name}"
       new_title: "New user"
+    agent:
+      editing_title: "Editing %{name}"
+      new_title: "New agent for <a href=\"%{pharmacy_url}\">%{pharmacy_name}</a>"
   surveys:
     heading: RenuPharm Survey
     intro: RenuPharm is an on-line platform aimed at connecting pharmacies across Ireland, facilitating transactions in their medicinal stock. Offering a unique channel for sourcing medications and a viable means for reducing stock wastage, RenuPharm offers tangible benefits to all parties.
@@ -213,10 +223,19 @@ en:
     surname: "Surname"
     telephone: "Telephone"
     role: "Role"
+    created_at: "Created"
+    updated_at: "Updated"
     roles:
       admin: "Admin"
       pharmacy: "Pharmacy"
       courier: "Courier"
+    heading:
+      show: "Your Profile"
+      edit: "Edit Profile"
+    action:
+      accept_terms_and_continue: "Accept & Continue"
+    errors:
+      must_accept_terms: "You must accept the Terms & Conditions before proceeding."
   comment:
     commented_by: "created by <strong>%{commenter}</strong>"
     commented_at: "commented at <strong>%{commented_at}</strong>"
@@ -260,3 +279,138 @@ en:
         browse_marketplace: "Browse Marketplace"
         network_pharmacies: "Network Pharmacies"
         orders: "Orders"
+        products: "Products"
+  dashboard:
+    pharmacy:
+      no_recent_purchases: "No recent purchases"
+      no_recent_sales: "No recent sales"
+      no_recent_listings: "No recent listings"
+  marketplace:
+    product:
+      name: "Name"
+      description: "Description"
+      unit_size: "Unit size"
+      active: "Active"
+      listings: "Listings"
+      images: "Images"
+      labels:
+        new_product: "Add new product"
+        edit_product: "Editing product '%{name}'"
+      flash:
+        create_successful: "Successfully created new product"
+        update_successful: "Successfully updated product"
+        error: "There has been an error with your submission, please review and try again."
+    listing:
+      product: "Product"
+      quantity: "Quantity"
+      expiry: "Expiry"
+      price_cents: "Price (in cents)"
+      display_price: "Price"
+      active: "Active"
+      labels:
+        sold_by: "Sold by"
+        buy_now: "Buy now"
+        expires: "Expires:"
+        new_listing: "Add new listing"
+        edit_listing: "Editing listing for '%{product_name}'"
+        delist: "Delist"
+        activate: "Activate"
+      errors:
+        minimum_expiry: "Valid Marketplace listings must have a minium shelf-life of %{days} days"
+      flash:
+        create_successful: "Successfully created new listing"
+        update_successful: "Successfully updated listing"
+        error: "There has been an error with your submission, please review and try again."
+    order:
+      title: "Order Details: %{reference}"
+      product: "Product details"
+      quantity: "Quantity"
+      seller: "Seller"
+      price: "Price"
+      total_price: "Total price:"
+      updated_at: "Updated"
+      state: "Status"
+      reference: "Reference"
+      comments: "Comments"
+      states:
+        in_progress: "In progress"
+        placed: "Placed"
+        delivering: "Delivering"
+        completed: "Completed"
+      errors:
+        line_items_from_multiple_sellers: "Valid orders can only include products from a single selling pharmacy, please remove some items from your basket."
+      messages:
+        empty_purchases: "There are no purchases matching this condition."
+        empty_sales: "There are no sales matching this condition."
+        empty_orders: "There are no orders matching this condition."
+    pharmacy:
+      name: "Name"
+      description: "Description"
+      address: "Address"
+      address_1: "Address 1"
+      address_2: "Address 2"
+      address_3: "Address 3"
+      email: "Email"
+      telephone: "Telephone"
+      fax: "Fax"
+      active: "Active"
+      active_listings: "Active listings"
+      bank_details: "Bank details"
+      messages:
+        deactive: "Deactivate"
+        confirm_deactivation: "Are you sure you want to deactivate this pharmacy? This will deactive all their products and delist all of their stock."
+        no_bank_details: "You have not set up bank details yet. <a href=\"%{path}\">Set up account details now</a>."
+    agent:
+      full_name: "Name"
+      email: "Email"
+      telephone: "Telephone"
+      superintendent: "Superintendent?"
+      errors:
+        must_be_superintendent: "Pharmacy must nominate a superintendent pharmacist before any other functions can be completed."
+        already_have_superintendent: "Pharmacy can only nominate a single superintendent pharmacist."
+    cart:
+      title: "Your basket"
+      actions:
+        place_order: "Place order"
+        empty_cart: "Empty basket"
+      state:
+        placed: "Order placed"
+      flash:
+        update_successful: "Successfully updated your order"
+      errors:
+        message: "There appears to have been a problem. Please address the following errors to progress your order. If problems persist please <a href=\"mailto:dev@renupharm.ie\">contact support</a>"
+        no_credit_card: "Must have a default credit card set up for your pharmacy. Set one up <a href=\"%{url}\">here</a>."
+        failed_payment: "There has been a problem processing your payment. Please check your payment method."
+        listing_unavailable: "Unfortunately it seems that one of the items in your cart is no longer available. If problems persist please <a href=\"mailto:dev@renupharm.ie\">contact support</a>"
+    credit_card:
+      title: "Add new card details for %{pharmacy_name}"
+      number: "Card number"
+      holder_name: "Holder name"
+      expiry_month: "Expiry month (01-12)"
+      expiry_year: "Expiry year (XXXX)"
+      email: "Email"
+      cvc: "CVC"
+      flash:
+        create_successful: "Successfully added new card details"
+        error: "There has been an error adding these card details. Please review and try again, if problems persists please email support: dev@renumpharm.ie"
+        unexpected_error: "There has been an unexpected error. If problems persists please email support: dev@renumpharm.ie"
+    bank_account:
+      bank_name: "Bank name"
+      bic: "BIC"
+      iban: "IBAN"
+      errors:
+        bic_length: "BIC looks incorrect. Should be either 8 or 11 characters in length"
+      new_title: "New bank details"
+      edit_title: "Edit bank details"
+      flash:
+        update_successful: "Successfully updated bank details"
+        error: "There has been a error updating bank details. Address the errors below and resubmit."
+  mailers:
+    marketplace:
+      order_mailer:
+        purchase_notification:
+          subject: "Your RenuPharm order has been placed"
+        sale_notification:
+          subject: "Your RenuPharm Marketplace listing has been purchased!"
+      delisting_mailer:
+        delisting_notification: "Your RenuPharm listing has been deactivated"

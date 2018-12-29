@@ -1,0 +1,16 @@
+= form_for @bank_account, url: @url do |form|
+  .row
+    .col-8
+      .form-group
+        = form.label :bank_name, t('marketplace.bank_account.bank_name'), class: 'col-form-label'
+        = form.text_field :bank_name, class: 'form-control'
+      .form-group
+        = form.label :bic, t('marketplace.bank_account.bic'), class: 'col-form-label'
+        = form.text_field :bic, class: 'form-control'
+      .form-group
+        = form.label :iban, t('marketplace.bank_account.iban'), class: 'col-form-label'
+        = form.text_field :iban, class: 'form-control'
+
+  .actions
+    = submit_tag t('general.save'), id: 'submit_marketplace_bank_account', class: 'btn btn-success'
+    = link_to t('general.cancel'), marketplace_pharmacy_path(@bank_account.pharmacy), class: 'btn btn-light'

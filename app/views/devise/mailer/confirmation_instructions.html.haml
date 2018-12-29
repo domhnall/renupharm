@@ -1,0 +1,8 @@
+%table.module{:border => "0", :cellpadding => "0", :cellspacing => "0", "data-type" => "text", :role => "module", :style => "table-layout: fixed;", :width => "100%"}
+  %tr
+    %td{:bgcolor => "", :height => "100%", :style => "padding:20px 45px 20px 45px;line-height:22px;text-align:inherit;", :valign => "top"}
+      %div{:style => "text-align: left; color:#333333;"}
+        %p
+          Welcome #{@email}!
+        %p You can confirm your account email through the link below:
+        = render "layouts/shared/mailer_cta", {cta_url: confirmation_url(@resource, confirmation_token: @token), cta_text: "Confirm my account"}

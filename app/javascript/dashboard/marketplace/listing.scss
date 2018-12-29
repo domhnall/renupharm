@@ -1,0 +1,51 @@
+@import '../style.scss';
+
+#marketplace_listings {
+  .listing {
+    .product_details {
+      padding: 10px;
+      .price {
+        .price_major {
+          font-size: 180%;
+        }
+        .price_delimiter:after{
+          content: "."
+        }
+      }
+      .amount {
+        font-size: 90%;
+        color: $border_grey;
+        .label {
+          font-weight: bold;
+        }
+      }
+      .unit_size, .quantity, .expiry {
+        display: table;
+      }
+      .label, .value {
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .label {
+        float: right;
+        margin-right: 5px;
+      }
+      .expiry {
+        margin-top: 10px;
+        color: red;
+      }
+      .seller {
+        .sold_by {
+          font-size: small;
+        }
+        .seller_name {
+          font-weight: bold;
+          font-size: 110%;
+        }
+      }
+      .description {
+        margin-top: 10px;
+      }
+    }
+  }
+}

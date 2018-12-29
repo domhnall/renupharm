@@ -93,4 +93,15 @@ the running container as
 > docker attach renupharm_app_1
 
 
+## Solr
+
+> Triggering a reindex is achieved as follows:
+
+  docker-compose run app bin/rake sunspot:reindex
+
+## Deploying new solr image
+
+> docker-compose build solr
+> docker tag renupharm_solr:latest 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-solr:latest
+> docker push 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-solr:latest
 

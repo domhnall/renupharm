@@ -1,0 +1,41 @@
+= form_for [:admin, @marketplace_pharmacy] do |form|
+  .row
+    .col-8
+      .form-group
+        = form.label :name, t('marketplace.pharmacy.name'), class: 'col-form-label'
+        = form.text_field :name, class: 'form-control'
+      .form-group
+        = form.label :description, t('marketplace.pharmacy.description'), class: 'col-form-label'
+        = form.text_field :description, class: 'form-control'
+      .form-group
+        = form.label :address_1, t('marketplace.pharmacy.address_1'), class: 'col-form-label'
+        = form.text_field :address_1, class: 'form-control'
+      .form-group
+        = form.label :address_2, t('marketplace.pharmacy.address_2'), class: 'col-form-label'
+        = form.text_field :address_2, class: 'form-control'
+      .form-group
+        = form.label :address_3, t('marketplace.pharmacy.address_3'), class: 'col-form-label'
+        = form.text_field :address_3, class: 'form-control'
+      .form-group
+        = form.label :email, t('marketplace.pharmacy.email'), class: 'col-form-label'
+        = form.text_field :email, class: 'form-control'
+      .form-group
+        = form.label :telephone, t('marketplace.pharmacy.telephone'), class: 'col-form-label'
+        = form.text_field :telephone, class: 'form-control'
+      .form-group
+        = form.label :fax, t('marketplace.pharmacy.fax'), class: 'col-form-label'
+        = form.text_field :fax, class: 'form-control'
+      .form-group
+        = form.label :active, t('marketplace.pharmacy.active'), class: 'col-form-label col-form-check-label'
+        = form.check_box :active, class: 'col-form-check-input'
+    .col-4
+      .form-group
+        = image_tag((image = @marketplace_pharmacy.image).attached? ? image : "placeholder-user.png", class: 'img-avatar')
+        = form.file_field :image, direct_upload: true
+
+  .actions
+    = submit_tag t('general.save'), id: 'submit_marketplace_pharmacy', class: 'btn btn-success'
+    - if @marketplace_pharmacy.persisted?
+      = link_to t('general.cancel'), admin_marketplace_pharmacy_path(@marketplace_pharmacy), class: 'btn btn-light'
+    - else
+      = link_to t('general.cancel'), admin_marketplace_pharmacies_path, class: 'btn btn-light'

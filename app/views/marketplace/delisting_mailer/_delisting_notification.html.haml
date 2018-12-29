@@ -1,0 +1,18 @@
+%table.module{:border => "0", :cellpadding => "0", :cellspacing => "0", "data-type" => "text", :role => "module", :style => "table-layout: fixed;", :width => "100%"}
+  %tr
+    %td{:bgcolor => "", :height => "100%", :style => "padding:20px 45px 20px 45px;line-height:22px;text-align:inherit;", :valign => "top"}
+      %div{:style => "text-align: left; color:#333333;"}
+        %p
+          = "Hi #{@agent.full_name}"
+        %p
+          = "Our system has identified that one of your listings has a impending expiry date."
+          = "To protect the integrity of the marketplace this listing has been automatically deactivated."
+        %br/
+        = render 'listing_details', listing: @listing
+        %br/
+        = render "layouts/shared/mailer_cta", cta_url: edit_marketplace_pharmacy_listing_url(pharmacy_id: @listing.seller_id, id: @listing.id), cta_text: "View impacted listing"
+        %p
+          = "If you have any questions or problems relating to this action please contact support."
+        %br/
+        %p
+          = "Thanks for using RenuPharm"

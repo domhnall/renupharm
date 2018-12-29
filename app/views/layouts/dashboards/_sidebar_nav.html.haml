@@ -8,19 +8,19 @@
       %li.divider
       %li.nav-title= t("sidebar.headings.pharmacy")
       %li.nav-item
-        %a.nav-link{href: dashboard_path(dummy: true)}
+        %a.nav-link{href: marketplace_root_path}
           %i.nav-icon.fa.fa-shopping-cart
           = t("sidebar.pharmacy.browse_marketplace")
       %li.nav-item
-        %a.nav-link{href: dashboard_path(dummy: true)}
+        %a.nav-link{href: marketplace_pharmacy_path(current_user.pharmacy)}
           %i.nav-icon.fa.fa-euro-sign
           = t("sidebar.pharmacy.my_shop")
       %li.nav-item
-        %a.nav-link{href: dashboard_path(dummy: true)}
+        %a.nav-link{href: marketplace_pharmacy_sales_path(current_user.pharmacy)}
           %i.nav-icon.fa.fa-sign-out-alt
           = t("sidebar.pharmacy.sales")
       %li.nav-item
-        %a.nav-link{href: dashboard_path(dummy: true)}
+        %a.nav-link{href: marketplace_pharmacy_purchases_path(current_user.pharmacy)}
           %i.nav-icon.fa.fa-sign-in-alt
           = t("sidebar.pharmacy.purchases")
 
@@ -67,17 +67,21 @@
           = t("sidebar.admin.headings.marketplace")
         %ul.nav-dropdown-items
           %li.nav-item
-            %a.nav-link{href: dashboard_path(dummy: true)}
+            %a.nav-link{href: marketplace_root_path}
               %i.nav-icon.fa.fa-chevron-right
               = t("sidebar.admin.marketplace.browse_marketplace")
           %li.nav-item
-            %a.nav-link{href: dashboard_path(dummy: true)}
+            %a.nav-link{href: admin_marketplace_pharmacies_path}
               %i.nav-icon.fa.fa-chevron-right
               = t("sidebar.admin.marketplace.network_pharmacies")
           %li.nav-item
-            %a.nav-link{href: dashboard_path(dummy: true)}
+            %a.nav-link{href: admin_marketplace_orders_path}
               %i.nav-icon.fa.fa-chevron-right
               = t("sidebar.admin.marketplace.orders")
+          %li.nav-item
+            %a.nav-link{href: marketplace_products_path}
+              %i.nav-icon.fa.fa-chevron-right
+              = t("sidebar.admin.marketplace.products")
       %li.nav-item
         %a.nav-link{href: admin_users_path}
           %i.nav-icon.fa.fa-users

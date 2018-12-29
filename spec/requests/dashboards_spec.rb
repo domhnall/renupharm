@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 describe "dashboard page" do
-  include Factories
+  include Factories::Marketplace
 
   before :all do
-    @user = create_user
+    @agent = create_agent
+    @user = @agent.user
   end
 
   describe "unauthenticated user" do

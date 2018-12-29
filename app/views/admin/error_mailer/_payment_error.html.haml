@@ -1,0 +1,9 @@
+%p= "There has been an error processing a payment for user ID #{@user.email}"
+
+%p Please review to ensure the order was correctly placed, and the payment taken.
+
+%p= "Order reference: #{@order.reference}."
+
+%h2= @message
+%p The stacktrace is show below:
+%p= @backtrace

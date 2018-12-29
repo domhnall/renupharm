@@ -1,0 +1,17 @@
+%h2= t("marketplace.pharmacy.bank_details")
+- if pharmacy.bank_account
+  .bank_name
+    %label.label= t("marketplace.bank_account.bank_name")
+    .value= pharmacy.bank_name
+  .bic
+    %label.label= t("marketplace.bank_account.bic")
+    .value= pharmacy.bic
+  .iban
+    %label.label= t("marketplace.bank_account.iban")
+    .value= pharmacy.iban
+  - if policy(pharmacy.bank_account).edit?
+    .actions
+      = link_to t("general.edit"), edit_marketplace_pharmacy_bank_account_path(pharmacy_id: pharmacy.id, id: pharmacy.bank_account.id), class: "btn btn-success"
+- else
+  - if policy(pharmacy.build_bank_account).create?
+    %p= t("marketplace.pharmacy.messages.no_bank_details", path: new_marketplace_pharmacy_bank_account_path(pharmacy_id: pharmacy.id)).html_safe

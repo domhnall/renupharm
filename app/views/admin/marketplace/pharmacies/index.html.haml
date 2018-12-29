@@ -1,0 +1,42 @@
+.row
+  .col-md-12
+    .row.inline_search_form
+      .col-md-6
+      .col-md-6
+        = form_tag admin_marketplace_pharmacies_path, method: :get do
+          %span.active-purple-4.mb-4
+            = text_field_tag "query", nil, class: "form-control", placeholder: t("general.search"), "aria-label": t("general.search")
+          = submit_tag t("general.search"), class: "btn btn-primary"
+    .card
+      %table#marketplace_pharmacies.table
+        %thead
+          %tr
+            %th
+              = t("marketplace.pharmacy.name")
+            %th
+              = t("marketplace.pharmacy.description")
+            %th
+              = t("marketplace.pharmacy.address")
+            %th
+              = t("marketplace.pharmacy.email")
+            %th
+              = t("marketplace.pharmacy.telephone")
+        %tbody
+          - @pharmacies.each do |pharmacy|
+            %tr
+              %td
+                = link_to pharmacy.name, admin_marketplace_pharmacy_path(pharmacy)
+                %span.active_indicator{class: pharmacy.active? ? 'active' : 'inactive'}
+              %td= pharmacy.description
+              %td= truncate_with_ellipsis(pharmacy.address, 30)
+              %td= pharmacy.email
+              %td= pharmacy.telephone
+
+      = render "shared/pagination", { total_count: @total_count,
+        page: @page,
+        per_page: @per_page,
+        current_request: request,
+        path_params: {q: @query} }
+
+      .actions
+        = link_to t("general.new"), new_admin_marketplace_pharmacy_path, class: 'btn btn-success'

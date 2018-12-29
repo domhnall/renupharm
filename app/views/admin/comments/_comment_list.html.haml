@@ -1,0 +1,13 @@
+.comment_list_wrapper
+  - if commentable.comments_count==0
+    %p.no_comments= t("comment.none_present")
+  %ul.comment_list
+    - commentable.comments.each do |comment|
+      %li.comment
+        = render 'admin/comments/comment', comment: comment
+    %li.comment.new_comment.hidden
+      = render 'admin/comments/comment', comment: commentable.comments.build
+  .actions
+    .btn.btn-success.add_comment_btn
+      %i.fa.fa-plus
+      = I18n.t("general.add")

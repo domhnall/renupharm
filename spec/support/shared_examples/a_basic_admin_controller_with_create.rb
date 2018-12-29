@@ -2,10 +2,15 @@
 # Requires a hash for @create_params to be defined
 #
 
-shared_examples "a basic admin controller with :create" do |clazz|
+shared_examples "a basic admin controller with :create" do |clazz, options = {}|
+  include Factories::Marketplace
+
   before :all do
-    @user = create_user(email: 'creator@example.com')
-    @admin_user = create_admin_user(email: 'creator@renupharm.ie')
+    @user ||= create_agent(
+      pharmacy: create_pharmacy(name: "Creator's", email: "cathal@creator.com"),
+      user: create_user(email: 'creator@example.com')
+    ).user.becomes(Users::Agent)
+    @admin_user ||= create_admin_user(email: 'creator@renupharm.ie')
     @clazz = clazz
     @create_params ||= {}
   end
@@ -50,7 +55,7 @@ shared_examples "a basic admin controller with :create" do |clazz|
 
       it "should redirect the user to the show page" do
         post :create, params: @create_params
-        expect(response).to redirect_to self.send("admin_#{@clazz.to_s.gsub("::","_").downcase}_path", @clazz.last)
+        expect(response).to redirect_to (@successful_create_redirect || self.send("admin_#{@clazz.to_s.gsub("::","_").downcase}_path", @clazz.last))
       end
     end
   end

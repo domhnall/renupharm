@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Admin::SurveyResponsesController do
-  include Factories
+  include Factories::Base
 
   it_behaves_like "a basic admin controller with :index"
 

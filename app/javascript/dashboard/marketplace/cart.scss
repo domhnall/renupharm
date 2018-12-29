@@ -1,0 +1,55 @@
+.cart {
+  padding: 10px;
+  h2 {
+    display: inline-block;
+    width: auto;
+  }
+  .empty_cart_btn {
+    display: inline-block;
+    width: auto;
+    .btn {
+      font-size: 60%;
+    }
+  }
+  table.order_details {
+    thead td {
+      font-weight: bold;
+      font-size: 110%;
+    }
+    tbody {
+      border-bottom: 1px solid grey;
+    }
+
+    tfoot {
+      td.total_price_label, td.total_price {
+        font-weight: bold;
+        font-size: 110%
+      }
+    }
+  }
+  .state {
+    display: block;
+    width: 80%;
+    margin: 20px auto;
+    font-weight: bold;
+    font-size: 120%;
+    &.placed {
+      color: orange;
+    }
+  }
+  .error_container {
+    border-radius: 0.3em;
+    margin: 1em 2em;
+    padding: 1em;
+    color: #856404;
+    border: 1px solid #856404;
+    background-color: #fff3cd;
+    ul.errors {
+      font-weight: bold;
+      list-style: none;
+      li::before {
+        content: "» ";
+      }
+    }
+  }
+}

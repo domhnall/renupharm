@@ -1,0 +1,10 @@
+.row
+  .col-md-12
+    .card
+      #pharmacy_products
+        %h2
+          = t("marketplace.pharmacy.products")
+        = render partial: 'marketplace/shared/pharmacies/product', collection: @products
+        - if policy(::Marketplace::Product.new).create?
+          .actions
+            = link_to t("general.add"), new_marketplace_product_path, class: "btn btn-success"

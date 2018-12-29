@@ -1,0 +1,51 @@
+.card.listing{id: "listing_#{listing.id}" }
+  .row
+    .col-5
+      .product_images
+        - if listing.product_images.any?
+          = render 'marketplace/shared/product_images', {product: listing.product}
+        - else
+          = image_tag("placeholder-product.jpg", class: 'img-product')
+    .col-7
+      .product_details
+        .row
+          .col-6
+            .name
+              = listing.product_name
+            .seller
+              %span.sold_by= t("marketplace.listing.labels.sold_by")
+              %span.seller_name
+                = link_to listing.seller_name, marketplace_pharmacy_path(listing.selling_pharmacy)
+          .col-6
+            .price
+              %span.currency_symbol= listing.currency_symbol
+              %span.price_major= listing.price_major
+              %span.price_delimiter
+              %span.price_minor= listing.price_minor
+            .amount
+              .quantity
+                %span.label= t("marketplace.listing.quantity") + ":"
+                %span.value= listing.quantity
+              .unit_size
+                %span.label= t("marketplace.product.unit_size") + ":"
+                %span.value= listing.product_unit_size
+        .row
+          %hr
+          .col-12
+            .description.truncate
+              = listing.product_description
+            .expiry
+              %span.label= t("marketplace.listing.labels.expires")
+              %span.value= format_date(listing.expiry)
+            - if current_order
+              .cta= render "marketplace/listings/buy_cta", order: current_order, listing: listing
+
+  - if policy(listing).update?
+    .row
+      .actions
+        = link_to t("general.edit"), edit_marketplace_pharmacy_listing_path(listing.pharmacy, listing), class: 'btn btn-info'
+        - if listing.active?
+          = button_to t("marketplace.listing.labels.delist"), marketplace_pharmacy_listing_path(listing.pharmacy, listing), method: :patch, params: {marketplace_listing: { active: false }}, class: 'btn btn-danger'
+        - else
+          = button_to t("marketplace.listing.labels.activate"), marketplace_pharmacy_listing_path(listing.pharmacy, listing), method: :patch, params: {marketplace_listing: { active: true }}, class: 'btn btn-warning'
+

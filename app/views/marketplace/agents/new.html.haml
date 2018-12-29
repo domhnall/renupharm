@@ -1,0 +1,7 @@
+.row
+  .col-md-12
+    .card
+      .show_record
+        %h2
+          = t("admin.agent.new_title", pharmacy_name: h(@agent.pharmacy_name), pharmacy_url: marketplace_pharmacy_path(@agent.pharmacy)).html_safe
+        = render 'form'

@@ -1,3 +1,12 @@
-.dummy {
+// Variables
+$border_grey: #c8ced3;
+
+.name, .price {
+  font-weight: bold;
+  font-family: "Trajan";
+  font-size: 200%;
+}
+
+.hidden {
   display: none;
 }

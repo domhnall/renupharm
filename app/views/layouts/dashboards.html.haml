@@ -19,9 +19,8 @@
     - if current_user && current_user.admin?
       = javascript_pack_tag 'admin'
       = stylesheet_pack_tag 'admin'
-    - else
-      = javascript_pack_tag 'dashboard'
-      = stylesheet_pack_tag 'dashboard'
+    = javascript_pack_tag 'dashboard'
+    = stylesheet_pack_tag 'dashboard'
     = csrf_meta_tags
     = csp_meta_tag
     = render 'layouts/favicon'

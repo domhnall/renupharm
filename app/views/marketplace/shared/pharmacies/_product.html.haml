@@ -1,0 +1,21 @@
+.card.product
+  .row
+    .col-5
+      .product_images
+        - if product.images.any?
+          = render "marketplace/shared/product_images", {product: product, context: 'pharmacy_product'}
+        - else
+          = image_tag("placeholder-product.jpg", class: "img-product")
+    .col-7
+      .name
+        = product.name
+      .description.truncate
+        = product.description
+      .amount
+        .unit_size
+          %span.label= t("marketplace.product.unit_size") + ":"
+          %span.value= product.unit_size
+  - if policy(product).edit?
+    .row
+      .actions
+        = link_to t("general.edit"), product.pharmacy ? edit_marketplace_pharmacy_product_path(product.pharmacy, product) : edit_marketplace_product_path(product)
