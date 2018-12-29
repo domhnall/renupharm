@@ -95,6 +95,10 @@ describe Marketplace::CreditCardsController do
       }
     end
 
+    before :each do
+      allow(PAYMENT_GATEWAY).to receive(:purchase).and_return(Adyen::PurchaseResponse.new("paymentResult.pspReference=7913990310819176&paymentResult.authCode=61824&paymentResult.resultCode=Authorised"))
+    end
+
     describe "unauthenticated user" do
       it "should redirect user" do
         post :create, params: @create_params

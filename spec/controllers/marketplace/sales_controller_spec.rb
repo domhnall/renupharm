@@ -49,7 +49,7 @@ describe Marketplace::SalesController do
       it "should include any placed sales against the pharmacy listings" do
         get :index, params: { pharmacy_id: @selling_pharmacy.id }
         expect(response.body).to include @payment.reference
-        expect(response.body).to include @order.product.name
+        expect(response.body).to include @order.product_names
       end
 
       it "should not include any in-progress orders against the pharmacy listings" do
