@@ -343,6 +343,7 @@ DEPENDENCIES
   pundit
   rails (~> 5.2.2)
   rails-controller-testing
+  rake
   rest-client
   rspec-rails
   sass-rails (~> 5.0)
