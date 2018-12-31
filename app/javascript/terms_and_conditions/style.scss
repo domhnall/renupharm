@@ -1,8 +1,17 @@
-#user_agreement {
-  .container {
-    background: #f6f6f6 none repeat scroll 0 0;
+.card#accept_terms_and_conditions {
+  padding: 0 5%;
+  #accept_terms_and_conditions_form {
+    text-align: right;
+    .form-group {
+      margin-bottom: 0;
+    }
+    .actions {
+      margin: 0 auto 20px auto;
+    }
   }
+}
 
+#user_agreement {
   font-size: 80%;
   h2, h3 {
     text-align: center;

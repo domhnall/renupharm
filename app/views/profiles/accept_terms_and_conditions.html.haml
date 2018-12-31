@@ -1,8 +1,9 @@
-= render 'pages/terms_and_conditions'
-#accept_terms_and_conditions_form
-  = form_for @profile do |profile_form|
-    .form-group
-      = profile_form.label :accepted_terms, "I agree to the terms and conditions", class: 'col-form-label'
-      = profile_form.check_box :accepted_terms, {}, "true"
-    .actions
-      = submit_tag t("profile.action.accept_terms_and_continue"), id: 'submit_accept_terms', class: 'btn btn-success'
+.card#accept_terms_and_conditions
+  = render 'pages/terms_and_conditions'
+  #accept_terms_and_conditions_form
+    = form_for @profile do |profile_form|
+      .form-group
+        = profile_form.label :accepted_terms, "I agree to the terms and conditions", class: 'col-form-label'
+        = profile_form.check_box :accepted_terms, {}, "true"
+      .actions
+        = submit_tag t("profile.action.accept_terms_and_continue"), id: 'submit_accept_terms', class: 'btn btn-success'
