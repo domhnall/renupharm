@@ -3,10 +3,28 @@ class Marketplace::ProductsController < AuthenticatedController
     @page        = params.fetch(:page, 1).to_i
     @per_page    = [params.fetch(:per_page, 25).to_i, 50].min
     @query       = params.fetch(:query, "")
-    @total_count = get_scope(@query).count
+    @order       = params.fetch(:order, :custom_first)
+
+    @products = Marketplace::ProductSearcher.new(
+      query: @query,
+      page: @page,
+      per_page: @per_page,
+      order: @order,
+      pharmacy_id: pharmacy.id
+    ).search
+    @total_count = @products.total_count
     @total_pages = (@total_count/@per_page).ceil
 
-    @products = get_scope(@query).limit(@per_page).offset((@page-1)*@per_page)
+    respond_to do |format|
+      format.html { render :index }
+      format.json do
+        render json: {
+          products: @products.as_json(methods: :image_urls),
+          total_count: @total_count,
+          query: @query
+        }
+      end
+    end
   end
 
   def show

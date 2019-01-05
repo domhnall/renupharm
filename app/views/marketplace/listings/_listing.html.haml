@@ -3,7 +3,7 @@
     .col-5
       .product_images
         - if listing.product_images.any?
-          = render 'marketplace/shared/product_images', {product: listing.product}
+          = render 'marketplace/shared/product_images', {product: listing.product, context: "listing_#{listing.id}"}
         - else
           = image_tag("placeholder-product.jpg", class: 'img-product')
     .col-7

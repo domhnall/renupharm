@@ -28,6 +28,12 @@ class Marketplace::Product < ApplicationRecord
 
   after_save :clean_up_images!
 
+  def image_urls
+    images.map do |image|
+      Rails.application.routes.url_helpers.rails_blob_path(image, disposition: "attachment", only_path: true)
+    end
+  end
+
   private
 
   def clean_up_images!

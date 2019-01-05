@@ -3,5 +3,6 @@
   .col-md-12
     #survey_results
 
-:javascript
-  document.dispatchEvent(new Event("admin_dashboard:init"));
+- content_for :javascript_footer do
+  :javascript
+    document.dispatchEvent(new Event("admin_dashboard:init"));

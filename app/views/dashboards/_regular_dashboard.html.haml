@@ -53,5 +53,6 @@
       .recent_listings.card-body.pb-0
         = render "recent_listings", listings: @recent_listings
 
-:javascript
-  document.dispatchEvent(new Event("regular_dashboard:init"));
+- content_for :javascript_footer do
+  :javascript
+    document.dispatchEvent(new Event("regular_dashboard:init"));
