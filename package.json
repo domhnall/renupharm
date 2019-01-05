@@ -5,6 +5,7 @@
     "@rails/webpacker": "3.5",
     "activestorage": "^5.2.1",
     "chart.js": "^2.7.2",
+    "flatpickr": "^4.5.2",
     "lodash.throttle": "^4.1.1",
     "vue": "^2.5.17",
     "vue-loader": "14.2.2",

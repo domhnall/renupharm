@@ -307,6 +307,7 @@ en:
       price_cents: "Price (in cents)"
       display_price: "Price"
       active: "Active"
+      select_date: "Select date …"
       labels:
         sold_by: "Sold by"
         buy_now: "Buy now"

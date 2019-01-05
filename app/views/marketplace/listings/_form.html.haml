@@ -11,7 +11,7 @@
         = form.text_field :price_cents, class: 'form-control'
       .form-group
         = form.label :expiry, t('marketplace.listing.expiry'), class: 'col-form-label'
-        = form.text_field :expiry, class: 'form-control'
+        = form.text_field :expiry, class: 'form-control', placeholder: t("marketplace.listing.select_date")
       .form-group
         = form.label :active, t('marketplace.listing.active'), class: 'col-form-label col-form-check-label'
         = form.check_box :active, class: 'col-form-check-input'

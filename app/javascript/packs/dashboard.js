@@ -1,5 +1,7 @@
 import Vue from 'vue/dist/vue.esm';
 import TurbolinksAdapter from 'vue-turbolinks';
+import flatpickr from "flatpickr";
+import 'flatpickr/dist/flatpickr.min.css';
 
 import '../dashboard';
 import '../direct_uploads';
@@ -17,4 +19,6 @@ document.addEventListener('turbolinks:load', () => {
   const app = new Vue({
     el: '[data-behaviour="vue"]'
   });
+
+  flatpickr("#marketplace_listing_expiry", {});
 });
