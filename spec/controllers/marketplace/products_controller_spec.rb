@@ -20,6 +20,8 @@ describe Marketplace::ProductsController do
     ).user.becomes(Users::Agent)
 
     @admin_user = create_admin_user(email: "adam@renupharm.ie")
+
+    ::Marketplace::Product.reindex
   end
 
   describe "#index" do
@@ -41,30 +43,32 @@ describe Marketplace::ProductsController do
       end
 
       it "should return a successful reponse" do
-        get :index
+        get :index, params: { pharmacy_id: @pharmacy.id }
         expect(response).to have_http_status 200
       end
 
       it "should render the dashboard layout" do
-        get :index
+        get :index, params: { pharmacy_id: @pharmacy.id }
         expect(response).to render_template 'layouts/dashboards'
       end
 
       it "should list products for the agents pharmacy" do
-        get :index
+        get :index, params: { pharmacy_id: @pharmacy.id }
         expect(assigns(:products).map(&:id)).to include @pharmacy_product.id
       end
 
       it "should list generic products" do
-        get :index
+        get :index, params: { pharmacy_id: @pharmacy.id }
         expect(assigns(:products).map(&:id)).to include @generic_product.id
       end
 
       it "should not list products from other pharmacies" do
         sign_in @other_user
-        get :index
+        get :index, params: { pharmacy_id: @other_user.pharmacy.id }
         expect(assigns(:products).map(&:id)).not_to include @pharmacy_product.id
         expect(assigns(:products).map(&:id)).to include @generic_product.id
+        get :index, params: { pharmacy_id: @pharmacy.id }
+        expect(assigns(:products).map(&:id)).not_to include @pharmacy_product.id
       end
 
       describe "renupharm admin" do
@@ -77,9 +81,8 @@ describe Marketplace::ProductsController do
           expect(response).to have_http_status 200
         end
 
-        it "should list all products, generic and pharmacy-specific" do
+        it "should list all generic products" do
           get :index
-          expect(assigns(:products).map(&:id)).to include @pharmacy_product.id
           expect(assigns(:products).map(&:id)).to include @generic_product.id
         end
       end

@@ -10,7 +10,7 @@ class Marketplace::ProductsController < AuthenticatedController
       page: @page,
       per_page: @per_page,
       order: @order,
-      pharmacy_id: pharmacy.id
+      pharmacy_id: pharmacy&.id
     ).search
     @total_count = @products.total_count
     @total_pages = (@total_count/@per_page).ceil
