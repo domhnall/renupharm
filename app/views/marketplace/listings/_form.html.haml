@@ -2,7 +2,8 @@
 = form_for @listing, url: url do |form|
   .row
     .col-12
-      <product-select></product-select>
+      #product_select{data: { behaviour: "vue" } }
+        <product-select></product-select>
       .form-group
         = form.label :quantity, t('marketplace.listing.quantity'), class: 'col-form-label'
         = form.text_field :quantity, class: 'form-control'

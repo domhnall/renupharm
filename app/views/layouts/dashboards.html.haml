@@ -26,16 +26,15 @@
     = render 'layouts/favicon'
     %link{ rel: "stylesheet", href: "https://use.fontawesome.com/releases/v5.3.1/css/all.css", integrity: "sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU", crossorigin: "anonymous"}
   %body.app.header-fixed.sidebar-fixed.aside-menu-fixed.sidebar-lg-show
-    .app#vue_wrapper{ data: { behaviour: "vue" } }
-      = render 'layouts/dashboards/header'
-      .app-body
-        .sidebar
-          = render 'layouts/dashboards/sidebar_nav'
-        %main.main
-          .container-fluid
-            = render 'layouts/shared/flash'
-            .animated.fadeIn
-              = yield
-      = render 'layouts/dashboards/footer'
+    = render 'layouts/dashboards/header'
+    .app-body
+      .sidebar
+        = render 'layouts/dashboards/sidebar_nav'
+      %main.main
+        .container-fluid
+          = render 'layouts/shared/flash'
+          .animated.fadeIn
+            = yield
+    = render 'layouts/dashboards/footer'
 
     = content_for :javascript_footer
