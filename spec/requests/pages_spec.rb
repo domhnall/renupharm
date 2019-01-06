@@ -33,7 +33,7 @@ describe "public pages" do
     it "should be able to access the terms and conditions page" do
       get terms_and_conditions_pages_path
       expect(response.status).to eq 200
-      expect(response.body).to include "TERMS AND CONDITIONS"
+      expect(response.body).to include "USER AGREEMENT"
     end
   end
 end

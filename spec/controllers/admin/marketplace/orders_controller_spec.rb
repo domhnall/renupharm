@@ -16,7 +16,7 @@ describe Admin::Marketplace::OrdersController do
       @existing = create_order({
         agent: create_agent(pharmacy: pharmacy, user: create_user(email: "tester@test.com")),
         pharmacy: pharmacy,
-        state: Marketplace::Order::State::valid_states.sample
+        state: Marketplace::Order::State::IN_PROGRESS
       })
     end
 
@@ -24,7 +24,7 @@ describe Admin::Marketplace::OrdersController do
       id: @existing.id,
       marketplace_order: {
         id: @existing.id,
-        state: "in_progress"
+        state: Marketplace::Order::State::PLACED
       }
     }
   end
