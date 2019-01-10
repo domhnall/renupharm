@@ -10,10 +10,14 @@ describe Marketplace::Listing do
     :product,
     :active,
     :acceptable_expiry?,
+    :batch_number,
+    :seller_note,
     :product_name,
-    :product_description,
-    :product_unit_size,
     :product_images,
+    :product_form_name,
+    :active_ingredient,
+    :pack_size,
+    :strength,
     :selling_pharmacy,
     :pharmacy,
     :seller_id,
@@ -34,6 +38,8 @@ describe Marketplace::Listing do
       product: @product,
       quantity: 2,
       price_cents: 8999,
+      batch_number: "123456",
+      seller_note: "Untouched boxes. Patient has moved on to a new strength.",
       expiry: Date.today+90.days,
       active: true
     }
@@ -48,7 +54,7 @@ describe Marketplace::Listing do
       expect(Marketplace::Listing.new(@params.merge(product: nil, marketplace_product_id: nil))).not_to be_valid
     end
 
-    [:quantity, :price_cents, :expiry].each do |attr|
+    [:quantity, :price_cents, :batch_number, :expiry].each do |attr|
       it "should not be valid when :#{attr} is not supplied" do
         expect(Marketplace::Listing.new(@params.merge(attr => nil))).not_to be_valid
       end
@@ -119,10 +125,10 @@ describe Marketplace::Listing do
     describe "#marketplace_pharmacy_id=" do
       before :all do
         @other_pharmacy = create_pharmacy(name: "Other pharmacy", email: "other@renupharm.ie")
-        @generic_product = Marketplace::Product.create!({
+        @generic_product = create_product({
+          pharmacy: nil,
           name: "Vegetable Oil",
-          unit_size: "1000 ml",
-          description: "Excellent for cooking"
+          pack_size: "1000 ml",
         })
       end
 

@@ -15,9 +15,9 @@
         {{ description }}
       </div>
       <div class="amount">
-        <div class="unit_size">
+        <div class="pack_size">
           <span class="label">Unit size:</span>
-          <span class="value">{{ unit_size }}</span>
+          <span class="value">{{ pack_size }}</span>
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@ export default {
   props: {
     name: String,
     description: String,
-    unit_size: String,
+    pack_size: String,
     image_urls: Array,
     selected: Boolean
   }

@@ -1,4 +1,4 @@
-.card.product
+.card.product{class: product.active? ? 'active' : 'inactive'}
   .row
     .col-5
       .product_images
@@ -9,12 +9,24 @@
     .col-7
       .name
         = product.name
-      .description.truncate
-        = product.description
-      .amount
-        .unit_size
-          %span.label= t("marketplace.product.unit_size") + ":"
-          %span.value= product.unit_size
+      - if product.manufacturer
+        .manufacturer
+          %span.label= t("marketplace.product.manufacturer") + ":"
+          %span.value= product.manufacturer
+      .active_ingredient
+        %span.label= t("marketplace.product.active_ingredient") + ":"
+        %span.value= product.active_ingredient
+      .product_form
+        %span.label= t("marketplace.product.form") + ":"
+        %span.value= product.product_form_name
+      .strength
+        %span.label= t("marketplace.product.strength") + ":"
+        %span.value= "#{product.strength} #{product.strength_unit}"
+      .pack_size
+        %span.label= t("marketplace.product.pack_size") + ":"
+        %span.value= product.pack_size
+      .manufacturer
+        = product.manufacturer
   - if policy(product).edit?
     .row
       .actions

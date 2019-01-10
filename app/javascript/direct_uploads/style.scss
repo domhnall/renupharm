@@ -1,5 +1,6 @@
+$border_grey: #c8ced3;
 
- .direct-upload {
+.direct-upload {
   display: inline-block;
   position: relative;
   padding: 2px 4px;
@@ -47,6 +48,7 @@ input[type=file][data-direct-upload-url][disabled] {
   .img-product {
     max-width: 100%;
     height: auto;
+    border: 1px solid $border_grey;
     border-radius: 2em;
   }
   .actions {
@@ -54,6 +56,13 @@ input[type=file][data-direct-upload-url][disabled] {
     .delete_image, .undo {
       &:hover {
         cursor: pointer;
+      }
+      .fa.fa-trash-alt {
+        position: relative;
+        top: -20px;
+        right: 5px;
+        background: white;
+        padding: 3px;
       }
     }
   }

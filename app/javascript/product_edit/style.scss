@@ -1,0 +1,18 @@
+form.product_form {
+  .strength, .pack_size {
+    display: inline-block;
+    width: 75%;
+    input {
+      width: 70%;
+    }
+    .form-control {
+      float: none;
+    }
+    .unit {
+      width: 30%;
+      padding-left: 2%;
+      font-style: italic;
+      font-weight: lighter;
+    }
+  }
+}

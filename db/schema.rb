@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_28_190602) do
+ActiveRecord::Schema.define(version: 2019_01_06_134620) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(version: 2018_12_28_190602) do
     t.datetime "purchased_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "batch_number"
+    t.text "seller_note"
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_listings_on_marketplace_pharmacy_id"
     t.index ["marketplace_product_id"], name: "index_marketplace_listings_on_marketplace_product_id"
   end
@@ -157,11 +159,14 @@ ActiveRecord::Schema.define(version: 2018_12_28_190602) do
   create_table "marketplace_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "marketplace_pharmacy_id"
     t.string "name"
-    t.text "description"
-    t.string "unit_size"
+    t.string "pack_size"
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "active_ingredient"
+    t.string "form"
+    t.string "strength"
+    t.string "manufacturer"
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_products_on_marketplace_pharmacy_id"
   end
 

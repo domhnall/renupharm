@@ -64,13 +64,15 @@ module Factories
       ::Marketplace::Product.create({
         pharmacy: pharmacy,
         name: attrs.fetch(:name){ Faker::Science.unique.element },
-        unit_size: attrs.fetch(:unit_size){ "80 capsules" },
-        description: attrs.fetch(:description){ Faker::Lorem.paragraph(3) },
+        pack_size: attrs.fetch(:pack_size){ "80 capsules" },
+        active_ingredient: attrs.fetch(:description){ Faker::Science.element },
+        form: attrs.fetch(:form){ "hard_capsules" },
+        manufacturer: attrs.fetch(:manufacturer){ Faker::Company.name },
+        strength: attrs.fetch(:strength){ "100mg" },
         active: attrs.fetch(:active){ true }
       }).tap do |product|
         if attrs.fetch(:with_images, false)
           begin
-            #img = open(Faker::Avatar.image(product.name.downcase, "50x50", "jpg"))
             img = generate_image(product.name.downcase)
             product.images.attach(io: img, filename: product.name) if img
             product.save!
@@ -85,6 +87,8 @@ module Factories
         quantity: attrs.fetch(:quantity){ 1 },
         price_cents: attrs.fetch(:price_cents){ (8000+rand*7000).floor },
         expiry: attrs.fetch(:expiry){ Date.today+24.days },
+        batch_number: attrs.fetch(:batch_number){ Faker::Number.leading_zero_number(10) },
+        seller_note: attrs.fetch(:seller_note){ Faker::Lorem.paragraph(3) },
         active: attrs.fetch(:active){ true },
         purchased_at: attrs.fetch(:purchased_at){ nil }
       })

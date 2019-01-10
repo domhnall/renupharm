@@ -7,6 +7,7 @@ import '../dashboard';
 import '../direct_uploads';
 import '../utils';
 import '../terms_and_conditions';
+import '../product_edit';
 
 import ProductSelect from '../product_select/app.vue';
 import Product from '../product_select/product.vue';

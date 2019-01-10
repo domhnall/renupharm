@@ -25,8 +25,8 @@
     %tr
       %td.product
         %strong= t("marketplace.listing.product")
-      %td.unit_size
-        %strong= t("marketplace.product.unit_size")
+      %td.pack_size
+        %strong= t("marketplace.product.pack_size")
       %td.quantity
         %strong= t("marketplace.listing.quantity")
       %td.expiry
@@ -37,7 +37,7 @@
     - order.line_items.each do |line_item|
       %tr
         %td.product=line_item.product.name
-        %td.product=line_item.product.unit_size
+        %td.product=line_item.product.pack_size
         %td.quantity=line_item.quantity
         %td.expiry=l(line_item.expiry, format: :short)
         %td.price=line_item.display_price

@@ -20,15 +20,21 @@ class Marketplace::Listing < ApplicationRecord
 
   alias_method :selling_pharmacy, :pharmacy
 
-  validates :quantity, :price_cents, :expiry, presence: true
+  validates :quantity, :price_cents, :expiry, :batch_number, presence: true
   validates :quantity, numericality: { only_integer: true, greater_than: 0 }
   validates :price_cents, numericality: { only_integer: true, greater_than: 800, less_than: 50000 }
+  validates :seller_note, length: { minimum: 3, maximum: 1000 }, allow_nil: true
+  validates :batch_number, length: { minimum: 3, maximum: 32 }
   validate :verify_expiry_acceptable, if: :active
 
   delegate :name,
-           :description,
-           :unit_size,
            :images, to: :product, prefix: true
+
+  delegate :active_ingredient,
+           :product_form_name,
+           :strength,
+           :pack_size,
+           :manufacturer, to: :product
 
   delegate :id,
            :name,

@@ -71,6 +71,8 @@ class Marketplace::ListingsController < AuthenticatedController
   end
 
   def listing_params
-    params.require(:marketplace_listing).permit(:marketplace_product_id, :quantity, :expiry, :price_cents, :active)
+    params
+    .require(:marketplace_listing)
+    .permit(:marketplace_product_id, :quantity, :expiry, :price_cents, :batch_number, :seller_note, :active)
   end
 end

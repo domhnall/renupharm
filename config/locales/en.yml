@@ -288,8 +288,11 @@ en:
   marketplace:
     product:
       name: "Name"
-      description: "Description"
-      unit_size: "Unit size"
+      active_ingredient: "Active ingredient"
+      form: "Form"
+      strength: "Strength"
+      pack_size: "Pack size"
+      manufacturer: "Manufacturer"
       active: "Active"
       listings: "Listings"
       images: "Images"
@@ -303,9 +306,11 @@ en:
     listing:
       product: "Product"
       quantity: "Quantity"
+      batch_number: "Batch number"
       expiry: "Expiry"
       price_cents: "Price (in cents)"
       display_price: "Price"
+      seller_note: "Seller note"
       active: "Active"
       select_date: "Select date …"
       labels:

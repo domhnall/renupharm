@@ -26,14 +26,14 @@
               .quantity
                 %span.label= t("marketplace.listing.quantity") + ":"
                 %span.value= listing.quantity
-              .unit_size
-                %span.label= t("marketplace.product.unit_size") + ":"
-                %span.value= listing.product_unit_size
+              .pack_size
+                %span.label= t("marketplace.product.pack_size") + ":"
+                %span.value= listing.pack_size
         .row
           %hr
           .col-12
-            .description.truncate
-              = listing.product_description
+            .seller_note.truncate
+              = listing.seller_note
             .expiry
               %span.label= t("marketplace.listing.labels.expires")
               %span.value= format_date(listing.expiry)

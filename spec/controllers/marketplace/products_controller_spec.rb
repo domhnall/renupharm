@@ -168,8 +168,11 @@ describe Marketplace::ProductsController do
           images: [],
           delete_images: "",
           name: "chubby checker",
-          description: "And the fat men",
-          unit_size: "Family size",
+          active_ingredient: "marzipan",
+          form: "hard_capsules",
+          strength: "5mg",
+          manufacturer: "Mattel",
+          pack_size: "40",
           active: "1"
         }
       }
@@ -275,8 +278,11 @@ describe Marketplace::ProductsController do
           images: [],
           delete_images: "",
           name: "chubby checker",
-          description: "And the fat men",
-          unit_size: "Family size",
+          active_ingredient: "marzipan",
+          form: "hard_capsules",
+          strength: "5mg",
+          manufacturer: "Mattel",
+          pack_size: "40",
           active: "1"
         }
       }

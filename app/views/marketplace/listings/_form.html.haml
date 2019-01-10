@@ -8,11 +8,17 @@
         = form.label :quantity, t('marketplace.listing.quantity'), class: 'col-form-label'
         = form.text_field :quantity, class: 'form-control'
       .form-group
+        = form.label :batch_number, t('marketplace.listing.batch_number'), class: 'col-form-label'
+        = form.text_field :batch_number, class: 'form-control'
+      .form-group
         = form.label :price_cents, t('marketplace.listing.price_cents'), class: 'col-form-label'
         = form.text_field :price_cents, class: 'form-control'
       .form-group
         = form.label :expiry, t('marketplace.listing.expiry'), class: 'col-form-label'
         = form.text_field :expiry, class: 'form-control', placeholder: t("marketplace.listing.select_date")
+      .form-group.optional
+        = form.label :seller_note, t('marketplace.listing.seller_note'), class: 'col-form-label'
+        = form.text_area :seller_note, class: 'form-control'
       .form-group
         = form.label :active, t('marketplace.listing.active'), class: 'col-form-label col-form-check-label'
         = form.check_box :active, class: 'col-form-check-input'
