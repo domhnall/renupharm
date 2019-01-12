@@ -18,7 +18,9 @@ describe Marketplace::Product do
     :product_form,
     :product_form_name,
     :strength_unit,
-    :pack_size_unit ].each do |method|
+    :pack_size_unit,
+    :display_strength,
+    :display_pack_size ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Product.new).to respond_to method
     end
@@ -32,8 +34,8 @@ describe Marketplace::Product do
         name: "Paracetomol",
         active_ingredient: "stuff",
         form: "hard_capsules",
-        pack_size: "40 capsules",
-        strength: "110mg",
+        pack_size: "40",
+        strength: "110",
         active: true
       }
     end
@@ -54,31 +56,33 @@ describe Marketplace::Product do
       expect(Marketplace::Product.new(@params.merge(active_ingredient: nil))).not_to be_valid
     end
 
-    it "should be invalid when :strength is not supplied" do
-      expect(Marketplace::Product.new(@params.merge(strength: nil))).not_to be_valid
-    end
-
     it "should be invalid when :form is not supplied" do
       expect(Marketplace::Product.new(@params.merge(form: nil))).not_to be_valid
+    end
+
+    it "should be invalid when :strength is not supplied" do
+      expect(Marketplace::Product.new(@params.merge(strength: nil))).not_to be_valid
     end
 
     it "should be invalid when :pack_size is not supplied" do
       expect(Marketplace::Product.new(@params.merge(pack_size: nil))).not_to be_valid
     end
 
-    describe "pack_size length" do
-      it "should be invalid when :pack_size is blank" do
-        expect(Marketplace::Product.new(@params.merge(pack_size: ""))).not_to be_valid
-        expect(Marketplace::Product.new(@params.merge(pack_size: "a"))).to be_valid
-      end
-
-      it "should be invalid when :pack_size is greater than 255 characters" do
-        expect(Marketplace::Product.new(@params.merge(pack_size: "a"*255))).to be_valid
-        expect(Marketplace::Product.new(@params.merge(pack_size: "a"*256))).not_to be_valid
-      end
+    it "should be invalid when :strength is not a number" do
+      expect(Marketplace::Product.new(@params.merge(strength: "5mg"))).not_to be_valid
+      expect(Marketplace::Product.new(@params.merge(strength: "5"))).to be_valid
+      expect(Marketplace::Product.new(@params.merge(strength: "5.0mg"))).not_to be_valid
+      expect(Marketplace::Product.new(@params.merge(strength: "5.0"))).to be_valid
     end
 
-    [:name, :active_ingredient, :strength].each do |attr|
+    it "should be invalid when :pack_size is not a number" do
+      expect(Marketplace::Product.new(@params.merge(pack_size: "40caps"))).not_to be_valid
+      expect(Marketplace::Product.new(@params.merge(pack_size: "40"))).to be_valid
+      expect(Marketplace::Product.new(@params.merge(pack_size: "250.0ml"))).not_to be_valid
+      expect(Marketplace::Product.new(@params.merge(pack_size: "250.0"))).to be_valid
+    end
+
+    [:name, :active_ingredient].each do |attr|
       describe "#{attr} length" do
         it "should be invalid when :#{attr} is less than 3 characters" do
           expect(Marketplace::Product.new(@params.merge(attr => "a"*2))).not_to be_valid
@@ -126,11 +130,11 @@ describe Marketplace::Product do
         end
 
         it "should be valid if :pack_size is unique for the given pharmacy" do
-          expect(@pharmacy.products.build(@new_params.merge(pack_size: "80 capsules"))).to be_valid
+          expect(@pharmacy.products.build(@new_params.merge(pack_size: "80"))).to be_valid
         end
 
         it "should be valid if :pack_size is unique for the given pharmacy" do
-          expect(@pharmacy.products.build(@new_params.merge(pack_size: "80 capsules"))).to be_valid
+          expect(@pharmacy.products.build(@new_params.merge(pack_size: "80"))).to be_valid
         end
 
         it "should be valid if duplicate product belongs to a different pharmacy" do
@@ -165,6 +169,40 @@ describe Marketplace::Product do
       it "should return nil if the #form is not set on the product" do
         @product.form = nil
         expect(@product.product_form).to be_nil
+      end
+    end
+
+    describe "#display_strength" do
+      it "should return a String" do
+        expect(@product.display_strength).to be_a String
+      end
+
+      it "should return a blank string where :strength is not set" do
+        @product.strength = nil
+        expect(@product.display_strength).to be_blank
+      end
+
+      it "should return a string representing the strength with the appropriate unit" do
+        @product.form = "cream"
+        @product.strength = 2.5
+        expect(@product.display_strength).to eq "2.5 mg"
+      end
+    end
+
+    describe "#display_pack_size" do
+      it "should return a String" do
+        expect(@product.display_pack_size).to be_a String
+      end
+
+      it "should return a blank string where :pack_size is not set" do
+        @product.pack_size = nil
+        expect(@product.display_pack_size).to be_blank
+      end
+
+      it "should return a string representing the pack_size with the appropriate unit" do
+        @product.form = "cream"
+        @product.pack_size = 200
+        expect(@product.display_pack_size).to eq "200 ml"
       end
     end
   end

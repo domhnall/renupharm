@@ -34,7 +34,9 @@ class Marketplace::Listing < ApplicationRecord
            :product_form_name,
            :strength,
            :pack_size,
-           :manufacturer, to: :product
+           :manufacturer,
+           :display_strength,
+           :display_pack_size, to: :product
 
   delegate :id,
            :name,

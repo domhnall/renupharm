@@ -298,14 +298,14 @@ en:
       images: "Images"
       labels:
         new_product: "Add new product"
-        edit_product: "Editing product '%{name}'"
+        edit_product: "Editing product"
       flash:
         create_successful: "Successfully created new product"
         update_successful: "Successfully updated product"
         error: "There has been an error with your submission, please review and try again."
     listing:
       product: "Product"
-      quantity: "Quantity"
+      quantity: "Number of packs"
       batch_number: "Batch number"
       expiry: "Expiry"
       price_cents: "Price (in cents)"
@@ -316,9 +316,9 @@ en:
       labels:
         sold_by: "Sold by"
         buy_now: "Buy now"
-        expires: "Expires:"
+        expires: "Expires"
         new_listing: "Add new listing"
-        edit_listing: "Editing listing for '%{product_name}'"
+        edit_listing: "Editing listing"
         delist: "Delist"
         activate: "Activate"
       errors:

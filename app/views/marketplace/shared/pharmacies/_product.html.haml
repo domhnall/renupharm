@@ -21,10 +21,10 @@
         %span.value= product.product_form_name
       .strength
         %span.label= t("marketplace.product.strength") + ":"
-        %span.value= "#{product.strength} #{product.strength_unit}"
+        %span.value= product.display_strength
       .pack_size
         %span.label= t("marketplace.product.pack_size") + ":"
-        %span.value= product.pack_size
+        %span.value= product.display_pack_size
       .manufacturer
         = product.manufacturer
   - if policy(product).edit?

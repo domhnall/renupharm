@@ -16,25 +16,42 @@
               %span.sold_by= t("marketplace.listing.labels.sold_by")
               %span.seller_name
                 = link_to listing.seller_name, marketplace_pharmacy_path(listing.selling_pharmacy)
+            .detail-group.form
+              %span.label= t("marketplace.product.form")
+              %span.value= listing.product_form_name
+            .detail-group.active_ingredient
+              %span.label= t("marketplace.product.active_ingredient")
+              %span.value= listing.active_ingredient
+            .detail-group.strength
+              %span.label= t("marketplace.product.strength")
+              %span.value= listing.display_strength
+            - if listing.manufacturer
+              .detail-group.manufacturer
+                %span.label= t("marketplace.product.manufacturer")
+                %span.value= listing.manufacturer
+
           .col-6
             .price
               %span.currency_symbol= listing.currency_symbol
               %span.price_major= listing.price_major
               %span.price_delimiter
               %span.price_minor= listing.price_minor
-            .amount
-              .quantity
-                %span.label= t("marketplace.listing.quantity") + ":"
-                %span.value= listing.quantity
-              .pack_size
-                %span.label= t("marketplace.product.pack_size") + ":"
-                %span.value= listing.pack_size
+            .detail-group.pack_size
+              %span.label= t("marketplace.product.pack_size")
+              %span.value= listing.display_pack_size
+            .detail-group.quantity
+              %span.label= t("marketplace.listing.quantity")
+              %span.value= listing.quantity
         .row
           %hr
-          .col-12
-            .seller_note.truncate
-              = listing.seller_note
-            .expiry
+          .col-12.mt-3
+            - unless listing.seller_note.blank?
+              .seller_note.mb-3.truncate
+                = listing.seller_note
+            .detail-group.batch_number
+              %span.label= t("marketplace.listing.batch_number")
+              %span.value= listing.batch_number
+            .detail-group.expiry
               %span.label= t("marketplace.listing.labels.expires")
               %span.value= format_date(listing.expiry)
             - if current_order
@@ -48,4 +65,3 @@
           = button_to t("marketplace.listing.labels.delist"), marketplace_pharmacy_listing_path(listing.pharmacy, listing), method: :patch, params: {marketplace_listing: { active: false }}, class: 'btn btn-danger'
         - else
           = button_to t("marketplace.listing.labels.activate"), marketplace_pharmacy_listing_path(listing.pharmacy, listing), method: :patch, params: {marketplace_listing: { active: true }}, class: 'btn btn-warning'
-

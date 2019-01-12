@@ -18,6 +18,8 @@ describe Marketplace::Listing do
     :active_ingredient,
     :pack_size,
     :strength,
+    :display_pack_size,
+    :display_strength,
     :selling_pharmacy,
     :pharmacy,
     :seller_id,

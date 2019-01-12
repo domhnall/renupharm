@@ -21,7 +21,7 @@ namespace :renupharm do
       @valium = pharmacy.products.create({
         name: "Valium",
         active_ingredient: "Diazepam",
-        strength: "5mg",
+        strength: "5.0",
         form: "hard_capsules",
         pack_size: "40"
       }).tap do |product|
@@ -63,7 +63,7 @@ namespace :renupharm do
       @wart_remedy = pharmacy.products.create({
         name: "Hog Wart",
         active_ingredient: "Dumbledore",
-        strength: "10mg",
+        strength: "10.0",
         form: "hard_capsules",
         pack_size: "80",
       }).tap do |product|
@@ -94,7 +94,7 @@ namespace :renupharm do
       @opdivo = pharmacy.products.create({
         name: "Opdivo",
         active_ingredient: "Nivolumab",
-        strength: "2mg",
+        strength: "2.0",
         form: "soft_capsules",
         pack_size: "200"
       }).tap do |product|

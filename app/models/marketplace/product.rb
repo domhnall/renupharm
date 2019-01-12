@@ -14,9 +14,9 @@ class Marketplace::Product < ApplicationRecord
 
   has_many_attached :images
 
-  validates :name, :active_ingredient, :form, :strength, :pack_size, presence: true
-  validates :name, :active_ingredient, :strength, length: { minimum: 3, maximum: 255 }
-  validates :pack_size, length: { minimum: 1, maximum: 255 }
+  validates :name, :active_ingredient, :form, presence: true
+  validates :pack_size, :strength, numericality: true
+  validates :name, :active_ingredient, length: { minimum: 3, maximum: 255 }
   validates :name, uniqueness: { scope: [:marketplace_pharmacy_id, :pack_size] }, if: :active?
   validates :form, inclusion: { in: Marketplace::ProductForm::PERMITTED }
 
@@ -26,7 +26,7 @@ class Marketplace::Product < ApplicationRecord
 
   delegate :name, to: :product_form, prefix: true
   delegate :strength_unit,
-           :pack_size_unit, to: :product_form
+           :pack_size_unit, to: :product_form, allow_nil: true
 
   attr_accessor :delete_images
 
@@ -40,6 +40,16 @@ class Marketplace::Product < ApplicationRecord
     images.map do |image|
       Rails.application.routes.url_helpers.rails_blob_path(image, disposition: "attachment", only_path: true)
     end
+  end
+
+  def display_strength
+    return "" if strength.blank?
+    [strength, strength_unit].join(' ')
+  end
+
+  def display_pack_size
+    return "" if pack_size.blank?
+    [pack_size, pack_size_unit].join(' ')
   end
 
   private

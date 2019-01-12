@@ -19,7 +19,7 @@ class Marketplace::ProductsController < AuthenticatedController
       format.html { render :index }
       format.json do
         render json: {
-          products: @products.as_json(methods: :image_urls),
+          products: @products.as_json(methods: [:image_urls, :display_pack_size, :display_strength, :product_form_name]),
           total_count: @total_count,
           query: @query
         }
