@@ -170,7 +170,7 @@ describe Marketplace::ProductsController do
           name: "chubby checker",
           active_ingredient: "marzipan",
           form: "hard_capsules",
-          strength: "5mg",
+          strength: "5",
           manufacturer: "Mattel",
           pack_size: "40",
           active: "1"
@@ -280,7 +280,7 @@ describe Marketplace::ProductsController do
           name: "chubby checker",
           active_ingredient: "marzipan",
           form: "hard_capsules",
-          strength: "5mg",
+          strength: "5",
           manufacturer: "Mattel",
           pack_size: "40",
           active: "1"

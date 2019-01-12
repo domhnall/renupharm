@@ -67,12 +67,6 @@ export default {
     }
   },
 
-  props: function() {
-    return {
-      selectedProduct: Object
-    };
-  },
-
   updated: function() {
     Truncate.init("#product_select");
   }

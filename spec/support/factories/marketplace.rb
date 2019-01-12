@@ -64,11 +64,11 @@ module Factories
       ::Marketplace::Product.create({
         pharmacy: pharmacy,
         name: attrs.fetch(:name){ Faker::Science.unique.element },
-        pack_size: attrs.fetch(:pack_size){ "80 capsules" },
+        pack_size: attrs.fetch(:pack_size){ "80" },
         active_ingredient: attrs.fetch(:description){ Faker::Science.element },
         form: attrs.fetch(:form){ "hard_capsules" },
         manufacturer: attrs.fetch(:manufacturer){ Faker::Company.name },
-        strength: attrs.fetch(:strength){ "100mg" },
+        strength: attrs.fetch(:strength){ "100" },
         active: attrs.fetch(:active){ true }
       }).tap do |product|
         if attrs.fetch(:with_images, false)
