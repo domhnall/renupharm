@@ -1,5 +1,6 @@
 /*
  *= require '../shared/renupharm_custom'
+ *= require '../shared/preloader'
  *= require './pace'
  *= require './style'
  *= require './vanilla-dataTables'
