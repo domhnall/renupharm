@@ -1,11 +1,11 @@
 - url = @listing.persisted? ? marketplace_pharmacy_listing_path(@listing.pharmacy) : marketplace_pharmacy_listings_path(@listing.pharmacy, @listing)
-- selected_product = @listing.product.to_json(methods: [:image_urls, :display_pack_size, :display_strength, :product_form_name])
+- initial_product = @listing.product.to_json(methods: [:image_urls, :display_pack_size, :display_strength, :product_form_name])
 
 = form_for @listing, url: url do |form|
   .row
     .col-12
       #product_select{data: { behaviour: "vue" } }
-        <product-select :selected-product="#{selected_product}" ></product-select>
+        <product-select :initial-product="#{initial_product}" ></product-select>
       .form-group
         = form.label :quantity, t('marketplace.listing.quantity'), class: 'col-form-label'
         = form.text_field :quantity, class: 'form-control'

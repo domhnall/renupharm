@@ -57,6 +57,7 @@ export default {
       createNewPath: `/marketplace/pharmacies/${this.pharmacy_id()}/products/new`,
       inputName: "marketplace_listing[marketplace_product_id]",
       totalProducts: 0,
+      selectedProduct: this.initialProduct,
       showProducts: false,
       query: "",
       products: [
@@ -65,7 +66,7 @@ export default {
   },
 
   props: {
-    selectedProduct: {
+    initialProduct: {
       type: Object,
       required: true
     }
