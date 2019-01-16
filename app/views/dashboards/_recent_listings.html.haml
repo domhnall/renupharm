@@ -7,7 +7,7 @@
       %li.listing
         .product_name= link_to listing.product_name, edit_marketplace_pharmacy_listing_path(listing.pharmacy, listing)
         .order_value= listing.display_price
-        .created_at= l(listing.created_at, format: :long)
+        .created_at= l(listing.created_at, format: :short)
 
   .actions
     = link_to t("general.see_more"), marketplace_pharmacy_path(current_user.pharmacy) + "#pharmacy_listings"
