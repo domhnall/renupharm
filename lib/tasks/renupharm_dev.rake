@@ -36,16 +36,14 @@ namespace :renupharm do
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec erat leo.
             Morbi lorem purus, sagittis non nunc nec, tristique sollicitudin nunc. Etiam ex justo,
             fermentum quis iaculis quis, fringilla scelerisque libero.
-            Aenean quis est massa. Donec eleifend nibh odio, id egestas eros pretium egestas.
-            Nulla ligula nibh, tincidunt a arcu et, semper hendrerit orci. Quisque non lacus rhoncus,
-            pulvinar ligula eget, iaculis nulla. Donec et laoreet lacus.
+            Aenean quis est massa.
           DESC
         })
         product.listings.create({
           quantity: 4,
           price_cents: 10000,
           expiry: Date.today+2.months,
-          batch_number: "90809083",
+          batch_number: '%06i' % (rand*1000000).floor,
           seller_note: <<-DESC,
             The path of the righteous man is beset on all sides by the
             Inequities of the selfish and the tyranny of evil men
@@ -56,37 +54,6 @@ namespace :renupharm do
             Anger those who attempt to poison and destroy my brothers
             And you will know
             My name is the Lord when I lay my vengeance upon thee
-          DESC
-        })
-      end
-
-      @wart_remedy = pharmacy.products.create({
-        name: "Hog Wart",
-        active_ingredient: "Dumbledore",
-        strength: "10.0",
-        form: "hard_capsules",
-        pack_size: "80",
-      }).tap do |product|
-        product.images.attach(io: File.open("#{Rails.root}/spec/support/images/tablet_bottle.jpeg"), filename: "tablet_bottle.jpeg")
-        product.images.attach(io: File.open("#{Rails.root}/spec/support/images/tablets_spilled.jpeg"), filename: "tablets_spilled.jpeg")
-        product.listings.create({
-          quantity: 10,
-          price_cents: 9499,
-          expiry: Date.today+6.months,
-          batch_number: "90809080",
-          seller_note: <<-DESC,
-            In sit amet pharetra lorem. Phasellus eleifend lectus non
-            molestie laoreet. Quisque ut lectus vehicula, vestibulum est at,
-            mollis lectus. Phasellus semper vel turpis quis sollicitudin.
-            Phasellus id molestie nisi. Pellentesque maximus augue vel
-            elementum aliquam. Nam non turpis lobortis metus molestie
-            interdum nec et nunc. Vestibulum odio nunc, pulvinar ut sem
-            quis, tempor egestas urna. Suspendisse potenti. Curabitur
-            lobortis vehicula lectus sit amet vulputate. Mauris mollis
-            turpis eget metus pretium lobortis. Aliquam ut pharetra ipsum.
-            In hac habitasse platea dictumst. Cras lobortis, sem ut
-            sodales consectetur, orci massa ultricies felis, non hendrerit
-            ante metus quis arcu.
           DESC
         })
       end
@@ -103,18 +70,191 @@ namespace :renupharm do
           quantity: 6,
           price_cents: 14499,
           expiry: Date.today+9.months,
-          batch_number: "90809081",
+          batch_number: '%06i' % (rand*1000000).floor,
           seller_note: <<-DESC,
             Cras bibendum pretium accumsan. Vivamus tellus metus, ullamcorper
             ut tincidunt vulputate, imperdiet et nisi. Duis sed nunc ac
             lorem eleifend interdum vitae nec felis. Mauris elementum
-            fringilla accumsan. Nunc porttitor mauris faucibus ex eleifend,
-            eget sagittis ante ornare. Cras lectus metus, dignissim non porta
-            a, tristique eu sem. Curabitur mollis commodo elit, sit amet
-            vestibulum risus posuere ac. Praesent ac ligula vitae dolor
-            malesuada tempus. Maecenas vehicula laoreet ex. Suspendisse
-            placerat blandit malesuada. Curabitur interdum nisi sed augue
-            vehicula, sed tincidunt mauris imperdiet.
+            fringilla accumsan.
+          DESC
+        })
+      end
+
+      @pradaxa = pharmacy.products.create({
+        name: "Pradaxa",
+        active_ingredient: "Dabigatran etexilate",
+        strength: "110",
+        form: "hard_capsules",
+        manufacturer: "Boehringer Ingelheim",
+        pack_size: "60"
+      }).tap do |product|
+        product.images.attach(io: File.open("#{Rails.root}/spec/support/images/pradaxa.jpg"), filename: "pradaxa.jpg")
+        product.listings.create({
+          quantity: 1,
+          price_cents: 3499,
+          expiry: Date.today+(1..9).to_a.sample.months,
+          batch_number: '%06i' % (rand*1000000).floor,
+          seller_note: <<-DESC,
+            Previous active patient has increased strength
+          DESC
+        })
+      end
+
+      @cyclogest = pharmacy.products.create({
+        name: "Cyclogest",
+        active_ingredient: "Progesterone",
+        strength: "400.0",
+        form: "pessaries",
+        pack_size: "12"
+      }).tap do |product|
+        product.images.attach(io: File.open("#{Rails.root}/spec/support/images/cyclogest.png"), filename: "cyclogest.png")
+        product.listings.create({
+          quantity: 6,
+          price_cents: 1499,
+          expiry: Date.today+(1..9).to_a.sample.months,
+          batch_number: '%06i' % (rand*1000000).floor,
+          seller_note: <<-DESC,
+            No forseeable usage
+          DESC
+        })
+      end
+
+      @soolantro = pharmacy.products.create({
+        name: "Soolantro",
+        active_ingredient: "Ivermectin",
+        strength: "1.0",
+        form: "cream",
+        manufacturer: "Calderma",
+        pack_size: "12"
+      }).tap do |product|
+        product.images.attach(io: File.open("#{Rails.root}/spec/support/images/soolantra.png"), filename: "soolantra.png")
+        product.listings.create({
+          quantity: 6,
+          price_cents: 2499,
+          expiry: Date.today+(1..9).to_a.sample.months,
+          batch_number: '%06i' % (rand*1000000).floor,
+          seller_note: <<-DESC,
+            Excess stock
+          DESC
+        })
+      end
+
+      #@nutrison = pharmacy.products.create({
+      #  name: "Nutrison Multifibre",
+      #  active_ingredient: "", # TODO review the blank active ingredient
+      #  strength: nil, # TODO review the blank strength
+      #  form: "liquid",
+      #  manufacturer: "Nutricia",
+      #  pack_size: "1000ml"
+      #}).tap do |product|
+      #  product.images.attach(io: File.open("#{Rails.root}/spec/support/images/nutrison.png"), filename: "nutrison.png")
+      #  product.listings.create({
+      #    quantity: 10,
+      #    price_cents: 8000,
+      #    expiry: Date.today+(1..9).to_a.sample.months,
+      #    batch_number: '%06i' % (rand*1000000).floor,
+      #    seller_note: <<-DESC,
+      #      Excess stock
+      #    DESC
+      #  })
+      #end
+
+      #@coloplast = pharmacy.products.create({
+      #  name: "Simpla Urinary Leg Collection Bag",
+      #  active_ingredient: "", # TODO review the blank active ingredient
+      #  strength: "", # TODO review the blank strength
+      #  form: "ostomy_bag",
+      #  manufacturer: "Coloplast",
+      #  pack_size: "10"
+      #}).tap do |product|
+      #  product.images.attach(io: File.open("#{Rails.root}/spec/support/images/coloplast.png"), filename: "coloplast.png")
+      #  product.listings.create({
+      #    quantity: 8,
+      #    price_cents: 2400,
+      #    expiry: Date.today+(1..9).to_a.sample.months,
+      #    batch_number: '%06i' % (rand*1000000).floor,
+      #    seller_note: <<-DESC,
+      #      Excess stock
+      #    DESC
+      #  })
+      #end
+
+      @novorapid = pharmacy.products.create({
+        name: "Novorapid Flexpen",
+        active_ingredient: "Insulin Aspart",
+        strength: 5,
+        form: "flexpen",
+        manufacturer: "Nordisk",
+        pack_size: "5"
+      }).tap do |product|
+        product.images.attach(io: File.open("#{Rails.root}/spec/support/images/novorapid.png"), filename: "novorapid.png")
+        product.listings.create({
+          quantity: 5,
+          price_cents: 7500,
+          expiry: Date.today+(1..9).to_a.sample.months,
+          batch_number: '%06i' % (rand*1000000).floor,
+          seller_note: <<-DESC,
+            Excess stock
+          DESC
+        })
+      end
+
+      @xalatan = pharmacy.products.create({
+        name: "Xalatan",
+        active_ingredient: "Latanoprost",
+        strength: 0.005,
+        form: "drops",
+        manufacturer: "Pfizer",
+        pack_size: "2.5"
+      }).tap do |product|
+        product.images.attach(io: File.open("#{Rails.root}/spec/support/images/xalatan.png"), filename: "xalatan.png")
+        product.listings.create({
+          quantity: 1,
+          price_cents: 1500,
+          expiry: Date.today+(1..9).to_a.sample.months,
+          batch_number: '%06i' % (rand*1000000).floor,
+          seller_note: <<-DESC,
+            Excess stock
+          DESC
+        })
+      end
+
+      @cosopt_2_0 = pharmacy.products.create({
+        name: "Cosopt (Preservative Free)",
+        active_ingredient: "Dorzolamide/Timolol",
+        strength: 2.0,
+        form: "sdu",
+        manufacturer: "Merck Sharp",
+        pack_size: "60"
+      }).tap do |product|
+        product.images.attach(io: File.open("#{Rails.root}/spec/support/images/cosopt.png"), filename: "cosopt.png")
+        product.listings.create({
+          quantity: 1,
+          price_cents: 2000,
+          expiry: Date.today+(1..9).to_a.sample.months,
+          batch_number: '%06i' % (rand*1000000).floor,
+          seller_note: <<-DESC,
+            Excess stock
+          DESC
+        })
+      end
+
+      @cosopt_0_5 = pharmacy.products.create({
+        name: "Cosopt (Preservative Free)",
+        active_ingredient: "Dorzolamide/Timolol",
+        strength: 0.5,
+        form: "sdu",
+        manufacturer: "Merck Sharp",
+        pack_size: "60"
+      }).tap do |product|
+        product.images.attach(io: File.open("#{Rails.root}/spec/support/images/cosopt.png"), filename: "cosopt.png")
+        product.listings.create({
+          quantity: 1,
+          price_cents: 1500,
+          expiry: Date.today+(1..9).to_a.sample.months,
+          batch_number: '%06i' % (rand*1000000).floor,
+          seller_note: <<-DESC,
+            Excess stock
           DESC
         })
       end
@@ -123,8 +263,13 @@ namespace :renupharm do
     # Create buying pharmacy
     lawrences = create_lawrences.tap do |pharmacy|
       pharmacy.agents.create(user: johnny, superintendent: true).tap do |agent|
+        [@valium, @cosopt_0_5].each do |product|
+          agent.orders.create(state: Marketplace::Order::State::COMPLETED).tap do |order|
+            order.line_items.create(listing: product.listings.first)
+          end
+        end
         agent.orders.create(state: Marketplace::Order::State::IN_PROGRESS).tap do |order|
-          order.line_items.create(listing: @wart_remedy.listings.first)
+          order.line_items.create(listing: @xalatan.listings.first)
         end
       end
     end

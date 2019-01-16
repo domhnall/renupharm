@@ -17,7 +17,7 @@ class Marketplace::Product < ApplicationRecord
   validates :name, :active_ingredient, :form, presence: true
   validates :pack_size, :strength, numericality: true
   validates :name, :active_ingredient, length: { minimum: 3, maximum: 255 }
-  validates :name, uniqueness: { scope: [:marketplace_pharmacy_id, :pack_size] }, if: :active?
+  validates :name, uniqueness: { scope: [:marketplace_pharmacy_id, :pack_size, :strength] }, if: :active?
   validates :form, inclusion: { in: Marketplace::ProductForm::PERMITTED }
 
   delegate :name,

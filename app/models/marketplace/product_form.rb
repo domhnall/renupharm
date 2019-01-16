@@ -14,9 +14,34 @@ class Marketplace::ProductForm
     },
     cream: {
       name: "Cream",
+      strength_unit: "%",
+      pack_size_unit: "g"
+    },
+    pessaries: {
+      name: "Pressaries",
       strength_unit: "mg",
+      pack_size_unit: "caps"
+    },
+    liquid: {
+      name: "Liquid",
+      strength_unit: "",
       pack_size_unit: "ml"
     },
+    drops: {
+      name: "Drops",
+      strength_unit: "%",
+      pack_size_unit: "ml"
+    },
+    sdu: {
+      name: "Single-dosage unit",
+      strength_unit: "%",
+      pack_size_unit: "dose"
+    },
+    flexpen: {
+      name: "Flexpen",
+      strength_unit: "mg",
+      pack_size_unit: "pens"
+    }
   }.freeze
 
   PERMITTED = FORMS.keys.map(&:to_s)

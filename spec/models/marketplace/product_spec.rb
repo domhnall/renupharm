@@ -121,7 +121,7 @@ describe Marketplace::Product do
           @new_params = @params.merge(active: true)
         end
 
-        it "should be invalid if :name and :pack_size is not unique for the given pharmacy" do
+        it "should be invalid if :name, :pack_size and :strength is not unique for the given pharmacy" do
           expect(@pharmacy.products.build(@new_params)).to be_invalid
         end
 
@@ -133,8 +133,8 @@ describe Marketplace::Product do
           expect(@pharmacy.products.build(@new_params.merge(pack_size: "80"))).to be_valid
         end
 
-        it "should be valid if :pack_size is unique for the given pharmacy" do
-          expect(@pharmacy.products.build(@new_params.merge(pack_size: "80"))).to be_valid
+        it "should be valid if :strength is unique for the given pharmacy" do
+          expect(@pharmacy.products.build(@new_params.merge(strength: "2"))).to be_valid
         end
 
         it "should be valid if duplicate product belongs to a different pharmacy" do
@@ -185,7 +185,7 @@ describe Marketplace::Product do
       it "should return a string representing the strength with the appropriate unit" do
         @product.form = "cream"
         @product.strength = 2.5
-        expect(@product.display_strength).to eq "2.5 mg"
+        expect(@product.display_strength).to eq "2.5 %"
       end
     end
 
@@ -202,7 +202,7 @@ describe Marketplace::Product do
       it "should return a string representing the pack_size with the appropriate unit" do
         @product.form = "cream"
         @product.pack_size = 200
-        expect(@product.display_pack_size).to eq "200 ml"
+        expect(@product.display_pack_size).to eq "200 g"
       end
     end
   end
