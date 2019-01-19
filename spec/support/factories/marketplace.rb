@@ -66,7 +66,7 @@ module Factories
         name: attrs.fetch(:name){ Faker::Science.unique.element },
         pack_size: attrs.fetch(:pack_size){ "80" },
         active_ingredient: attrs.fetch(:description){ Faker::Science.element },
-        form: attrs.fetch(:form){ "hard_capsules" },
+        form: attrs.fetch(:form){ "capsule" },
         manufacturer: attrs.fetch(:manufacturer){ Faker::Company.name },
         strength: attrs.fetch(:strength){ "100" },
         active: attrs.fetch(:active){ true }

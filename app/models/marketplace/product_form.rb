@@ -1,14 +1,14 @@
 class Marketplace::ProductForm
 
   FORMS = {
-    capsules: {
+    capsule: {
       name: "Capsule",
       strength_unit: "mg",
       strength_required: true,
       pack_size_unit: "caps",
       pack_size_required: true
     },
-    tablets: {
+    tablet: {
       name: "Tablet",
       strength_unit: "mg",
       strength_required: true,
@@ -38,7 +38,7 @@ class Marketplace::ProductForm
     },
     eye_ointment: {
       name: "Eye ointment",
-      pack_size: "g",
+      pack_size_unit: "g",
       pack_size_required: true
     },
     drops: {
@@ -66,7 +66,7 @@ class Marketplace::ProductForm
     },
     topical_liquid: {
       name: "Topical liquid/ointment",
-      pack_size: "ml",
+      pack_size_unit: "ml",
       pack_size_required: true
     },
     inhalation_powder: {
@@ -134,7 +134,7 @@ class Marketplace::ProductForm
       name: "Catheter",
       product_identifier_unit: "",
       product_identifier_required: true,
-      channel_size_unit: "Ch",
+      channel_size_unit: "Fr",
       channel_size_required: true
     }
   }.freeze

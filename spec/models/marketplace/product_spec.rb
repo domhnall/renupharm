@@ -17,10 +17,27 @@ describe Marketplace::Product do
     :listings,
     :product_form,
     :product_form_name,
+    :strength_meaningful?,
+    :strength_required?,
     :strength_unit,
+    :pack_size_meaningful?,
+    :pack_size_required?,
+    :pack_size_unit,
+    :volume_meaningful?,
+    :volume_required?,
+    :volume_unit,
+    :product_identifier_meaningful?,
+    :product_identifier_required?,
+    :product_identifier_unit,
+    :channel_size_meaningful?,
+    :channel_size_required?,
+    :channel_size_unit,
     :pack_size_unit,
     :display_strength,
-    :display_pack_size ].each do |method|
+    :display_pack_size,
+    :display_volume,
+    :display_product_identifier,
+    :display_channel_size ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Product.new).to respond_to method
     end
@@ -33,9 +50,12 @@ describe Marketplace::Product do
         pharmacy: @pharmacy,
         name: "Paracetomol",
         active_ingredient: "stuff",
-        form: "hard_capsules",
-        pack_size: "40",
-        strength: "110",
+        form: "capsule",
+        pack_size: 40,
+        strength: 110,
+        volume: 500,
+        product_identifier: "DL172",
+        channel_size: 7,
         active: true
       }
     end
@@ -52,34 +72,73 @@ describe Marketplace::Product do
       expect(Marketplace::Product.new(@params.merge(name: nil))).not_to be_valid
     end
 
-    it "should be invalid when :active_ingredient is not supplied" do
-      expect(Marketplace::Product.new(@params.merge(active_ingredient: nil))).not_to be_valid
+    it "should be valid when :active_ingredient is not supplied" do
+      expect(Marketplace::Product.new(@params.merge(active_ingredient: nil))).to be_valid
     end
 
     it "should be invalid when :form is not supplied" do
       expect(Marketplace::Product.new(@params.merge(form: nil))).not_to be_valid
     end
 
-    it "should be invalid when :strength is not supplied" do
-      expect(Marketplace::Product.new(@params.merge(strength: nil))).not_to be_valid
+    Marketplace::ProductForm::PROPERTIES.each do |prop|
+      describe "when #{prop} is required" do
+        before :each do
+          form_with_required_prop = Marketplace::ProductForm.new({
+           "name" => "Dummy required",
+           "#{prop}_unit" => "mg",
+           "#{prop}_required" => true
+          }.symbolize_keys)
+
+          @product_with_prop = Marketplace::Product.new(@params.merge(prop => 100).symbolize_keys).tap do |prod|
+            allow(prod).to receive(:product_form).and_return(form_with_required_prop)
+          end
+          @product_without_prop = Marketplace::Product.new(@params.merge(prop => nil).symbolize_keys).tap do |prod|
+            allow(prod).to receive(:product_form).and_return(form_with_required_prop)
+          end
+        end
+
+        it "should be valid when :#{prop} is required and :#{prop} is supplied" do
+          expect(@product_with_prop).to be_valid
+        end
+
+        it "should be invalid when :#{prop} is required and :#{prop} is not supplied" do
+          expect(@product_without_prop).not_to be_valid
+        end
+      end
+
+      describe "when #{prop} is required" do
+        before :each do
+          form_with_optional_prop = Marketplace::ProductForm.new({
+           "name" => "Dummy optional",
+           "#{prop}_unit" => "mg",
+           "#{prop}_required" => false
+          }.symbolize_keys)
+
+          @product_with_prop = Marketplace::Product.new(@params.merge(prop => 100).symbolize_keys).tap do |prod|
+            allow(prod).to receive(:product_form).and_return(form_with_optional_prop)
+          end
+          @product_without_prop = Marketplace::Product.new(@params.merge(prop => nil).symbolize_keys).tap do |prod|
+            allow(prod).to receive(:product_form).and_return(form_with_optional_prop)
+          end
+        end
+
+        it "should be valid when :#{prop} is optional and :#{prop} is supplied" do
+          expect(@product_with_prop).to be_valid
+        end
+
+        it "should be valid when :#{prop} is optional and :#{prop} is not supplied" do
+          expect(@product_without_prop).to be_valid
+        end
+      end
     end
 
-    it "should be invalid when :pack_size is not supplied" do
-      expect(Marketplace::Product.new(@params.merge(pack_size: nil))).not_to be_valid
-    end
-
-    it "should be invalid when :strength is not a number" do
-      expect(Marketplace::Product.new(@params.merge(strength: "5mg"))).not_to be_valid
-      expect(Marketplace::Product.new(@params.merge(strength: "5"))).to be_valid
-      expect(Marketplace::Product.new(@params.merge(strength: "5.0mg"))).not_to be_valid
-      expect(Marketplace::Product.new(@params.merge(strength: "5.0"))).to be_valid
-    end
-
-    it "should be invalid when :pack_size is not a number" do
-      expect(Marketplace::Product.new(@params.merge(pack_size: "40caps"))).not_to be_valid
-      expect(Marketplace::Product.new(@params.merge(pack_size: "40"))).to be_valid
-      expect(Marketplace::Product.new(@params.merge(pack_size: "250.0ml"))).not_to be_valid
-      expect(Marketplace::Product.new(@params.merge(pack_size: "250.0"))).to be_valid
+    %w(strength pack_size volume channel_size).each do |prop|
+      it "should be invalid when :#{prop} is not a number" do
+        expect(Marketplace::Product.new(@params.merge(prop => "5 units"))).not_to be_valid
+        expect(Marketplace::Product.new(@params.merge(prop => "5"))).to be_valid
+        expect(Marketplace::Product.new(@params.merge(prop => "5.0mg"))).not_to be_valid
+        expect(Marketplace::Product.new(@params.merge(prop => "5.0"))).to be_valid
+      end
     end
 
     [:name, :active_ingredient].each do |attr|

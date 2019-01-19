@@ -22,7 +22,7 @@ namespace :renupharm do
         name: "Valium",
         active_ingredient: "Diazepam",
         strength: "5.0",
-        form: "hard_capsules",
+        form: "capsule",
         pack_size: "40"
       }).tap do |product|
         product.images.attach(io: File.open("#{Rails.root}/spec/support/images/capsules_loose.jpeg"), filename: "capsules_loose.jpeg")
@@ -62,7 +62,7 @@ namespace :renupharm do
         name: "Opdivo",
         active_ingredient: "Nivolumab",
         strength: "2.0",
-        form: "soft_capsules",
+        form: "tablet",
         pack_size: "200"
       }).tap do |product|
         product.images.attach(io: File.open("#{Rails.root}/spec/support/images/opdivo.jpeg"), filename: "opdivo.jpeg")
@@ -84,7 +84,7 @@ namespace :renupharm do
         name: "Pradaxa",
         active_ingredient: "Dabigatran etexilate",
         strength: "110",
-        form: "hard_capsules",
+        form: "capsule",
         manufacturer: "Boehringer Ingelheim",
         pack_size: "60"
       }).tap do |product|
@@ -104,7 +104,7 @@ namespace :renupharm do
         name: "Cyclogest",
         active_ingredient: "Progesterone",
         strength: "400.0",
-        form: "pessaries",
+        form: "pessary",
         pack_size: "12"
       }).tap do |product|
         product.images.attach(io: File.open("#{Rails.root}/spec/support/images/cyclogest.png"), filename: "cyclogest.png")
@@ -139,53 +139,51 @@ namespace :renupharm do
         })
       end
 
-      #@nutrison = pharmacy.products.create({
-      #  name: "Nutrison Multifibre",
-      #  active_ingredient: "", # TODO review the blank active ingredient
-      #  strength: nil, # TODO review the blank strength
-      #  form: "liquid",
-      #  manufacturer: "Nutricia",
-      #  pack_size: "1000ml"
-      #}).tap do |product|
-      #  product.images.attach(io: File.open("#{Rails.root}/spec/support/images/nutrison.png"), filename: "nutrison.png")
-      #  product.listings.create({
-      #    quantity: 10,
-      #    price_cents: 8000,
-      #    expiry: Date.today+(1..9).to_a.sample.months,
-      #    batch_number: '%06i' % (rand*1000000).floor,
-      #    seller_note: <<-DESC,
-      #      Excess stock
-      #    DESC
-      #  })
-      #end
+      @nutrison = pharmacy.products.create({
+        name: "Nutrison Multifibre",
+        strength: 1.03,
+        form: "nutritional_liquid",
+        manufacturer: "Nutricia",
+        pack_size: "1000"
+      }).tap do |product|
+        product.images.attach(io: File.open("#{Rails.root}/spec/support/images/nutrison.png"), filename: "nutrison.png")
+        product.listings.create({
+          quantity: 10,
+          price_cents: 8000,
+          expiry: Date.today+(1..9).to_a.sample.months,
+          batch_number: '%06i' % (rand*1000000).floor,
+          seller_note: <<-DESC,
+            Excess stock
+          DESC
+        })
+      end
 
-      #@coloplast = pharmacy.products.create({
-      #  name: "Simpla Urinary Leg Collection Bag",
-      #  active_ingredient: "", # TODO review the blank active ingredient
-      #  strength: "", # TODO review the blank strength
-      #  form: "ostomy_bag",
-      #  manufacturer: "Coloplast",
-      #  pack_size: "10"
-      #}).tap do |product|
-      #  product.images.attach(io: File.open("#{Rails.root}/spec/support/images/coloplast.png"), filename: "coloplast.png")
-      #  product.listings.create({
-      #    quantity: 8,
-      #    price_cents: 2400,
-      #    expiry: Date.today+(1..9).to_a.sample.months,
-      #    batch_number: '%06i' % (rand*1000000).floor,
-      #    seller_note: <<-DESC,
-      #      Excess stock
-      #    DESC
-      #  })
-      #end
+      @coloplast = pharmacy.products.create({
+        name: "Simpla Urinary Leg Collection Bag",
+        form: "leg_bag",
+        pack_size: "10",
+        volume: "500",
+        manufacturer: "Coloplast"
+      }).tap do |product|
+        product.images.attach(io: File.open("#{Rails.root}/spec/support/images/coloplast.png"), filename: "coloplast.png")
+        product.listings.create({
+          quantity: 8,
+          price_cents: 2400,
+          expiry: Date.today+(1..9).to_a.sample.months,
+          batch_number: '%06i' % (rand*1000000).floor,
+          seller_note: <<-DESC,
+            Excess stock
+          DESC
+        })
+      end
 
       @novorapid = pharmacy.products.create({
         name: "Novorapid Flexpen",
         active_ingredient: "Insulin Aspart",
-        strength: 5,
-        form: "flexpen",
+        strength: 3.5,
+        form: "injectable",
         manufacturer: "Nordisk",
-        pack_size: "5"
+        pack_size: 5
       }).tap do |product|
         product.images.attach(io: File.open("#{Rails.root}/spec/support/images/novorapid.png"), filename: "novorapid.png")
         product.listings.create({
@@ -202,7 +200,6 @@ namespace :renupharm do
       @xalatan = pharmacy.products.create({
         name: "Xalatan",
         active_ingredient: "Latanoprost",
-        strength: 0.005,
         form: "drops",
         manufacturer: "Pfizer",
         pack_size: "2.5"

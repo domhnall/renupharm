@@ -165,7 +165,10 @@ ActiveRecord::Schema.define(version: 2019_01_06_134620) do
     t.datetime "updated_at", null: false
     t.string "active_ingredient"
     t.string "form"
-    t.string "strength"
+    t.decimal "strength", precision: 8, scale: 4
+    t.decimal "volume", precision: 8, scale: 4
+    t.string "product_identifier"
+    t.integer "channel_size"
     t.string "manufacturer"
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_products_on_marketplace_pharmacy_id"
   end
