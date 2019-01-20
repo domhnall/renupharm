@@ -292,6 +292,9 @@ en:
       form: "Form"
       strength: "Strength"
       pack_size: "Pack size"
+      volume: "Volume"
+      product_identifier: "Product identifier"
+      channel_size: "Channel size"
       manufacturer: "Manufacturer"
       active: "Active"
       listings: "Listings"
@@ -299,6 +302,7 @@ en:
       labels:
         new_product: "Add new product"
         edit_product: "Editing product"
+        required_field_instructions: "Required fields are marked with *"
       flash:
         create_successful: "Successfully created new product"
         update_successful: "Successfully updated product"

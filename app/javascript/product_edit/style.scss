@@ -1,7 +1,13 @@
 form.product_form {
-  .strength, .pack_size {
+  .instructions {
+    text-align: right;
+    font-style: italic;
+    font-size: 85%;
+  }
+
+  .strength, .pack_size, .volume, .product_identifier, .channel_size {
     display: inline-block;
-    width: 75%;
+    max-width: 75%;
     input {
       width: 70%;
     }
@@ -14,5 +20,12 @@ form.product_form {
       font-style: italic;
       font-weight: lighter;
     }
+  }
+  .reveal {
+    transition-property: display;
+    transition-duration: 0.5s;
+  }
+  .form-group.required label::before {
+    content: "* ";
   }
 }

@@ -132,7 +132,7 @@ class Marketplace::ProductForm
     },
     catheter: {
       name: "Catheter",
-      product_identifier_unit: "",
+      product_identifier_meaningful: true,
       product_identifier_required: true,
       channel_size_unit: "Fr",
       channel_size_required: true
@@ -187,7 +187,7 @@ class Marketplace::ProductForm
     end
 
     define_method("#{prop}_meaningful?") do
-      !!self.send("#{prop}_unit")
+      !!self.send("#{prop}_meaningful") || !!self.send("#{prop}_unit")
     end
   end
 end

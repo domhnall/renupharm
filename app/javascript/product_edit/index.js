@@ -7,7 +7,27 @@ document.addEventListener('turbolinks:load', () => {
   }
   form_select.addEventListener("change", () => {
     const selected_option = form_select.selectedOptions[0];
-    document.querySelector(".strength .unit").innerText = selected_option.getAttribute('data-strength-unit');
-    document.querySelector(".pack_size .unit").innerText = selected_option.getAttribute('data-pack-size-unit');
+    ["strength", "pack_size", "volume", "product_identifier", "channel_size"].forEach(function(prop){
+      const unit = selected_option.getAttribute(`data-${prop.replace(/_/, "-")}-unit`),
+            is_required = !!selected_option.getAttribute(`data-${prop.replace(/_/, "-")}-required`),
+            form_group = document.querySelector(`form.product_form .${prop}`).closest('.form-group');
+
+      // Apply appropiate unit prompt
+      if(unit){
+        form_group.querySelector('.unit').innerText = unit;
+        form_group.style.display = 'block';
+      }else{
+        form_group.style.display = 'none';
+      }
+
+      // Add indicator for required fields
+      if(is_required){
+        form_group.classList.add('required');
+      }else{
+        form_group.classList.remove('required');
+      }
+    });
   });
+
+  form_select.dispatchEvent(new Event('change'));
 });

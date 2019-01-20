@@ -19,34 +19,46 @@
         = form.file_field :images, multiple: true, direct_upload: true
       = form.hidden_field :delete_images
     .col-7
-      .form-group
+      .form-group.required
         = form.label :name, t('marketplace.product.name'), class: 'col-form-label'
         = form.text_field :name, class: 'form-control'
-      .form-group
-        = form.label :active_ingredient, t('marketplace.product.active_ingredient'), class: 'col-form-label'
-        = form.text_field :active_ingredient, class: 'form-control'
-      .form-group
+      .form-group.required
         = form.label :form, t('marketplace.product.form'), class: 'col-form-label'
-        = form.select :form,
-          options_for_select(Marketplace::ProductForm::FORMS.map{ |k,v| [v[:name], k, data: { strength_unit: v[:strength_unit], pack_size_unit: v[:pack_size_unit] }] }, @product.form),
-            {},
-            {class: 'form-control'}
-      .form-group
+        = form.select :form, product_form_options(@product.form), {}, {class: 'form-control'}
+      .form-group.reveal
         = form.label :strength, t('marketplace.product.strength'), class: 'col-form-label'
         .strength
           = form.text_field :strength, class: 'form-control'
           %span.unit= @product.strength_unit
-      .form-group
+      .form-group.reveal
         = form.label :pack_size, t('marketplace.product.pack_size'), class: 'col-form-label'
         .pack_size
           = form.text_field :pack_size, class: 'form-control'
           %span.unit= @product.pack_size_unit
+      .form-group.reveal
+        = form.label :volume, t('marketplace.product.volume'), class: 'col-form-label'
+        .volume
+          = form.text_field :volume, class: 'form-control'
+          %span.unit= @product.volume_unit
+      .form-group.reveal
+        = form.label :product_identifier, t('marketplace.product.product_identifier'), class: 'col-form-label'
+        .product_identifier
+          = form.text_field :product_identifier, class: 'form-control'
+      .form-group.reveal
+        = form.label :channel_size, t('marketplace.product.channel_size'), class: 'col-form-label'
+        .channel_size
+          = form.text_field :channel_size, class: 'form-control'
+          %span.unit= @product.channel_size
+      .form-group
+        = form.label :active_ingredient, t('marketplace.product.active_ingredient'), class: 'col-form-label'
+        = form.text_field :active_ingredient, class: 'form-control'
       .form-group.optional
         = form.label :manufacturer, t('marketplace.product.manufacturer'), class: 'col-form-label'
         = form.text_field :manufacturer, class: 'form-control'
       .form-group
         = form.label :active, t('marketplace.product.active'), class: 'col-form-label col-form-check-label'
         = form.check_box :active, class: 'col-form-check-input'
+      .instructions= t('marketplace.product.labels.required_field_instructions')
   .row
     .actions
       = submit_tag t('general.save'), id: 'submit_product', class: 'btn btn-success'

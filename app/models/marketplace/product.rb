@@ -16,7 +16,8 @@ class Marketplace::Product < ApplicationRecord
 
   validates :name, :form, presence: true
   validates :pack_size, :strength, :volume, :channel_size, numericality: true, allow_nil: true
-  validates :name, :active_ingredient, length: { minimum: 3, maximum: 255 }, allow_nil: true
+  validates :name, length: { minimum: 3, maximum: 255 }
+  validates :active_ingredient, length: { minimum: 3, maximum: 255 }, allow_nil: true, allow_blank: true
   validates :name, uniqueness: { scope: [:marketplace_pharmacy_id, :pack_size, :strength] }, if: :active?
   validates :form, inclusion: { in: Marketplace::ProductForm::PERMITTED }
   validate :conditional_product_form_validations
