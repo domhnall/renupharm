@@ -293,7 +293,7 @@ en:
       strength: "Strength"
       pack_size: "Pack size"
       volume: "Volume"
-      product_identifier: "Product identifier"
+      identifier: "Product identifier"
       channel_size: "Channel size"
       manufacturer: "Manufacturer"
       active: "Active"

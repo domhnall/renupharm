@@ -12,8 +12,8 @@ describe Marketplace::ProductForm do
     :pack_size_required?,
     :volume_meaningful?,
     :volume_required?,
-    :product_identifier_meaningful?,
-    :product_identifier_required?,
+    :identifier_meaningful?,
+    :identifier_required?,
     :channel_size_meaningful?,
     :channel_size_required? ].each do |method|
     it "instance should respond to the method '#{method}'" do
@@ -35,13 +35,13 @@ describe Marketplace::ProductForm do
 
       describe "when argument is a supported form" do
         it "should return a Marketplace::ProductForm instance" do
-          expect(Marketplace::ProductForm::for("capsules")).to be_a Marketplace::ProductForm
+          expect(Marketplace::ProductForm::for("capsule")).to be_a Marketplace::ProductForm
         end
 
         it "should return an instance with the correct name, strength_unit and pack_size_unit" do
-          expect(Marketplace::ProductForm::for("capsules").name).to eq "Capsule"
-          expect(Marketplace::ProductForm::for("capsules").strength_unit).to eq "mg"
-          expect(Marketplace::ProductForm::for("capsules").pack_size_unit).to eq "caps"
+          expect(Marketplace::ProductForm::for("capsule").name).to eq "Capsule"
+          expect(Marketplace::ProductForm::for("capsule").strength_unit).to eq "mg"
+          expect(Marketplace::ProductForm::for("capsule").pack_size_unit).to eq "caps"
         end
       end
     end

@@ -26,9 +26,9 @@ describe Marketplace::Product do
     :volume_meaningful?,
     :volume_required?,
     :volume_unit,
-    :product_identifier_meaningful?,
-    :product_identifier_required?,
-    :product_identifier_unit,
+    :identifier_meaningful?,
+    :identifier_required?,
+    :identifier_unit,
     :channel_size_meaningful?,
     :channel_size_required?,
     :channel_size_unit,
@@ -36,7 +36,7 @@ describe Marketplace::Product do
     :display_strength,
     :display_pack_size,
     :display_volume,
-    :display_product_identifier,
+    :display_identifier,
     :display_channel_size ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Product.new).to respond_to method
@@ -54,7 +54,7 @@ describe Marketplace::Product do
         pack_size: 40,
         strength: 110,
         volume: 500,
-        product_identifier: "DL172",
+        identifier: "DL172",
         channel_size: 7,
         active: true
       }

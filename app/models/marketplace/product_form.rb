@@ -132,17 +132,18 @@ class Marketplace::ProductForm
     },
     catheter: {
       name: "Catheter",
-      product_identifier_meaningful: true,
-      product_identifier_required: true,
+      identifier_unit: nil,
+      identifier_required: true,
       channel_size_unit: "Fr",
       channel_size_required: true
     }
   }.freeze
 
   PERMITTED  = FORMS.keys.map(&:to_s)
-  PROPERTIES = %w(strength pack_size volume product_identifier channel_size).freeze
+  PROPERTIES = %w(strength pack_size volume identifier channel_size).freeze
 
-  attr_reader :name, *PROPERTIES.map{ |prop| ["#{prop}_unit", "#{prop}_required"] }.flatten.map(&:to_sym)
+  attr_reader :name,
+              *PROPERTIES.map{ |prop| ["#{prop}_unit", "#{prop}_required"] }.flatten.map(&:to_sym)
 
   def initialize(
     name: nil,
@@ -152,22 +153,22 @@ class Marketplace::ProductForm
     pack_size_required: false,
     volume_unit: nil,
     volume_required: false,
-    product_identifier_unit: nil,
-    product_identifier_required: false,
     channel_size_unit: nil,
-    channel_size_required: false
+    channel_size_required: false,
+    identifier_unit: nil,
+    identifier_required: false
   )
-    @name                        = name
-    @strength_unit               = strength_unit
-    @strength_required           = strength_required
-    @pack_size_unit              = pack_size_unit
-    @pack_size_required          = pack_size_required
-    @volume_unit                 = volume_unit
-    @volume_required             = volume_required
-    @product_identifier_unit     = product_identifier_unit
-    @product_identifier_required = product_identifier_required
-    @channel_size_unit           = channel_size_unit
-    @channel_size_required       = channel_size_required
+    @name                  = name
+    @strength_unit         = strength_unit
+    @strength_required     = strength_required
+    @pack_size_unit        = pack_size_unit
+    @pack_size_required    = pack_size_required
+    @volume_unit           = volume_unit
+    @volume_required       = volume_required
+    @identifier_unit       = identifier_unit
+    @identifier_required   = identifier_required
+    @channel_size_unit     = channel_size_unit
+    @channel_size_required = channel_size_required
   end
 
   def self.for(name)
@@ -187,7 +188,7 @@ class Marketplace::ProductForm
     end
 
     define_method("#{prop}_meaningful?") do
-      !!self.send("#{prop}_meaningful") || !!self.send("#{prop}_unit")
+      !self.send("#{prop}_unit").blank?
     end
   end
 end

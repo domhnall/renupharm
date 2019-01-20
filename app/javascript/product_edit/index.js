@@ -7,7 +7,7 @@ document.addEventListener('turbolinks:load', () => {
   }
   form_select.addEventListener("change", () => {
     const selected_option = form_select.selectedOptions[0];
-    ["strength", "pack_size", "volume", "product_identifier", "channel_size"].forEach(function(prop){
+    ["strength", "pack_size", "volume", "identifier", "channel_size"].forEach(function(prop){
       const unit = selected_option.getAttribute(`data-${prop.replace(/_/, "-")}-unit`),
             is_required = !!selected_option.getAttribute(`data-${prop.replace(/_/, "-")}-required`),
             form_group = document.querySelector(`form.product_form .${prop}`).closest('.form-group');

@@ -41,9 +41,10 @@
           = form.text_field :volume, class: 'form-control'
           %span.unit= @product.volume_unit
       .form-group.reveal
-        = form.label :product_identifier, t('marketplace.product.product_identifier'), class: 'col-form-label'
-        .product_identifier
-          = form.text_field :product_identifier, class: 'form-control'
+        = form.label :identifier, t('marketplace.product.identifier'), class: 'col-form-label'
+        .identifier
+          = form.text_field :identifier, class: 'form-control'
+          %span.unit= @product.identifier_unit
       .form-group.reveal
         = form.label :channel_size, t('marketplace.product.channel_size'), class: 'col-form-label'
         .channel_size

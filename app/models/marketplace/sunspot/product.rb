@@ -6,7 +6,11 @@ module Marketplace::Sunspot::Product
       text :name, boost: 3.0
       text :active_ingredient, boost: 2.0
       text :product_form_name
-      text :strength
+      text :display_strength
+      text :display_pack_size
+      text :display_volume
+      text :display_identifier
+      text :display_channel_size
       text :manufacturer
       text :pharmacy_name
       text :pharmacy_description

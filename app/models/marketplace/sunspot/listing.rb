@@ -5,9 +5,13 @@ module Marketplace::Sunspot::Listing
     searchable if: :active, unless: :purchased_at do
       text :product_name, boost: 3.0
       text :active_ingredient, boost: 2.0
-      text :product_form_name
-      text :strength
-      text :pack_size
+      text :product_form_name, boost: 2.0
+      text :display_strength
+      text :display_pack_size
+      text :display_volume
+      text :display_identifier
+      text :display_channel_size
+      text :manufacturer
       text :seller_note
       text :batch_number
       text :seller_name

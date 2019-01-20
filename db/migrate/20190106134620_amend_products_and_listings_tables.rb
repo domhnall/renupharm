@@ -6,7 +6,7 @@ class AmendProductsAndListingsTables < ActiveRecord::Migration[5.2]
     add_column :marketplace_products, :form, :string
     add_column :marketplace_products, :strength, :decimal, precision: 8, scale: 4
     add_column :marketplace_products, :volume, :decimal, precision: 8, scale: 4
-    add_column :marketplace_products, :product_identifier, :string
+    add_column :marketplace_products, :identifier, :string
     add_column :marketplace_products, :channel_size, :integer
     add_column :marketplace_products, :manufacturer, :string
     rename_column :marketplace_products, :unit_size, :pack_size

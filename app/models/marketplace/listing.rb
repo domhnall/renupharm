@@ -32,11 +32,12 @@ class Marketplace::Listing < ApplicationRecord
 
   delegate :active_ingredient,
            :product_form_name,
-           :strength,
-           :pack_size,
            :manufacturer,
            :display_strength,
-           :display_pack_size, to: :product
+           :display_pack_size,
+           :display_volume,
+           :display_identifier,
+           :display_channel_size, to: :product
 
   delegate :id,
            :name,
