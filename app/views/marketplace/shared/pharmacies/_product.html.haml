@@ -11,22 +11,23 @@
         = product.name
       - if product.manufacturer
         .manufacturer
-          %span.label= t("marketplace.product.manufacturer") + ":"
+          %span.label= t("marketplace.product.manufacturer")
           %span.value= product.manufacturer
-      .active_ingredient
-        %span.label= t("marketplace.product.active_ingredient") + ":"
-        %span.value= product.active_ingredient
-      .product_form
-        %span.label= t("marketplace.product.form") + ":"
-        %span.value= product.product_form_name
-      .strength
-        %span.label= t("marketplace.product.strength") + ":"
-        %span.value= product.display_strength
-      .pack_size
-        %span.label= t("marketplace.product.pack_size") + ":"
-        %span.value= product.display_pack_size
-      .manufacturer
-        = product.manufacturer
+      - if product.product_form
+        .product_form
+          %span.label= t("marketplace.product.form")
+          %span.value= product.product_form_name
+
+      - %w(strength pack_size volume identifier channel_size).each do |prop|
+        - unless product.send("display_#{prop}").blank?
+          %div{class: prop}
+            %span.label= t("marketplace.product.#{prop}")
+            %span.value= product.send("display_#{prop}")
+
+      - unless product.active_ingredient.blank?
+        .active_ingredient
+          %span.label= t("marketplace.product.active_ingredient")
+          %span.value= product.active_ingredient
   - if policy(product).edit?
     .row
       .actions

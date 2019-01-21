@@ -93,5 +93,8 @@
   .label {
     min-width: 140px;
   }
+  .label::after{
+    content: ":";
+  }
 }
 

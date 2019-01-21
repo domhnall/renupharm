@@ -5970,10 +5970,11 @@ button.close {
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   display: inline-block;
-  width: 20px;
-  height: 20px;
-  background: transparent no-repeat center center;
-  background-size: 100% 100%;
+  border-radius: 30px;
+  width: 30px;
+  height: 30px;
+  background-color: grey;
+  background-size: 60% 60%;
 }
 
 .carousel-control-prev-icon {

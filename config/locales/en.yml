@@ -288,13 +288,13 @@ en:
   marketplace:
     product:
       name: "Name"
-      active_ingredient: "Active ingredient"
       form: "Form"
       strength: "Strength"
       pack_size: "Pack size"
       volume: "Volume"
       identifier: "Product identifier"
       channel_size: "Channel size"
+      active_ingredient: "Active ingredient"
       manufacturer: "Manufacturer"
       active: "Active"
       listings: "Listings"
