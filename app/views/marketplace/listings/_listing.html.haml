@@ -47,6 +47,7 @@
           .col-12.mt-3
             - unless listing.seller_note.blank?
               .seller_note.mb-3.truncate
+                %h3= t("marketplace.listing.seller_note")
                 = listing.seller_note
             .detail-group.batch_number
               %span.label= t("marketplace.listing.batch_number")
