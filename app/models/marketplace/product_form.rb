@@ -52,7 +52,8 @@ class Marketplace::ProductForm
       name: "Single-dosage unit",
       strength_unit: "%",
       strength_required: false,
-      pack_size_unit: "doses"
+      pack_size_unit: "doses",
+      pack_size_required: true
     },
     oral_liquid: {
       name: "Oral liquid",
