@@ -9,7 +9,7 @@ document.addEventListener('turbolinks:load', () => {
     const selected_option = form_select.selectedOptions[0];
     ["strength", "pack_size", "volume", "identifier", "channel_size"].forEach(function(prop){
       const unit = selected_option.getAttribute(`data-${prop.replace(/_/, "-")}-unit`),
-            is_required = !!selected_option.getAttribute(`data-${prop.replace(/_/, "-")}-required`),
+            is_required = selected_option.getAttribute(`data-${prop.replace(/_/, "-")}-required`)==="true",
             form_group = document.querySelector(`form.product_form .${prop}`).closest('.form-group');
 
       // Apply appropiate unit prompt

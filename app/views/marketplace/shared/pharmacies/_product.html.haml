@@ -9,10 +9,6 @@
     .col-7
       .name
         = product.name
-      - if product.manufacturer
-        .manufacturer
-          %span.label= t("marketplace.product.manufacturer")
-          %span.value= product.manufacturer
       - if product.product_form
         .product_form
           %span.label= t("marketplace.product.form")
@@ -28,6 +24,10 @@
         .active_ingredient
           %span.label= t("marketplace.product.active_ingredient")
           %span.value= product.active_ingredient
+      - unless product.manufacturer.blank?
+        .manufacturer
+          %span.label= t("marketplace.product.manufacturer")
+          %span.value= product.manufacturer
   - if policy(product).edit?
     .row
       .actions
