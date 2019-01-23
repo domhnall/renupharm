@@ -34,7 +34,10 @@ if docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_tests; then
 
   # Run any outstanding migrations
   APP_CONTAINER=`ssh ec2-user@renupharm.ie "docker ps --format \"{{.Names}}\" | grep app1"`
-  ssh ec2-user@renupharm.ie "docker exec ${APP_CONTAINER} bundle exec rake db:migrate"
+  ssh ec2-user@renupharm.ie "docker exec ${APP_CONTAINER} bin/rake db:migrate"
+
+  # Rebuild indexes
+  ssh ec2-user@renupharm.ie "docker exec ${APP_CONTAINER} bin/rake sunspot:reindex"
 
   # Update the crontab
   scp config/renupharm.crontab ec2-user@renupharm.ie:/tmp
