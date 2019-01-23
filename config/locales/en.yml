@@ -42,9 +42,8 @@ en:
     save: "Save"
     cancel: "Cancel"
     delete: "Delete"
-    new: "New"
-    edit: "Edit"
     update: "Update"
+    close: "Close"
     add: "Add"
     search: "Search"
     previous: "Previous"
@@ -380,6 +379,9 @@ en:
         already_have_superintendent: "Pharmacy can only nominate a single superintendent pharmacist."
     cart:
       title: "Your basket"
+      review_terms: "Review terms and conditions"
+      messages:
+        confirm_payment: "We will confirm your order and take payment from the default card associated with your pharmacy. By continuing you also confirm agreement with our terms, as linked on this page."
       actions:
         place_order: "Place order"
         empty_cart: "Empty basket"

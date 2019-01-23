@@ -212,6 +212,10 @@ li.comment {
 }
 
 .navbar {
+  a.cart_link:hover {
+    text-decoration: none;
+  }
+
   .cart_count {
     background-color: blueviolet;
     border-radius: 50%;
