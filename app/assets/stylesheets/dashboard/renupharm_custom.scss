@@ -210,3 +210,18 @@ li.comment {
     }
   }
 }
+
+.navbar {
+  .cart_count {
+    background-color: blueviolet;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    font-size: 72%;
+    position: relative;
+    opacity: 0.5;
+    padding: 2px 4px;
+    top: -8px;
+    left: -7px;
+  }
+}

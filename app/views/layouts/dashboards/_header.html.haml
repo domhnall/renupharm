@@ -10,6 +10,9 @@
       %li.nav-item
         = link_to marketplace_cart_path do
           %i.fa.fa-shopping-cart
+          - if current_order.line_items.count >0
+            %span.cart_count
+              = current_order.line_items.count < 10 ? current_order.line_items.count : "∞"
     %li.nav-item.dropdown
       %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#", role: "button"}
         = image_tag((avatar = current_user.profile.avatar).attached? ? avatar.variant(resize: "100x100") : "placeholder-user.png", class: 'img-avatar')
