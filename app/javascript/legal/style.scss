@@ -58,3 +58,19 @@
     }
   }
 }
+
+section#privacy_policy, section#cookies_policy {
+  font-size: 80%;
+  h3 {
+    text-align: center;
+  }
+  ol.bases_for_processing_info,
+  ol.specific_uses_of_info_collected,
+  ol.uses_of_info_collected_automatically,
+  ol.disclosure_and_sharing_info,
+  ol.access_to_info {
+    li {
+      counter-increment: 1;
+    }
+  }
+}

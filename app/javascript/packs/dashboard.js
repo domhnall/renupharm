@@ -6,7 +6,7 @@ import 'flatpickr/dist/flatpickr.min.css';
 import '../dashboard';
 import '../direct_uploads';
 import '../utils';
-import '../terms_and_conditions';
+import '../legal';
 import '../product_edit';
 
 import ProductSelect from '../product_select/app.vue';
