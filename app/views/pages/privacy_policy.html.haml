@@ -301,9 +301,19 @@
           %li
             %h4 How you can complain
             %ol.how_to_complain
-              %li If you are not happy with our privacy policy or if have any complaint then you should tell us by email. Our address is dev@renupharm.ie.
-              %li If a dispute is not settled then we hope you will agree to attempt to resolve it by engaging in good faith with us in a process of mediation or arbitration. 
-              %li If you are in any way dissatisfied about how we process your personal information, you have a right to lodge a complaint with the Data Protection Commissioner. This can be done at https://www.dataprotection.ie/docs/complaints/1592.htm 
+              %li
+                If you are not happy with our privacy policy or if have any complaint then you should tell us by email.
+                Our address is
+                = succeed "." do
+                  link_to "dev@renupharm.ie", "mailto:dev@renupharm.ie"
+              %li
+                If a dispute is not settled then we hope you will agree to attempt to resolve it by engaging in good faith
+                with us in a process of mediation or arbitration.
+              %li
+                If you are in any way dissatisfied about how we process your personal information, you have a right to
+                lodge a complaint with the Data Protection Commissioner. This can be done at
+                = succeed "." do
+                  link_to "https://www.dataprotection.ie", "https://www.dataprotection.ie"
           %li
             %h4 Retention period for personal data
             %p
