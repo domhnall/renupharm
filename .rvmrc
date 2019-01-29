@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rvm --create use 2.3.6@renupharm
+rvm --create use 2.5.3@renupharm
 hash -r
 which bundle > /dev/null
 if [ $? -ne 0 ]; then
