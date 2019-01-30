@@ -66,17 +66,19 @@ describe Marketplace::ProductPolicy do
       end
     end
 
-    describe "#update?" do
-      it "should be false where user is not an agent of the pharmacy" do
-        expect(Marketplace::ProductPolicy.new(@other_user, @product).update?).to be_falsey
-      end
+    %w(update destroy).each do |action|
+      describe "##{action}?" do
+        it "should be false where user is not an agent of the pharmacy" do
+          expect(Marketplace::ProductPolicy.new(@other_user, @product).send("#{action}?")).to be_falsey
+        end
 
-      it "should be true where user is an agent of the pharmacy" do
-        expect(Marketplace::ProductPolicy.new(@user, @product).update?).to be_truthy
-      end
+        it "should be true where user is an agent of the pharmacy" do
+          expect(Marketplace::ProductPolicy.new(@user, @product).send("#{action}?")).to be_truthy
+        end
 
-      it "should be true where user is an admin" do
-        expect(Marketplace::ProductPolicy.new(@admin_user, @product).update?).to be_truthy
+        it "should be true where user is an admin" do
+          expect(Marketplace::ProductPolicy.new(@admin_user, @product).send("#{action}?")).to be_truthy
+        end
       end
     end
   end

@@ -20,6 +20,10 @@ class Marketplace::ProductPolicy < AuthenticatedApplicationPolicy
     user.admin? || (user.pharmacy==pharmacy && pharmacy.active?)
   end
 
+  def destroy?
+    user.admin? || (user.pharmacy==pharmacy && pharmacy.active?)
+  end
+
   private
 
   def product
