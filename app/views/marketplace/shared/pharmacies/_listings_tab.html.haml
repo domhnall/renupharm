@@ -1,8 +1,9 @@
 %h2
   = t("marketplace.pharmacy.active_listings")
-  = link_to t("general.add"), new_marketplace_pharmacy_listing_path(pharmacy_id: pharmacy.id), class: "btn btn-success"
+  - if policy(pharmacy.listings.build).create?
+    = link_to t("general.add"), new_marketplace_pharmacy_listing_path(pharmacy_id: pharmacy.id), class: "btn btn-success"
 #marketplace_listings
-  = render partial: 'marketplace/listings/listing', collection: pharmacy.listings.active_listings
-- if policy(pharmacy.listings.build).create?
+  = render partial: 'marketplace/listings/listing', collection: pharmacy.listings.active_listings.select(&:persisted?)
+- if pharmacy.listings.active_listings.count>1 && policy(pharmacy.listings.build).create?
   .actions
     = link_to t("general.add"), new_marketplace_pharmacy_listing_path(pharmacy_id: pharmacy.id), class: "btn btn-success"

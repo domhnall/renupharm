@@ -4,7 +4,9 @@
       #pharmacy_products
         %h2
           = t("marketplace.pharmacy.products")
+          - if policy(::Marketplace::Product.new).create?
+            = link_to t("general.add"), new_marketplace_product_path, class: "btn btn-success"
         = render partial: 'marketplace/shared/pharmacies/product', collection: @products
-        - if policy(::Marketplace::Product.new).create?
+        - if @products.count>1 && policy(::Marketplace::Product.new).create?
           .actions
             = link_to t("general.add"), new_marketplace_product_path, class: "btn btn-success"
