@@ -42,6 +42,7 @@ en:
     save: "Save"
     cancel: "Cancel"
     delete: "Delete"
+    edit: "Edit"
     update: "Update"
     close: "Close"
     add: "Add"
@@ -302,9 +303,12 @@ en:
         new_product: "Add new product"
         edit_product: "Editing product"
         required_field_instructions: "Required fields are marked with *"
+        confirm_delete: "We will only be able to delete this product if it is not associated with any listings. Are you sure you want to delete this product?"
+        delete_disabled: "Product cannot be deleted as there are associated listings, these must be deleted first."
       flash:
         create_successful: "Successfully created new product"
         update_successful: "Successfully updated product"
+        destroy_successful: "Successfully deleted product"
         error: "There has been an error with your submission, please review and try again."
     listing:
       product: "Product"
@@ -324,6 +328,7 @@ en:
         edit_listing: "Editing listing"
         delist: "Delist"
         activate: "Activate"
+        inactive: "Inactive"
       errors:
         minimum_expiry: "Valid Marketplace listings must have a minium shelf-life of %{days} days"
       flash:

@@ -67,11 +67,21 @@ class Marketplace::ProductsController < AuthenticatedController
     end
   end
 
+  def destroy
+    @product = get_scope.find(params.fetch(:id).to_i)
+    authorize @product, :destroy?
+    if @product.destroy
+      redirect_to destroy_success_redirect_path, flash: { success: I18n.t('marketplace.product.flash.destroy_successful') }
+    else
+      flash.now[:error] = I18n.t('general.error')
+      render :show, status: :unprocessable_entity
+    end
+  end
+
   private
 
-  def get_scope(query="")
-    return scope = policy_scope(::Marketplace::Product) if query.size<3
-    scope.where("name LIKE ?", "%#{query}%")
+  def get_scope
+    policy_scope(::Marketplace::Product)
   end
 
   def pharmacy
@@ -83,5 +93,9 @@ class Marketplace::ProductsController < AuthenticatedController
     params
     .require(:marketplace_product)
     .permit(:name, :active_ingredient, :form, :strength, :pack_size, :manufacturer, :active, :delete_images, images: [])
+  end
+
+  def destroy_success_redirect_path
+    current_user.admin? ? marketplace_products_path : marketplace_pharmacy_products_path(current_user.pharmacy)
   end
 end

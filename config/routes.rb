@@ -27,7 +27,8 @@ Rails.application.routes.draw do
     root to: "listings#index"
     resource :cart, only: [:show, :update]
     resources :orders, only: [:show]
-    resources :products, only: [:index, :show, :new, :create, :edit, :update]
+    resources :products, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    resources :listings, only: [:show]
 
     resources :pharmacies, only: [:show] do
       resources :credit_cards, only: [:new, :create]

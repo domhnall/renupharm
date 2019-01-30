@@ -351,4 +351,73 @@ describe Marketplace::ProductsController do
       end
     end
   end
+
+  describe "#destroy" do
+    before :each do
+      @product_for_destroy = create_product(pharmacy: @pharmacy)
+    end
+
+    describe "unauthenticated user" do
+      it "should redirect user to the sign in path" do
+        delete :destroy, params: {id: @product_for_destroy.id}
+        expect(response).to redirect_to new_user_session_path
+      end
+
+      it "should set an appropriate flash message" do
+        delete :destroy, params: {id: @product_for_destroy.id}
+        expect(flash[:alert]).to eq I18n.t("devise.failure.unauthenticated")
+      end
+    end
+
+    describe "authenticated pharmacy user" do
+      before :each do
+        sign_in @user
+      end
+
+      it "should delete the product from the database" do
+        expect(Marketplace::Product.where(id: @product_for_destroy.id).count).to eq 1
+        delete :destroy, params: {id: @product_for_destroy.id}
+        expect(Marketplace::Product.where(id: @product_for_destroy.id).count).to eq 0
+      end
+
+      it "should set a successful flash message" do
+        delete :destroy, params: {id: @product_for_destroy.id}
+        expect(flash[:success]).to eq I18n.t('marketplace.product.flash.destroy_successful')
+      end
+
+      it "should redirect the user to the product listing page for the pharmacy" do
+        delete :destroy, params: {id: @product_for_destroy.id}
+        expect(response).to redirect_to marketplace_pharmacy_products_path(@pharmacy)
+      end
+
+      it "should not delete the product if it has associated listings" do
+        listing = create_listing(product: @product_for_destroy)
+        delete :destroy, params: {id: @product_for_destroy.id}
+        expect(response.status).to eq 422
+        expect(flash[:error]).to eq I18n.t('general.error')
+      end
+
+      describe "renupharm admin" do
+        before :each do
+          sign_in @admin_user
+        end
+
+        it "should delete the product from the database" do
+          expect(Marketplace::Product.where(id: @pharmacy_product.id).count).to eq 1
+          delete :destroy, params: {id: @pharmacy_product.id}
+          expect(Marketplace::Product.where(id: @pharmacy_product.id).count).to eq 0
+        end
+
+        it "should set a successful flash message" do
+          delete :destroy, params: {id: @pharmacy_product.id}
+          expect(flash[:success]).to eq I18n.t('marketplace.product.flash.destroy_successful')
+        end
+
+        it "should redirect the admin user to the overall product listing page page" do
+          delete :destroy, params: {id: @pharmacy_product.id}
+          expect(response).to redirect_to marketplace_products_path
+        end
+      end
+    end
+  end
 end

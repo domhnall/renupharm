@@ -265,4 +265,23 @@ describe Marketplace::Product do
       end
     end
   end
+
+  describe "destruction" do
+    before :each do
+      @product_for_destroy = create_product
+    end
+
+    it "should be possible to destroy a product with no listings" do
+      expect(Marketplace::Product.where(id: @product_for_destroy.id).count).to eq 1
+      expect(@product_for_destroy.destroy).to be_truthy
+      expect(Marketplace::Product.where(id: @product_for_destroy.id).count).to eq 0
+    end
+
+    it "should not be possible to destroy a product with listings" do
+      create_listing(product: @product_for_destroy)
+      expect(Marketplace::Product.where(id: @product_for_destroy.id).count).to eq 1
+      expect(@product_for_destroy.destroy).to be_falsey
+      expect(Marketplace::Product.where(id: @product_for_destroy.id).count).to eq 1
+    end
+  end
 end

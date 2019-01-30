@@ -35,6 +35,7 @@ class Marketplace::Product < ApplicationRecord
   attr_accessor :delete_images
 
   after_save :clean_up_images!
+  before_destroy :ensure_no_listings!
 
   def product_form
     Marketplace::ProductForm::for(form)
@@ -67,5 +68,9 @@ class Marketplace::Product < ApplicationRecord
         errors.add(prop, "The field '#{prop}' must be supplied when form is '#{product_form_name}'")
       end
     end
+  end
+
+  def ensure_no_listings!
+    throw(:abort) if listings.any?
   end
 end

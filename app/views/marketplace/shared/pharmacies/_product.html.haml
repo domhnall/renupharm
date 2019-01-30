@@ -40,3 +40,9 @@
     .row
       .actions
         = link_to t("general.edit"), product.pharmacy ? edit_marketplace_pharmacy_product_path(product.pharmacy, product) : edit_marketplace_product_path(product)
+        - if product.persisted? && policy(product).destroy?
+          %span.tooltip_wrapper{ title: product.listings.any? ? t("marketplace.product.labels.delete_disabled") : t("general.delete") }
+            = link_to t('general.delete'), marketplace_product_path(product),
+              method: :delete,
+              class: ['btn', 'btn-danger', product.listings.any? ? 'disabled' : nil].compact.join(' '),
+              data: { confirm: t("marketplace.product.labels.confirm_delete") }
