@@ -13,7 +13,7 @@
         - if policy(Marketplace::CreditCard.new(pharmacy: @marketplace_pharmacy)).show?
           %li.nav-item
             = link_to "Purchasing", "#pharmacy_credit_cards", {"id"=>"cards-tab", "class"=>"nav-link", "aria-controls"=>"pharmacy_credit_cards", "aria-selected"=>"false", "data-toggle"=>"tab", "role"=>"tab"}
-        - if policy(Marketplace::BankAccount.new(pharmacy: @marketplace_pharmacy)).show?
+        - if policy(@marketplace_pharmacy.bank_account || @marketplace_pharmacy.build_bank_account).show?
           %li.nav-item
             = link_to "Payouts", "#pharmacy_bank_details", {"id"=>"bank-tab", "class"=>"nav-link", "aria-controls"=>"pharmacy_bank_details", "aria-selected"=>"false", "data-toggle"=>"tab", "role"=>"tab"}
 
@@ -34,6 +34,6 @@
           #pharmacy_credit_cards.tab-pane.fade{ "role"=>"tabpanel", "aria-labelledby"=>"cards-tab"}
             = render 'marketplace/shared/pharmacies/credit_cards_tab', pharmacy: @marketplace_pharmacy
 
-        - if policy(Marketplace::BankAccount.new(pharmacy: @marketplace_pharmacy)).show?
+        - if policy(@marketplace_pharmacy.bank_account || @marketplace_pharmacy.build_bank_account).show?
           #pharmacy_bank_details.tab-pane.fade{ "role"=>"tabpanel", "aria-labelledby"=>"bank-tab"}
             = render 'marketplace/shared/pharmacies/bank_details_tab', pharmacy: @marketplace_pharmacy

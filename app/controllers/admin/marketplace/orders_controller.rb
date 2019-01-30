@@ -36,7 +36,7 @@ class Admin::Marketplace::OrdersController < Admin::BaseController
 
   private
 
-  def get_scope(query="")
+  def get_scope
     policy_scope(::Marketplace::Order)
   end
 
