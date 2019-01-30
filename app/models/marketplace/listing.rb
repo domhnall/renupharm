@@ -68,6 +68,14 @@ class Marketplace::Listing < ApplicationRecord
     @price ||= Price.new(self.price_cents)
   end
 
+  def display_name
+    if active?
+      "#{product_name}:: #{seller_name}"
+    else
+      "#{product_name}:: #{seller_name} (#{I18n.t("marketplace.listing.labels.inactive")})"
+    end
+  end
+
   private
 
   def default_pharmacy_id

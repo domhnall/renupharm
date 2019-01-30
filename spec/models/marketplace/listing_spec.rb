@@ -12,6 +12,7 @@ describe Marketplace::Listing do
     :acceptable_expiry?,
     :batch_number,
     :seller_note,
+    :display_name,
     :product_name,
     :product_images,
     :product_form_name,
@@ -37,6 +38,7 @@ describe Marketplace::Listing do
 
   before :all do
     @product = create_product
+    @pharmacy = create_pharmacy
     @params = {
       product: @product,
       quantity: 2,
@@ -122,6 +124,25 @@ describe Marketplace::Listing do
 
       it "should return the integer cent component of the price" do
         expect(Marketplace::Listing.new(price_cents: 9589).price_minor).to eq "89"
+      end
+    end
+
+    describe "#display_name" do
+      it "should return a String" do
+        expect(@pharmacy.listings.build(product: @product).display_name).to be_a String
+      end
+
+      it "should include the product name" do
+        expect(@pharmacy.listings.build(product: @product).display_name).to include @product.name
+      end
+
+      it "should include the seller name" do
+        expect(@pharmacy.listings.build(product: @product).display_name).to include @pharmacy.name
+      end
+
+      it "should reflect if the listing is inactive" do
+        expect(@pharmacy.listings.build(product: @product, active: true).display_name).not_to include "(Inactive)"
+        expect(@pharmacy.listings.build(product: @product, active: false).display_name).to include "(Inactive)"
       end
     end
 
