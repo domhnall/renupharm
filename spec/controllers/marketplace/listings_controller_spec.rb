@@ -34,4 +34,33 @@ describe Marketplace::ListingsController do
       end
     end
   end
+
+  describe "#show" do
+    before :all do
+      @listing = create_listing
+    end
+
+    describe "unauthenticated user" do
+      it "should redirect user to the sign in path" do
+        get :show, params: { id: @listing.id }
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    describe "authenticated user" do
+      before :each do
+        sign_in @user
+      end
+
+      it "should return a successful response" do
+        get :show, params: { id: @listing.id }
+        expect(response.status).to eq 200
+      end
+
+      it "should render the :index template" do
+        get :show, params: { id: @listing.id }
+        expect(response.body).to render_template :show
+      end
+    end
+  end
 end

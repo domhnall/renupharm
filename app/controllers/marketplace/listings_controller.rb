@@ -23,6 +23,11 @@ class Marketplace::ListingsController < AuthenticatedController
     authorize @listing, :new?
   end
 
+  def show
+    @listing = policy_scope(Marketplace::Listing).find(params.fetch(:id))
+    authorize @listing, :show?
+  end
+
   def create
     @listing = pharmacy.listings.build(listing_params).tap do |listing|
       listing.product = get_product
