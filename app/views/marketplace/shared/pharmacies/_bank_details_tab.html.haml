@@ -1,12 +1,12 @@
 %h2= t("marketplace.pharmacy.bank_details")
-- if pharmacy.bank_account
-  .bank_name
+- if pharmacy.bank_account && pharmacy.bank_account.persisted?
+  .label_value_group.bank_name
     %label.label= t("marketplace.bank_account.bank_name")
     .value= pharmacy.bank_name
-  .bic
+  .label_value_group.bic
     %label.label= t("marketplace.bank_account.bic")
     .value= pharmacy.bic
-  .iban
+  .label_value_group.iban
     %label.label= t("marketplace.bank_account.iban")
     .value= pharmacy.iban
   - if policy(pharmacy.bank_account).edit?

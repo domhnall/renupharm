@@ -62,21 +62,6 @@
   }
 }
 
-.label {
-  display: table-cell;
-  color: $border_grey;
-}
-
-.value {
-  display: table-cell;
-  padding-left: 20px;
-}
-
-#pharmacy_bank_details {
-  .bank_name, .bic, .iban {
-    display: table-row;
-  }
-}
 
 #accept_terms_and_conditions_form {
   .field_with_errors {
@@ -97,4 +82,3 @@
     content: ":";
   }
 }
-

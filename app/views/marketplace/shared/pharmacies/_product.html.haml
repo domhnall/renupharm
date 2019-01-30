@@ -10,24 +10,32 @@
       .name
         = product.name
       - if product.product_form
-        .product_form
-          %span.label= t("marketplace.product.form")
-          %span.value= product.product_form_name
+        .label_value_group.product_form
+          %label.label= t("marketplace.product.form")
+          .value= product.product_form_name
 
       - %w(strength pack_size volume identifier channel_size).each do |prop|
         - unless product.send("display_#{prop}").blank?
-          %div{class: prop}
-            %span.label= t("marketplace.product.#{prop}")
-            %span.value= product.send("display_#{prop}")
+          .label_value_group{class: prop}
+            %label.label= t("marketplace.product.#{prop}")
+            .value= product.send("display_#{prop}")
 
       - unless product.active_ingredient.blank?
-        .active_ingredient
-          %span.label= t("marketplace.product.active_ingredient")
-          %span.value= product.active_ingredient
+        .label_value_group.active_ingredient
+          %label.label= t("marketplace.product.active_ingredient")
+          .value= product.active_ingredient
       - unless product.manufacturer.blank?
-        .manufacturer
-          %span.label= t("marketplace.product.manufacturer")
-          %span.value= product.manufacturer
+        .label_value_group.manufacturer
+          %label.label= t("marketplace.product.manufacturer")
+          .value= product.manufacturer
+
+      - if product.listings.any?
+        .product_listings
+          %h4= t("marketplace.product.listings")
+          %ul.product_listings
+            - product.listings.each do |listing|
+              %li= link_to(listing.display_name, marketplace_listing_path(listing))
+
   - if policy(product).edit?
     .row
       .actions

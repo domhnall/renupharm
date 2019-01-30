@@ -1,3 +1,5 @@
+@import '../style.scss';
+
 .cta {
   display: block;
   clear: both;
@@ -8,5 +10,26 @@
   margin: 40px auto 10px auto;
   .btn {
     width: 80%;
+  }
+}
+
+.label {
+  display: table-cell;
+  color: $border_grey;
+}
+
+.value {
+  display: table-cell;
+  padding-left: 20px;
+}
+
+.label_value_group {
+  display: table-row;
+}
+
+.product_listings {
+  margin-top: 20px;
+  li {
+    list-style: none;
   }
 }
