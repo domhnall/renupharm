@@ -42,4 +42,22 @@ describe Marketplace::LineItem do
       expect(Marketplace::LineItem.new(@params.merge(listing: nil, marketplace_listing_id: nil))).not_to be_valid
     end
   end
+
+  describe "destruction" do
+    it "should be possible to destroy a line_item where order is IN_PROGRESS" do
+      line_item = create_order(state: Marketplace::Order::State::IN_PROGRESS).line_items.first
+      expect(Marketplace::LineItem.where(id: line_item.id).count).to eq 1
+      expect(line_item.destroy).to be_truthy
+      expect(Marketplace::LineItem.where(id: line_item.id).count).to eq 0
+    end
+
+    %w(completed delivering placed).each do |state|
+      it "should not be possible to destroy a line_item where order is #{state}" do
+        line_item = create_order(state: state).line_items.first
+        expect(Marketplace::LineItem.where(id: line_item.id).count).to eq 1
+        expect(line_item.destroy).to be_falsey
+        expect(Marketplace::LineItem.where(id: line_item.id).count).to eq 1
+      end
+    end
+  end
 end

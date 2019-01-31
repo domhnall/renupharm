@@ -28,12 +28,12 @@ Rails.application.routes.draw do
     resource :cart, only: [:show, :update]
     resources :orders, only: [:show]
     resources :products, only: [:index, :show, :new, :create, :edit, :update, :destroy]
-    resources :listings, only: [:show]
+    resources :listings, only: [:show, :destroy]
 
     resources :pharmacies, only: [:show] do
       resources :credit_cards, only: [:new, :create]
       resources :products, only: [:index, :show, :new, :create, :edit, :update]
-      resources :listings, only: [:index, :new, :create, :edit, :update]
+      resources :listings, only: [:index, :new, :create, :edit, :update, :destroy]
       resources :purchases, only: [:index, :show]
       resources :sales, only: [:index, :show]
       resource :bank_account, only: [:new, :create, :edit, :update]

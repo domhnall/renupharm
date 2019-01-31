@@ -24,7 +24,7 @@ class Marketplace::ListingsController < AuthenticatedController
   end
 
   def show
-    @listing = policy_scope(Marketplace::Listing).find(params.fetch(:id))
+    @listing = Marketplace::Listing.find(params.fetch(:id))
     authorize @listing, :show?
   end
 
@@ -60,7 +60,22 @@ class Marketplace::ListingsController < AuthenticatedController
     end
   end
 
+  def destroy
+    @listing = get_scope.find(params.fetch(:id).to_i)
+    authorize @listing, :destroy?
+    if @listing.destroy
+      redirect_to destroy_success_redirect_path, flash: { success: I18n.t('marketplace.listing.flash.destroy_successful') }
+    else
+      flash.now[:error] = I18n.t('general.error')
+      render :show, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def get_scope
+    policy_scope(::Marketplace::Listing)
+  end
 
   def pharmacy
     return unless pharmacy_id
@@ -79,5 +94,9 @@ class Marketplace::ListingsController < AuthenticatedController
     params
     .require(:marketplace_listing)
     .permit(:marketplace_product_id, :quantity, :expiry, :price_cents, :batch_number, :seller_note, :active)
+  end
+
+  def destroy_success_redirect_path
+    current_user.admin? ? marketplace_root_path : marketplace_pharmacy_listings_path(current_user.pharmacy)
   end
 end

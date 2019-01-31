@@ -87,37 +87,44 @@ describe Marketplace::ListingPolicy do
       end
     end
 
-    describe "#update?" do
-
-      it "should be true where user is an admin" do
-        expect(Marketplace::ListingPolicy.new(@admin_user, @listing).update?).to be_truthy
-      end
-
-      it "should be true where user is an agent of the listing pharmacy" do
-        expect(Marketplace::ListingPolicy.new(@user, @listing).update?).to be_truthy
-      end
-
-      it "should be false where user is not an agent for the listing pharmacy" do
-        expect(Marketplace::ListingPolicy.new(@other_user, @listing).update?).to be_falsey
-      end
-
-      describe "pharmacy is inactive" do
-        before :all do
-          @pharmacy.update_column(:active, false)
-          [@pharmacy, @product, @listing].each(&:reload)
-        end
-
-        after :all do
-          @pharmacy.update_column(:active, true)
-          [@pharmacy, @product, @listing].each(&:reload)
+    %w(update destroy).each do |action|
+      describe "##{action}?" do
+        before :each do
+          if action=='destroy'
+            @listing = create_listing(product: @product)
+          end
         end
 
         it "should be true where user is an admin" do
-          expect(Marketplace::ListingPolicy.new(@admin_user, @listing).update?).to be_truthy
+          expect(Marketplace::ListingPolicy.new(@admin_user, @listing).send("#{action}?")).to be_truthy
         end
 
-        it "should be false where user is an agent for the listing pharmacy" do
-          expect(Marketplace::ListingPolicy.new(@user, @listing).update?).to be_falsey
+        it "should be true where user is an agent of the listing pharmacy" do
+          expect(Marketplace::ListingPolicy.new(@user, @listing).send("#{action}?")).to be_truthy
+        end
+
+        it "should be false where user is not an agent for the listing pharmacy" do
+          expect(Marketplace::ListingPolicy.new(@other_user, @listing).send("#{action}?")).to be_falsey
+        end
+
+        describe "pharmacy is inactive" do
+          before :all do
+            @pharmacy.update_column(:active, false)
+            [@pharmacy, @product, @listing].each(&:reload)
+          end
+
+          after :all do
+            @pharmacy.update_column(:active, true)
+            [@pharmacy, @product, @listing].each(&:reload)
+          end
+
+          it "should be true where user is an admin" do
+            expect(Marketplace::ListingPolicy.new(@admin_user, @listing).send("#{action}?")).to be_truthy
+          end
+
+          it "should be false where user is an agent for the listing pharmacy" do
+            expect(Marketplace::ListingPolicy.new(@user, @listing).send("#{action}?")).to be_falsey
+          end
         end
       end
     end

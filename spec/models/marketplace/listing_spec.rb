@@ -170,5 +170,62 @@ describe Marketplace::Listing do
         expect(listing.marketplace_pharmacy_id).to eq @other_pharmacy.id
       end
     end
+
+    describe "#can_delete?" do
+      before :all do
+        @listing = create_listing
+      end
+
+      it "should return true if the listing has no completed line items" do
+        expect(@listing.can_delete?).to be_truthy
+      end
+
+      it "should return false if the listing has any completed line item" do
+        create_order(listing: @listing, state: Marketplace::Order::State::COMPLETED)
+        expect(@listing.can_delete?).to be_falsey
+      end
+    end
+  end
+
+  describe "destruction" do
+    before :each do
+      @listing_for_destroy = create_listing
+    end
+
+    it "should be possible to destroy a listing with IN_PROGRESS line items" do
+      create_order(listing: @listing_for_destroy, state: Marketplace::Order::State::IN_PROGRESS)
+      expect(Marketplace::Listing.where(id: @listing_for_destroy.id).count).to eq 1
+      expect(stuff = @listing_for_destroy.destroy).to be_truthy
+      expect(Marketplace::Listing.where(id: @listing_for_destroy.id).count).to eq 0
+    end
+
+    it "should destroy the associated IN_PROGRESS line items" do
+      item_1 = create_order(listing: @listing_for_destroy, state: Marketplace::Order::State::IN_PROGRESS).line_items.first
+      item_2 = create_order(listing: @listing_for_destroy, state: Marketplace::Order::State::IN_PROGRESS).line_items.first
+      expect(Marketplace::LineItem.where(id: [item_1.id, item_2.id]).count).to eq 2
+      expect( @listing_for_destroy.destroy).to be_truthy
+      expect(Marketplace::LineItem.where(id: [item_1.id, item_2.id]).count).to eq 0
+    end
+
+    it "should not be possible to destroy a listing with line items in a COMPLETED state" do
+      create_order(listing: @listing_for_destroy, state: Marketplace::Order::State::COMPLETED)
+      expect(Marketplace::Listing.where(id: @listing_for_destroy.id).count).to eq 1
+      expect(stuff = @listing_for_destroy.destroy).to be_falsey
+      expect(Marketplace::Listing.where(id: @listing_for_destroy.id).count).to eq 1
+    end
+
+    it "should not be possible to destroy a listing with line items in a PLACED state" do
+      create_order(listing: @listing_for_destroy, state: Marketplace::Order::State::PLACED)
+      expect(Marketplace::Listing.where(id: @listing_for_destroy.id).count).to eq 1
+      expect(@listing_for_destroy.destroy).to be_falsey
+      expect(Marketplace::Listing.where(id: @listing_for_destroy.id).count).to eq 1
+    end
+
+    it "should not be possible to destroy a listing with line items in a DELIVERY_IN_PROGRESS state" do
+      create_order(listing: @listing_for_destroy, state: Marketplace::Order::State::DELIVERY_IN_PROGRESS)
+      expect(Marketplace::Listing.where(id: @listing_for_destroy.id).count).to eq 1
+      expect(@listing_for_destroy.destroy).to be_falsey
+      expect(Marketplace::Listing.where(id: @listing_for_destroy.id).count).to eq 1
+    end
   end
 end

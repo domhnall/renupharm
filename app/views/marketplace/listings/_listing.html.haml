@@ -65,8 +65,15 @@
   - if policy(listing).update?
     .row
       .actions
-        = link_to t("general.edit"), edit_marketplace_pharmacy_listing_path(listing.pharmacy, listing), class: 'btn btn-info'
+        = link_to t("general.edit"), edit_marketplace_pharmacy_listing_path(listing.pharmacy, listing)
         - if listing.active?
-          = button_to t("marketplace.listing.labels.delist"), marketplace_pharmacy_listing_path(listing.pharmacy, listing), method: :patch, params: {marketplace_listing: { active: false }}, class: 'btn btn-danger'
+          = button_to t("marketplace.listing.labels.delist"), marketplace_pharmacy_listing_path(listing.pharmacy, listing), method: :patch, params: {marketplace_listing: { active: false }}, class: 'btn btn-info'
         - else
-          = button_to t("marketplace.listing.labels.activate"), marketplace_pharmacy_listing_path(listing.pharmacy, listing), method: :patch, params: {marketplace_listing: { active: true }}, class: 'btn btn-warning'
+          = button_to t("marketplace.listing.labels.activate"), marketplace_pharmacy_listing_path(listing.pharmacy, listing), method: :patch, params: {marketplace_listing: { active: true }}, class: 'btn btn-info'
+
+        - if policy(listing).destroy?
+          %span.tooltip_wrapper{ title: listing.can_delete? ? t("general.delete") : t("marketplace.listing.labels.delete_disabled") }
+            = link_to t('general.delete'), marketplace_pharmacy_listing_path(listing.pharmacy, listing),
+              method: :delete,
+              class: ['btn', 'btn-danger', listing.can_delete? ? nil : 'disabled'].compact.join(' '),
+              data: { confirm: t("marketplace.listing.labels.confirm_delete") }

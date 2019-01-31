@@ -15,4 +15,14 @@ class Marketplace::LineItem < ApplicationRecord
            :price_cents,
            :expiry,
            :display_price, to: :listing
+
+  scope :not_in_progress, ->{ joins(:order).merge(Marketplace::Order.not_in_progress) }
+
+  before_destroy :ensure_not_completed!
+
+  private
+
+  def ensure_not_completed!
+    throw(:abort) unless order.in_progress?
+  end
 end

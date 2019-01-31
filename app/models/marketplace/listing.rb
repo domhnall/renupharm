@@ -16,7 +16,8 @@ class Marketplace::Listing < ApplicationRecord
   has_many :line_items,
     class_name: "Marketplace::LineItem",
     foreign_key: :marketplace_listing_id,
-    inverse_of: :listing
+    inverse_of: :listing,
+    dependent: :destroy
 
   alias_method :selling_pharmacy, :pharmacy
 
@@ -55,6 +56,7 @@ class Marketplace::Listing < ApplicationRecord
   scope :active_listings, ->{ where(active: true).where(purchased_at: nil) }
 
   after_initialize :default_pharmacy_id
+  before_destroy :ensure_no_completed_line_items!, prepend: true
 
   def marketplace_pharmacy_id=(pharmacy_id)
     super(product&.marketplace_pharmacy_id || pharmacy_id)
@@ -76,6 +78,10 @@ class Marketplace::Listing < ApplicationRecord
     end
   end
 
+  def can_delete?
+    line_items.not_in_progress.empty?
+  end
+
   private
 
   def default_pharmacy_id
@@ -91,5 +97,9 @@ class Marketplace::Listing < ApplicationRecord
     unless acceptable_expiry?
       errors.add(:expiry, I18n.t("marketplace.listing.errors.minimum_expiry", days: ACCEPTABLE_EXPIRY_DAYS))
     end
+  end
+
+  def ensure_no_completed_line_items!
+    throw(:abort) unless can_delete?
   end
 end
