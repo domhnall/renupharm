@@ -8,6 +8,7 @@ import '../direct_uploads';
 import '../utils';
 import '../legal';
 import '../product_edit';
+import '../pharmacy_profile';
 
 import ProductSelect from '../product_select/app.vue';
 import Product from '../product_select/product.vue';

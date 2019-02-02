@@ -1,0 +1,59 @@
+%h2
+  = t("marketplace.credit_card.new_card_title")
+.card
+  .show_record#new_credit_card
+    %p.lead= t("marketplace.credit_card.all_required")
+    = form_for credit_card, url:  marketplace_pharmacy_credit_cards_path(credit_card.pharmacy), html: {id: 'adyen-encrypted-form' } do |form|
+      .form_entry
+        %label.label.holder
+          = t("marketplace.credit_card.holder_name")
+        %input{"data-encrypted-name" => "holderName", size: "30", type: "text", class: "cardholder_name form-control"}
+      .form_entry
+        = form.label :email, class: "label"
+        = form.text_field :email, class: "cardholder_email form-control"
+      .logos
+        - %w(mastercard visa mastercard_debit visa_debit visa_electron).each do |card_type|
+          = image_tag "credit_cards/#{card_type}", height: 41, width: 65, alt: t("marketplace.credit_card.logos.#{card_type}")
+      .form_entry
+        %label.label.holder
+          = t("marketplace.credit_card.number")
+        %input{"data-encrypted-name" => "number", size: "20", type: "text", class: "card_number form-control"}
+      .form_entry
+        %label.label.number
+          = t("marketplace.credit_card.expiry_date")
+        .expiry_date
+          %select{"data-encrypted-name" => "expiryMonth", class: "card_expiry_month form-control"}
+            %option{ value: ''}= t("marketplace.credit_card.labels.month")
+            - (1..12).each do |month|
+              %option{ value: month}= month
+          %select{"data-encrypted-name" => "expiryYear", class: "card_expiry_year form-control"}
+            %option{ value: ''}= t("marketplace.credit_card.labels.year")
+            - ((current_year=Date.today.year)...current_year+20).each do |year|
+              %option{ value: year}= year
+      .form_entry
+        %label.label.number
+          = t("marketplace.credit_card.cvc")
+        %input{"data-encrypted-name" => "cvc", size: "3", maxlength: "3", type: "text", class: "card_cvc form-control"}
+      .form_entry
+        %input{"data-encrypted-name" => "generationtime", type: "hidden", value: "#{Time.now.iso8601}"}
+      .actions
+        = submit_tag t('marketplace.credit_card.labels.add_card'), id: 'submit_marketplace_credit_card', class: 'btn btn-success'
+:javascript
+  // The form element to encrypt.
+  var form = document.getElementById('adyen-encrypted-form');
+  if(form.length>0) {
+    // See https://github.com/Adyen/CSE-JS/blob/master/Options.md for details on the options to use.
+    var options = {};
+    // Client-side encryption public key
+    var key = "10001|A98F7D8595FCE5BC8FD2C2D928E507854D17E104CA2C478E8132506E"
+      + "B34E4AEBFC3F7C93E95A053BEED182A899F8B64CAA4B7F3B22F8CE1CD879"
+      + "D9CBAB1AEB799E36738E505BD5CD002DF91A903D630B8F7E0F78C97335D2"
+      + "20D1A321E729FAED2B093EB3AC5CF08C2A0B9825046EB47185139D348B01"
+      + "53FCD138468034D1F7E1D13042C05EBABAD88CCA1342F27A257D7AF6B211"
+      + "38EECFE2AEF920098BFDE1A274C4B7FBB61FF6A664149484517BACF479D8"
+      + "F8A34FF684AC89E0DD7316D00A2CAB1F47EAC55BC04F9287A3E4B3BFBA72"
+      + "9707049F07B1996D732C0D91559D488D3F2E2862DD2EB934E89DCA5EA298"
+      + "D868CE00A5C4D355EB6AE6C97F2BE0C1FD37";
+    // Bind encryption options to the form.
+    adyen.encrypt.createEncryptedForm(form, key, options);
+  }

@@ -1,9 +1,4 @@
 class Marketplace::CreditCardsController < AuthenticatedController
-  def new
-    @credit_card = pharmacy.credit_cards.build
-    authorize @credit_card, :new?
-  end
-
   def create
     @credit_card = pharmacy.credit_cards.build(credit_card_params)
     authorize @credit_card, :create?

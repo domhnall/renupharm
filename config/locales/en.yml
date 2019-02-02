@@ -403,17 +403,28 @@ en:
         failed_payment: "There has been a problem processing your payment. Please check your payment method."
         listing_unavailable: "Unfortunately it seems that one of the items in your cart is no longer available. If problems persist please <a href=\"mailto:dev@renupharm.ie\">contact support</a>"
     credit_card:
-      title: "Add new card details for %{pharmacy_name}"
+      new_card_title: "Add new card"
+      all_required: "All fields are required"
       number: "Card number"
-      holder_name: "Holder name"
-      expiry_month: "Expiry month (01-12)"
-      expiry_year: "Expiry year (XXXX)"
-      email: "Email"
+      holder_name: "Cardholder Name"
+      expiry_date: "Expiry Date (MM/YYYY)"
+      email: "Cardholder Email"
       cvc: "CVC"
       flash:
         create_successful: "Successfully added new card details"
         error: "There has been an error adding these card details. Please review and try again, if problems persists please email support: dev@renumpharm.ie"
         unexpected_error: "There has been an unexpected error. If problems persists please email support: dev@renumpharm.ie"
+      logos:
+        mastercard: "Mastercard"
+        visa: "Visa"
+        mastercard_debit: "Mastercard Debit"
+        visa_electron: "Visa Electron"
+        visa_debit: "Visa Debit"
+      labels:
+        month: "Month"
+        year: "Year"
+        add_card: "Add Card"
+        add_new_card_link: "Add new card"
     bank_account:
       bank_name: "Bank name"
       bic: "BIC"

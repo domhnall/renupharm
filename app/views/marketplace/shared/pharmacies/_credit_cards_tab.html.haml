@@ -1,6 +1,9 @@
 %h2
   = t("marketplace.pharmacy.credit_cards")
-= render partial: 'marketplace/shared/pharmacies/credit_card', collection: pharmacy.credit_cards
-- if policy(pharmacy.credit_cards.build).create?
+= render partial: 'marketplace/credit_cards/credit_card', collection: pharmacy.credit_cards
+
+- if policy(credit_card = pharmacy.credit_cards.build).create?
   .actions
-    = link_to t("general.add"), new_marketplace_pharmacy_credit_card_path(pharmacy_id: pharmacy.id), class: "btn btn-success"
+    = link_to t("marketplace.credit_card.labels.add_new_card_link"), "#", id: "add_new_card_link"
+.new_card_form.hidden
+  = render 'marketplace/credit_cards/new', credit_card: credit_card

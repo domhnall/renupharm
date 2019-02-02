@@ -144,3 +144,8 @@ section.user_session {
     margin-bottom: 0;
   }
 }
+
+// Form validation
+input.invalid, select.invalid {
+  @extend .is-invalid;
+}

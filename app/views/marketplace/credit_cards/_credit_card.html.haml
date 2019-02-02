@@ -11,3 +11,22 @@
   .expiry
     %label.label= t("marketplace.credit_card.expiry")
     .value= "#{credit_card.expiry_month}-#{credit_card.expiry_year}"
+
+.card-container
+  .card.mastercard.identified
+    .front
+      .logo.visa visa
+      .logo.mastercard MasterCard
+      .logo.amex
+      .logo.discover discover
+      .lower
+        .shiny
+        .cvc.display ••••
+        .number.display 5444 4444 4444 4444
+        .name.display John Snow
+        .expiry.display ••/••
+    .back
+      .bar
+      .cvc.display •••
+      .shiny
+
