@@ -1,32 +1,10 @@
 .card.credit_card
   .brand
-    %label.label= t("marketplace.credit_card.brand")
-    .value= credit_card.brand
+    = image_tag "credit_cards/#{credit_card.card_type}", height: 41, width: 65, alt: t("marketplace.credit_card.logos.#{credit_card.card_type}")
   .number
-    %label.label= t("marketplace.credit_card.number")
-    .value= credit_card.number
-  .holder
-    %label.label= t("marketplace.credit_card.holder")
-    .value= credit_card.holder_name
+    = "**** **** **** #{credit_card.number}"
   .expiry
-    %label.label= t("marketplace.credit_card.expiry")
-    .value= "#{credit_card.expiry_month}-#{credit_card.expiry_year}"
-
-.card-container
-  .card.mastercard.identified
-    .front
-      .logo.visa visa
-      .logo.mastercard MasterCard
-      .logo.amex
-      .logo.discover discover
-      .lower
-        .shiny
-        .cvc.display ••••
-        .number.display 5444 4444 4444 4444
-        .name.display John Snow
-        .expiry.display ••/••
-    .back
-      .bar
-      .cvc.display •••
-      .shiny
-
+    .label= t("marketplace.credit_card.expiry")
+    .value= "#{credit_card.expiry_month}/#{credit_card.expiry_year}"
+  .holder.text-truncate{ title: (credit_card.holder_name || credit_card.email) }
+    = credit_card.holder_name || credit_card.email

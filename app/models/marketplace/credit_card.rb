@@ -76,6 +76,15 @@ class Marketplace::CreditCard < ApplicationRecord
     "#{id}-#{created_at.to_i}"
   end
 
+  def card_type
+    case brand
+    when 'mc'
+      'mastercard'
+    else
+      'visa'
+    end
+  end
+
   private
 
   def populate_recurring_detail_reference
