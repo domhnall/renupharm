@@ -377,6 +377,13 @@ en:
         deactive: "Deactivate"
         confirm_deactivation: "Are you sure you want to deactivate this pharmacy? This will deactive all their products and delist all of their stock."
         no_bank_details: "You have not set up bank details yet. <a href=\"%{path}\">Set up account details now</a>."
+      tabs:
+        profile: "Profile"
+        listings: "Listings"
+        agents: "Agents"
+        products: "Products"
+        credit_cards: "Purchasing"
+        bank_account: "Payouts"
     agent:
       full_name: "Name"
       email: "Email"

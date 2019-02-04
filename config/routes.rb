@@ -30,7 +30,11 @@ Rails.application.routes.draw do
     resources :products, only: [:index, :show, :new, :create, :edit, :update, :destroy]
     resources :listings, only: [:show, :destroy]
 
-    resources :pharmacies, only: [:show] do
+    resources :pharmacies, only: [] do
+      get '/:section',
+        to: 'pharmacies#show',
+        as: :profile,
+        constraints: { section: /(profile|listings|agents|products|credit_cards|bank_account)/ }
       resources :credit_cards, only: [:create]
       resources :products, only: [:index, :show, :new, :create, :edit, :update]
       resources :listings, only: [:index, :new, :create, :edit, :update, :destroy]

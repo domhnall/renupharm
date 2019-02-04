@@ -10,7 +10,7 @@
         .created_at= l(listing.created_at, format: :short)
 
   .actions
-    = link_to t("general.see_more"), marketplace_pharmacy_path(current_user.pharmacy) + "#pharmacy_listings"
+    = link_to t("general.see_more"), marketplace_pharmacy_profile_path(pharmacy_id: current_user.pharmacy.id, section: 'listings')
 
 - else
 

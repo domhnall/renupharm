@@ -10,11 +10,10 @@
               .actions
                 .delete_image
                   %i.fa.fa-trash-alt
-                    - #%input{ id: "marketplace_product_image_#{image.id}", type: "hidden", name: "marketplace_product[images][#{image.id}][_destroy]", value: 1 }
                 .undo.hidden
                   %i.fa.fa-undo
         - else
-          = image_tag("placeholder-product.jpg", class: 'img-product')
+          = image_tag("placeholder-product.jpg", class: 'img-product placeholder')
       .form-group
         = form.file_field :images, multiple: true, direct_upload: true
       = form.hidden_field :delete_images
