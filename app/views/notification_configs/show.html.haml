@@ -1,0 +1,22 @@
+.row
+  .col-md-12
+    .card#notification_config
+      .show_record
+        %h2= t("notification_config.title")
+        %p.intro= t("notification_config.intro")
+        = #form_with(model: @notification_config, class: "edit_notification_config")  do |form|
+        = form_for @notification_config, class: "edit_notification_config" do |form|
+          %h4= t("notification_config.labels.purchase_section.title")
+          %p.purchase_section= t("notification_config.labels.purchase_section.intro")
+          .settings
+            - %w(emails texts site_notifications).each do |flag|
+              .form-check
+                = form.check_box "purchase_#{flag}", class: 'form-check-input'
+                %label.form-check-label= t("notification_config.labels.purchase_section.#{flag}")
+          %h4= t("notification_config.labels.sale_section.title")
+          %p.sale_section= t("notification_config.labels.sale_section.intro")
+          .settings
+            - %w(emails texts site_notifications).each do |flag|
+              .form-check
+                = form.check_box "sale_#{flag}", class: 'form-check-input'
+                %label.form-check-label= t("notification_config.labels.sale_section.#{flag}")

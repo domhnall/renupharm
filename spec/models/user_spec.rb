@@ -51,6 +51,7 @@ describe User do
 
   describe "instance method" do
     [:profile,
+     :notification_config,
      :comments,
      :role,
      :admin?,

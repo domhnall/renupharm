@@ -236,6 +236,25 @@ en:
       accept_terms_and_continue: "Accept & Continue"
     errors:
       must_accept_terms: "You must accept the Terms & Conditions before proceeding."
+  notification_config:
+    title: "Notification Preferences"
+    intro: "We will communicate with you when various events happen and through different channels. You can control the notifications you receive from us by updating your settings here."
+    flash:
+      update_successful: "We have successfully updated your preferences."
+      error: "There has been an unexpected problem updating your preferences. Please contact support."
+    labels:
+      purchase_section:
+        title: "Purchases"
+        intro: "These alerts will be sent when your pharmacy makes a purchase on the marketplace:"
+        emails: "Email"
+        texts: "Text"
+        site_notifications: "Site notification"
+      sale_section:
+        title: "Sales"
+        intro: "These alerts will be sent when your pharmacy makes a sale on the marketplace:"
+        emails: "Email"
+        texts: "Text"
+        site_notifications: "Site notification"
   comment:
     commented_by: "created by <strong>%{commenter}</strong>"
     commented_at: "commented at <strong>%{commented_at}</strong>"
@@ -281,6 +300,11 @@ en:
         orders: "Orders"
         products: "Products"
   dashboard:
+    account_navigation:
+      profile: "Profile"
+      notification_preferences: "Notifications"
+      account: "Account"
+      logout: "Logout"
     pharmacy:
       no_recent_purchases: "No recent purchases"
       no_recent_sales: "No recent sales"

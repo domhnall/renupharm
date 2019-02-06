@@ -21,11 +21,14 @@
           %strong= current_user.email
         %a.dropdown-item{href: profile_path}
           %i.fa.fa-user
-          Profile
+          = t("dashboard.account_navigation.profile")
+        %a.dropdown-item{href: notification_config_path}
+          %i.fa.fa-bell
+          = t("dashboard.account_navigation.notification_preferences")
         %a.dropdown-item{href: account_edit_path}
           %i.fa.fa-wrench
-          Account
+          = t("dashboard.account_navigation.account")
         .divider
         %a.dropdown-item{href: destroy_user_session_path, data: {method: :delete}}
           %i.fa.fa-sign-out-alt
-          Logout
+          = t("dashboard.account_navigation.logout")

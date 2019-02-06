@@ -12,6 +12,7 @@ class Profile < ApplicationRecord
   include ActsAsIrishPhoneContact
 
   belongs_to :user
+  has_one :notification_config, dependent: :destroy
   has_one_attached :avatar
 
   validates :first_name, presence: true, length: {minimum: 2, maximum: 30}
@@ -20,6 +21,8 @@ class Profile < ApplicationRecord
   validates :accepted_terms, acceptance: { message: I18n.t("profile.errors.must_accept_terms") }, on: :update
 
   acts_as_irish_phone_contact :telephone
+
+  after_create :create_default_associations
 
   def full_name
     [first_name, surname].join(" ")
@@ -38,5 +41,11 @@ class Profile < ApplicationRecord
     define_method "#{role}?" do
       self.role == role
     end
+  end
+
+  private
+
+  def create_default_associations
+    self.create_notification_config!
   end
 end

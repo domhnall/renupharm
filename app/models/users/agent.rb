@@ -10,6 +10,13 @@ class Users::Agent < User
 
   delegate :superintendent?, to: :agent
 
+  delegate :purchase_emails,
+           :purchase_texts,
+           :purchase_site_notifications,
+           :sale_emails,
+           :sale_texts,
+           :sale_site_notifications, to: :notification_config
+
   def create_order!
     return if current_order
     agent.orders.create!({

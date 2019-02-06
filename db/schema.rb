@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_06_134620) do
+ActiveRecord::Schema.define(version: 2019_02_06_144024) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_134620) do
     t.datetime "updated_at", null: false
     t.string "batch_number"
     t.text "seller_note"
+    t.boolean "split_pack"
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_listings_on_marketplace_pharmacy_id"
     t.index ["marketplace_product_id"], name: "index_marketplace_listings_on_marketplace_product_id"
   end
@@ -171,6 +172,19 @@ ActiveRecord::Schema.define(version: 2019_01_06_134620) do
     t.integer "channel_size"
     t.string "manufacturer"
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_products_on_marketplace_pharmacy_id"
+  end
+
+  create_table "notification_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "profile_id"
+    t.boolean "purchase_emails", default: true
+    t.boolean "purchase_texts", default: true
+    t.boolean "purchase_site_notifications", default: true
+    t.boolean "sale_emails", default: true
+    t.boolean "sale_texts", default: true
+    t.boolean "sale_site_notifications", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_notification_configs_on_profile_id"
   end
 
   create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -266,6 +280,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_134620) do
   add_foreign_key "marketplace_payments", "marketplace_credit_cards"
   add_foreign_key "marketplace_payments", "marketplace_orders"
   add_foreign_key "marketplace_products", "marketplace_pharmacies"
+  add_foreign_key "notification_configs", "profiles"
   add_foreign_key "profiles", "users"
   add_foreign_key "sales_contacts", "sales_pharmacies"
   add_foreign_key "survey_responses", "sales_contacts"

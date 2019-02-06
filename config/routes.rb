@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     get :accept_terms_and_conditions
   end
 
+  resource :notification_config, only: [:show, :update]
+
   namespace :sales do
     resources :contacts, only: [:create]
   end
