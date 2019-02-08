@@ -34,12 +34,12 @@ describe Users::Agent do
       :current_order,
       :superintendent?,
       :notification_config,
-      :purchase_emails,
-      :purchase_texts,
-      :purchase_site_notifications,
-      :sale_emails,
-      :sale_texts,
-      :sale_site_notifications ].each do |method|
+      :purchase_emails?,
+      :purchase_texts?,
+      :purchase_site_notifications?,
+      :sale_emails?,
+      :sale_texts?,
+      :sale_site_notifications? ].each do |method|
       it "should respond to :#{method}" do
         expect(Users::Agent.new(@params)).to respond_to method
       end
