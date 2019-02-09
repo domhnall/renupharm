@@ -27,63 +27,6 @@ describe Marketplace::CreditCardsController do
     @admin_user = create_admin_user(email: "adam@renupharm.ie")
   end
 
-  describe "#new" do
-    describe "unauthenticated user" do
-      it "should redirect user to the sign in path" do
-        get :new, params: {pharmacy_id: @pharmacy.id}
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
-
-    describe "authenticated user" do
-      describe "who is not superintendent of pharmacy" do
-        before :each do
-          sign_in @user
-        end
-
-        it "should redirect user to the sign in path" do
-          get :new, params: {pharmacy_id: @pharmacy.id}
-          expect(response).to redirect_to root_path
-        end
-
-        it "should set a flash message to indicate that user has no access to create agents" do
-          get :new, params: {pharmacy_id: @pharmacy.id}
-          expect(flash[:error]).to eq I18n.t('errors.access_denied')
-        end
-
-        it "should return a successful response where user is an admin" do
-          sign_in @admin_user
-          get :new, params: {pharmacy_id: @pharmacy.id}
-          expect(response.status).to eq 200
-        end
-
-        describe "wrong :pharmacy_id specified on request" do
-          it "should redirect user" do
-            sign_in @other_user
-            get :new, params: {pharmacy_id: @pharmacy.id}
-            expect(response).to redirect_to root_path
-          end
-        end
-      end
-
-      describe "who is superintendent of pharmacy" do
-        before :each do
-          sign_in @superintendent
-        end
-
-        it "should return a successful response" do
-          get :new, params: {pharmacy_id: @pharmacy.id}
-          expect(response.status).to eq 200
-        end
-
-        it "should render the :new template" do
-          get :new, params: {pharmacy_id: @pharmacy.id}
-          expect(response.body).to render_template :new
-        end
-      end
-    end
-  end
-
   describe "#create" do
     before :all do
       @create_params = {
@@ -122,7 +65,7 @@ describe Marketplace::CreditCardsController do
           expect(response).to redirect_to root_path
         end
 
-        it "should set a flash message to indicate that user has no access to create agents" do
+        it "should set a flash message to indicate that user has no access to create new payment details" do
           post :create, params: @create_params
           expect(flash[:error]).to eq I18n.t('errors.access_denied')
         end
@@ -148,10 +91,10 @@ describe Marketplace::CreditCardsController do
 
         it "should redirect the user to the pharmacy path" do
           post :create, params: @create_params
-          expect(response).to redirect_to marketplace_pharmacy_path(@pharmacy)
+          expect(response).to redirect_to marketplace_pharmacy_profile_path(pharmacy_id: @pharmacy.id, section: 'credit_cards')
         end
 
-        it "should set a flash message to indicate that agent has been successfully created" do
+        it "should set a flash message to indicate that credit card has been successfully created" do
           post :create, params: @create_params
           expect(flash[:success]).to eq I18n.t('marketplace.credit_card.flash.create_successful')
         end

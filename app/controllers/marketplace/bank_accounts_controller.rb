@@ -10,7 +10,7 @@ class Marketplace::BankAccountsController < AuthenticatedController
     @bank_account = pharmacy.build_bank_account(bank_account_params)#Marketplace::BankAccount.new(bank_account_params.merge(marketplace_pharmacy_id: pharmacy&.id))
     authorize @bank_account, :create?
     if @bank_account.valid? && @bank_account.save
-      redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t('marketplace.bank_account.flash.update_successful') }
+      redirect_to pharmacy_bank_account_path, flash: { success: I18n.t('marketplace.bank_account.flash.update_successful') }
     else
       flash.now[:warning] = I18n.t('marketplace.bank_account.flash.error')
       render :new
@@ -27,7 +27,7 @@ class Marketplace::BankAccountsController < AuthenticatedController
     @bank_account.assign_attributes(bank_account_params.merge(marketplace_pharmacy_id: pharmacy&.id))
     authorize @bank_account, :update?
     if @bank_account.valid? && @bank_account.save!
-      redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t('marketplace.bank_account.flash.update_successful') }
+      redirect_to pharmacy_bank_account_path, flash: { success: I18n.t('marketplace.bank_account.flash.update_successful') }
     else
       flash.now[:warning] = I18n.t('marketplace.bank_account.flash.error')
       render :edit
@@ -39,6 +39,10 @@ class Marketplace::BankAccountsController < AuthenticatedController
   def pharmacy
     raise Errors::AccessDenied if current_user.pharmacy? && params.fetch(:pharmacy_id, nil).to_i!=current_user.pharmacy.id
     @_pharmacy ||= ::Marketplace::Pharmacy.find(params.fetch(:pharmacy_id))
+  end
+
+  def pharmacy_bank_account_path
+    marketplace_pharmacy_profile_path(pharmacy_id: pharmacy.id, section: 'bank_account')
   end
 
   def bank_account_params

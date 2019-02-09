@@ -12,7 +12,7 @@ class Marketplace::AgentsController < AuthenticatedController
     @agent = pharmacy.agents.build(agent_params)
     authorize @agent, :create?
     if @agent.save
-      redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t("general.flash.create_successful") }
+      redirect_to pharmacy_agents_path, flash: { success: I18n.t("general.flash.create_successful") }
     else
       flash[:error] = I18n.t("general.flash.error")
       render 'new'
@@ -28,7 +28,7 @@ class Marketplace::AgentsController < AuthenticatedController
     @agent = pharmacy.agents.find(params.fetch(:id).to_i)
     authorize @agent, :update?
     if @agent.update_attributes(agent_params)
-      redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t("general.flash.update_successful") }
+      redirect_to pharmacy_agents_path, flash: { success: I18n.t("general.flash.update_successful") }
     else
       flash[:error] = I18n.t("general.flash.error")
       render 'edit'
@@ -39,6 +39,10 @@ class Marketplace::AgentsController < AuthenticatedController
 
   def pharmacy
     @_pharmacy ||= ::Marketplace::Pharmacy.find(params.fetch(:pharmacy_id).to_i)
+  end
+
+  def pharmacy_agents_path
+    marketplace_pharmacy_profile_path(pharmacy_id: pharmacy.id, section: 'agents')
   end
 
   def agent_params

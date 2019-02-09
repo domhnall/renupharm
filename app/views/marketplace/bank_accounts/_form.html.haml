@@ -13,4 +13,6 @@
 
   .actions
     = submit_tag t('general.save'), id: 'submit_marketplace_bank_account', class: 'btn btn-success'
-    = link_to t('general.cancel'), marketplace_pharmacy_path(@bank_account.pharmacy), class: 'btn btn-light'
+    = link_to t('general.cancel'),
+      marketplace_pharmacy_profile_path(profile_id: @bank_account.pharmacy.id, section: 'bank_account'),
+      class: 'btn btn-light'

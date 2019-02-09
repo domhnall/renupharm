@@ -15,7 +15,7 @@ describe Marketplace::PharmaciesController do
   describe "#show" do
     describe "unauthenticated user" do
       it "should redirect user to the sign in path" do
-        get :show, params: {id: @pharmacy.id}
+        get :show, params: {pharmacy_id: @pharmacy.id, section: 'profile'}
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -26,12 +26,12 @@ describe Marketplace::PharmaciesController do
       end
 
       it "should return a successful response" do
-        get :show, params: {id: @pharmacy.id}
+        get :show, params: {pharmacy_id: @pharmacy.id, section: 'profile'}
         expect(response.status).to eq 200
       end
 
       it "should render the :show template" do
-        get :show, params: {id: @pharmacy.id}
+        get :show, params: {pharmacy_id: @pharmacy.id, section: 'profile'}
         expect(response.body).to render_template "marketplace/shared/pharmacies/show"
       end
     end

@@ -8,4 +8,4 @@
     = form.check_box :superintendent, class: 'col-form-check-input'
   .actions
     = submit_tag t('general.save'), id: 'submit_marketplace_agent', class: 'btn btn-success'
-    = link_to t('general.cancel'), marketplace_pharmacy_path(@agent.pharmacy), class: 'btn btn-light'
+    = link_to t('general.cancel'), marketplace_pharmacy_profile_path(pharmacy_id: @agent.pharmacy.id, section: 'profile'), class: 'btn btn-light'

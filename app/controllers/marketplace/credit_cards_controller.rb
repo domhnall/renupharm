@@ -3,16 +3,26 @@ class Marketplace::CreditCardsController < AuthenticatedController
     @credit_card = pharmacy.credit_cards.build(credit_card_params)
     authorize @credit_card, :create?
     if @credit_card.valid? && @credit_card.save && @credit_card.authorize!(shopper_ip: request.remote_ip)
-      redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t('marketplace.credit_card.flash.create_successful') }
+      redirect_to marketplace_pharmacy_profile_path({
+        pharmacy_id: pharmacy.id,
+        section: 'credit_cards'
+      }),
+      flash: { success: t('marketplace.credit_card.flash.create_successful') }
     else
-      flash.now[:warning] = t('marketplace.credit_card.flash.error')
-      render :new
+      redirect_to marketplace_pharmacy_profile_path({
+        pharmacy_id: pharmacy.id,
+        section: 'credit_cards'
+      }),
+      flash: { warning: t('marketplace.credit_card.flash.error') }
     end
   rescue Errors::AccessDenied, Pundit::NotAuthorizedError => exception
     raise e
   rescue StandardError => e
-    flash.now[:error] = t('marketplace.credit_card.flash.unexpected_error')
-    render :new
+    redirect_to marketplace_pharmacy_profile_path({
+      pharmacy_id: pharmacy.id,
+      section: 'credit_cards'
+    }),
+    flash: { error: t('marketplace.credit_card.flash.unexpected_error') }
   end
 
   private

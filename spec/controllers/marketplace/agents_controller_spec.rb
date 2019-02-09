@@ -215,7 +215,7 @@ describe Marketplace::AgentsController do
 
         it "should redirect the user to the pharmacy path" do
           post :create, params: @create_params
-          expect(response).to redirect_to marketplace_pharmacy_path(@pharmacy)
+          expect(response).to redirect_to marketplace_pharmacy_profile_path(pharmacy_id: @pharmacy.id, section: 'agents')
         end
 
         it "should set a flash message to indicate that agent has been successfully created" do
@@ -293,7 +293,7 @@ describe Marketplace::AgentsController do
 
         it "should redirect the user to the pharmacy path" do
           put :update, params: @update_params
-          expect(response).to redirect_to marketplace_pharmacy_path(@pharmacy)
+          expect(response).to redirect_to marketplace_pharmacy_profile_path(pharmacy_id: @pharmacy.id, section: 'agents')
         end
 
         it "should set a flash message to indicate that agent has been successfully updated" do

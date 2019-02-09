@@ -100,7 +100,7 @@ describe Marketplace::BankAccountsController do
 
       it "should redirect the admin to the pharmacy profile page" do
         post :create, params: @create_params
-        expect(response).to redirect_to marketplace_pharmacy_path(@pharmacy)
+        expect(response).to redirect_to marketplace_pharmacy_profile_path(pharmacy_id: @pharmacy.id, section: 'bank_account')
       end
 
       it "should not create a product if :pharmacy_id does not correspond to the user's pharmacy" do
@@ -122,7 +122,7 @@ describe Marketplace::BankAccountsController do
 
         it "should redirect the admin to the pharmacy profile page" do
           post :create, params: @create_params.merge(pharmacy_id: @other_user.pharmacy.id)
-          expect(response).to redirect_to marketplace_pharmacy_path(@other_user.pharmacy)
+          expect(response).to redirect_to marketplace_pharmacy_profile_path(pharmacy_id: @other_user.pharmacy.id, section: 'bank_account')
         end
       end
     end
@@ -208,7 +208,7 @@ describe Marketplace::BankAccountsController do
 
       it "should redirect the user to the pharmacy page" do
         put :update, params: @update_params
-        expect(response).to redirect_to marketplace_pharmacy_path(@pharmacy)
+        expect(response).to redirect_to marketplace_pharmacy_profile_path(pharmacy_id: @pharmacy.id, section: 'bank_account')
       end
 
       it "should not update the product if :pharmacy_id does not correspond to the user's pharmacy" do
@@ -230,7 +230,7 @@ describe Marketplace::BankAccountsController do
 
         it "should redirect the admin to the pharmacy profile page" do
           put :update, params: @update_params.merge(pharmacy_id: @pharmacy.id)
-          expect(response).to redirect_to marketplace_pharmacy_path(@pharmacy)
+          expect(response).to redirect_to marketplace_pharmacy_profile_path(pharmacy_id: @pharmacy.id, section: 'bank_account')
         end
       end
     end

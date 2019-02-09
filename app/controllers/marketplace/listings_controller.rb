@@ -34,7 +34,7 @@ class Marketplace::ListingsController < AuthenticatedController
     end
     authorize @listing, :create?
     if @listing.valid? && @listing.save!
-      redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t('marketplace.listing.flash.create_successful') }
+      redirect_to pharmacy_listings_path, flash: { success: I18n.t('marketplace.listing.flash.create_successful') }
     else
       flash.now[:warning] = I18n.t('marketplace.listing.flash.error')
       @products = policy_scope(Marketplace::Product)
@@ -52,7 +52,7 @@ class Marketplace::ListingsController < AuthenticatedController
     @listing = pharmacy.listings.find(params.fetch(:id).to_i)
     authorize @listing, :update?
     if @listing.update_attributes(listing_params)
-      redirect_to marketplace_pharmacy_path(pharmacy), flash: { success: I18n.t('marketplace.listing.flash.update_successful') }
+      redirect_to pharmacy_listings_path, flash: { success: I18n.t('marketplace.listing.flash.update_successful') }
     else
       flash.now[:warning] = I18n.t('marketplace.listing.flash.error')
       @products = policy_scope(Marketplace::Product)
@@ -80,6 +80,10 @@ class Marketplace::ListingsController < AuthenticatedController
   def pharmacy
     return unless pharmacy_id
     @_pharmacy ||= ::Marketplace::Pharmacy.find(pharmacy_id.to_i)
+  end
+
+  def pharmacy_listings_path
+    marketplace_pharmacy_profile_path(pharmacy_id: pharmacy.id, section: 'listings')
   end
 
   def pharmacy_id

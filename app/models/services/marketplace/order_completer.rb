@@ -41,7 +41,8 @@ class Services::Marketplace::OrderCompleter
 
   def validate_card_present
     if order.pharmacy.credit_cards.empty?
-      raise Services::Error, I18n.t("marketplace.cart.errors.no_credit_card", url: marketplace_pharmacy_path(order.pharmacy) + "#pharmacy_credit_cards")
+      pharmacy_cards_url = marketplace_pharmacy_profile_path(pharmacy_id: order.pharmacy.id, section: 'credit_cards')
+      raise Services::Error, I18n.t("marketplace.cart.errors.no_credit_card", url: pharmacy_cards_url)
     end
   end
 

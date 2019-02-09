@@ -5,10 +5,6 @@ describe NotificationConfigsController do
 
   before :all do
     @user = create_agent.user.becomes(Users::Agent)
-   # (
-   #   pharmacy: create_pharmacy(name: "Bagg's Pharmacy", email: "billy@baggs.com"),
-   #   email: create_user(email: "stuart@baggs.com")
-   # ).user.becomes(Users::Agent)
   end
 
   describe "#show" do
@@ -63,9 +59,9 @@ describe NotificationConfigsController do
       end
 
       it "should update the config accordingly" do
-        expect(@user.reload.purchase_emails).to be_truthy
+        expect(@user.reload.purchase_emails?).to be_truthy
         put :update, params: @update_params
-        expect(@user.reload.purchase_emails).to be_falsey
+        expect(@user.reload.purchase_emails?).to be_falsey
       end
 
       it "should redirect the user to the :show view" do
