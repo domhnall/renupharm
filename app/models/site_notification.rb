@@ -1,0 +1,2 @@
+class SiteNotification < Notification
+end
