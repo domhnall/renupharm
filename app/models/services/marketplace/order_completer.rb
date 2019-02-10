@@ -94,7 +94,7 @@ class Services::Marketplace::OrderCompleter
   end
 
   def credit_card
-    buying_pharmacy.credit_cards.first
+    buying_pharmacy.default_card
   end
 
   def listing

@@ -30,7 +30,8 @@ describe Marketplace::Pharmacy do
     :address,
     :bank_name,
     :bic,
-    :iban ].each do |method|
+    :iban,
+    :default_card ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Pharmacy.new).to respond_to method
     end
@@ -152,6 +153,23 @@ describe Marketplace::Pharmacy do
 
       it "should return strip out any nil components without leaving commas" do
         expect(Marketplace::Pharmacy.new(@params.merge(address_2: "")).address).to eq "1a Sandymount Green, Dublin 4"
+      end
+    end
+
+    describe "#default_card" do
+      before :all do
+        @pharmacy = Marketplace::Pharmacy.create!(@params)
+        @default_card = create_credit_card(pharmacy: @pharmacy, default: true)
+        @other_card = create_credit_card(pharmacy: @pharmacy, default: false)
+      end
+
+      it "should return the first default card for the pharmacy" do
+        expect(@pharmacy.reload.default_card.id).to eq @default_card.id
+      end
+
+      it "should return the last created card for the pharmacy if no default set" do
+        @default_card.update_column(:default, false)
+        expect(@pharmacy.reload.default_card.id).to eq @other_card.id
       end
     end
   end

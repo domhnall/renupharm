@@ -94,4 +94,37 @@ describe Marketplace::CreditCard do
       #end
     end
   end
+
+  describe "after_save" do
+    before :all do
+      @default_credit_card = @pharmacy.credit_cards.create!(@params.merge(default: true))
+      @other_credit_card = @pharmacy.credit_cards.create!(@params.merge(default: false))
+    end
+
+    describe "if :default flag has been set to true" do
+      it "should update other cards associated with same pharmacy to be non-default" do
+        expect(@default_credit_card.reload.default).to be_truthy
+        expect(@other_credit_card.reload.default).to be_falsey
+        @other_credit_card.default = true
+        @other_credit_card.save
+        expect(@default_credit_card.reload.default).to be_falsey
+        expect(@other_credit_card.reload.default).to be_truthy
+      end
+    end
+
+    describe "if :default flag has not been set" do
+      before :each do
+        @other_credit_card.update_column(:default, true)
+      end
+
+      it "should not update other cards associated with same pharmacy to be non-default" do
+        expect(@default_credit_card.reload.default).to be_truthy
+        expect(@other_credit_card.reload.default).to be_truthy
+        @other_credit_card.default = false
+        @other_credit_card.save
+        expect(@default_credit_card.reload.default).to be_truthy
+        expect(@other_credit_card.reload.default).to be_falsey
+      end
+    end
+  end
 end

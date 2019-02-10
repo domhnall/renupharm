@@ -11,6 +11,8 @@ class Marketplace::CreditCard < ApplicationRecord
     foreign_key: :marketplace_credit_card_id,
     inverse_of: :credit_card
 
+  scope :default, ->{ where(default: true) }
+
   delegate :name,
            to: :pharmacy, prefix: true
 
@@ -18,6 +20,8 @@ class Marketplace::CreditCard < ApplicationRecord
   attr_accessor :encrypted_card
 
   validates :email, email: true
+
+  after_save :handle_default_card!
 
   def authorize!(options = {})
     self.payments.create!({
@@ -100,6 +104,12 @@ class Marketplace::CreditCard < ApplicationRecord
       self.expiry_year                = detail.card_expiry_year
       self.number                     = detail.card_number
       self.save!
+    end
+  end
+
+  def handle_default_card!
+    if saved_change_to_default? && default
+      pharmacy.credit_cards.where("id != ?", id).update_all(default: false)
     end
   end
 end

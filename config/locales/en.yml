@@ -443,6 +443,7 @@ en:
       cvc: "CVC"
       flash:
         create_successful: "Successfully added new card details"
+        update_successful: "Successfully updated default credit card"
         error: "There has been an error adding these card details. Please review and try again, if problems persists please email support: dev@renumpharm.ie"
         unexpected_error: "There has been an unexpected error. If problems persists please email support: dev@renumpharm.ie"
       logos:
@@ -456,6 +457,8 @@ en:
         year: "Year"
         add_card: "Add Card"
         add_new_card_link: "Add new card"
+        set_as_default: "Set as default"
+        current_default: "Current default"
     bank_account:
       bank_name: "Bank name"
       bic: "BIC"

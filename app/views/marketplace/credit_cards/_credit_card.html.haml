@@ -1,10 +1,21 @@
-.card.credit_card
-  .brand
-    = image_tag "credit_cards/#{credit_card.card_type}", height: 41, width: 65, alt: t("marketplace.credit_card.logos.#{credit_card.card_type}")
-  .number
-    = "**** **** **** #{credit_card.number}"
-  .expiry
-    .label= t("marketplace.credit_card.expiry")
-    .value= "#{credit_card.expiry_month}/#{credit_card.expiry_year}"
-  .holder.text-truncate{ title: (credit_card.holder_name || credit_card.email) }
-    = credit_card.holder_name || credit_card.email
+.row
+  .col-lg-3
+  .col-lg-6
+    .card.credit_card{ class: credit_card.default? ? 'default' : '' }
+      .brand
+        = image_tag "credit_cards/#{credit_card.card_type}", height: 41, width: 65, alt: t("marketplace.credit_card.logos.#{credit_card.card_type}")
+      .number
+        = "**** **** **** #{credit_card.number}"
+      .expiry
+        .label= t("marketplace.credit_card.expiry")
+        .value= "#{credit_card.expiry_month}/#{credit_card.expiry_year}"
+      .holder.text-truncate{ title: (credit_card.holder_name || credit_card.email) }
+        = credit_card.holder_name || credit_card.email
+  .col-lg-3
+    .card_actions
+      - if credit_card.default?
+        .default_label= t("marketplace.credit_card.labels.current_default")
+      - if policy(credit_card).update? && !credit_card.default?
+        = form_for credit_card, url: marketplace_pharmacy_credit_card_path(pharmacy_id: credit_card.pharmacy.id, id: credit_card.id) do |form|
+          = form.hidden_field :default, value: true
+          = form.submit t("marketplace.credit_card.labels.set_as_default"), class: "btn btn-light"

@@ -50,4 +50,8 @@ class Marketplace::Pharmacy < ApplicationRecord
   def address
     [address_1, address_2, address_3].reject{|a| a.blank? }.join(", ")
   end
+
+  def default_card
+    credit_cards.default.first || credit_cards.last
+  end
 end

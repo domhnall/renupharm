@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_06_144024) do
+ActiveRecord::Schema.define(version: 2019_02_09_200559) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2019_02_06_144024) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "default", default: false
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_credit_cards_on_marketplace_pharmacy_id"
   end
 
@@ -109,7 +110,6 @@ ActiveRecord::Schema.define(version: 2019_02_06_144024) do
     t.datetime "updated_at", null: false
     t.string "batch_number"
     t.text "seller_note"
-    t.boolean "split_pack"
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_listings_on_marketplace_pharmacy_id"
     t.index ["marketplace_product_id"], name: "index_marketplace_listings_on_marketplace_product_id"
   end

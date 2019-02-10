@@ -172,5 +172,18 @@
       margin-top: 10px;
     }
   }
+  .card_actions {
+    display: table-cell;
+    height: 150px;
+    vertical-align: middle;
+    text-align: left;
+    .default_label {
+      display: inline-block;
+      font-weight: bold;
+      font-size: 80%;
+      text-transform: uppercase;
+      color: green;
+    }
+  }
 
 }
