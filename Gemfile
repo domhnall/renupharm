@@ -79,3 +79,4 @@ gem 'pundit'        # Authorization
 
 gem 'stripe'        # For payments
 gem 'sunspot_rails' # Rails integration for Solr
+gem 'nexmo'
