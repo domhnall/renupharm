@@ -14,7 +14,6 @@ module Factories
       }).tap do |pharmacy|
         if attrs.fetch(:with_images, false)
           begin
-            #img = open(Faker::Avatar.image)
             img = generate_image
             pharmacy.image.attach(io: img, filename: "#{pharmacy.name.downcase.underscore}.jpeg") if img
             pharmacy.save!

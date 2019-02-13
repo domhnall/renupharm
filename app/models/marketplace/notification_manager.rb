@@ -48,7 +48,7 @@ class Marketplace::NotificationManager
     end
 
     if user.sale_texts?
-      Services::Marketplace::SendSmsService.new(recipient: user, message: build_sale_message(order)).call
+      Services::Marketplace::SendSms.new(recipient: user, message: build_sale_message(order)).call
     end
 
     if user.sale_site_notifications?
