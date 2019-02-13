@@ -191,6 +191,8 @@ ActiveRecord::Schema.define(version: 2019_02_17_090351) do
     t.bigint "profile_id"
     t.string "type"
     t.string "message"
+    t.boolean "delivered", default: false
+    t.json "gateway_response"
     t.index ["profile_id"], name: "index_notifications_on_profile_id"
   end
 

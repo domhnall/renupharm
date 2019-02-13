@@ -48,5 +48,43 @@ module Factories
         user.profile.avatar.attach(io: File.open("#{Rails.root}/spec/support/images/karate_kid_johnny.jpeg"), filename: "johnny.jpeg")
       end
     end
+
+    def create_sms_notification(attrs = {})
+      SmsNotification.new.tap do |sms|
+        sms.profile = attrs.fetch(:profile, create_user.profile)
+        sms.message = attrs.fetch(:message, Faker::Lorem.sentence(8))
+        sms.gateway_response = attrs.fetch(:gateway_response, nil)
+        sms.delivered = attrs.fetch(:delivered, false)
+        sms.save!
+      end
+    end
+
+    def create_successful_sms(attrs = {})
+      create_sms_notification(gateway_response: {
+        :"message-count" => "1",
+        :"messages" => [{
+          :"to" => "447746926569",
+          :"message-id" => "1500000005B149C5",
+          :"status" => "0",
+          :"remaining-balance" => "5.96670000",
+          :"message-price" => "0.03330000",
+          :"network" => "23410"
+        }]
+      })
+    end
+
+    def create_failing_sms(attrs = {})
+      SmsNotification.skip_callback(:commit, :after, :alert_failing_delivery)
+      create_sms_notification(gateway_response: {
+        :"message-count" => "1",
+        :"messages" => [{
+          :"to" => "447746926569",
+          :"message-id" => "1500000005B149C6",
+          :"status" => "99",
+        }]
+      })
+    ensure
+      SmsNotification.set_callback(:commit, :after, :alert_failing_delivery)
+    end
   end
 end
