@@ -11,6 +11,8 @@
         .value= "#{credit_card.expiry_month}/#{credit_card.expiry_year}"
       .holder.text-truncate{ title: (credit_card.holder_name || credit_card.email) }
         = credit_card.holder_name || credit_card.email
+      .reference
+        = "Reference: #{credit_card.gateway_customer_reference}"
   .col-lg-3
     .card_actions
       - if credit_card.default?

@@ -46,6 +46,7 @@ class Marketplace::Order < ApplicationRecord
            :price_major,
            :price_minor,
            :currency_symbol,
+           :currency_code,
            :display_price, to: :price
 
   alias_method :buying_pharmacy, :pharmacy

@@ -10,7 +10,13 @@ describe Marketplace::Order do
     :line_items,
     :listings,
     :payment,
-    :fees ].each do |method|
+    :fees
+    :price_cents,
+    :price_major,
+    :price_minor,
+    :currency_symbol,
+    :currency_code,
+    :display_price ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Order.new).to respond_to method
     end

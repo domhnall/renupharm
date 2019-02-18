@@ -1,1 +1,1 @@
-PAYMENT_GATEWAY = Adyen::PaymentGateway.new(Rails.application.credentials.adyen)
+PAYMENT_GATEWAY = PaymentGateway::Gateway::get_instance

@@ -8,7 +8,11 @@ class Marketplace::CartsController < AuthenticatedController
     @order.assign_attributes(marketplace_order_params)
     res = case @order.state
     when Marketplace::Order::State::PLACED
-      ::Services::Marketplace::OrderCompleter.new(order: @order, shopper_ip: shopper_ip).call
+      ::Services::Marketplace::OrderCompleter.new({
+        order: @order,
+        token: get_token,
+        email: get_email
+      }).call
     else
       ::Services::Response.new
     end
@@ -28,7 +32,11 @@ class Marketplace::CartsController < AuthenticatedController
     params.require(:marketplace_order).permit(:state, line_items_attributes: [:id, :marketplace_listing_id, :_destroy])
   end
 
-  def shopper_ip
-    request.remote_ip
+  def get_token
+    params.fetch(:stripeToken)
+  end
+
+  def get_email
+    params.fetch(:stripeEmail)
   end
 end

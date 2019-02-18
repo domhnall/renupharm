@@ -6,10 +6,15 @@
         terms_and_conditions_pages_path,
         class: 'review_terms_link',
         data: { toggle: "modal", target: "#terms_modal" }
-      = form.submit t("marketplace.cart.actions.place_order"),
-        class: 'btn btn-success',
-        disabled: order.line_items.empty?,
-        data: { confirm: t("marketplace.cart.messages.confirm_payment") }
+
+      %script.stripe-button{ src: "https://checkout.stripe.com/checkout.js", data: { key: Rails.application.credentials.stripe["publishable"],
+        amount: order.price_cents,
+        name: "RenuPharm",
+        description: "Card authorization",
+        image: image_path("favicon"),
+        locale: "auto",
+        currency: "eur"}}
+
     - else
       .state{ class: order.state }
         = t("marketplace.cart.state.#{order.state_was}")
