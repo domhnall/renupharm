@@ -1,3 +1,4 @@
 %h2
   = t("marketplace.pharmacy.credit_cards")
-= render partial: 'marketplace/credit_cards/credit_card', collection: pharmacy.credit_cards
+%div{ data: { behaviour: "vue" } }
+  = render partial: 'marketplace/credit_cards/credit_card', collection: pharmacy.credit_cards.authorized
