@@ -1,10 +1,3 @@
-require_relative '../payment_gateway'
-require_relative './purchase_request'
-require_relative './purchase_response'
-require_relative './authorization_request'
-require_relative './authorization_response'
-
-
 class PaymentGateway::Gateway
   @@instance = nil
 

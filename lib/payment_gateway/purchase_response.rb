@@ -1,5 +1,3 @@
-require_relative '../payment_gateway'
-
 class PaymentGateway::PurchaseResponse
   SUCCEEDED = "succeeded"
   PENDING   = "pending"

@@ -1,5 +1,3 @@
-require_relative '../payment_gateway'
-
 class PaymentGateway::PurchaseRequest
   attr_reader :orig_opts
 

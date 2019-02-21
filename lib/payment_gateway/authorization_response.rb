@@ -1,6 +1,5 @@
-require_relative '../payment_gateway'
-
 class PaymentGateway::AuthorizationResponse
+
   attr_reader :customer
 
   def initialize(customer = nil)
@@ -16,7 +15,33 @@ class PaymentGateway::AuthorizationResponse
     customer.id
   end
 
+  def card_digits
+    card.last4
+  end
+
+  def card_brand
+    card.brand
+  end
+
+  def card_name
+    card.name
+  end
+
+  def card_exp_month
+    card.exp_month
+  end
+
+  def card_exp_year
+    card.exp_year
+  end
+
   def json_response
     customer.to_h
+  end
+
+  private
+
+  def card
+    customer.sources.first
   end
 end
