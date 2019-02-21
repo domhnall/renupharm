@@ -1,18 +1,18 @@
 class Services::Marketplace::OrderCompleter
   include Rails.application.routes.url_helpers
 
-  attr_reader :order, :token, :email
+  attr_reader :order, :token, :email, :customer_reference
 
-  def initialize(order: nil, token: nil, email: nil)
+  def initialize(order: nil, token: nil, email: nil, customer_reference: nil)
     @order = order
     @token = token
+    @customer_reference = customer_reference
     @email = email
     @errors = []
     @response = Services::Response.new(errors: @errors)
   end
 
   def call
-    #validate_card_present
     validate_listing_available
     take_payment
     remove_listing
@@ -40,22 +40,13 @@ class Services::Marketplace::OrderCompleter
     end
   end
 
-  def validate_card_present
-    if order.pharmacy.credit_cards.empty?
-      pharmacy_cards_url = marketplace_pharmacy_profile_path(pharmacy_id: order.pharmacy.id, section: 'credit_cards')
-      raise Services::Error, I18n.t("marketplace.cart.errors.no_credit_card", url: pharmacy_cards_url)
-    end
-  end
-
   def take_payment
-    buying_pharmacy.credit_cards.create(email: email).tap do |card|
-      credit_card.take_payment!({
-        order: order,
-        currency_code: order.currency_code,
-        amount_cents: order.price_cents,
-        token: token
-      })
-    end
+    credit_card.take_payment!({
+      order: order,
+      currency_code: order.currency_code,
+      amount_cents: order.price_cents,
+      token: token
+    })
   rescue Exception => e
     Admin::ErrorMailer.payment_error(
       order_id: order.id,
@@ -63,6 +54,14 @@ class Services::Marketplace::OrderCompleter
       backtrace: e.backtrace
     ).deliver_later
     raise Services::Error, I18n.t("marketplace.cart.errors.failed_payment")
+  end
+
+  def credit_card
+    @_credit_card ||= if customer_reference.present?
+      buying_pharmacy.credit_cards.authorized.find_by_gateway_customer_reference(customer_reference)
+    else
+      buying_pharmacy.credit_cards.create(email: email)
+    end
   end
 
   def remove_listing
@@ -95,10 +94,6 @@ class Services::Marketplace::OrderCompleter
 
   def contact_courier
     # No-op
-  end
-
-  def credit_card
-    buying_pharmacy.default_card
   end
 
   def listing

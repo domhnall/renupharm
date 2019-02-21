@@ -24,4 +24,4 @@
           %td.total_price_label= t("marketplace.order.total_price")
           %td.total_price= @order.display_price
       .row
-        = render 'place_order_button', order: @order
+        = render 'place_order_button', order: @order, credit_cards: @credit_cards

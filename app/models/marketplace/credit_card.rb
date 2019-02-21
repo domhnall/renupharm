@@ -12,6 +12,7 @@ class Marketplace::CreditCard < ApplicationRecord
     inverse_of: :credit_card
 
   scope :default, ->{ where(default: true) }
+  scope :authorized, ->{ where.not(gateway_customer_reference: nil) }
 
   delegate :name,
            to: :pharmacy, prefix: true
@@ -30,6 +31,10 @@ class Marketplace::CreditCard < ApplicationRecord
     })
 
     if authorization_response.authorized?
+      self.number = authorization_response.card_digits
+      self.brand = authorization_response.card_brand
+      self.expiry_month = authorization_response.card_exp_month
+      self.expiry_year = authorization_response.card_exp_year
       self.gateway_customer_reference = authorization_response.customer_reference
       self.save!
     else
@@ -57,10 +62,6 @@ class Marketplace::CreditCard < ApplicationRecord
         raise Marketplace::Errors::PaymentError, "Card payment not authorized"
       end
     end
-  end
-
-  def shopper_reference
-    "#{id}-#{created_at.to_i}"
   end
 
   def card_type

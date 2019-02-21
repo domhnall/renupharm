@@ -4,11 +4,27 @@ require_relative '../../../lib/payment_gateway/authorization_response'
 describe PaymentGateway::AuthorizationResponse do
   before :all do
     @customer = OpenStruct.new({
-      id: "cust_987"
+      id: "cust_987",
+      sources: [OpenStruct.new({
+        last4: "4242",
+        brand: "Visa",
+        country: "US",
+        name: "reg@renupharm.ie",
+        exp_month: 5,
+        exp_year: 2022
+      })]
     })
   end
 
-  [:customer, :authorized?, :customer_reference, :json_response].each do |method|
+  [ :customer,
+    :authorized?,
+    :customer_reference,
+    :json_response,
+    :card_digits,
+    :card_brand,
+    :card_name,
+    :card_exp_month,
+    :card_exp_year ].each do |method|
     it "should respond to method :#{method}" do
       expect(PaymentGateway::AuthorizationResponse.new(@customer)).to respond_to method
     end

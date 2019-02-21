@@ -1,4 +1,6 @@
 class Marketplace::CartsController < AuthenticatedController
+  before_action :set_credit_cards, only: [:show, :update]
+
   def show
     @order = current_order
   end
@@ -11,6 +13,7 @@ class Marketplace::CartsController < AuthenticatedController
       ::Services::Marketplace::OrderCompleter.new({
         order: @order,
         token: get_token,
+        customer_reference: get_customer_reference,
         email: get_email
       }).call
     else
@@ -33,10 +36,18 @@ class Marketplace::CartsController < AuthenticatedController
   end
 
   def get_token
-    params.fetch(:stripeToken)
+    params.fetch(:stripeToken, nil)
+  end
+
+  def get_customer_reference
+    params.fetch(:stripeCustomer, nil)
   end
 
   def get_email
-    params.fetch(:stripeEmail)
+    params.fetch(:stripeEmail, nil)
+  end
+
+  def set_credit_cards
+    @credit_cards = current_user.pharmacy.credit_cards.authorized
   end
 end

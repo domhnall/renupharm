@@ -1,23 +1,45 @@
+= javascript_include_tag "https://checkout.stripe.com/checkout.js"
+
 .place_order_btn.cta
-  = form_for order, url: marketplace_cart_path, action: :patch do |form|
+  = form_for order, url: marketplace_cart_path, action: :patch, html: { class: "place_order" } do |form|
     = form.hidden_field :state, value: 'placed'
+    = hidden_field_tag :stripeToken
+    = hidden_field_tag :stripeEmail
     - if order.in_progress? || order.state_was == Marketplace::Order::State::IN_PROGRESS
+      - if credit_cards.any?
+        %fieldset.card_selection.form-group{data: { behaviour: "vue" } }
+          - credit_cards.each do |cc|
+            .form-check
+              = radio_button_tag "stripeCustomer", cc.gateway_customer_reference, cc.default?, class: 'form-check-input'
+              <credit-card brand="#{cc.brand}" number="#{cc.number}" expiry_month="#{cc.expiry_month}" expiry_year="#{cc.expiry_year}" email="#{cc.email}" :is_default="#{cc.default}" brand_image="#{image_path('credit_cards/'+cc.card_type)}"></credit-card>
+          .form-check
+            = radio_button_tag "stripeCustomer", "", false, class: 'form-check-input'
+            = label_tag "stripeCustomer", "Use a different card"
+
       = link_to t("marketplace.cart.review_terms"),
         terms_and_conditions_pages_path,
         class: 'review_terms_link',
         data: { toggle: "modal", target: "#terms_modal" }
 
-      %script.stripe-button{ src: "https://checkout.stripe.com/checkout.js", data: { key: Rails.application.credentials.stripe["publishable"],
-        amount: order.price_cents,
-        name: "RenuPharm",
-        description: "Card authorization",
-        image: image_path("favicon"),
-        locale: "auto",
-        currency: "eur"}}
+      = form.submit t("marketplace.cart.actions.place_order.existing_card"),
+        id: "place_order_existing_card",
+        class: "btn btn-success #{credit_cards.any? ? '' : 'hidden'}",
+        disabled: order.line_items.empty?,
+        data: { confirm: t("marketplace.cart.messages.confirm_payment") }
+
+      = form.submit t("marketplace.cart.actions.place_order.new_card"),
+        id: "place_order_new_card",
+        class: "btn btn-success #{credit_cards.any? ? 'hidden' : ''}",
+        disabled: order.line_items.empty?,
+        data: { stripe_key: Rails.application.credentials.stripe[:publishable],
+        stripe_image: image_path("favicon"),
+        stripe_amount: order.price_cents,
+        stripe_description: "TODO Description Card authorization"}
 
     - else
       .state{ class: order.state }
         = t("marketplace.cart.state.#{order.state_was}")
+
 
 #terms_modal.modal.fade{ "tabindex"=>"-1", "role"=>"dialog", "aria-hidden"=>true, "aria-labelledby"=>"#user_agreement_header" }
   .modal-dialog.modal-lg.modal-dialog-centered{ "role"=>"document" }
