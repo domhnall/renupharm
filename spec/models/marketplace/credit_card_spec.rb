@@ -50,7 +50,10 @@ describe Marketplace::CreditCard do
 
     describe "#authorize!" do
       before :each do
-        @response = PaymentGateway::AuthorizationResponse.new(OpenStruct.new(id: "cust_8765"))
+        @response = PaymentGateway::AuthorizationResponse.new(OpenStruct.new({
+          id: "cust_8765",
+          sources: [ OpenStruct.new(last4: "9876", exp_month: "06", exp_year: "2023", name: "joe@doe.com", brand: "Visa") ]
+        }))
         @unsuccessful_response = PaymentGateway::AuthorizationResponse.new(OpenStruct.new(status: "failed"))
         allow(PAYMENT_GATEWAY).to receive(:authorize).and_return(@response)
         @opts = { token: "tok_98765", order: @order }
@@ -66,6 +69,30 @@ describe Marketplace::CreditCard do
         @credit_card.authorize!(@opts)
         expect(@credit_card.gateway_customer_reference).not_to be_nil
         expect(@credit_card.gateway_customer_reference).to eq "cust_8765"
+      end
+
+      it "should set the :number on the credit card" do
+        expect(@credit_card.number).to be_nil
+        @credit_card.authorize!(@opts)
+        expect(@credit_card.number).to eq "9876"
+      end
+
+      it "should set the :brand on the credit card" do
+        expect(@credit_card.brand).to be_nil
+        @credit_card.authorize!(@opts)
+        expect(@credit_card.brand).to eq "Visa"
+      end
+
+      it "should set the :expiry_month on the credit card" do
+        expect(@credit_card.expiry_month).to be_nil
+        @credit_card.authorize!(@opts)
+        expect(@credit_card.expiry_month).to eq 6
+      end
+
+      it "should set the :expiry_year on the credit card" do
+        expect(@credit_card.expiry_year).to be_nil
+        @credit_card.authorize!(@opts)
+        expect(@credit_card.expiry_year).to eq 2023
       end
     end
 

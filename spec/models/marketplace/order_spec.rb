@@ -10,7 +10,7 @@ describe Marketplace::Order do
     :line_items,
     :listings,
     :payment,
-    :fees
+    :fees,
     :price_cents,
     :price_major,
     :price_minor,

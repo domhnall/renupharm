@@ -23,7 +23,7 @@ class Marketplace::CartsController < AuthenticatedController
     if res.success? && @order.valid?
       @order.save!
       if @order.placed?
-        redirect_to receipt_marketplace_order_path(@order)
+        redirect_to receipt_marketplace_order_path(@order), flash: { success: I18n.t("marketplace.cart.flash.update_successful") }
       else
         render 'show'
       end

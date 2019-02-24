@@ -1,26 +1,13 @@
-require 'spec_helper'
-require_relative '../../../app/models/payment_gateway'
-require_relative '../../../app/models/payment_gateway/gateway'
-
+require 'rails_helper'
 
 describe PaymentGateway::Gateway do
-  class Rails
-    def self.application
+  before :each do
+    allow(Rails).to receive(:application) do
       OpenStruct.new(credentials: OpenStruct.new({ stripe: { secret: "mysecretapikeyforstripe" } }))
     end
-  end
-
-  class Stripe
-    def self.api_key=(key)
-    end
-
-    class Customer
-      def self.create(args); end
-    end
-
-    class Charge
-      def self.create(args); end
-    end
+    allow(Stripe).to receive(:api_key=).and_return(nil)
+    allow(Stripe::Customer).to receive(:create).and_return(nil)
+    allow(Stripe::Charge).to receive(:create).and_return(nil)
   end
 
   [:purchase, :authorize].each do |method|
