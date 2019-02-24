@@ -1,5 +1,6 @@
 require 'spec_helper'
-require_relative '../../../lib/payment_gateway/authorization_request'
+require_relative '../../../app/models/payment_gateway'
+require_relative '../../../app/models/payment_gateway/authorization_request'
 
 describe PaymentGateway::AuthorizationRequest do
 

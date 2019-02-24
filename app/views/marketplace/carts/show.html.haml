@@ -4,6 +4,11 @@
       .heading
         %h2= t("marketplace.cart.title")
         = render 'empty_cart_button', order: @order
+        = link_to t("marketplace.cart.review_terms"),
+          terms_and_conditions_pages_path,
+          class: 'review_terms_link',
+          data: { toggle: "modal", target: "#terms_modal" }
+
       = render 'errors', order: @order
       %table.order_details
         %thead
@@ -21,7 +26,22 @@
               %td.quantity=line_item.display_price
         %tfoot
           %td
+          %td
           %td.total_price_label= t("marketplace.order.total_price")
           %td.total_price= @order.display_price
       .row
-        = render 'place_order_button', order: @order, credit_cards: @credit_cards
+        = render 'place_order_form', order: @order, credit_cards: @credit_cards
+
+#terms_modal.modal.fade{ "tabindex"=>"-1", "role"=>"dialog", "aria-hidden"=>true, "aria-labelledby"=>"#user_agreement_header" }
+  .modal-dialog.modal-lg.modal-dialog-centered{ "role"=>"document" }
+    .modal-content
+      .modal-header
+        .modal-title
+          %button.close{ "type"=>"button", "data-dismiss"=>"modal", "aria-label"=>t("general.close") }
+            %span{ "aria-hidden"=>true }
+              &times;
+      .modal-body
+        = render "pages/terms_and_conditions"
+      .modal-footer
+        %button.btn.btn-secondary{ "type"=>"button", "data-dismiss"=>"modal"}
+          = t("general.close")

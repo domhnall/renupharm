@@ -36,6 +36,7 @@ class Marketplace::CreditCard < ApplicationRecord
       self.expiry_month = authorization_response.card_exp_month
       self.expiry_year = authorization_response.card_exp_year
       self.gateway_customer_reference = authorization_response.customer_reference
+      self.default = true
       self.save!
     else
       raise Marketplace::Errors::PaymentError, "Card payment not authorized"
@@ -66,7 +67,7 @@ class Marketplace::CreditCard < ApplicationRecord
 
   def card_type
     case brand
-    when 'mc'
+    when 'MasterCard'
       'mastercard'
     else
       'visa'

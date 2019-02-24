@@ -28,7 +28,11 @@ Rails.application.routes.draw do
   namespace :marketplace do
     root to: "listings#index"
     resource :cart, only: [:show, :update]
-    resources :orders, only: [:show]
+    resources :orders, only: [:show] do
+      member do
+        get :receipt
+      end
+    end
     resources :products, only: [:index, :show, :new, :create, :edit, :update, :destroy]
     resources :listings, only: [:show, :destroy]
 

@@ -209,6 +209,16 @@ li.comment {
       margin: 20px auto;
       .product_name, .sale_value, .purchase_value, .order_value, .updated_at, .created_at {
         display: table-cell;
+        min-width: 30%;
+      }
+      .product_name {
+        width: 45%;
+      }
+      .sale_value, .purchase_value, .order_value{
+        width: 25%;
+      }
+      .updated_at, .created_at {
+        width: 30%;
       }
     }
   }

@@ -1,5 +1,6 @@
 require 'spec_helper'
-require_relative '../../../lib/payment_gateway/purchase_response'
+require_relative '../../../app/models/payment_gateway'
+require_relative '../../../app/models/payment_gateway/purchase_response'
 
 describe PaymentGateway::PurchaseResponse do
   before :all do

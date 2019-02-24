@@ -1,1 +1,2 @@
-PAYMENT_GATEWAY = PaymentGateway::Gateway::get_instance
+Stripe.api_key = Rails.application.credentials.stripe[:secret]
+PAYMENT_GATEWAY = PaymentGateway::Gateway

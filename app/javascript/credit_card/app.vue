@@ -60,6 +60,7 @@
     padding: 10px;
     width: 250px !important;
     height: 150px;
+    background: #EAEAEA;
   }
   .credit_card .brand {
     text-align: right;
@@ -84,6 +85,9 @@
 
   .credit_card h3.default {
     display: inline-block;
+    position: absolute;
+    text-align: left;
+    left: 0;
     width: 70px;
     margin-top: -20px;
     margin-left: 10px;

@@ -1,7 +1,6 @@
 require 'spec_helper'
-require 'ostruct'
-require 'byebug'
-require_relative '../../../lib/payment_gateway/gateway'
+require_relative '../../../app/models/payment_gateway'
+require_relative '../../../app/models/payment_gateway/gateway'
 
 
 describe PaymentGateway::Gateway do
@@ -26,26 +25,12 @@ describe PaymentGateway::Gateway do
 
   [:purchase, :authorize].each do |method|
     it "should respond to method :#{method}" do
-      expect(PaymentGateway::Gateway.new).to respond_to method
+      expect(PaymentGateway::Gateway).to respond_to method
     end
   end
 
   describe "class method" do
-    describe "::get_instance" do
-      it "should return an instance of PaymentGateway::Gateway" do
-        expect(PaymentGateway::Gateway::get_instance).to be_a PaymentGateway::Gateway
-      end
-
-      it "should return the same instance after multiple invocations" do
-        expect(PaymentGateway::Gateway).to receive(:new).once.and_call_original
-        instance = PaymentGateway::Gateway::get_instance
-        expect(PaymentGateway::Gateway::get_instance).to eq instance
-      end
-    end
-  end
-
-  describe "instance method" do
-    describe "#purchase" do
+    describe "::purchase" do
       before :all do
         @opts = {
           amount_value: 7999,
@@ -66,7 +51,7 @@ describe PaymentGateway::Gateway do
           source: "tok_abcdefgh",
           receipt_email: "dev@rev.com"
         })
-        PaymentGateway::Gateway.new.purchase(@opts)
+        PaymentGateway::Gateway::purchase(@opts)
       end
 
       it "should invoke Stripe::Charge.create with expected arguments when customer supplied" do
@@ -77,15 +62,15 @@ describe PaymentGateway::Gateway do
           receipt_email: "dev@rev.com"
         })
 
-        PaymentGateway::Gateway.new.purchase(@opts.merge(customer: "cust_666", token: nil))
+        PaymentGateway::Gateway::purchase(@opts.merge(customer: "cust_666", token: nil))
       end
 
       it "should return an instance of PaymentGateway::PurchaseResponse" do
-        expect(PaymentGateway::Gateway.new.purchase(@opts)).to be_a PaymentGateway::PurchaseResponse
+        expect(PaymentGateway::Gateway::purchase(@opts)).to be_a PaymentGateway::PurchaseResponse
       end
     end
 
-    describe "#authorize" do
+    describe "::authorize" do
       before :all do
         @opts = {
           user: OpenStruct.new(id: 67),
@@ -102,11 +87,11 @@ describe PaymentGateway::Gateway do
           description: kind_of(String),
           source: "tok_654321"
         })
-        PaymentGateway::Gateway.new.authorize(@opts)
+        PaymentGateway::Gateway::authorize(@opts)
       end
 
       it "should return an instance of PaymentGateway::AuthorizationResponse" do
-        expect(PaymentGateway::Gateway.new.authorize(@opts)).to be_a PaymentGateway::AuthorizationResponse
+        expect(PaymentGateway::Gateway::authorize(@opts)).to be_a PaymentGateway::AuthorizationResponse
       end
     end
   end

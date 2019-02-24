@@ -384,6 +384,12 @@ en:
         empty_purchases: "There are no purchases matching this condition."
         empty_sales: "There are no sales matching this condition."
         empty_orders: "There are no orders matching this condition."
+      receipt:
+        title: "Your order has been successfully placed."
+        intro: "Thanks for making a purchase through RenuPharm."
+        delivery_info: "A job has been created with our courier partners, and you should have your order within 2 business days."
+        support_info: "If you have any questions or problems please reach out to our support teams at <a href=\"mailto:dev@renuparm.ie\">dev@renupharm.ie</a>."
+        payment_reference: "Payment reference: %{payment_reference}"
     pharmacy:
       name: "Name"
       description: "Description"
@@ -420,10 +426,14 @@ en:
       title: "Your basket"
       review_terms: "Review terms and conditions"
       messages:
-        confirm_payment: "We will confirm your order and take payment from the default card associated with your pharmacy. By continuing you also confirm agreement with our terms, as linked on this page."
+        confirm_payment_default: "We will confirm your order and take payment from the default card associated with your pharmacy. By continuing you also confirm agreement with our terms, as linked on this page."
+        confirm_payment_chosen: "We will confirm your order and take payment from the selected card. By continuing you also confirm agreement with our terms, as linked on this page."
       actions:
+        use_different_card: "Use a different card"
+        use_new_card: "Add new card"
         proceed: "Proceed"
         place_order:
+          default_card: "Complete payment with default card (ending %{card_number})"
           existing_card: "Complete payment with chosen card"
           new_card: "Complete payment with new card"
         empty_cart: "Empty basket"
@@ -435,6 +445,8 @@ en:
         message: "There appears to have been a problem. Please address the following errors to progress your order. If problems persist please <a href=\"mailto:dev@renupharm.ie\">contact support</a>"
         failed_payment: "There has been a problem processing your payment. Please check your payment method."
         listing_unavailable: "Unfortunately it seems that one of the items in your cart is no longer available. If problems persist please <a href=\"mailto:dev@renupharm.ie\">contact support</a>"
+      stripe:
+        description: "Marketplace purchase (%{value})"
     credit_card:
       flash:
         update_successful: "Successfully updated default credit card"

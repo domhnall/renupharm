@@ -27,6 +27,7 @@
       }
     }
   }
+
   .state {
     display: block;
     width: 80%;
@@ -54,13 +55,33 @@
   }
 
   .review_terms_link {
-    display: block;
+    display: inline-block;
     font-weight: normal;
     font-size: 90%;
     margin-bottom: 5px;
+    float: right;
   }
 
   .modal-title {
     width: 100%;
+  }
+
+  .place_order_form {
+    width: 100%;
+  }
+
+  .actions {
+    margin: 20px;
+  }
+
+  .select_card_section {
+    margin-top: 30px;
+    fieldset {
+      text-align: center;
+    }
+    .total_price {
+      font-weight: bold;
+      font-size: 110%
+    }
   }
 }

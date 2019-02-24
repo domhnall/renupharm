@@ -13,11 +13,18 @@ document.addEventListener('renupharm:vue:initialized', () => {
 const handle_card_change = function(form){
   return function(event){
     const new_card_button = form.querySelector("input#place_order_new_card"),
-          existing_card_button = form.querySelector("input#place_order_existing_card");
+          existing_card_button = form.querySelector("input#place_order_existing_card"),
+          all_options = form.querySelectorAll("fieldset.card_selection .form-check");
+
+    for(let i=0, len=all_options.length; i<len; i++) {
+      all_options[i].classList.remove("selected");
+    }
+
     if(event.target.value===""){
       new_card_button.classList.remove("hidden");
       existing_card_button.classList.add("hidden");
     }else{
+      event.target.closest(".form-check").classList.add("selected");
       new_card_button.classList.add("hidden");
       existing_card_button.classList.remove("hidden");
     }
@@ -25,6 +32,12 @@ const handle_card_change = function(form){
 };
 
 const init_card_selection = function(form){
+  form.querySelector("a.use_different_card_link").addEventListener("click", function(event){
+    event.preventDefault();
+    form.querySelector(".default_card_section").classList.add("hidden");
+    form.querySelector(".select_card_section").classList.remove("hidden");
+  });
+
   const radios = form.querySelectorAll("input[name=stripeCustomer]");
   for(let i=0, len=radios.length; i<len; i++){
     radios[i].addEventListener('change', handle_card_change(form));
