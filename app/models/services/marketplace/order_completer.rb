@@ -4,10 +4,13 @@ class Services::Marketplace::OrderCompleter
   attr_reader :order, :token, :email, :customer_reference
 
   def initialize(order: nil, token: nil, email: nil, customer_reference: nil)
+    raise ArgumentError, "Must supply order" unless order
+    raise ArgumentError, "Must supply :token or :customer_reference" unless (token || customer_reference)
+    raise ArgumentError, "Must supply email if creating a new payment method" unless (email || customer_reference)
     @order = order
     @token = token
-    @customer_reference = customer_reference
     @email = email
+    @customer_reference = customer_reference
     @errors = []
     @response = Services::Response.new(errors: @errors)
   end

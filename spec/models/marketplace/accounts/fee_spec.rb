@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe Marketplace::Accounts::Fee do
-  [ :amount_cents,
+  [ :payment,
+    :amount_cents,
     :currency_code,
     :buying_pharmacy,
     :selling_pharmacy,
