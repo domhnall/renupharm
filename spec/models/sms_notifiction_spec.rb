@@ -97,7 +97,7 @@ describe SmsNotification do
       end
 
       it "should email admin about failure" do
-        expect(Admin::ErrorMailer).to receive(:sms_error).with(sms_id: @sms_notification.id).and_call_original
+        expect(Admin::ErrorMailer).to receive(:sms_error).with(sms_id: @sms_notification.id){ OpenStruct.new(deliver_later: true) }
         @sms_notification.deliver
       end
     end
@@ -112,7 +112,7 @@ describe SmsNotification do
       end
 
       it "should email admin to alert for low SMS balance" do
-        expect(Admin::ErrorMailer).to receive(:sms_balance_alert).with(balance: @balance).and_call_original
+        expect(Admin::ErrorMailer).to receive(:sms_balance_alert).with(balance: @balance){ OpenStruct.new(deliver_later: true) }
         @sms_notification.deliver
       end
     end

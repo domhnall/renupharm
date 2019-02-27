@@ -168,7 +168,6 @@ GEM
     mysql2 (0.5.2)
     net-http-persistent (3.0.0)
       connection_pool (~> 2.2)
-    netrc (0.11.0)
     nexmo (5.5.0)
       jwt (~> 2)
     nio4r (2.3.1)
