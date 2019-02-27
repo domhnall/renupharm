@@ -20,5 +20,6 @@ module Renupharm
 
     # Use a real queuing backend for Active Job (and separate queues per environment)
     config.active_job.queue_adapter     = :sidekiq
+    config.send_sms = false
   end
 end

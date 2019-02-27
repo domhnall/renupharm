@@ -146,7 +146,7 @@ describe Services::Marketplace::OrderCompleter do
         end
 
         it "should call the admin error mailer" do
-          expect(Admin::ErrorMailer).to receive(:payment_error).once.with(hash_including(order_id: @order.id)).and_call_original
+          expect(Admin::ErrorMailer).to receive(:payment_error).once.with(hash_including(order_id: @order.id)){ OpenStruct.new(deliver_later: true) }
           @service.call
         end
       end
@@ -156,13 +156,13 @@ describe Services::Marketplace::OrderCompleter do
           allow(@service).to receive(:remove_listing).and_raise ArgumentError
         end
 
-        it "should propagate a general service error up the stack" do
-          expect{ @service.call }.to raise_error Services::Error
+        it "should propagate the error up the stack" do
+          expect{ @service.call }.to raise_error ArgumentError
         end
 
         it "should call the admin error mailer" do
-          expect(Admin::ErrorMailer).to receive(:payment_error).once.with(hash_including(order_id: @order.id)).and_call_original
-          expect{ @service.call }.to raise_error Services::Error
+          expect(Admin::ErrorMailer).to receive(:payment_error).once.with(hash_including(order_id: @order.id)){ OpenStruct.new(deliver_later: true) }
+          expect{ @service.call }.to raise_error ArgumentError
         end
       end
 

@@ -1,4 +1,5 @@
 class Services::Marketplace::CreateNotification
+  attr_reader :recipient, :message, :admin_mailer_class
 
   def initialize(recipient: nil, message: nil, admin_mailer_class: Admin::ErrorMailer)
     raise ArgumentError, "The :recipient must have a mobile number" unless recipient && recipient.respond_to?(:telephone)

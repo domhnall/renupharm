@@ -47,7 +47,7 @@ class SmsNotification < Notification
   end
 
   def client
-    return Nexmo::Client.new unless Rails.env.production?
+    return DummyNexmoClient.new unless Rails.configuration.send_sms
     @_client ||= Nexmo::Client.new({
       api_key: Rails.application.credentials.nexmo[:api_key],
       api_secret: Rails.application.credentials.nexmo[:api_secret]
