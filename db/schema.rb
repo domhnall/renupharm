@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_09_200559) do
+ActiveRecord::Schema.define(version: 2019_02_17_090351) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2019_02_09_200559) do
 
   create_table "marketplace_credit_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "marketplace_pharmacy_id"
-    t.string "recurring_detail_reference"
+    t.string "gateway_customer_reference"
     t.string "holder_name"
     t.string "brand"
     t.string "number"
@@ -133,10 +133,10 @@ ActiveRecord::Schema.define(version: 2019_02_09_200559) do
     t.integer "amount_cents"
     t.string "currency_code"
     t.string "result_code"
-    t.string "auth_code"
     t.decimal "vat", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "gateway_response"
     t.index ["marketplace_credit_card_id"], name: "index_marketplace_payments_on_marketplace_credit_card_id"
     t.index ["marketplace_order_id"], name: "index_marketplace_payments_on_marketplace_order_id"
   end

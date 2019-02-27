@@ -1,0 +1,44 @@
+= javascript_include_tag "https://checkout.stripe.com/checkout.js"
+
+
+.place_order_form
+  = form_for order, url: marketplace_cart_path, action: :patch, html: { class: "place_order" } do |form|
+    = form.hidden_field :state, value: 'placed'
+    = hidden_field_tag :stripeToken
+    = hidden_field_tag :stripeEmail
+    .default_card_section{ class: credit_cards.any? ? '' : 'hidden' }
+      .actions
+        = link_to t("marketplace.cart.actions.use_different_card"), "#", class: "use_different_card_link"
+        = form.submit t("marketplace.cart.actions.place_order.default_card", card_number: credit_cards.find(&:default?)&.number),
+          id: "place_order_default_card",
+          class: "btn btn-success #{credit_cards.any? ? '' : 'hidden'}",
+          disabled: order.line_items.empty?,
+          data: { confirm: t("marketplace.cart.messages.confirm_payment_chosen") }
+
+    .select_card_section{ class: credit_cards.any? ? 'hidden' : '' }
+      %fieldset.card_selection.form-group{ class: (credit_cards.any? ? '' : 'hidden'), data: { behaviour: "vue" } }
+        - credit_cards.each do |cc|
+          .form-check{ class: cc.default ? "selected" : "" }
+            = radio_button_tag "stripeCustomer", cc.gateway_customer_reference, cc.default?, class: 'form-check-input'
+            = label_tag "stripeCustomer", for: "stripeCustomer_#{cc.gateway_customer_reference}" do
+              <credit-card brand="#{cc.brand}" number="#{cc.number}" expiry_month="#{cc.expiry_month}" expiry_year="#{cc.expiry_year}" email="#{cc.email}" brand_image="#{image_path('credit_cards/'+cc.card_type)}"></credit-card>
+        .form-check
+          = radio_button_tag "stripeCustomer", "", false, class: 'form-check-input'
+          = label_tag "stripeCustomer", t("marketplace.cart.actions.use_new_card"), for: "stripeCustomer_"
+      .actions
+        .total_price
+          = "#{t("marketplace.order.total_price")} #{@order.display_price}"
+        = form.submit t("marketplace.cart.actions.place_order.existing_card"),
+          id: "place_order_existing_card",
+          class: "btn btn-success #{credit_cards.any? ? '' : 'hidden'}",
+          disabled: order.line_items.empty?,
+          data: { confirm: t("marketplace.cart.messages.confirm_payment_chosen") }
+
+        = form.submit t("marketplace.cart.actions.place_order.new_card"),
+          id: "place_order_new_card",
+          class: "btn btn-success #{credit_cards.any? ? 'hidden' : ''}",
+          disabled: order.line_items.empty?,
+          data: { stripe_key: Rails.application.credentials.stripe[:publishable],
+          stripe_image: image_path("favicon"),
+          stripe_amount: order.price_cents,
+          stripe_description: t("marketplace.cart.stripe.description", value: @order.display_price)}

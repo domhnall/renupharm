@@ -1,0 +1,30 @@
+.row
+  .col-md-12
+    .card.cart
+      .heading
+        %h2= t("marketplace.order.receipt.title")
+      %p= t("marketplace.order.receipt.intro")
+      %p= t("marketplace.order.receipt.delivery_info")
+      %p= t("marketplace.order.receipt.support_info").html_safe
+
+      %table.order_details
+        %thead
+          %tr
+            %td.product= t("marketplace.order.product")
+            %td.seller= t("marketplace.order.seller")
+            %td.quantity= t("marketplace.order.quantity")
+            %td.price= t("marketplace.order.price")
+        %tbody
+          - @order.line_items.each do |line_item|
+            %tr
+              %td.product=line_item.product.name
+              %td.product=line_item.selling_pharmacy.name
+              %td.quantity=line_item.quantity
+              %td.quantity=line_item.display_price
+        %tfoot
+          %td
+          %td
+          %td.total_price_label= t("marketplace.order.total_price")
+          %td.total_price= @order.display_price
+
+      %p.payment_reference= t("marketplace.order.receipt.payment_reference", payment_reference: @order.reference)

@@ -1,17 +1,21 @@
 class Services::Marketplace::OrderCompleter
   include Rails.application.routes.url_helpers
 
-  attr_reader :order
+  attr_reader :order, :token, :email, :customer_reference
 
-  def initialize(order: nil, shopper_ip: nil)
+  def initialize(order: nil, token: nil, email: nil, customer_reference: nil)
+    raise ArgumentError, "Must supply order" unless order
+    raise ArgumentError, "Must supply :token or :customer_reference" unless (token || customer_reference)
+    raise ArgumentError, "Must supply email if creating a new payment method" unless (email || customer_reference)
     @order = order
-    @shopper_ip = shopper_ip
+    @token = token
+    @email = email
+    @customer_reference = customer_reference
     @errors = []
     @response = Services::Response.new(errors: @errors)
   end
 
   def call
-    validate_card_present
     validate_listing_available
     take_payment
     remove_listing
@@ -24,7 +28,7 @@ class Services::Marketplace::OrderCompleter
     @response
   rescue Exception => e
     Admin::ErrorMailer.payment_error(
-      order_id: @order.id,
+      order_id: order.id,
       message: e.message,
       backtrace: e.backtrace
     ).deliver_later
@@ -39,26 +43,28 @@ class Services::Marketplace::OrderCompleter
     end
   end
 
-  def validate_card_present
-    if order.pharmacy.credit_cards.empty?
-      pharmacy_cards_url = marketplace_pharmacy_profile_path(pharmacy_id: order.pharmacy.id, section: 'credit_cards')
-      raise Services::Error, I18n.t("marketplace.cart.errors.no_credit_card", url: pharmacy_cards_url)
-    end
-  end
-
   def take_payment
     credit_card.take_payment!({
-      order: @order,
-      amount_cents: @order.price_cents,
-      shopper_ip: @shopper_ip
+      order: order,
+      currency_code: order.currency_code,
+      amount_cents: order.price_cents,
+      token: token
     })
   rescue Exception => e
     Admin::ErrorMailer.payment_error(
-      order_id: @order.id,
+      order_id: order.id,
       message: e.message,
       backtrace: e.backtrace
     ).deliver_later
     raise Services::Error, I18n.t("marketplace.cart.errors.failed_payment")
+  end
+
+  def credit_card
+    @_credit_card ||= if customer_reference.present?
+      buying_pharmacy.credit_cards.authorized.find_by_gateway_customer_reference(customer_reference)
+    else
+      buying_pharmacy.credit_cards.create(email: email)
+    end
   end
 
   def remove_listing
@@ -76,25 +82,21 @@ class Services::Marketplace::OrderCompleter
       Marketplace::Accounts::CourierFee,
       Marketplace::Accounts::PaymentGatewayFee,
       Marketplace::Accounts::ResidualFee ].each do |calculator|
-      calculator.new(payment: @order.payment).calculate!
+      calculator.new(payment: order.payment).calculate!
     end
   end
 
   def send_emails
     buying_pharmacy.agents.active.each do |agent|
-      Marketplace::OrderMailer.purchase_notification(agent_id: agent.id, order_id: @order.id).deliver_later
+      Marketplace::OrderMailer.purchase_notification(agent_id: agent.id, order_id: order.id).deliver_later
     end
     selling_pharmacy.agents.active.each do |agent|
-      Marketplace::OrderMailer.sale_notification(agent_id: agent.id, order_id: @order.id).deliver_later
+      Marketplace::OrderMailer.sale_notification(agent_id: agent.id, order_id: order.id).deliver_later
     end
   end
 
   def contact_courier
     # No-op
-  end
-
-  def credit_card
-    buying_pharmacy.default_card
   end
 
   def listing

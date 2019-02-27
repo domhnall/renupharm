@@ -112,7 +112,7 @@ module Factories
         holder_name: Faker::Name.name,
         brand: "Mastercard",
         email: Faker::Internet.email,
-        recurring_detail_reference: SecureRandom.hex,
+        gateway_customer_reference: attrs.fetch(:gateway_customer_reference){ SecureRandom.hex },
         default: attrs.fetch(:default){ false }
       })
     end

@@ -76,6 +76,6 @@ gem 'devise'        # Authentication
 gem 'sidekiq'       # Background job
 gem 'aws-sdk-s3'    # File uploads
 gem 'pundit'        # Authorization
-gem 'rest-client'   # For Adyen calls
 
+gem 'stripe'        # For payments
 gem 'sunspot_rails' # Rails integration for Solr

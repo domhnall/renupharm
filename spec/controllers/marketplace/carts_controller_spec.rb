@@ -70,11 +70,6 @@ describe Marketplace::CartsController do
         expect(response).to render_template :show
       end
 
-      it "should set a flash message to indicate that update has been successful" do
-        put :update, params: @update_params
-        expect(flash[:success]).to eq I18n.t("marketplace.cart.flash.update_successful")
-      end
-
       it "should add an appropriate line item to the user's cart" do
         expect(@user.current_order.line_items).to be_empty
         put :update, params: @update_params
@@ -107,11 +102,22 @@ describe Marketplace::CartsController do
         before :each do
           @order = @user.current_order
           @order.line_items.create(listing: @listing_1)
-          @place_order_params = {marketplace_order: { state: "placed" }}
+          @stripe_token = "tok_12345"
+          @stripe_email = "joe@doe.com"
+          @place_order_params = {
+            stripeToken: @stripe_token,
+            stripeEmail: @stripe_email,
+            marketplace_order: { state: "placed" }
+          }
         end
 
         it "instantiates and calls the OrderCompleter service" do
-          expect(::Services::Marketplace::OrderCompleter).to receive(:new).with(order: @order, shopper_ip: kind_of(String)).and_call_original
+          expect(::Services::Marketplace::OrderCompleter).to receive(:new).with({
+            order: @order,
+            token: @stripe_token,
+            customer_reference: nil,
+            email: @stripe_email
+          }).and_call_original
           put :update, params: @place_order_params
         end
 
@@ -121,9 +127,9 @@ describe Marketplace::CartsController do
             allow(::Services::Marketplace::OrderCompleter).to receive(:new).and_return(@service_double)
           end
 
-          it "should re-render the :show template" do
+          it "should redirect to the order receipt path" do
             put :update, params: @place_order_params
-            expect(response).to render_template :show
+            expect(response).to redirect_to receipt_marketplace_order_path(@order)
           end
 
           it "should set a flash message to indicate successful update" do

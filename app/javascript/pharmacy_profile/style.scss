@@ -109,69 +109,12 @@
 }
 
 
-#new_credit_card {
-  .logos {
-    text-align: center;
-    margin: 20px auto;
-  }
-  .expiry_date {
-    display: inline-block;
-    width: 70%;
-    .card_expiry_month, .card_expiry_year {
-      float: left;
-      width: 30%;
-      max-width: 120px;
-    }
-  }
-
-  .card_cvc {
-    float: left;
-    width: 50px;
-  }
-}
-
-
 #pharmacy_credit_cards {
   .card {
     width: 200px;
     margin: 10px auto;
   }
-  .new_card_form {
-    .card {
-      width: 60%;
-      margin: 10px auto;
-      min-width: 500px;
-    }
-  }
 
-  .credit_card {
-    border: 1px solid black;
-    border-radius: 15px;
-    position: relative;
-    padding: 10px;
-    width: 250px;
-    height: 150px;
-    .brand {
-      text-align: right;
-    }
-    .number {
-      width: 100%;
-      margin: 10px auto;
-      font-weight: bold;
-      font-size: 120%;
-      text-align: center;
-    }
-    .expiry {
-      width: 100%;
-      text-align: left;
-    }
-    .holder {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      margin-top: 10px;
-    }
-  }
   .card_actions {
     display: table-cell;
     height: 150px;
