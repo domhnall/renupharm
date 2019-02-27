@@ -4,7 +4,8 @@ describe SmsNotification do
   include Factories::Base
 
   before :each do
-    @user = create_user
+    @phone = "987654321"
+    @user = create_user(telephone: @phone)
     @params = {
       profile: @user.profile,
       message: "This is a test message",
@@ -35,10 +36,12 @@ describe SmsNotification do
       }]
     }
 
-    allow(Nexmo::Client).to receive(:new).and_return(@dummy_client)
+    allow(DummyNexmoClient).to receive(:new).and_return(@dummy_client)
   end
 
-  [:deliver, :valid_response?].each do |method|
+  [ :deliver,
+    :valid_response?,
+    :mobile_number ].each do |method|
     it "should respond to :#{method}" do
       expect(SmsNotification.new).to respond_to method
     end
@@ -58,6 +61,32 @@ describe SmsNotification do
     end
   end
 
+  describe "#mobile_number" do
+    before :each do
+      @sms = SmsNotification.new(@params)
+      @profile = @user.profile
+    end
+
+    it "should return a String" do
+      expect(@sms.mobile_number).to be_a String
+    end
+
+    it "should return the mobile number for the user" do
+      expect(@profile[:telephone]).to eq @phone
+      expect(@sms.mobile_number).to eq "353987654321"
+    end
+
+    it "should strip off any leading + character" do
+      expect(@profile.telephone).to match /\A\+/
+      expect(@sms.mobile_number).not_to match /\A\+/
+    end
+
+    it "should remove any spaces within the number" do
+      @profile[:telephone] = "876 543 21"
+      expect(@sms.mobile_number).to eq "35387654321"
+    end
+  end
+
   describe "#deliver" do
     before :each do
       @sms_notification = SmsNotification.create!(@params)
@@ -71,7 +100,8 @@ describe SmsNotification do
       it "should set the gateway_response on the SmsNotification model" do
         expect(@sms_notification.gateway_response).to be_nil
         @sms_notification.deliver
-        expect(@sms_notification.gateway_response).to eq @success_params.deep_stringify_keys
+        expect(@sms_notification.gateway_response).not_to be_nil
+        expect(@sms_notification.gateway_response).to be_a Hash
       end
 
       it "should update the :delivered flag to true" do

@@ -1,6 +1,8 @@
 class SmsNotification < Notification
   MIN_BALANCE_THRESHOLD = 5.0
 
+  attr_writer :client_class
+
   after_commit :alert_low_balance
   after_commit :alert_failing_delivery
 
@@ -9,7 +11,7 @@ class SmsNotification < Notification
   end
 
   def mobile_number
-    profile.telephone
+    profile.telephone.gsub(/\A\+/,"").gsub(/\s/,"")
   end
 
   def deliver
@@ -47,10 +49,13 @@ class SmsNotification < Notification
   end
 
   def client
-    return DummyNexmoClient.new unless Rails.configuration.send_sms
-    @_client ||= Nexmo::Client.new({
+    @_client ||= client_class.new({
       api_key: Rails.application.credentials.nexmo[:api_key],
       api_secret: Rails.application.credentials.nexmo[:api_secret]
     })
+  end
+
+  def client_class
+    @client_class || (Rails.configuration.send_sms ? Nexmo::Client : DummyNexmoClient)
   end
 end

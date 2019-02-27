@@ -9,7 +9,7 @@ module Factories
           first_name: Faker::Name.first_name,
           surname: Faker::Name.last_name,
           role: attrs.fetch(:role){ Profile::Roles::PHARMACY },
-          telephone: "012345678",
+          telephone: attrs.fetch(:telephone, "12345678"),
           accepted_terms_at: Time.now
         }))
         user.skip_confirmation!

@@ -18,7 +18,7 @@ class ProfilesController < AuthenticatedController
     if @profile.update_attributes(profile_params)
       redirect_to profile_path, flash: { success: I18n.t("general.flash.update_successful") }
     else
-      flash[:error] = I18n.t("general.flash.error")
+      flash.now[:error] = I18n.t("general.flash.error")
       render(@profile.accepted_terms ? 'edit' : 'accept_terms_and_conditions')
     end
   end
