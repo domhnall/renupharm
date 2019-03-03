@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_17_090351) do
+ActiveRecord::Schema.define(version: 2019_03_03_083456) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -275,6 +275,14 @@ ActiveRecord::Schema.define(version: 2019_02_17_090351) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  create_table "web_push_subscriptions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "profile_id"
+    t.json "subscription"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_web_push_subscriptions_on_profile_id"
+  end
+
   add_foreign_key "comments", "users"
   add_foreign_key "marketplace_accounts_fees", "marketplace_payments"
   add_foreign_key "marketplace_agents", "marketplace_pharmacies"
@@ -294,4 +302,5 @@ ActiveRecord::Schema.define(version: 2019_02_17_090351) do
   add_foreign_key "profiles", "users"
   add_foreign_key "sales_contacts", "sales_pharmacies"
   add_foreign_key "survey_responses", "sales_contacts"
+  add_foreign_key "web_push_subscriptions", "profiles"
 end

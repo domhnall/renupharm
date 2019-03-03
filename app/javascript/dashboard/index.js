@@ -4,7 +4,9 @@ import './marketplace/style.scss';
 import './marketplace/listing.scss';
 import './marketplace/cart.scss';
 import './marketplace/orders.scss';
+import PushNotifications from './push_notifications';
 
+PushNotifications.init();
 document.addEventListener('turbolinks:load', () => {
   const preferences_section = document.getElementById('notification_config');
 
@@ -15,3 +17,4 @@ document.addEventListener('turbolinks:load', () => {
     });
   }
 });
+

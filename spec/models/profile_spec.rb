@@ -14,6 +14,13 @@ describe Profile do
     }
   end
 
+  [ :notification_config,
+    :web_push_subscriptions ].each do
+    it "should respond to method :#{method}" do
+      expect(Profile.new).to respond_to method
+    end
+  end
+
   describe "instantiation" do
     it "should be valid when all required fields are supplied" do
       expect(Profile.new(@params)).to be_valid

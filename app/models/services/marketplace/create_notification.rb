@@ -14,7 +14,7 @@ class Services::Marketplace::CreateNotification
 
   def call
     notification = SiteNotification.create!(profile: recipient.profile, message: message)
-    # notification.send
+    notification.send
     response
   rescue Services::Error => e
     @errors << e

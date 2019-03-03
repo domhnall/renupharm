@@ -13,6 +13,7 @@ class Profile < ApplicationRecord
 
   belongs_to :user
   has_one :notification_config, dependent: :destroy
+  has_many :web_push_subscriptions, dependent: :destroy
   has_one_attached :avatar
 
   validates :first_name, presence: true, length: {minimum: 2, maximum: 30}

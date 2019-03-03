@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resolve('Profile'){ [:profile] }
 
   resource :notification_config, only: [:show, :update]
+  resource :web_push_subscriptions, only: [:create]
 
   namespace :sales do
     resources :contacts, only: [:create]

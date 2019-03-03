@@ -87,5 +87,19 @@ module Factories
     ensure
       SmsNotification.set_callback(:commit, :after, :alert_failing_delivery)
     end
+
+    def create_web_push_subscription(attrs = {})
+      WebPushNotification.new.tap do |sub|
+        sub.profile = attrs.fetch(:profile, create_user(attrs).profile)
+        sub.subscription = attrs.fetch(:subscription, {
+          "keys"=>{
+            "auth"=>"ZRdZ9iDbURjZjnA3pCSEvQ",
+            "p256dh"=>"BHiz1CA2i3aO99VBkH0FclPivQg3rl0lHEygJUypodsPg2YxcwBSNNxSK4zym33lcz7olOcmE1phjPnGt4IE06U"
+          },
+          "endpoint"=>"https://updates.push.services.mozilla.com/wpush/v2/gAAAAABcewZQcQelD95rMg77YGrLTZAbDZ6e0p7by9XfTt_EbN42WUSlmtcrJI2-0c9GCOeVMj2k4S2fLXN4gkHqi8OyCoEI4Q02iRXxSOKaITM4P1gC1EVysvGELdV-_G6Ab66GSh5kG6qboTIQF7fm75fYLLP2CLHlZDsO6ahhc2hPQHVvEec"
+        })
+        sub.save!
+      end
+    end
   end
 end

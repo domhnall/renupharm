@@ -12,6 +12,11 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, status: 404
   end
 
+  rescue_from ActionController::ParameterMissing do |exception|
+    flash[:error] ||= I18n.t('errors.unprocessable_entity')
+    redirect_to root_path, status: 422
+  end
+
   def after_sign_in_path_for(resource)
     dashboard_path
   end
