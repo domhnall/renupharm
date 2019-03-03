@@ -82,3 +82,7 @@ services:
       - db:db
 volumes:
   public-volume:
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "/home/domhnall/code/renupharm/public"
