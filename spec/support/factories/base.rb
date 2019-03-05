@@ -89,16 +89,27 @@ module Factories
     end
 
     def create_web_push_subscription(attrs = {})
-      WebPushNotification.new.tap do |sub|
-        sub.profile = attrs.fetch(:profile, create_user(attrs).profile)
-        sub.subscription = attrs.fetch(:subscription, {
-          "keys"=>{
-            "auth"=>"ZRdZ9iDbURjZjnA3pCSEvQ",
-            "p256dh"=>"BHiz1CA2i3aO99VBkH0FclPivQg3rl0lHEygJUypodsPg2YxcwBSNNxSK4zym33lcz7olOcmE1phjPnGt4IE06U"
-          },
-          "endpoint"=>"https://updates.push.services.mozilla.com/wpush/v2/gAAAAABcewZQcQelD95rMg77YGrLTZAbDZ6e0p7by9XfTt_EbN42WUSlmtcrJI2-0c9GCOeVMj2k4S2fLXN4gkHqi8OyCoEI4Q02iRXxSOKaITM4P1gC1EVysvGELdV-_G6Ab66GSh5kG6qboTIQF7fm75fYLLP2CLHlZDsO6ahhc2hPQHVvEec"
-        })
+      WebPushSubscription.new.tap do |sub|
+        sub.profile = attrs.fetch(:profile){ create_user(attrs).profile }
+        sub.subscription = attrs.fetch(:subscription) do
+          {
+            "keys"=>{
+              "auth"=>"ZRdZ9iDbURjZjnA3pCSEvQ",
+              "p256dh"=>"BHiz1CA2i3aO99VBkH0FclPivQg3rl0lHEygJUypodsPg2YxcwBSNNxSK4zym33lcz7olOcmE1phjPnGt4IE06U"
+            },
+            "endpoint"=>"https://updates.push.services.mozilla.com/wpush/v2/gAAAAABcewZQcQelD95rMg77YGrLTZAbDZ6e0p7by9XfTt_EbN42WUSlmtcrJI2-0c9GCOeVMj2k4S2fLXN4gkHqi8OyCoEI4Q02iRXxSOKaITM4P1gC1EVysvGELdV-_G6Ab66GSh5kG6qboTIQF7fm75fYLLP2CLHlZDsO6ahhc2hPQHVvEec"
+          }
+        end
         sub.save!
+      end
+    end
+
+    def create_web_push_notification(attrs = {})
+      WebPushNotification.new.tap do |wpn|
+        wpn.profile = attrs.fetch(:profile, create_user.profile)
+        wpn.message = attrs.fetch(:message, Faker::Lorem.sentence(8))
+        wpn.delivered = attrs.fetch(:delivered, false)
+        wpn.save!
       end
     end
   end

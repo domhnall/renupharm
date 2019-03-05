@@ -6,10 +6,6 @@ class SmsNotification < Notification
   after_commit :alert_low_balance
   after_commit :alert_failing_delivery
 
-  def user
-    profile.user
-  end
-
   def mobile_number
     profile.telephone.gsub(/\A\+/,"").gsub(/\s/,"")
   end

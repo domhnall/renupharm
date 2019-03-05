@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe WebPushSubscription do
+  include Factories::Base
+
   [:profile, :subscription].each do |method|
     it "it should respond to method :#{method}" do
       expect(WebPushSubscription.new).to respond_to method
@@ -22,15 +24,15 @@ describe WebPushSubscription do
     end
 
     it "should be valid if all required fields are supplied" do
-      expect(WebPushNotification.new(@params)).to be_valid
+      expect(WebPushSubscription.new(@params)).to be_valid
     end
 
     it "should not be valid if profile is not supplied" do
-      expect(WebPushNotification.new(@params.merge(profile: nil))).not_to be_valid
+      expect(WebPushSubscription.new(@params.merge(profile: nil))).not_to be_valid
     end
 
     it "should not be valid if subscription JSON is not supplied" do
-      expect(WebPushNotification.new(@params.merge(subscription: nil))).not_to be_valid
+      expect(WebPushSubscription.new(@params.merge(subscription: nil))).not_to be_valid
     end
   end
 end

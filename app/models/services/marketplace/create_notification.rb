@@ -13,8 +13,8 @@ class Services::Marketplace::CreateNotification
   end
 
   def call
-    notification = SiteNotification.create!(profile: recipient.profile, message: message)
-    notification.send
+    notification = WebPushNotification.create!(profile: recipient.profile, message: message)
+    notification.push
     response
   rescue Services::Error => e
     @errors << e

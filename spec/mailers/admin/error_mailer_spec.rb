@@ -193,4 +193,53 @@ describe Admin::ErrorMailer do
       end
     end
   end
+
+  describe "#web_push_error" do
+    before :all do
+      @notification = create_web_push_notification(message: "Check your account")
+      @mail = Admin::ErrorMailer.web_push_error(notification_id: @notification.id, message: @error_message, backtrace: @backtrace)
+    end
+
+    it 'should send a web_push_error email' do
+      expect(@mail).not_to be_nil
+      expect(@mail.subject).to eq "RenuPharm:: Web Push Error"
+    end
+
+    it 'should be sent to the dev email address' do
+      expect(@mail.to).to include "dev@renupharm.ie"
+    end
+
+    describe 'mail content' do
+      before :all do
+        mail = Admin::ErrorMailer.web_push_error(notification_id: @notification.id, message: @error_message, backtrace: @backtrace)
+        @html_contents = mail.body.parts.select{ |part| part.content_type =~ /text\/html/}.first
+        @text_contents = mail.body.parts.select{ |part| part.content_type =~ /text\/plain/}.first
+      end
+
+      it 'should be composed of html and text parts' do
+        expect(@html_contents).not_to be_nil
+        expect(@text_contents).not_to be_nil
+      end
+
+      [ :text, :html ].each do |part|
+        describe "#{part} part" do
+          before :all do
+            @contents = self.instance_variable_get("@#{part}_contents")
+          end
+
+          it 'should include the actual notification text' do
+            expect(@contents.body).to include @notification.message
+          end
+
+          it 'should refer to the error message' do
+            expect(@contents.body).to include @error_message
+          end
+
+          it 'should include the stack trace' do
+            expect(@contents.body).to include @backtrace.first
+          end
+        end
+      end
+    end
+  end
 end

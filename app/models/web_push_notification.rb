@@ -1,13 +1,13 @@
-class SiteNotification < Notification
+class WebPushNotification < Notification
   include ActionView::Helpers::AssetUrlHelper
 
-  def send
-    profile.web_push_subscriptions.each{ |wps| send_for_subscription(wps) }
+  def push
+    profile.web_push_subscriptions.each{ |wps| push_for_subscription(wps) }
   end
 
   private
 
-  def send_for_subscription(wps)
+  def push_for_subscription(wps)
     return unless wps
     Webpush.payload_send( default_params.merge({
       message: payload,
@@ -18,8 +18,11 @@ class SiteNotification < Notification
   rescue Webpush::ExpiredSubscription => e
     wps.destroy
   rescue Exception => e
-    Rails.logger.error(e)
-    raise e
+    Admin::ErrorMailer.web_push_error(
+      notification_id: self.id,
+      message: e.message,
+      backtrace: e.backtrace
+    ).deliver_later
   end
 
   def payload
