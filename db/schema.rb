@@ -190,7 +190,9 @@ ActiveRecord::Schema.define(version: 2019_03_03_083456) do
   create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "profile_id"
     t.string "type"
+    t.string "title"
     t.string "message"
+    t.json "options"
     t.boolean "delivered", default: false
     t.json "gateway_response"
     t.index ["profile_id"], name: "index_notifications_on_profile_id"

@@ -310,6 +310,14 @@ en:
       no_recent_purchases: "No recent purchases"
       no_recent_sales: "No recent sales"
       no_recent_listings: "No recent listings"
+  web_push_notification:
+    title:
+      default: "Important update from Renupharm"
+      purchase_alert: "Review your purchase on Renupharm"
+      sale_alert: "Congratulations. Your Renupharm listing has been purchased"
+    actions:
+      purchase: "Review purchase"
+      sale: "Prep for collection"
   marketplace:
     product:
       name: "Name"

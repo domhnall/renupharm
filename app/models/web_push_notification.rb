@@ -1,5 +1,6 @@
 class WebPushNotification < Notification
-  include ActionView::Helpers::AssetUrlHelper
+
+  validates :title, presence: true, length: {minimum: 3, maximum: 50}
 
   def push
     profile.web_push_subscriptions.each{ |wps| push_for_subscription(wps) }
@@ -9,12 +10,14 @@ class WebPushNotification < Notification
 
   def push_for_subscription(wps)
     return unless wps
-    Webpush.payload_send( default_params.merge({
+    self.gateway_response = Webpush.payload_send( default_params.merge({
       message: payload,
       endpoint: wps.subscription["endpoint"],
       p256dh: wps.subscription["keys"]["p256dh"],
       auth: wps.subscription["keys"]["auth"],
     }))
+    self.delivered = true
+    self.save!
   rescue Webpush::ExpiredSubscription => e
     wps.destroy
   rescue Exception => e
@@ -27,10 +30,11 @@ class WebPushNotification < Notification
 
   def payload
     JSON.generate({
-      title: "Renupharm: Make sure your product is ready for collection to avoid charges!",
-      body: message,
-      icon: asset_path("logo_colour")
-    })
+      title: self.title,
+      body: self.message,
+      icon: ActionController::Base.helpers.image_path("logo_colour"),
+      badge: ActionController::Base.helpers.image_path("favicon")
+    }.merge(self.options || {}).compact)
   end
 
   def default_params

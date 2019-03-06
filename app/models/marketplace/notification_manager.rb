@@ -33,12 +33,19 @@ class Marketplace::NotificationManager
       Marketplace::OrderMailer.purchase_notification(agent_id: agent.id, order_id: order.id).deliver_later
     end
 
-    if user.purchase_texts?
-      Services::Marketplace::SendSms.new(recipient: user, message: build_purchase_message(order)).call
+    if user.telephone && user.purchase_texts?
+      Services::Marketplace::SendSms.new(recipient: user, message: build_purchase_sms(order)).call
     end
 
     if user.purchase_site_notifications?
-      Services::Marketplace::CreateNotification.new(recipient: user, message: build_purchase_notification(order)).call
+      Services::Marketplace::CreateNotification.new(
+        recipient: user,
+        title: I18n.t("web_push_notification.title.purchase_alert"),
+        message: build_purchase_notification(order),
+        options: {
+          actions: [{ action: "review-purchase-#{order.id}", title: I18n.t("web_push_notification.actions.purchase") }]
+        }
+      ).call
     end
   end
 
@@ -47,29 +54,54 @@ class Marketplace::NotificationManager
       Marketplace::OrderMailer.sale_notification(agent_id: agent.id, order_id: order.id).deliver_later
     end
 
-    if user.sale_texts?
-      Services::Marketplace::SendSms.new(recipient: user, message: build_sale_message(order)).call
+    if user.telephone && user.sale_texts?
+      Services::Marketplace::SendSms.new(recipient: user, message: build_sale_sms(order)).call
     end
 
     if user.sale_site_notifications?
-      Services::Marketplace::CreateNotification.new(recipient: user, message: build_sale_notification(order)).call
+      Services::Marketplace::CreateNotification.new(
+        recipient: user,
+        title: I18n.t("web_push_notification.title.sale_alert"),
+        message: build_sale_notification(order),
+        options: {
+          actions: [{ action: "review-sale-#{order.id}", title: I18n.t("web_push_notification.actions.sale") }]
+        }
+      ).call
     end
   end
 
-  def build_purchase_message(order)
-    "User X from your pharmacy has just purchased Y on RenuPharm. Visit www.renupharm.ie to see order details and track delivery."
+  def build_purchase_sms(order)
+    [ base_purchase_message(order),
+      "Visit www.renupharm.ie to see order details and track delivery."].join(" ")
   end
 
-  def build_sale_message(order)
-    "A user has just purchased X from your pharmacy on RenuPharm. Please prep for collection."
+  def build_sale_sms(order)
+    [ base_sale_message(order),
+      "Visit www.renupharm.ie to see order details and track delivery."].join(" ")
   end
 
   def build_purchase_notification(order)
-    "Dummy purchase notification"
+    base_purchase_message(order)
   end
 
   def build_sale_notification(order)
-    "Dummy sale notification"
+    base_sale_message(order)
+  end
+
+  def base_purchase_message(order)
+    if order.line_items.size==1
+      "User #{order.user.full_name} has just purchased #{order.line_items.first.product_name} on RenuPharm."
+    else
+      "User #{order.user.full_name} has just purchased multiple products on RenuPharm."
+    end
+  end
+
+  def base_sale_message(order)
+    if order.line_items.size==1
+      "A user has just purchased #{order.line_items.first.product_name} from your pharmacy on RenuPharm."
+    else
+      "A user has just purchased multiple products from your pharmacy on RenuPharm."
+    end
   end
 
   def agent
