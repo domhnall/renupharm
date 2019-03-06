@@ -19,7 +19,7 @@ describe SendSmsJob do
   end
 
   describe "#perform" do
-    it "should call deliver on the SmsNotification" do
+    it "should call #deliver on the SmsNotification" do
       allow(SmsNotification).to receive(:find).and_return(@sms_notification)
       expect(@sms_notification).to receive(:deliver)
       SendSmsJob.perform_now(@sms_notification.id)

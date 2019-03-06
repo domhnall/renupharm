@@ -1,4 +1,4 @@
-class WebPushNotificationJob < ApplicationJob
+class SendWebPushNotificationJob < ApplicationJob
   queue_as :default
 
   def perform(notification_id)

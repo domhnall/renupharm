@@ -106,8 +106,9 @@ module Factories
 
     def create_web_push_notification(attrs = {})
       WebPushNotification.new.tap do |wpn|
-        wpn.profile = attrs.fetch(:profile, create_user.profile)
-        wpn.message = attrs.fetch(:message, Faker::Lorem.sentence(8))
+        wpn.profile   = attrs.fetch(:profile, create_user.profile)
+        wpn.title     = attrs.fetch(:title, "Dummy update from Renupharm")
+        wpn.message   = attrs.fetch(:message, Faker::Lorem.sentence(8))
         wpn.delivered = attrs.fetch(:delivered, false)
         wpn.save!
       end
