@@ -2,7 +2,8 @@ class Services::SendSms
   attr_reader :recipient, :message, :admin_mailer_class
 
   def initialize(recipient: nil, message: nil, admin_mailer_class: Admin::ErrorMailer)
-    raise ArgumentError, "The :recipient must have a telephone number" unless recipient && recipient.telephone
+    raise ArgumentError, "A :recipient must be supplied" unless recipient
+    raise ArgumentError, "The :recipient must have a telephone number" unless recipient.telephone.present?
     raise ArgumentError, "A non-empty :message must be supplied " unless message.present?
     @recipient          = recipient
     @message            = message

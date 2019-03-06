@@ -29,7 +29,7 @@ describe Services::SendSms do
     end
 
     it "should raise an error if :recipient does not have a telephone number" do
-      expect{ Services::SendSms.new(@params.merge(recipient: create_user)) }.to raise_error ArgumentError
+      expect{ Services::SendSms.new(@params.merge(recipient: create_user(telephone: ""))) }.to raise_error ArgumentError
     end
 
     it "should raise an error if :message is not supplied" do

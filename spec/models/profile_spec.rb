@@ -15,7 +15,7 @@ describe Profile do
   end
 
   [ :notification_config,
-    :web_push_subscriptions ].each do
+    :web_push_subscriptions ].each do |method|
     it "should respond to method :#{method}" do
       expect(Profile.new).to respond_to method
     end
@@ -60,14 +60,14 @@ describe Profile do
       expect(Profile.new(@params.merge(surname: "a"*31))).not_to be_valid
     end
 
-    it "should be invalid when :telephone exceeds length of 11 characters" do
-      expect(Profile.new(@params.merge(telephone: "0"*11))).to be_valid
-      expect(Profile.new(@params.merge(telephone: "0"*12))).not_to be_valid
+    it "should be invalid when :telephone exceeds length of 16 characters" do
+      expect(Profile.new(@params.merge(telephone: "+353 11111111111"))).to be_valid
+      expect(Profile.new(@params.merge(telephone: "+353 111111111111"))).not_to be_valid
     end
 
-    it "should be invalid when :telephone has length of less than 7 characters" do
-      expect(Profile.new(@params.merge(telephone: "0"*7))).to be_valid
-      expect(Profile.new(@params.merge(telephone: "0"*6))).not_to be_valid
+    it "should be invalid when :telephone has length of less than 11 characters" do
+      expect(Profile.new(@params.merge(telephone: "+353 111111"))).to be_valid
+      expect(Profile.new(@params.merge(telephone: "+353 11111"))).not_to be_valid
     end
 
     it "should be invalid when :role is blank" do
