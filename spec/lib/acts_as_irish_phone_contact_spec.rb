@@ -70,6 +70,13 @@ describe ActsAsIrishPhoneContact do
         @profile.telephone = "+353 (0)12 345 6789"
         expect(@profile[:telephone]).to eq "123456789"
       end
+
+      [ "+353 123456", "+353 12345678", "+353 12345678901"].each do |number|
+        it "should have no impact on a number such as #{number}" do
+          @profile.telephone = number
+          expect(@profile.telephone).to eq number
+        end
+      end
     end
   end
 end

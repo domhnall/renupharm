@@ -1,3 +1,5 @@
+# Numbers are stored without the +353 prefix
+# A number of the format "+353 1234567" will appear unaltered by a getter-setter invocation
 module ActsAsIrishPhoneContact
   extend ActiveSupport::Concern
 
