@@ -33,7 +33,7 @@ class Marketplace::NotificationManager
       Marketplace::OrderMailer.purchase_notification(agent_id: agent.id, order_id: order.id).deliver_later
     end
 
-    if user.telephone && user.purchase_texts?
+    if user.telephone.present? && user.purchase_texts?
       Services::SendSms.new(recipient: user, message: build_purchase_sms(order)).call
     end
 
@@ -54,7 +54,7 @@ class Marketplace::NotificationManager
       Marketplace::OrderMailer.sale_notification(agent_id: agent.id, order_id: order.id).deliver_later
     end
 
-    if user.telephone && user.sale_texts?
+    if user.telephone.present? && user.sale_texts?
       Services::SendSms.new(recipient: user, message: build_sale_sms(order)).call
     end
 
