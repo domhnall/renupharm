@@ -38,7 +38,7 @@ class Marketplace::NotificationManager
     end
 
     if user.purchase_site_notifications?
-      Services::Marketplace::CreateNotification.new(
+      Services::Marketplace::SendWebPushNotification.new(
         recipient: user,
         title: I18n.t("web_push_notification.title.purchase_alert"),
         message: build_purchase_notification(order),
@@ -59,7 +59,7 @@ class Marketplace::NotificationManager
     end
 
     if user.sale_site_notifications?
-      Services::Marketplace::CreateNotification.new(
+      Services::Marketplace::SendWebPushNotification.new(
         recipient: user,
         title: I18n.t("web_push_notification.title.sale_alert"),
         message: build_sale_notification(order),

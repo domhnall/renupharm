@@ -1,4 +1,4 @@
-class Services::Marketplace::CreateNotification
+class Services::Marketplace::SendWebPushNotification
   attr_reader :recipient, :title, :message, :options, :admin_mailer_class
 
   def initialize(recipient: nil,
@@ -25,7 +25,7 @@ class Services::Marketplace::CreateNotification
       message: message,
       options: options
     )
-    notification.push
+    SendWebPushNotificationJob.perform_later(notification.id)
     @response
   rescue Services::Error => e
     @errors << e
