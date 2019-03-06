@@ -1,4 +1,4 @@
-class Services::Marketplace::SendWebPushNotification
+class Services::SendWebPushNotification
   attr_reader :recipient, :title, :message, :options, :admin_mailer_class
 
   def initialize(recipient: nil,

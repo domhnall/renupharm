@@ -1,4 +1,4 @@
-class Services::Marketplace::SendSms
+class Services::SendSms
   attr_reader :recipient, :message, :admin_mailer_class
 
   def initialize(recipient: nil, message: nil, admin_mailer_class: Admin::ErrorMailer)

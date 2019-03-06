@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Services::Marketplace::SendSms do
+describe Services::SendSms do
   include Factories::Base
 
   before :all do
@@ -19,25 +19,25 @@ describe Services::Marketplace::SendSms do
     :admin_mailer_class,
     :call ].each do |method|
     it "should respond to method :#{method}" do
-      expect(Services::Marketplace::SendSms.new(@params)).to respond_to method
+      expect(Services::SendSms.new(@params)).to respond_to method
     end
   end
 
   describe "instantiation" do
     it "should raise an error if :recipient is not supplied" do
-      expect{ Services::Marketplace::SendSms.new(@params.merge(recipient: nil)) }.to raise_error ArgumentError
+      expect{ Services::SendSms.new(@params.merge(recipient: nil)) }.to raise_error ArgumentError
     end
 
     it "should raise an error if :recipient does not have a telephone number" do
-      expect{ Services::Marketplace::SendSms.new(@params.merge(recipient: create_user)) }.to raise_error ArgumentError
+      expect{ Services::SendSms.new(@params.merge(recipient: create_user)) }.to raise_error ArgumentError
     end
 
     it "should raise an error if :message is not supplied" do
-      expect{ Services::Marketplace::SendSms.new(@params.merge(message: nil)) }.to raise_error ArgumentError
+      expect{ Services::SendSms.new(@params.merge(message: nil)) }.to raise_error ArgumentError
     end
 
     it "should default the admin_mailer_class to Admin::ErrorMailer" do
-      expect(Services::Marketplace::SendSms.new(@params).admin_mailer_class).to eq Admin::ErrorMailer
+      expect(Services::SendSms.new(@params).admin_mailer_class).to eq Admin::ErrorMailer
     end
   end
 
@@ -45,7 +45,7 @@ describe Services::Marketplace::SendSms do
     describe "#call" do
       before :each do
         @dummy_client = double("dummy nexmo client")
-        @service = Services::Marketplace::SendSms.new(@params)
+        @service = Services::SendSms.new(@params)
         allow(Nexmo::Client).to receive(:new).and_return(@dummy_client)
         allow(@dummy_client).to receive_message_chain(:sms, :send){ Nexmo::Entity.new }
       end

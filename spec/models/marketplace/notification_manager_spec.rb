@@ -71,7 +71,7 @@ describe Marketplace::NotificationManager do
           end
 
           it "should invoke the SendSms service" do
-            expect(Services::Marketplace::SendSms).to receive(:new){ OpenStruct.new(call: true) }
+            expect(Services::SendSms).to receive(:new){ OpenStruct.new(call: true) }
             Marketplace::NotificationManager.new(@user).notify(@event, @data)
           end
         end
@@ -83,7 +83,7 @@ describe Marketplace::NotificationManager do
           end
 
           it "should NOT invoke the SendSms service" do
-            expect(Services::Marketplace::SendSms).not_to receive(:new)
+            expect(Services::SendSms).not_to receive(:new)
             Marketplace::NotificationManager.new(@user).notify(@event, @data)
           end
         end
@@ -125,7 +125,7 @@ describe Marketplace::NotificationManager do
           end
 
           it "should invoke the SendSms service" do
-            expect(Services::Marketplace::SendSms).to receive(:new){ OpenStruct.new(call: true) }
+            expect(Services::SendSms).to receive(:new){ OpenStruct.new(call: true) }
             Marketplace::NotificationManager.new(@user).notify(@event, @data)
           end
         end
@@ -137,7 +137,7 @@ describe Marketplace::NotificationManager do
           end
 
           it "should NOT invoke the SendSms service" do
-            expect(Services::Marketplace::SendSms).not_to receive(:new)
+            expect(Services::SendSms).not_to receive(:new)
             Marketplace::NotificationManager.new(@user).notify(@event, @data)
           end
         end
