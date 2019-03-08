@@ -90,17 +90,17 @@ class Marketplace::NotificationManager
 
   def base_purchase_message(order)
     if order.line_items.size==1
-      "User #{order.user.full_name} has just purchased #{order.line_items.first.product_name} on RenuPharm."
+      "User #{order.user.full_name} has just purchased #{order.line_items.first.product_name}."
     else
-      "User #{order.user.full_name} has just purchased multiple products on RenuPharm."
+      "User #{order.user.full_name} has just purchased multiple products."
     end
   end
 
   def base_sale_message(order)
     if order.line_items.size==1
-      "A user has just purchased #{order.line_items.first.product_name} from your pharmacy on RenuPharm."
+      "A user has just purchased #{order.line_items.first.product_name} from your pharmacy."
     else
-      "A user has just purchased multiple products from your pharmacy on RenuPharm."
+      "A user has just purchased multiple products from your pharmacy."
     end
   end
 

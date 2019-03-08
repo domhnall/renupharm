@@ -24,10 +24,12 @@ describe WebPushNotification do
     end
 
     it "should be invalid if title is < 3 characters" do
+      expect(WebPushNotification.new(@params.merge(title: "ABC"))).to be_valid
       expect(WebPushNotification.new(@params.merge(title: "AB"))).not_to be_valid
     end
 
     it "should be invalid if title is > 50 characters" do
+      expect(WebPushNotification.new(@params.merge(title: "A"*50))).to be_valid
       expect(WebPushNotification.new(@params.merge(title: "A"*51))).not_to be_valid
     end
   end

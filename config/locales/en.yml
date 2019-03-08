@@ -313,8 +313,8 @@ en:
   web_push_notification:
     title:
       default: "Important update from Renupharm"
-      purchase_alert: "Review your purchase on Renupharm"
-      sale_alert: "Congratulations. Your Renupharm listing has been purchased"
+      purchase_alert: "Review your purchase"
+      sale_alert: "Congrats! Your listing has been purchased"
     actions:
       purchase: "Review purchase"
       sale: "Prep for collection"
