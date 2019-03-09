@@ -20,5 +20,9 @@ module Renupharm
 
     # Use a real queuing backend for Active Job (and separate queues per environment)
     config.active_job.queue_adapter     = :sidekiq
+    config.send_sms = false
+
+    # Define an asset host, allowing us to build full URLs
+    config.action_controller.asset_host = 'http://localhost:3000'
   end
 end

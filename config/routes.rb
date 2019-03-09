@@ -18,8 +18,10 @@ Rails.application.routes.draw do
   resource :profile, only: [:show, :edit, :update] do
     get :accept_terms_and_conditions
   end
+  resolve('Profile'){ [:profile] }
 
   resource :notification_config, only: [:show, :update]
+  resource :web_push_subscriptions, only: [:create]
 
   namespace :sales do
     resources :contacts, only: [:create]

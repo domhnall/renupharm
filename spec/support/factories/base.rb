@@ -9,6 +9,7 @@ module Factories
           first_name: Faker::Name.first_name,
           surname: Faker::Name.last_name,
           role: attrs.fetch(:role){ Profile::Roles::PHARMACY },
+          telephone: attrs.fetch(:telephone, "12345678"),
           accepted_terms_at: Time.now
         }))
         user.skip_confirmation!
@@ -46,6 +47,70 @@ module Factories
           accepted_terms_at: Time.now }
       }).tap do |user|
         user.profile.avatar.attach(io: File.open("#{Rails.root}/spec/support/images/karate_kid_johnny.jpeg"), filename: "johnny.jpeg")
+      end
+    end
+
+    def create_sms_notification(attrs = {})
+      SmsNotification.new.tap do |sms|
+        sms.profile = attrs.fetch(:profile, create_user.profile)
+        sms.message = attrs.fetch(:message, Faker::Lorem.sentence(8))
+        sms.gateway_response = attrs.fetch(:gateway_response, nil)
+        sms.delivered = attrs.fetch(:delivered, false)
+        sms.save!
+      end
+    end
+
+    def create_successful_sms(attrs = {})
+      create_sms_notification(gateway_response: {
+        :"message-count" => "1",
+        :"messages" => [{
+          :"to" => "447746926569",
+          :"message-id" => "1500000005B149C5",
+          :"status" => "0",
+          :"remaining-balance" => "5.96670000",
+          :"message-price" => "0.03330000",
+          :"network" => "23410"
+        }]
+      })
+    end
+
+    def create_failing_sms(attrs = {})
+      SmsNotification.skip_callback(:commit, :after, :alert_failing_delivery)
+      create_sms_notification(gateway_response: {
+        :"message-count" => "1",
+        :"messages" => [{
+          :"to" => "447746926569",
+          :"message-id" => "1500000005B149C6",
+          :"status" => "99",
+        }]
+      })
+    ensure
+      SmsNotification.set_callback(:commit, :after, :alert_failing_delivery)
+    end
+
+    def create_web_push_subscription(attrs = {})
+      WebPushSubscription.new.tap do |sub|
+        sub.profile = attrs.fetch(:profile){ create_user(attrs).profile }
+        sub.subscription = attrs.fetch(:subscription) do
+          {
+            "keys"=>{
+              "auth"=>"ZRdZ9iDbURjZjnA3pCSEvQ",
+              "p256dh"=>"BHiz1CA2i3aO99VBkH0FclPivQg3rl0lHEygJUypodsPg2YxcwBSNNxSK4zym33lcz7olOcmE1phjPnGt4IE06U"
+            },
+            "endpoint"=>"https://updates.push.services.mozilla.com/wpush/v2/gAAAAABcewZQcQelD95rMg77YGrLTZAbDZ6e0p7by9XfTt_EbN42WUSlmtcrJI2-0c9GCOeVMj2k4S2fLXN4gkHqi8OyCoEI4Q02iRXxSOKaITM4P1gC1EVysvGELdV-_G6Ab66GSh5kG6qboTIQF7fm75fYLLP2CLHlZDsO6ahhc2hPQHVvEec"
+          }
+        end
+        sub.save!
+      end
+    end
+
+    def create_web_push_notification(attrs = {})
+      WebPushNotification.new.tap do |wpn|
+        wpn.profile   = attrs.fetch(:profile, create_user.profile)
+        wpn.title     = attrs.fetch(:title, "Dummy update from Renupharm")
+        wpn.message   = attrs.fetch(:message, Faker::Lorem.sentence(8))
+        wpn.delivered = attrs.fetch(:delivered, false)
+        wpn.save!
       end
     end
   end

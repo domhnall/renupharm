@@ -89,14 +89,14 @@ describe Marketplace::Pharmacy do
       expect(Marketplace::Pharmacy.new(@params.merge(email: invalid_email))).not_to be_valid
     end
 
-    it "should be invalid when :telephone exceeds length of 11 characters" do
-      expect(Marketplace::Pharmacy.new(@params.merge(telephone: "0"*11))).to be_valid
-      expect(Marketplace::Pharmacy.new(@params.merge(telephone: "0"*12))).not_to be_valid
+    it "should be invalid when :telephone exceeds length of 16 characters" do
+      expect(Marketplace::Pharmacy.new(@params.merge(telephone: "+353 12345678901"))).to be_valid
+      expect(Marketplace::Pharmacy.new(@params.merge(telephone: "+353 123456789012"))).not_to be_valid
     end
 
-    it "should be invalid when :telephone has length of less than 7 characters" do
-      expect(Marketplace::Pharmacy.new(@params.merge(telephone: "0"*7))).to be_valid
-      expect(Marketplace::Pharmacy.new(@params.merge(telephone: "0"*6))).not_to be_valid
+    it "should be invalid when :telephone has length of less than 11 characters" do
+      expect(Marketplace::Pharmacy.new(@params.merge(telephone: "+353 123456"))).to be_valid
+      expect(Marketplace::Pharmacy.new(@params.merge(telephone: "+353 12345"))).not_to be_valid
     end
 
     it "should be invalid when a pharmacy with the same email already exists" do

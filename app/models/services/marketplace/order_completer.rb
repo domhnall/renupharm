@@ -20,7 +20,7 @@ class Services::Marketplace::OrderCompleter
     take_payment
     remove_listing
     calculate_fees
-    send_emails
+    send_notifications
     contact_courier
     @response
   rescue Services::Error => e
@@ -32,7 +32,7 @@ class Services::Marketplace::OrderCompleter
       message: e.message,
       backtrace: e.backtrace
     ).deliver_later
-    raise Services::Error, I18n.t("general.error")
+    raise e
   end
 
   private
@@ -86,12 +86,20 @@ class Services::Marketplace::OrderCompleter
     end
   end
 
-  def send_emails
+  def send_notifications
     buying_pharmacy.agents.active.each do |agent|
-      Marketplace::OrderMailer.purchase_notification(agent_id: agent.id, order_id: order.id).deliver_later
+      Marketplace::NotificationManager.notify(
+        agent.user,
+        Marketplace::NotificationManager::Event::PURCHASE,
+        { order: @order }
+      )
     end
     selling_pharmacy.agents.active.each do |agent|
-      Marketplace::OrderMailer.sale_notification(agent_id: agent.id, order_id: order.id).deliver_later
+      Marketplace::NotificationManager.notify(
+        agent.user,
+        Marketplace::NotificationManager::Event::SALE,
+        { order: @order }
+      )
     end
   end
 

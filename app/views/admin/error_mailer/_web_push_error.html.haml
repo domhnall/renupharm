@@ -1,0 +1,11 @@
+%p= "There has been an error delivering a web push notification to user ID #{@notification.user.id} (#{@notification.user.email})"
+
+%p Please review the error and assess the severity of the missed notification.
+
+%h2 Message
+%p= @notification.message
+
+%h2 Error details
+%p= @message
+%p The stacktrace is show below:
+%p= @backtrace

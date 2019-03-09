@@ -1,0 +1,9 @@
+%p= "There has been an error delivering an SMS to user ID #{@sms.user.id} (#{@sms.user.email})"
+
+%p Please review the error and assess the severity of the missed notification.
+
+%h2 Message
+%p= @sms.message
+
+%h2 Gateway Response
+%p= @sms.gateway_response

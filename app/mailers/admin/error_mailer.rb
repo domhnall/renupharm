@@ -17,6 +17,23 @@ class Admin::ErrorMailer < ApplicationMailer
     mail(to: DELIVER_TO, subject: "RenuPharm:: Payment Error")
   end
 
+  def sms_error(sms_id:)
+    @sms = SmsNotification.where(id: sms_id).first
+    mail(to: DELIVER_TO, subject: "RenuPharm:: SMS Error")
+  end
+
+  def sms_balance_alert(balance:)
+    @balance = balance
+    mail(to: DELIVER_TO, subject: "RenuPharm:: Low SMS balance")
+  end
+
+  def web_push_error(notification_id:, message:, backtrace:)
+    @notification = WebPushNotification.where(id: notification_id).first
+    @message      = message
+    @backtrace    = backtrace
+    mail(to: DELIVER_TO, subject: "RenuPharm:: Web Push Error")
+  end
+
   private
 
   def prevent_deliveries_in_development

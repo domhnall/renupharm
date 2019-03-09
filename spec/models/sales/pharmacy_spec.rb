@@ -53,23 +53,23 @@ describe Sales::Pharmacy do
     end
 
     [:telephone, :fax].each do |attr|
-      it "should be invalid when :#{attr} exceeds length of 11 characters" do
-        expect(Sales::Pharmacy.new(@params.merge("#{attr}" => "0"*11))).to be_valid
-        expect(Sales::Pharmacy.new(@params.merge("#{attr}" => "0"*12))).not_to be_valid
+      it "should be invalid when :#{attr} exceeds length of 16 characters" do
+        expect(Sales::Pharmacy.new(@params.merge("#{attr}" => "+353 12345678901"))).to be_valid
+        expect(Sales::Pharmacy.new(@params.merge("#{attr}" => "+353 123456789012"))).not_to be_valid
       end
 
-      it "should be invalid when :#{attr} has length of less than 7 characters" do
-        expect(Sales::Pharmacy.new(@params.merge("#{attr}" => "0"*7))).to be_valid
-        expect(Sales::Pharmacy.new(@params.merge("#{attr}" => "0"*6))).not_to be_valid
+      it "should be invalid when :#{attr} has length of less than 11 characters" do
+        expect(Sales::Pharmacy.new(@params.merge("#{attr}" => "+353 123456"))).to be_valid
+        expect(Sales::Pharmacy.new(@params.merge("#{attr}" => "+353 12345"))).not_to be_valid
       end
     end
 
     [:telephone, :fax].each do |attr|
       describe "setting :#{attr}" do
-        { "41-123-4567" => "0411234567",
-          "(41) 123 4567" => "0411234567",
-          "(01) 283 7188" => "012837188",
-          "1 283 7188" => "012837188" }.each do |supplied, cleaned|
+        { "41-123-4567" => "+353 411234567",
+          "(41) 123 4567" => "+353 411234567",
+          "(01) 283 7188" => "+353 12837188",
+          "1 283 7188" => "+353 12837188" }.each do |supplied, cleaned|
 
             it "should store the value '#{cleaned}' when supplied the value '#{supplied}'" do
               expect(Sales::Pharmacy.new(@params.merge("#{attr}" => supplied)).send(attr)).to eq cleaned

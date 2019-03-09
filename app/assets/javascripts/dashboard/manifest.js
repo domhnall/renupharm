@@ -1,4 +1,5 @@
 //= require '../sentry'
+//= require './vapid_key'
 //= require jquery
 //= require rails-ujs
 //= require activestorage

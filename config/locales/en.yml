@@ -36,6 +36,7 @@ en:
   errors:
     record_not_found: "Sorry, the requested item could not be found"
     access_denied: "You do not have access to the requested resource, please contact your administrator."
+    unprocessable_entity: "There is a problem with your submission."
   general:
     "yes": "Yes"
     "no": "No"
@@ -309,6 +310,14 @@ en:
       no_recent_purchases: "No recent purchases"
       no_recent_sales: "No recent sales"
       no_recent_listings: "No recent listings"
+  web_push_notification:
+    title:
+      default: "Important update from Renupharm"
+      purchase_alert: "Review your purchase"
+      sale_alert: "Congrats! Your listing has been purchased"
+    actions:
+      purchase: "Review purchase"
+      sale: "Prep for collection"
   marketplace:
     product:
       name: "Name"
