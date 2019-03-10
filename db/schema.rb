@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_03_083456) do
+ActiveRecord::Schema.define(version: 2019_03_09_114007) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -166,11 +166,12 @@ ActiveRecord::Schema.define(version: 2019_03_03_083456) do
     t.datetime "updated_at", null: false
     t.string "active_ingredient"
     t.string "form"
-    t.decimal "strength", precision: 8, scale: 4
+    t.string "strength"
     t.decimal "volume", precision: 8, scale: 4
     t.string "identifier"
     t.integer "channel_size"
     t.string "manufacturer"
+    t.decimal "weight", precision: 8, scale: 4
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_products_on_marketplace_pharmacy_id"
   end
 

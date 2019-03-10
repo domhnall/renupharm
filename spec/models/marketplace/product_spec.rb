@@ -32,6 +32,9 @@ describe Marketplace::Product do
     :channel_size_meaningful?,
     :channel_size_required?,
     :channel_size_unit,
+    :weight_meaningful?,
+    :weight_required?,
+    :weight_unit,
     :pack_size_unit,
     :display_strength,
     :display_pack_size,
@@ -54,6 +57,7 @@ describe Marketplace::Product do
         pack_size: 40,
         strength: 110,
         volume: 500,
+        weight: 4,
         identifier: "DL172",
         channel_size: 7,
         active: true
@@ -106,7 +110,7 @@ describe Marketplace::Product do
         end
       end
 
-      describe "when #{prop} is required" do
+      describe "when #{prop} is NOT required" do
         before :each do
           form_with_optional_prop = Marketplace::ProductForm.new({
            "name" => "Dummy optional",
@@ -132,7 +136,7 @@ describe Marketplace::Product do
       end
     end
 
-    %w(strength pack_size volume channel_size).each do |prop|
+    %w(pack_size volume channel_size weight).each do |prop|
       it "should be invalid when :#{prop} is not a number" do
         expect(Marketplace::Product.new(@params.merge(prop => "5 units"))).not_to be_valid
         expect(Marketplace::Product.new(@params.merge(prop => "5"))).to be_valid
@@ -151,6 +155,32 @@ describe Marketplace::Product do
         it "should be invalid when :#{attr} is greater than 255 characters" do
           expect(Marketplace::Product.new(@params.merge(attr => "a"*255))).to be_valid
           expect(Marketplace::Product.new(@params.merge(attr => "a"*256))).not_to be_valid
+        end
+      end
+    end
+
+    describe "strength" do
+      it "should be invalid when strength is blank" do
+        expect(Marketplace::Product.new(@params.merge(strength: ""))).not_to be_valid
+        expect(Marketplace::Product.new(@params.merge(strength: "1"))).to be_valid
+      end
+
+      it "should be invalid when strength is greater than 20 characters" do
+        expect(Marketplace::Product.new(@params.merge(strength: "1"*20))).to be_valid
+        expect(Marketplace::Product.new(@params.merge(strength: "1"*21))).not_to be_valid
+      end
+
+      it "should be valid when composed of just digits" do
+        expect(Marketplace::Product.new(@params.merge(strength: rand(1000)))).to be_valid
+      end
+
+      it "should be valid when composed of digits and a single '/'" do
+        expect(Marketplace::Product.new(@params.merge(strength: "#{rand(1000)}/#{rand(1000)}"))).to be_valid
+      end
+
+      ["12mg", "12 / 4", "xstrong", "10/", "/10"].each do |invalid_strength|
+        it "should be invalid when composed of any other characters" do
+          expect(Marketplace::Product.new(@params.merge(strength: invalid_strength))).not_to be_valid
         end
       end
     end

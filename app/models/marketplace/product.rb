@@ -15,7 +15,8 @@ class Marketplace::Product < ApplicationRecord
   has_many_attached :images
 
   validates :name, :form, presence: true
-  validates :pack_size, :strength, :volume, :channel_size, numericality: true, allow_nil: true
+  validates :pack_size, :weight, :volume, :channel_size, numericality: true, allow_nil: true
+  validates :strength, format: { with: /\A\d+(\/\d+)?\z/ }, length: { minimum: 1, maximum: 20 }, allow_nil: true
   validates :name, length: { minimum: 3, maximum: 255 }
   validates :active_ingredient, length: { minimum: 3, maximum: 255 }, allow_nil: true, allow_blank: true
   validates :name, uniqueness: { scope: [:marketplace_pharmacy_id, :pack_size, :strength] }, if: :active?

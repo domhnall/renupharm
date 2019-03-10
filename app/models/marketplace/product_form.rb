@@ -141,7 +141,7 @@ class Marketplace::ProductForm
   }.freeze
 
   PERMITTED  = FORMS.keys.map(&:to_s)
-  PROPERTIES = %w(strength pack_size volume identifier channel_size).freeze
+  PROPERTIES = %w(strength pack_size volume identifier channel_size weight).freeze
 
   attr_reader :name,
               *PROPERTIES.map{ |prop| ["#{prop}_unit", "#{prop}_required"] }.flatten.map(&:to_sym)
@@ -157,7 +157,9 @@ class Marketplace::ProductForm
     channel_size_unit: nil,
     channel_size_required: false,
     identifier_unit: nil,
-    identifier_required: false
+    identifier_required: false,
+    weight_unit: nil,
+    weight_required: false
   )
     @name                  = name
     @strength_unit         = strength_unit
@@ -170,6 +172,8 @@ class Marketplace::ProductForm
     @identifier_required   = identifier_required
     @channel_size_unit     = channel_size_unit
     @channel_size_required = channel_size_required
+    @weight_unit           = weight_unit
+    @weight_required       = weight_required
   end
 
   def self.for(name)
