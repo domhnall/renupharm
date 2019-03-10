@@ -31,6 +31,9 @@ footer.app-footer {
 
   .show_record {
     width: 80%;
+    @media only screen and (max-width: 600px) {
+      width: 90%;
+    }
     margin: auto;
     .form-group {
       clear: both;
@@ -40,14 +43,13 @@ footer.app-footer {
     }
     .col-form-label {
       display: inline-block;
-      width: 24%;
+      width: 27%;
       text-align: right;
     }
     .form-control {
       display: inline-block;
-      float: right;
       min-height: 2.5em;
-      width: 75%;
+      width: 70%;
     }
     .col-form-check-input {
       margin-left: 5px;
