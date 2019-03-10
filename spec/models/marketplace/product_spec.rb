@@ -174,6 +174,10 @@ describe Marketplace::Product do
         expect(Marketplace::Product.new(@params.merge(strength: rand(1000)))).to be_valid
       end
 
+      it "should be valid when composed of a decimal number" do
+        expect(Marketplace::Product.new(@params.merge(strength: "12345.67"))).to be_valid
+      end
+
       it "should be valid when composed of digits and a single '/'" do
         expect(Marketplace::Product.new(@params.merge(strength: "#{rand(1000)}/#{rand(1000)}"))).to be_valid
       end

@@ -327,6 +327,7 @@ en:
       volume: "Volume"
       identifier: "Product identifier"
       channel_size: "Channel size"
+      weight: "Weight"
       active_ingredient: "Active ingredient"
       manufacturer: "Manufacturer"
       active: "Active"

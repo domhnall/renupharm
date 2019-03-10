@@ -65,6 +65,11 @@ class Marketplace::ProductForm
       pack_size_unit: "ml",
       pack_size_required: true
     },
+    suspension: {
+      name: "Suspension",
+      pack_size_unit: "ml",
+      pack_size_required: true
+    },
     topical_liquid: {
       name: "Topical liquid/ointment",
       pack_size_unit: "ml",
@@ -84,6 +89,13 @@ class Marketplace::ProductForm
       pack_size_unit: "doses",
       pack_size_required: true
     },
+    nebule: {
+      name: "Nebule",
+      strength_unit: "mg",
+      strength_required: true,
+      pack_size_unit: "nebules",
+      pack_size_required: true
+    },
     medicated_plaster: {
       name: "Medicated plaster",
       strength_unit: "mg",
@@ -96,6 +108,13 @@ class Marketplace::ProductForm
       strength_unit: "mcg",
       strength_required: true,
       pack_size_unit: "doses",
+      pack_size_required: true
+    },
+    sachet: {
+      name: "Sachet",
+      weight_unit: "g",
+      weight_required: true,
+      pack_size_unit: "sachets",
       pack_size_required: true
     },
     nutritional_liquid: {
@@ -137,6 +156,11 @@ class Marketplace::ProductForm
       identifier_required: true,
       channel_size_unit: "Fr",
       channel_size_required: true
+    },
+    lancet: {
+      name: "Lancet",
+      pack_size_unit: "lancets",
+      pack_size_required: true
     }
   }.freeze
 

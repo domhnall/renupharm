@@ -30,10 +30,10 @@
           = form.text_field :strength, class: 'form-control'
           %span.unit= @product.strength_unit
       .form-group.reveal
-        = form.label :pack_size, t('marketplace.product.pack_size'), class: 'col-form-label'
-        .pack_size
-          = form.text_field :pack_size, class: 'form-control'
-          %span.unit= @product.pack_size_unit
+        = form.label :weight, t('marketplace.product.weight'), class: 'col-form-label'
+        .weight
+          = form.text_field :weight, class: 'form-control'
+          %span.unit= @product.weight_unit
       .form-group.reveal
         = form.label :volume, t('marketplace.product.volume'), class: 'col-form-label'
         .volume
@@ -49,6 +49,11 @@
         .channel_size
           = form.text_field :channel_size, class: 'form-control'
           %span.unit= @product.channel_size
+      .form-group.reveal
+        = form.label :pack_size, t('marketplace.product.pack_size'), class: 'col-form-label'
+        .pack_size
+          = form.text_field :pack_size, class: 'form-control'
+          %span.unit= @product.pack_size_unit
       .form-group
         = form.label :active_ingredient, t('marketplace.product.active_ingredient'), class: 'col-form-label'
         = form.text_field :active_ingredient, class: 'form-control'

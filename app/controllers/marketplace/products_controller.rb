@@ -92,7 +92,7 @@ class Marketplace::ProductsController < AuthenticatedController
   def product_params
     params
     .require(:marketplace_product)
-    .permit(:name, :active_ingredient, :form, :strength, :pack_size, :manufacturer, :active, :delete_images, images: [])
+    .permit(:name, :active_ingredient, :form, :strength, :pack_size, :weight, :manufacturer, :active, :delete_images, images: [])
   end
 
   def destroy_success_redirect_path
