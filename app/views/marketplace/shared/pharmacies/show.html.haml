@@ -5,7 +5,7 @@
         = pharmacy_tab_for('profile')
         = pharmacy_tab_for('listings')
         = pharmacy_tab_for('agents')
-        = pharmacy_tab_for('products')
+        = pharmacy_tab_for('pharmacy_products')
         - if policy(Marketplace::CreditCard.new(pharmacy: @marketplace_pharmacy)).show?
           = pharmacy_tab_for('credit_cards')
         - if policy(@marketplace_pharmacy.bank_account || @marketplace_pharmacy.build_bank_account).show?
@@ -15,7 +15,7 @@
         = pharmacy_content_for('profile', @marketplace_pharmacy)
         = pharmacy_content_for('listings', @marketplace_pharmacy)
         = pharmacy_content_for('agents', @marketplace_pharmacy)
-        = pharmacy_content_for('products', @marketplace_pharmacy)
+        = pharmacy_content_for('pharmacy_products', @marketplace_pharmacy)
         - if policy(Marketplace::CreditCard.new(pharmacy: @marketplace_pharmacy)).show?
           = pharmacy_content_for('credit_cards', @marketplace_pharmacy)
         - if policy(@marketplace_pharmacy.bank_account || @marketplace_pharmacy.build_bank_account).show?

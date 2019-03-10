@@ -421,7 +421,7 @@ en:
         profile: "Profile"
         listings: "Listings"
         agents: "Agents"
-        products: "Products"
+        pharmacy_products: "Products"
         credit_cards: "Purchasing"
         bank_account: "Payouts"
     agent:

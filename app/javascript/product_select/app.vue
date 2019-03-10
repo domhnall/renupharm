@@ -68,7 +68,7 @@ export default {
   props: {
     initialProduct: {
       type: Object,
-      required: true
+      required: false
     }
   },
 
