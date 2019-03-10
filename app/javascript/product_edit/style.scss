@@ -34,7 +34,7 @@ form.product_form {
   }
 
   img.placeholder {
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%) blur(1px);
+    filter: grayscale(100%) blur(1px);
   }
 }
