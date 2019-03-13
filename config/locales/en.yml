@@ -294,6 +294,7 @@ en:
         sales: "Sales"
         marketplace: "Marketplace"
         users: "Users"
+        infrastructure: "Infrastructure"
       sales:
         pharmacies: "Pharmacies"
         contacts: "Contacts"
@@ -303,6 +304,10 @@ en:
         network_pharmacies: "Network Pharmacies"
         orders: "Orders"
         products: "Products"
+      infrastructure:
+        sidekiq_workers: "Sidekiq Workers"
+        sms_messages: "SMS Messages"
+        web_push_subscriptions: "Web Push"
   dashboard:
     account_navigation:
       profile: "Profile"

@@ -86,4 +86,22 @@
         %a.nav-link{href: admin_users_path}
           %i.nav-icon.fa.fa-users
           = t("sidebar.admin.headings.users")
+      %li.nav-item.nav-dropdown
+        %a.nav-link.nav-dropdown-toggle{href: "#"}
+          %i.nav-icon.fa.fa-plus-circle
+          = t("sidebar.admin.headings.infrastructure")
+        %ul.nav-dropdown-items
+          %li.nav-item
+            %a.nav-link{href: admin_sidekiq_web_path}
+              %i.nav-icon.fa.fa-chevron-right
+              = t("sidebar.admin.infrastructure.sidekiq_workers")
+          %li.nav-item
+            %a.nav-link{href: admin_sidekiq_web_path}
+              %i.nav-icon.fa.fa-chevron-right
+              = t("sidebar.admin.infrastructure.sms_messages")
+          %li.nav-item
+            %a.nav-link{href: admin_sidekiq_web_path}
+              %i.nav-icon.fa.fa-chevron-right
+              = t("sidebar.admin.infrastructure.web_push_subscriptions")
+
 %button.sidebar-minimizer.brand-minimizer{type: "button"}

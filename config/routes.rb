@@ -1,3 +1,6 @@
+require 'sidekiq/web'
+#Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
+
 Rails.application.routes.draw do
   devise_for :users, skip: :registrations
   devise_scope :user do
@@ -54,6 +57,10 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    authenticate :user, lambda { |u| u.admin? } do
+      mount Sidekiq::Web => '/sidekiq'
+    end
+
     namespace :sales do
       resources :pharmacies do
         resources :comments, only: [:create, :update, :destroy], controller: 'pharmacy_comments'
