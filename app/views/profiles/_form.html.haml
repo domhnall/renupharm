@@ -9,7 +9,15 @@
         = profile_form.text_field :surname, class: 'form-control'
       .form-group
         = profile_form.label :telephone, t('profile.telephone'), class: 'col-form-label'
-        = profile_form.text_field :telephone, class: 'form-control'
+        .telephone_section
+          %fieldset.form-group
+            %div.form-check
+              = profile_form.radio_button :country, "ie", class: 'form-check-input'
+              = profile_form.label :country, t("profile.country.ie"), class: 'form-check-label'
+            %div.form-check
+              = profile_form.radio_button :country, "uk", class: 'form-check-input'
+              = profile_form.label :country, t("profile.country.uk"), class: 'form-check-label'
+          = profile_form.text_field :telephone, class: 'form-control telephone'
       .form-group
         = profile_form.label :role, t('profile.role'), class: 'col-form-label'
         = text_field_tag :role, t("profile.roles.#{@profile.role}"), class: 'form-control', disabled: true

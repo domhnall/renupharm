@@ -1,5 +1,6 @@
 import './style.scss';
 import './account.scss';
+import './profile.scss';
 import './marketplace/style.scss';
 import './marketplace/listing.scss';
 import './marketplace/cart.scss';

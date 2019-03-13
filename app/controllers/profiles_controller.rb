@@ -26,6 +26,6 @@ class ProfilesController < AuthenticatedController
   private
 
   def profile_params
-    params.require(:profile).permit(:first_name, :surname, :telephone, :avatar, :accepted_terms)
+    params.require(:profile).permit(:first_name, :surname, :telephone, :avatar, :country, :accepted_terms)
   end
 end

@@ -21,6 +21,16 @@ describe Profile do
     end
   end
 
+  # Country enum
+  [ :ie?,
+    :ie!,
+    :uk?,
+    :uk? ].each do |method|
+    it "should respond to country enum method :#{method}" do
+      expect(Profile.new).to respond_to method
+    end
+  end
+
   describe "instantiation" do
     it "should be valid when all required fields are supplied" do
       expect(Profile.new(@params)).to be_valid
@@ -126,6 +136,27 @@ describe Profile do
 
       it "should return false when :accepted_terms_at has not been set" do
         expect(Profile.new(@params.merge(accepted_terms_at: nil)).accepted_terms).to be_falsey
+      end
+    end
+
+    describe "#country_code" do
+      before :each do
+        @profile = @user.profile
+      end
+
+      it "should return 'IE' when profile country is set to :ie" do
+        @profile.ie!
+        expect(@profile.country_code).to eq "IE"
+      end
+
+      it "should retrun 'UK' when profile country is set to :uk" do
+        @profile.uk!
+        expect(@profile.country_code).to eq "UK"
+      end
+
+      it "should return 'IE' when profile country is set to unknown value" do
+        @profile.update_column(:country, 99)
+        expect(@profile.country_code).to eq "IE"
       end
     end
 

@@ -223,6 +223,9 @@ en:
     first_name: "First name"
     surname: "Surname"
     telephone: "Telephone"
+    country:
+      ie: "Republic of Ireland"
+      uk: "UK"
     role: "Role"
     created_at: "Created"
     updated_at: "Updated"

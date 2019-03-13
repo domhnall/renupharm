@@ -25,6 +25,8 @@ class Profile < ApplicationRecord
 
   after_create :create_default_associations
 
+  enum country: [:ie, :uk]
+
   def full_name
     [first_name, surname].join(" ")
   end
@@ -41,6 +43,15 @@ class Profile < ApplicationRecord
   Profile::Roles::valid_roles.each do |role|
     define_method "#{role}?" do
       self.role == role
+    end
+  end
+
+  # Used to determine if IE or UK phone contact
+  def country_code
+    if self.uk?
+      UK_COUNTRY_CODE
+    else
+      IE_COUNTRY_CODE
     end
   end
 

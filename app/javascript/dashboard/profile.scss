@@ -1,0 +1,20 @@
+form.edit_profile {
+  .telephone_section {
+    display: inline-block;
+    width: 70%;
+    .form-control {
+      width: 100%;
+    }
+    fieldset {
+      &.form-group {
+        margin-bottom: 0.5rem;
+      }
+      .form-check {
+        display: inline-block;
+        .form-check-label {
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+}
