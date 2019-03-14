@@ -1,3 +1,2 @@
-CONTAINER=`docker ps --format "{{.Names}}" | grep renupharm | grep app | head -1`
-0 1 * * * docker exec -t $CONTAINER bin/rake renumpharm:remove_expired_listings > /home/ec2-user/logs/cron.log 2>&1
-0,10,20,30,40,50 * * * * docker exec -t $CONTAINER bin/rake sunspot:reindex > /home/ec2-user/logs/cron.log 2>&1
+0 1 * * * docker exec -t `docker ps --format "{{.Names}}" | grep renupharm | grep app | head -1` bin/rake renumpharm:remove_expired_listings > /home/ec2-user/logs/cron.log 2>&1
+0,10,20,30,40,50 * * * * docker exec -t `docker ps --format "{{.Names}}" | grep renupharm | grep app | head -1` bin/rake sunspot:reindex > /home/ec2-user/logs/cron.log 2>&1
