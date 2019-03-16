@@ -30,7 +30,15 @@ if docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_tests; then
   docker push 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
 
   # Deploy the updated image
-  ecs-cli compose --cluster-config renupharm-new --file docker-compose.production.yml up
+  # As image version is not specified in task definition --force-new-deployment will
+  # pull the latest version of the image we have just uploaded
+  aws ecs update-service --cluster renupharm-new --service renupharm-service --force-new-deployment
+
+  # Any changes to the docker-compose.production.yml need to be uploaded to create a new task.
+  # This new task will then be used to create a new service
+  # This is not automated yet, so will need to walk through these update steps manually on AWS console
+  #
+  # ecs-cli compose --cluster-config renupharm-new --file docker-compose.production.yml up
 
   # Run any outstanding migrations
   APP_CONTAINER=`ssh ec2-user@renupharm.ie "docker ps --format \"{{.Names}}\" | grep app1"`
