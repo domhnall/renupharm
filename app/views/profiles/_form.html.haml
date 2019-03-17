@@ -1,6 +1,6 @@
 = form_for @profile do |profile_form|
   .row
-    .col-7
+    .col-12.col-md-7
       .form-group
         = profile_form.label :first_name, t('profile.first_name'), class: 'col-form-label'
         = profile_form.text_field :first_name, class: 'form-control'
@@ -21,7 +21,7 @@
       .form-group
         = profile_form.label :role, t('profile.role'), class: 'col-form-label'
         = text_field_tag :role, t("profile.roles.#{@profile.role}"), class: 'form-control', disabled: true
-    .col-5
+    .col-12.col-md-5
       .form-group
         = image_tag(@profile.avatar.attached? ? @profile.avatar : "placeholder-user.png", class: 'img-avatar')
         = profile_form.file_field :avatar, direct_upload: true, class: 'form-control'

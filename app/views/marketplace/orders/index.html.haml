@@ -1,30 +1,30 @@
 - type = params[:controller].split("/").last
-.row
+.row#orders_table_wrapper
   .col-md-12
     .card
       %table#orders.table{class: type}
         %thead
           %tr
-            %th= t("marketplace.order.reference")
+            %th.reference= t("marketplace.order.reference")
             %th= t("marketplace.order.product")
             %th.buyer= t("marketplace.order.buyer")
             %th.seller= t("marketplace.order.seller")
             %th= t("marketplace.order.price")
-            %th= t("marketplace.order.updated_at")
-            %th= t("marketplace.order.state")
+            %th.hide_mobile= t("marketplace.order.updated_at")
+            %th.hide_mobile= t("marketplace.order.state")
         %tbody
           - if @orders.empty?
             %tr
               %td.no_orders{colspan: 7}= t("marketplace.order.messages.empty_#{type}")
           - @orders.each do |order|
-            %tr
-              %td= link_to order.reference, marketplace_order_path(order)
+            %tr{ class: order.state }
+              %td.reference= link_to order.reference, marketplace_order_path(order)
               %td= order.product_names
               %td.buyer= order.pharmacy.name
               %td.seller= order.selling_pharmacy&.name
               %td= order.display_price
-              %td= l(order.updated_at, format: :long)
-              %td.state{ class: order.state, title: t("marketplace.order.states.#{order.state}") }
+              %td.hide_mobile= l(order.updated_at, format: :long)
+              %td.state.hide_mobile{ class: order.state, title: t("marketplace.order.states.#{order.state}") }
                 %i.fa.fa-circle
 
       - if @orders.any?

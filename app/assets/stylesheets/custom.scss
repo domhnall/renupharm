@@ -102,7 +102,6 @@ nav.navbar.bootsnav ul.nav > li > a,.side-menu > a {
 
 nav.navbar .navbar-brand img.logo {
   width: 65%;
-  height: 65%;
 }
 .side .widget ul.link li a {
     font-size: 15px;
@@ -432,7 +431,7 @@ footer {
         margin-left: 40px;
     }
     .navbar-brand {
-        height: 80px;
+        height: 50px;
     }
     .carousel-inner > .carousel-item > a > img, .carousel-inner > .carousel-item > img {
         height: 450px;
@@ -476,9 +475,12 @@ footer {
         top: 0;
     }
     #carousel {
-        margin-top: 85px;
+        margin-top: 67px;
     }
-
+    nav.navbar .navbar-brand img.logo {
+      height: 100%;
+      width: auto;
+    }
 }
 
 @media (max-width: 991px) {
@@ -497,9 +499,6 @@ footer {
     nav.navbar.bootsnav .navbar-toggle {
         margin-top: 25px;
     }
-    .attr-nav {
-        top: 12px;
-    }
     .side-menu p {
         display: none;
     }
@@ -509,6 +508,9 @@ footer {
     .carousel-caption {
         bottom: 35px;
         width: 350px;
+    }
+    #carousel {
+        margin-top: 67px;
     }
     .about_left > img {
         min-height: auto;

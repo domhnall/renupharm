@@ -5,38 +5,43 @@
         %h2= t("profile.heading.show")
 
         .row
-          .col-7
-            .form-group
-              %label.label.col-form-label
-                = t('profile.first_name')
-              %span.form-control
-                = @profile.first_name
-            .form-group
-              %label.label.col-form-label
-                = t('profile.surname')
-              %span.form-control
-                = @profile.surname
-            .form-group
-              %label.label.col-form-label
-                = t('profile.telephone')
-              %span.form-control
-                = @profile.telephone
-            .form-group
-              %label.label.col-form-label
-                = t('profile.role')
-              %span.form-control
-                = t("profile.roles.#{@profile.role}")
-            .form-group
-              %label.label.col-form-label
-                = t('profile.created_at')
-              %span.form-control
-                = l(@profile.created_at, format: :long)
-            .form-group
-              %label.label.col-form-label
-                = t('profile.updated_at')
-              %span.form-control
-                = l(@profile.updated_at, format: :long)
-          .col-5
+          .col-12.col-md-7
+            %table
+              %thead
+              %tbody
+                %tr.first_name
+                  %td.label
+                    = t('profile.first_name')
+                  %td.value
+                    = @profile.first_name
+                %tr.surname
+                  %td.label
+                    = t('profile.surname')
+                  %td.value
+                    = @profile.surname
+                %tr.telephone
+                  %td.label
+                    = t('profile.telephone')
+                  %td.value
+                    = @profile.telephone
+                %tr.role
+                  %td.label
+                    = t('profile.role')
+                  %td.value
+                    = t("profile.roles.#{@profile.role}")
+                %tr.created_at
+                  %td.label
+                    = t('profile.created_at')
+                  %td.value
+                    = l(@profile.created_at, format: :long)
+                %tr.updated_at
+                  %td.label
+                    = t('profile.updated_at')
+                  %td.value
+                    = l(@profile.updated_at, format: :long)
+              %tfoot
+
+          .col-12.col-md-5
             = image_tag((@profile.avatar.attached? ? @profile.avatar : "placeholder-user.png"), class: 'img-avatar')
 
         .actions

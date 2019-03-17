@@ -1,3 +1,13 @@
+@import '../style.scss';
+
+#orders_table_wrapper {
+  @media only screen and (max-width: 575.9px) {
+    .col-md-12 {
+      padding: 0;
+    }
+  }
+}
+
 table#orders {
   &.purchases .buyer {
     display: none
@@ -12,22 +22,22 @@ table#orders {
   &.purchases td.state, &.orders td.state {
     &.in_progress {
       i {
-        color: grey;
+        color: $background_grey;
       }
     }
     &.placed {
       i {
-        color: blue;
+        color: $background_blue;
       }
     }
     &.delivering {
       i {
-        color: orange;
+        color: $background_orange;
       }
     }
     &.completed {
       i {
-        color: green;
+        color: $background_green;
       }
     }
   }
@@ -35,17 +45,45 @@ table#orders {
   &.sales td.state {
     &.placed {
       i {
-        color: red;
+        color: $background_red;
       }
     }
     &.delivering {
       i {
-        color: blue;
+        color: $background_blue;
       }
     }
     &.completed {
       i {
-        color: green;
+        color: $background_green;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 767.9px) {
+    .hide_mobile {
+      display: none;
+    }
+  }
+  @media only screen and (max-width: 575.9px) {
+    tr.placed {
+      background-color: $background_red;
+    }
+    tr.delivering {
+      background-color: $background_blue;
+    }
+    tr.completed {
+      background-color: $background_green;
+    }
+    td {
+      padding:0.25rem;
+      max-width: 100px;
+      word-wrap: break-word;
+      &.reference {
+        max-width: 70px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
   }
