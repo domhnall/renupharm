@@ -2,66 +2,64 @@
 
 #marketplace_listings {
   .listing {
-    .product_details {
-      padding: 10px;
-      .price {
-        .price_major {
-          font-size: 180%;
-        }
-        .price_delimiter:after{
-          content: "."
-        }
+    padding: 10px;
+    .price {
+      .price_major {
+        font-size: 180%;
       }
-      .detail-group {
-        font-size: 90%;
-        color: $border_grey;
-        .label {
-          font-weight: bold;
-        }
+      .price_delimiter:after{
+        content: "."
       }
-      .pack_size, .quantity, .expiry {
-        display: table;
-      }
-      .label, .value {
-        display: table-cell;
-        vertical-align: middle;
-      }
+    }
+    .detail-group {
+      font-size: 90%;
+      color: $border_grey;
       .label {
-        margin-right: 5px;
-        min-width: 120px;
+        font-weight: bold;
       }
-      .expiry {
-        margin-top: 10px;
-        color: red;
+    }
+    .pack_size, .quantity, .expiry {
+      display: table;
+    }
+    .label, .value {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    .label {
+      margin-right: 5px;
+      min-width: 120px;
+    }
+    .expiry {
+      margin-top: 10px;
+      color: red;
+    }
+    .seller {
+      .sold_by {
+        font-size: 90%;
       }
-      .seller {
-        .sold_by {
-          font-size: 90%;
-        }
-        .seller_name {
-          font-weight: bold;
-          font-size: 110%;
-        }
+      .seller_name {
+        font-weight: bold;
+        font-size: 110%;
       }
-      .description {
-        margin-top: 10px;
-      }
-      .seller_note {
-        width: 100%;
-        border: $border-grey 1px dotted;
-        border-radius: 5px;
-        padding: 10px;
-        h3 {
-          display: block;
-          width: 90px;
-          margin-top: -15px;
-          margin-left: 10px;
-          padding: 0 5px;
-          text-transform: uppercase;
-          font-size: 80%;
-          font-weight: bold;
-          background: white;
-        }
+    }
+    .description {
+      margin-top: 10px;
+    }
+    .seller_note {
+      width: 100%;
+      border: $border-grey 1px dotted;
+      border-radius: 5px;
+      padding: 10px;
+      h3 {
+        display: block;
+        width: 90px;
+        margin-top: -15px;
+        margin-left: 10px;
+        padding: 0 5px;
+        text-transform: uppercase;
+        font-size: 80%;
+        font-weight: bold;
+        background: white;
       }
     }
   }

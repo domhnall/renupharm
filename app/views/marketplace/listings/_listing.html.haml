@@ -1,23 +1,18 @@
 .card.listing{id: "listing_#{listing.id}" }
   .row
-    .col-12.col-md-7.offset-md-5
-      .product_details
-        .row
-          .col-12
-            .name
-              = listing.product_name
-        .row
-          .col-6
-            .seller
-              %span.sold_by= t("marketplace.listing.labels.sold_by")
-              %span.seller_name
-                = link_to listing.seller_name, marketplace_pharmacy_profile_path(pharmacy_id: listing.selling_pharmacy.id, section: 'profile')
-          .col-6
-            .price
-              %span.currency_symbol= listing.currency_symbol
-              %span.price_major= listing.price_major
-              %span.price_delimiter
-              %span.price_minor= listing.price_minor
+    .col-7.px-4.py-2
+      .name
+        = listing.product_name
+      .seller
+        %span.sold_by= t("marketplace.listing.labels.sold_by")
+        %span.seller_name
+          = link_to listing.seller_name, marketplace_pharmacy_profile_path(pharmacy_id: listing.selling_pharmacy.id, section: 'profile')
+    .col-5.p-1
+      .price
+        %span.currency_symbol= listing.currency_symbol
+        %span.price_major= listing.price_major
+        %span.price_delimiter
+        %span.price_minor= listing.price_minor
 
   .row
     .col-12.col-md-5
@@ -26,50 +21,49 @@
           = render 'marketplace/shared/product_images', {product: listing.product, context: "listing_#{listing.id}"}
         - else
           = image_tag("placeholder-product.jpg", class: 'img-product')
-    .col-12.col-md-7
-      .product_details
-        .row
-          .col-12.col-md-6
-            .detail-group.form
-              %span.label= t("marketplace.product.form")
-              %span.value= listing.product_form_name
-            - %w(strength identifier volume channel_size).each do |prop|
-              - if listing.product.send("#{prop}_meaningful?") && !listing.send("display_#{prop}").blank?
-                .detail-group{ class: prop }
-                  %span.label= t("marketplace.product.#{prop}")
-                  %span.value= listing.send("display_#{prop}")
-            - if !listing.active_ingredient.blank?
-              .detail-group.active_ingredient
-                %span.label= t("marketplace.product.active_ingredient")
-                %span.value= listing.active_ingredient
-            - if !listing.manufacturer.blank?
-              .detail-group.manufacturer
-                %span.label= t("marketplace.product.manufacturer")
-                %span.value= listing.manufacturer
+    .col-12.col-md-7.p-4
+      .row
+        .col-12.col-md-6
+          .detail-group.form
+            %span.label= t("marketplace.product.form")
+            %span.value= listing.product_form_name
+          - %w(strength identifier volume channel_size).each do |prop|
+            - if listing.product.send("#{prop}_meaningful?") && !listing.send("display_#{prop}").blank?
+              .detail-group{ class: prop }
+                %span.label= t("marketplace.product.#{prop}")
+                %span.value= listing.send("display_#{prop}")
+          - if !listing.active_ingredient.blank?
+            .detail-group.active_ingredient
+              %span.label= t("marketplace.product.active_ingredient")
+              %span.value= listing.active_ingredient
+          - if !listing.manufacturer.blank?
+            .detail-group.manufacturer
+              %span.label= t("marketplace.product.manufacturer")
+              %span.value= listing.manufacturer
 
-          .col-12.col-md-6
-            - if listing.product.pack_size_meaningful? && !listing.display_pack_size.blank?
-              .detail-group.pack_size
-                %span.label= t("marketplace.product.pack_size")
-                %span.value= listing.display_pack_size
-            .detail-group.quantity
-              %span.label= t("marketplace.listing.quantity")
-              %span.value= listing.quantity
-        .row
-          %hr
-          .col-12.mt-3
-            - if !listing.seller_note.blank?
-              .seller_note.mb-3.truncate
-                %h3= t("marketplace.listing.seller_note")
-                = listing.seller_note
-            .detail-group.batch_number
-              %span.label= t("marketplace.listing.batch_number")
-              %span.value= listing.batch_number
-            .detail-group.expiry
-              %span.label= t("marketplace.listing.labels.expires")
-              %span.value= format_date(listing.expiry)
-            - if current_order
-              .cta= render "marketplace/listings/buy_cta", order: current_order, listing: listing
+        .col-12.col-md-6
+          - if listing.product.pack_size_meaningful? && !listing.display_pack_size.blank?
+            .detail-group.pack_size
+              %span.label= t("marketplace.product.pack_size")
+              %span.value= listing.display_pack_size
+          .detail-group.quantity
+            %span.label= t("marketplace.listing.quantity")
+            %span.value= listing.quantity
+      .row
+        %hr
+        .col-12.mt-3
+          - if !listing.seller_note.blank?
+            .seller_note.mb-3.truncate
+              %h3= t("marketplace.listing.seller_note")
+              = listing.seller_note
+          .detail-group.batch_number
+            %span.label= t("marketplace.listing.batch_number")
+            %span.value= listing.batch_number
+          .detail-group.expiry
+            %span.label= t("marketplace.listing.labels.expires")
+            %span.value= format_date(listing.expiry)
+          - if current_order
+            .cta= render "marketplace/listings/buy_cta", order: current_order, listing: listing
 
   - if policy(listing).update?
     .row
