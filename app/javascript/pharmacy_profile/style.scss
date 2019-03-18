@@ -51,7 +51,9 @@
 #pharmacy_listings,
 #pharmacy_credit_cards,
 #pharmacy_bank_account {
-  width: 90%;
+  @media only screen and (min-width: 575.9px) {
+    width: 90%;
+  }
   margin: auto;
   h2 {
     margin-top: 20px;
@@ -117,7 +119,6 @@
 
   .card_actions {
     display: table-cell;
-    height: 150px;
     vertical-align: middle;
     text-align: left;
     .default_label {
@@ -126,6 +127,9 @@
       font-size: 80%;
       text-transform: uppercase;
       color: green;
+    }
+    @media only screen and (min-width: 575.9px) {
+      height: 150px;
     }
   }
 

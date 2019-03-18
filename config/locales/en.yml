@@ -222,7 +222,7 @@ en:
   profile:
     first_name: "First name"
     surname: "Surname"
-    telephone: "Telephone"
+    telephone: "Mobile"
     country:
       ie: "Republic of Ireland"
       uk: "UK"
@@ -435,7 +435,7 @@ en:
     agent:
       full_name: "Name"
       email: "Email"
-      telephone: "Telephone"
+      telephone: "Mobile"
       superintendent: "Superintendent?"
       errors:
         must_be_superintendent: "Pharmacy must nominate a superintendent pharmacist before any other functions can be completed."

@@ -1,8 +1,8 @@
 .row
-  .col-lg-3
-  .col-lg-6
+  .col-12.col-sm-3
+  .col-12.col-sm-6
     <credit-card brand="#{credit_card.brand}" number="#{credit_card.number}" expiry_month="#{credit_card.expiry_month}" expiry_year="#{credit_card.expiry_year}" email="#{credit_card.email}" :is_default="#{credit_card.default}" brand_image="#{image_path('credit_cards/'+credit_card.card_type)}"></credit-card>
-  .col-lg-3
+  .col-12.col-sm-3
     .card_actions
       - if credit_card.default?
         .default_label= t("marketplace.credit_card.labels.current_default")

@@ -1,7 +1,8 @@
 .row
-  .col-7
+  .col-12
     %h2.name
       = pharmacy.name
+  .col-12.col-md-7
     .description
       = pharmacy.description
     .contact_details
@@ -20,7 +21,7 @@
           %li= pharmacy.address_1
           %li= pharmacy.address_2
           %li= pharmacy.address_3
-  .col-5
+  .col-12.col-md-5
     .image
       = image_tag((image = pharmacy.image).attached? ? image.variant(resize: "300x300") : "placeholder-pharmacy.jpg")
 - if policy(pharmacy).edit?

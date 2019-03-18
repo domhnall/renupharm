@@ -1,21 +1,35 @@
 .card.listing{id: "listing_#{listing.id}" }
   .row
-    .col-5
+    .col-12.col-md-7.offset-md-5
+      .product_details
+        .row
+          .col-12
+            .name
+              = listing.product_name
+        .row
+          .col-6
+            .seller
+              %span.sold_by= t("marketplace.listing.labels.sold_by")
+              %span.seller_name
+                = link_to listing.seller_name, marketplace_pharmacy_profile_path(pharmacy_id: listing.selling_pharmacy.id, section: 'profile')
+          .col-6
+            .price
+              %span.currency_symbol= listing.currency_symbol
+              %span.price_major= listing.price_major
+              %span.price_delimiter
+              %span.price_minor= listing.price_minor
+
+  .row
+    .col-12.col-md-5
       .product_images
         - if listing.product_images.any?
           = render 'marketplace/shared/product_images', {product: listing.product, context: "listing_#{listing.id}"}
         - else
           = image_tag("placeholder-product.jpg", class: 'img-product')
-    .col-7
+    .col-12.col-md-7
       .product_details
         .row
           .col-6
-            .name
-              = listing.product_name
-            .seller
-              %span.sold_by= t("marketplace.listing.labels.sold_by")
-              %span.seller_name
-                = link_to listing.seller_name, marketplace_pharmacy_profile_path(pharmacy_id: listing.selling_pharmacy.id, section: 'profile')
             .detail-group.form
               %span.label= t("marketplace.product.form")
               %span.value= listing.product_form_name
@@ -34,11 +48,6 @@
                 %span.value= listing.manufacturer
 
           .col-6
-            .price
-              %span.currency_symbol= listing.currency_symbol
-              %span.price_major= listing.price_major
-              %span.price_delimiter
-              %span.price_minor= listing.price_minor
             - if listing.product.pack_size_meaningful? && !listing.display_pack_size.blank?
               .detail-group.pack_size
                 %span.label= t("marketplace.product.pack_size")

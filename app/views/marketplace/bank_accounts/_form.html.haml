@@ -1,6 +1,6 @@
 = form_for @bank_account, url: @url do |form|
   .row
-    .col-8
+    .col-12.col-md-8
       .form-group
         = form.label :bank_name, t('marketplace.bank_account.bank_name'), class: 'col-form-label'
         = form.text_field :bank_name, class: 'form-control'

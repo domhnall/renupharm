@@ -14,7 +14,7 @@
 
 = form.fields_for :profile do |profile_form|
   .row
-    .col-8
+    .col-12.col-md-8
       .form-group
         = profile_form.label :first_name, t('profile.first_name'), class: 'col-form-label'
         = profile_form.text_field :first_name, class: 'form-control'
@@ -31,7 +31,7 @@
             {},
             {class: 'form-control'}
 
-    .col-4
+    .col-12.col-md-4
       .form-group
         = image_tag((avatar = profile_form.object.avatar).attached? ? avatar : "placeholder-user.png", class: 'img-avatar')
         = profile_form.file_field :avatar, direct_upload: true
