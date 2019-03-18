@@ -29,7 +29,7 @@
     .col-12.col-md-7
       .product_details
         .row
-          .col-6
+          .col-12.col-md-6
             .detail-group.form
               %span.label= t("marketplace.product.form")
               %span.value= listing.product_form_name
@@ -47,7 +47,7 @@
                 %span.label= t("marketplace.product.manufacturer")
                 %span.value= listing.manufacturer
 
-          .col-6
+          .col-12.col-md-6
             - if listing.product.pack_size_meaningful? && !listing.display_pack_size.blank?
               .detail-group.pack_size
                 %span.label= t("marketplace.product.pack_size")

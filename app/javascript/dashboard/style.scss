@@ -10,6 +10,9 @@ $background_grey: #dcdddb;
   font-weight: bold;
   font-family: "Trajan";
   font-size: 200%;
+  @media only screen and (max-width: 575.9px) {
+    font-size: 140%;
+  }
 }
 
 .hidden {

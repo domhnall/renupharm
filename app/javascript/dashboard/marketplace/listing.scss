@@ -36,7 +36,7 @@
       }
       .seller {
         .sold_by {
-          font-size: small;
+          font-size: 90%;
         }
         .seller_name {
           font-weight: bold;
@@ -62,6 +62,19 @@
           font-weight: bold;
           background: white;
         }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 575.9px) {
+  #marketplace_listings .listing .product_details {
+    .seller {
+      .sold_by {
+        font-size: 80%;
+      }
+      .seller_name {
+        font-size: 100%;
       }
     }
   }
