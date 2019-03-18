@@ -48,12 +48,11 @@
 #pharmacy_profile,
 #pharmacy_agents,
 #pharmacy_products,
+#pharmacy_pharmacy_products,
 #pharmacy_listings,
 #pharmacy_credit_cards,
 #pharmacy_bank_account {
-  @media only screen and (min-width: 575.9px) {
-    width: 90%;
-  }
+  width: 90%;
   margin: auto;
   h2 {
     margin-top: 20px;
@@ -79,12 +78,20 @@
   }
 }
 
-#pharmacy_products {
+#pharmacy_products, #pharmacy_pharmacy_products {
   .label {
     min-width: 140px;
   }
   .label::after{
     content: ":";
+  }
+  @media only screen and (max-width: 575.9px) {
+    .card.product {
+      padding: 10px;
+    }
+    .label {
+      min-width: 50px;
+    }
   }
 }
 

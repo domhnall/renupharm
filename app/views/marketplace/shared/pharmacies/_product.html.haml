@@ -1,14 +1,16 @@
 .card.product{class: product.active? ? 'active' : 'inactive'}
   .row
-    .col-5
+    .col-12.col-sm-7.offset-sm-5
+      .name
+        = product.name
+  .row
+    .col-12.col-sm-5
       .product_images
         - if product.images.any?
           = render "marketplace/shared/product_images", {product: product, context: 'pharmacy_product'}
         - else
           = image_tag("placeholder-product.jpg", class: "img-product")
-    .col-7
-      .name
-        = product.name
+    .col-12.col-sm-7
       - if product.product_form
         .label_value_group.product_form
           %label.label= t("marketplace.product.form")
