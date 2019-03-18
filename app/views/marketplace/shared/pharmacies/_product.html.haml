@@ -16,7 +16,7 @@
           %label.label= t("marketplace.product.form")
           .value= product.product_form_name
 
-      - %w(strength pack_size volume identifier channel_size).each do |prop|
+      - %w(strength pack_size volume identifier channel_size weight).each do |prop|
         - unless product.send("display_#{prop}").blank?
           .label_value_group{class: prop}
             %label.label= t("marketplace.product.#{prop}")

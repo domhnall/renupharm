@@ -298,6 +298,29 @@ describe Marketplace::Product do
         expect(@product.display_pack_size).to eq "200 g"
       end
     end
+
+    describe "#as_select_json" do
+      before :all do
+        @json = @product.as_select_json
+      end
+
+      it "should return a Hash" do
+        expect(@json).to be_a Hash
+      end
+
+      [ :image_urls,
+        :display_pack_size,
+        :display_strength,
+        :display_volume,
+        :display_identifier,
+        :display_channel_size,
+        :display_weight,
+        :product_form_name ].each do |attr|
+        it "should have a key for #{attr}" do
+          expect(@json.keys).to include attr.to_s
+        end
+      end
+    end
   end
 
   describe "destruction" do

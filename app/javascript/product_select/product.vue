@@ -19,19 +19,35 @@
         <span class="label">Form:</span>
         <span class="value">{{ product_form_name }}</span>
       </div>
-      <div class="strength">
+      <div v-if="display_strength" class="strength">
         <span class="label">Strength:</span>
         <span class="value">{{ display_strength }}</span>
       </div>
-      <div class="pack_size">
+      <div v-if="display_pack_size" class="pack_size">
         <span class="label">Pack size:</span>
         <span class="value">{{ display_pack_size }}</span>
       </div>
-      <div class="active_ingredient">
+      <div v-if="display_volume" class="volume">
+        <span class="label">Volume:</span>
+        <span class="value">{{ display_volume }}</span>
+      </div>
+      <div v-if="display_identifier" class="identifier">
+        <span class="label">Identifier:</span>
+        <span class="value">{{ display_identifier }}</span>
+      </div>
+      <div v-if="display_channel_size" class="channel_size">
+        <span class="label">Channel size:</span>
+        <span class="value">{{ display_channel_size }}</span>
+      </div>
+      <div v-if="display_weight" class="weight">
+        <span class="label">Weight:</span>
+        <span class="value">{{ display_weight }}</span>
+      </div>
+      <div v-if="active_ingredient" class="active_ingredient">
         <span class="label">Active ingredient:</span>
         <span class="value">{{ active_ingredient }}</span>
       </div>
-      <div class="manufacturer">
+      <div v-if="manufacturer" class="manufacturer">
         <span class="label">Manufacturer:</span>
         <span class="value">{{ manufacturer }}</span>
       </div>
@@ -49,6 +65,10 @@ export default {
     product_form_name: String,
     display_strength: String,
     display_pack_size: String,
+    display_volume: String,
+    display_identifier: String,
+    display_channel_size: String,
+    display_weight: String,
     manufacturer: String,
     image_urls: Array,
     selected: Boolean

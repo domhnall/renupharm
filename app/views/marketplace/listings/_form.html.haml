@@ -1,5 +1,5 @@
 - url = @listing.persisted? ? marketplace_pharmacy_listing_path(@listing.pharmacy) : marketplace_pharmacy_listings_path(@listing.pharmacy, @listing)
-- initial_product = @listing.product.to_json(methods: [:image_urls, :display_pack_size, :display_strength, :product_form_name])
+- initial_product = @listing.product&.as_select_json.to_json
 
 = form_for @listing, url: url do |form|
   .row

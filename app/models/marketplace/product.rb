@@ -55,6 +55,19 @@ class Marketplace::Product < ApplicationRecord
     end
   end
 
+  def as_select_json(opts = {})
+    self.as_json(opts.merge(methods: [
+      :image_urls,
+      :display_pack_size,
+      :display_strength,
+      :display_volume,
+      :display_identifier,
+      :display_channel_size,
+      :display_weight,
+      :product_form_name
+    ]))
+  end
+
   private
 
   def clean_up_images!

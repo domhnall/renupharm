@@ -11,6 +11,7 @@ import '../product_edit';
 import '../pharmacy_profile';
 import '../cart';
 
+
 import ProductSelect from '../product_select/app.vue';
 import Product from '../product_select/product.vue';
 import CreditCard from '../credit_card/app.vue';
