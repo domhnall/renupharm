@@ -7,3 +7,17 @@
     background-color: #A7A7A7;
   }
 }
+.default_card_section .actions {
+  .mobile-btn {
+    display: none;
+  }
+
+  @media only screen and (max-width: 575.9px) {
+    .mobile-btn {
+      display: inline-block;
+    }
+    .desktop-btn {
+      display: none;
+    }
+  }
+}

@@ -9,9 +9,14 @@
     .default_card_section{ class: credit_cards.any? ? '' : 'hidden' }
       .actions
         = link_to t("marketplace.cart.actions.use_different_card"), "#", class: "use_different_card_link"
-        = form.submit t("marketplace.cart.actions.place_order.default_card", card_number: credit_cards.find(&:default?)&.number),
+        = form.submit t("marketplace.cart.actions.place_order.default_card.desktop", card_number: credit_cards.find(&:default?)&.number),
           id: "place_order_default_card",
-          class: "btn btn-success #{credit_cards.any? ? '' : 'hidden'}",
+          class: "btn btn-success desktop-btn #{credit_cards.any? ? '' : 'hidden'}",
+          disabled: order.line_items.empty?,
+          data: { confirm: t("marketplace.cart.messages.confirm_payment_chosen") }
+        = form.submit t("marketplace.cart.actions.place_order.default_card.mobile", card_number: credit_cards.find(&:default?)&.number),
+          id: "place_order_default_card",
+          class: "btn btn-success mobile-btn #{credit_cards.any? ? '' : 'hidden'}",
           disabled: order.line_items.empty?,
           data: { confirm: t("marketplace.cart.messages.confirm_payment_chosen") }
 
