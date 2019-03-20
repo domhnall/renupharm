@@ -1,6 +1,3 @@
-= javascript_include_tag "https://checkout.stripe.com/checkout.js"
-
-
 .place_order_form
   = form_for order, url: marketplace_cart_path, action: :patch, html: { class: "place_order" } do |form|
     = form.hidden_field :state, value: 'placed'
