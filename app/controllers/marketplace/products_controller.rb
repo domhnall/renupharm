@@ -45,6 +45,7 @@ class Marketplace::ProductsController < AuthenticatedController
       redirect_to marketplace_product_path(@product), flash: { success: I18n.t('marketplace.product.flash.create_successful') }
     else
       flash.now[:warning] = I18n.t('marketplace.product.flash.error')
+      @url = pharmacy ? marketplace_pharmacy_products_path(pharmacy) : marketplace_products_path
       render :new
     end
   end
@@ -63,6 +64,7 @@ class Marketplace::ProductsController < AuthenticatedController
       redirect_to marketplace_product_path(@product), flash: { success: I18n.t('marketplace.product.flash.update_successful') }
     else
       flash.now[:warning] = I18n.t('marketplace.product.flash.error')
+      @url = pharmacy ? marketplace_pharmacy_product_path(pharmacy, @product) : marketplace_product_path(@product)
       render :edit
     end
   end
@@ -92,7 +94,19 @@ class Marketplace::ProductsController < AuthenticatedController
   def product_params
     params
     .require(:marketplace_product)
-    .permit(:name, :active_ingredient, :form, :strength, :pack_size, :weight, :manufacturer, :active, :delete_images, images: [])
+    .permit( :name,
+      :active_ingredient,
+      :form,
+      :strength,
+      :pack_size,
+      :volume,
+      :identifier,
+      :channel_size,
+      :weight,
+      :manufacturer,
+      :active,
+      :delete_images,
+      images: [])
   end
 
   def destroy_success_redirect_path
