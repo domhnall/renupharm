@@ -182,6 +182,12 @@ describe Marketplace::Product do
         expect(Marketplace::Product.new(@params.merge(strength: "#{rand(1000)}/#{rand(1000)}"))).to be_valid
       end
 
+      it "should be valid when composed of digits with decimal point and a single '/'" do
+        expect(Marketplace::Product.new(@params.merge(strength: "#{rand(1000)}/#{rand(1000)/1000.to_f}"))).to be_valid
+        expect(Marketplace::Product.new(@params.merge(strength: "#{rand(1000)/1000.to_f}/#{rand(1000)}"))).to be_valid
+        expect(Marketplace::Product.new(@params.merge(strength: "#{rand(1000)/1000.to_f}/#{rand(1000)/1000.to_f}"))).to be_valid
+      end
+
       ["12mg", "12 / 4", "xstrong", "10/", "/10"].each do |invalid_strength|
         it "should be invalid when composed of any other characters" do
           expect(Marketplace::Product.new(@params.merge(strength: invalid_strength))).not_to be_valid
