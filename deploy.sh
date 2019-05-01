@@ -49,7 +49,7 @@ if docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_tests; then
 
   # Update the crontab
   scp config/renupharm.crontab ec2-user@renupharm.ie:/tmp
-  ssh ec2-user@renupharm.ie "(crontab -l 2>/dev/null; cat /tmp/renupharm.crontab) | crontab -"
+  ssh ec2-user@renupharm.ie "(cat /tmp/renupharm.crontab) | crontab -"
 else
   echo "TEST SUITE FAILED. ABORTING DEPLOY" && exit 1
 fi
