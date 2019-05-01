@@ -10,43 +10,51 @@
           Welcome to the User Agreement for www.renupharm.ie operated by Renupharm Ltd.
           This User Agreement applies at the time of its acceptance by verified users who
           successfully register as a Renupharm account holder.
-          Renupharm Ltd is registered in Ireland under company number [TODO] with our
+          Renupharm Ltd is registered in Ireland under company number 635051 with our
           registered office at 1A Sandymount Green, Dublin 4, Sandymount.
           By requesting to become an account holder on the website we assume that you have read
-          and accept the User Agreement in its entirety, our Privacy Statement and our Cookies Policy.
-          The following terminology applies to this User Agreement, Privacy Statement, Cookie Policy
-          and any or all Agreements: “Client”, “You” and “Your” refers to you, the person accessing
-          the website and accepting the terms and conditions.
-          “Platform”and “Website” refer to the services offered by
+          and accept the User Agreement in its entirety, our
+          = succeed " and our " do
+            = link_to "Privacy Statement", privacy_policy_pages_path
+          = succeed "." do
+            = link_to "Cookies Policy", cookies_policy_pages_path
+          The following terminology applies to this User Agreement, Privacy Statement, Cookie
+          Policy and any or all Agreements: “Client”, “You” and “Your” refers to you,
+          the person accessing the website and accepting the terms and conditions. “Platform”
+          and “Website” refer to the services offered by
           = succeed "." do
             = link_to "www.renupharm.ie", "https://www.renupharm.ie"
           “The Company”, “ourselves”, “We”, “Our” and “Us” refers to our Company.
-          “Party”, “Parties”, or “Us”, refers to both the Client and ourselves, or either the Clientor ourselves.
-          All terms refer to the offer, acceptance and consideration necessary to undertake the process
-          if our assistance to the Client in the most appropriate manner, for the express purpose of
-          meeting the Client’s needs in respect of provision of our stated services/products, in accordance
-          with and subject to, prevailing law of Ireland.
-          Any use of the above terminology or other words in the singular, plural, capitalisation and/or
-          he/she or they, are taken as interchangeable and therefore as referring to same.
-          Unless otherwise stated, Renupharm and/or it’s licensors own the intellectual property rights for
-          all material on the Renupharm website.
-          All intellectual property rights are reserved.
-          You may view and/or print pages from www.renupharm.ie for you own personal use subject to restrictions.
+          “Party”, “Parties”, or “Us”, refers to both the Client and ourselves, or
+          either the Clientor ourselves. All terms refer to the offer, acceptance and consideration
+          necessary to undertake the process if our assistance to the Client in the most
+          appropriate manner, for the express purpose of meeting the Client’s needs in respect of
+          provision of our stated services/products, in accordance with and subject to, prevailing
+          law of Ireland. Any use of the above terminology or other words in the singular, plural,
+          capitalisation and/or he/she or they, are taken as interchangeable and therefore as
+          referring to same. Unless otherwise stated, Renupharm and/or it’s licensors own the
+          intellectual property rights for all material on the Renupharm website. All intellectual
+          property rights are reserved. You may view and/or print pages from www.renupharm.ie for
+          you own personal use subject to restrictions.
 
         %h3
           ABOUT RENUPHARM
         %p
-          Renupharm is an online platform that facilitates the transaction and delivery of medicinal
+          Renupharm is an online platform that facilitates the transaction of medicinal
           products and devices, between verified account holders (pharmacies) in Ireland.
-          Renupharm will co-ordinate the delivery of medicinal products and/or devices through the
-          use of GDP registered couriers within an a timeframe agreed between pharmacies.
+          Renupharm will offer account holders access to a marketplace which will,
+          simultaneously, allow account holders to list their surplus products and at the
+          same time buy the surplus products listed by other account holders.
+          Renupharm will co-ordinate any marketplace transaction between account holders.
+          Delivery of the transacted product using a GDP approved courier, within the agreed
+          timeframe for delivery, is the responsibility of the selling pharmacy.
           Renupharm does not have possession of anything listed or sold through the platform.
           The contract for the sale is directly between the buying and selling pharmacies.
           While we may provide product listings, pricing and other guidance in our services,
           such guidance is solely informative.
-          We do not routinely review users’ listings or content and although we will take all possible
-          steps to ensure the legality and integrity of all medicinal products and devices listed,
-          we cannot guarantee the existence, quality, safety or legality of such.
+          We do not routinely review users’ listings or content and although we will take all
+          possible steps to ensure the legality and integrity of all medicinal products and devices
+          listed, we cannot guarantee the existence, quality, safety or legality of such.
           Purchasing pharmacies must have a valid, verified payment method and account on file with
           Renupharm to facilitate any transaction.
 
@@ -61,6 +69,7 @@
             %li= link_to "INTELLECTUAL PROPERTY", "#intellectual_property"
             %li= link_to "SUSPENSION AND TERMINATION OF ACCOUNT", "#suspension_and_termination"
             %li= link_to "LIABILITY", "#liability"
+            %li= link_to "DISPUTE RESOLUTION", "#dispute_resolution"
             %li= link_to "DISCLAIMER", "#disclaimer"
             %li= link_to "GOVERNING LAW", "#governing_law"
 
@@ -69,7 +78,8 @@
             TERMS & CONDITIONS
             %ul
               %li
-                In order to avail of the Renupharm platform and engage in any of the features offered on the website, it is necessary to read and accept our
+                In order to avail of the Renupharm platform and engage in any of the features
+                offered on the website, it is necessary to read and accept our
                 = succeed "," do
                   = link_to "Terms and Conditions", terms_and_conditions_pages_path
                 = succeed " and " do
@@ -77,134 +87,305 @@
                 = succeed "." do
                   = link_to "Privacy Policy", privacy_policy_pages_path
               %li
-                Renupharm retains the right to modify or alter these Terms and Conditions as deemed necessary to ensure safe, efficient and effective running of the platform.  The customer will be notified of any modifications and will thereafter be bound by such upon engaging in any activity on the platform.  Changes will not be applied retrospectively. 
+                Renupharm retains the right to modify or alter these Terms and Conditions as
+                deemed necessary to ensure safe, efficient and effective running of the platform.
+                The customer will be notified of any modifications and will thereafter be bound by
+                such upon engaging in any activity on the platform.  Changes will not be applied
+                retrospectively.
               %li
-                Regular review of Terms and Conditions is recommended.  If you do not agree to any modified terms please contact a member of customer support or discontinue use.
+                Regular review of Terms and Conditions is recommended.  If you do not agree to any
+                modified terms please contact a member of customer support or discontinue use.
               %li
-                Agreeing to our Terms and Conditions permits Renupharm to send service announcements, administrative messages and other relevant information.  You may opt out of these communications at anytime.
+                Agreeing to our Terms and Conditions permits Renupharm to send service
+                announcements, administrative messages and other relevant information.
+                You may opt out of these communications at anytime.
               %li
-                Unless agreed otherwise in advance in writing and signed by a duly authorised representative of both parties, the Terms and Conditions governing the use of the Renupharm platform excludes all other terms and conditions from outside parties or non-relevant bodies.
+                Unless agreed otherwise in advance in writing and signed by a duly authorised
+                representative of both parties, the Terms and Conditions governing the use of the
+                Renupharm platform excludes all other terms and conditions from outside parties or
+                non-relevant bodies.
 
           %li#our_services.contents_section
             OUR SERVICES
             %ul
               %li
-                Renupharm reserves the right to refuse access to the platform and/or cancel/terminate your registration without prior notice.  The user is not entitled to any compensation.
+                Renupharm reserves the right to refuse access to the platform and/or
+                cancel/terminate your registration without prior notice. The user is not entitled
+                to any compensation.
               %li
-                The registered user must be verified as the Superintendent pharmacist on site and is solely responsible for access and all activities via their account thereafter.
+                The registered user must be verified as the Superintendent pharmacist on site and
+                is solely responsible for access and all activities via their account thereafter.
               %li
-                Renupharm is not liable for any internet, telecommunication or hardware costs required to access the platform.
+                Renupharm is not liable for any internet, telecommunication or hardware costs
+                required to access the platform.
               %li
-                The Renupharm platform must be used for the sole purpose of immediate patient need and under no circumstances be used for any commercial endeavours.  Appropriate legal action will be taken for any illegal or unauthorized use of the Renupharm platform.
+                The Renupharm platform must be used for the sole purpose of immediate patient need
+                and under no circumstances be used for any commercial endeavours. Appropriate legal
+                action will be taken for any illegal or unauthorized use of the Renupharm platform.
               %li
-                All information supplied to the platform must be accurate and up-to-date.  Renupharm must be notified at the earliest opportunity of any changes to details.  Verification of details provided may take place to validate users.  Inaccurate information may result in the termination of account without notification.
+                All information supplied to the platform must be accurate and up-to-date. Renupharm
+                must be notified at the earliest opportunity of any changes to details.
+                Verification of details provided may take place to validate users. Inaccurate
+                information may result in the termination of account without notification.
               %li
-                Renupharm disclaims responsibility in relation to the condition of or any offers made for listed products to the maximum extent permissible by law. Renupharm nor its employees may be held liable in relation to contract, warranty, tort (including negligence), product liability, tax matters or any other form of liability for any claim, damage or loss, arising from or relating to the provision of any products transacting in connection with the platform.
+                Renupharm disclaims responsibility in relation to the condition of or any offers
+                made for listed products to the maximum extent permissible by law. Renupharm nor
+                its employees may be held liable in relation to contract, warranty, tort
+                (including negligence), product liability, tax matters or any other form of
+                liability for any claim, damage or loss, arising from or relating to the provision
+                of any products transacting in connection with the platform.
               %li
-                Renupharm should be contacted immediately if you suspect any unauthorised or suspicious activity in relation to your account. 
+                Renupharm should be contacted immediately if you suspect any unauthorised or
+                suspicious activity in relation to your account.
               %li
                 Renupharm reserves the right to ask users to re-validate their account on occasion.
               %li
-                The selling pharmacy shall provide to the buying pharmacy all product(s) as per product listing.   
+                The selling pharmacy shall provide to the buying pharmacy all product(s) as per
+                product listing.
 
           %li#user_responsibility.contents_section
             USER RESPONSIBILITY
             %ul
               %li
-                By registering as a user on the Renupharm platform you agree to abide by all our terms and conditions and will endeavour to supply only accurate and complete information. 
+                By registering as a user on the Renupharm platform you agree to abide by all our
+                terms and conditions and will endeavour to supply only accurate and complete
+                information.
               %li
-                It is the responsibility of the user to update any details in your account where the platform allows. Unpermitted changes must be amended by contacting Renupharm immediately.
+                It is the responsibility of the user to update any details in your account where
+                the platform allows. Unpermitted changes must be amended by contacting Renupharm
+                immediately.
               %li
-                It is the sole responsibility of the user to ensure that any services, content or information available through the platform meet your specific requirements.
+                It is the sole responsibility of the user to ensure that any services, content or
+                information available through the platform meet your specific requirements.
               %li
-                The user is obligated to act in a legal and responsible manner in regard to all aspects on the Renupharm platform in accordance with all necessary legal and ethical considerations.  Any unlawful, unethical or illegal use of the platform may result in termination of use.
+                The user is obligated to act in a legal and responsible manner in regard to all
+                aspects on the Renupharm platform in accordance with all necessary legal and
+                ethical considerations. Any unlawful, unethical or illegal use of the platform
+                may result in termination of use.
               %li
-                Renupharm reserves the right to remove any material deemed to be in breach of the terms and conditions.
+                Renupharm reserves the right to remove any material deemed to be in breach of the
+                terms and conditions.
               %li
-                Users of the platform may post details of their unused medication and devices and, in so doing, advertise these products for sale to other pharmacies.
+                Users of the platform may post details of their unused medication and devices and,
+                in so doing, advertise these products for sale to other pharmacies.
               %li
-                In listing any product on the Renupharm the seller is accepting responsibility for producing said product, exactly as described, should it be purchased by another party on the platform. In particular, if any listed product is subsequently sold in-shop, or rendered unavailable for any other reason, the listing pharmacy has a duty to remove the listed product before it is sold on the Renupharm marketplace.
+                In listing any product on the Renupharm platform the seller is accepting
+                responsibility for producing said product, exactly as described, should it be
+                purchased by another party on the platform. In particular, if any listed product is
+                subsequently sold in-shop, or rendered unavailable for any other reason, the
+                listing pharmacy has a duty to remove the listed product before it is sold on the
+                Renupharm Marketplace.
               %li
-                As a selling pharmacy you must ensure that any product sold on the Renupharm Marketplace should be boxed and correctly labelled in advance of courier collection. The platform will automatically send email and SMS messages to the superintendent pharmacist of the selling pharmacy in the event that one of their listings are purchased on the platform.
+                As a selling pharmacy it is your responsibility to ensure that any product you sell
+                on the Renupharm Marketplace should be delivered to the buying pharmacy within the
+                agreed timeframe, by means of a GDP-approved courier. Where not otherwise stated
+                the timeframe for delivery of a purchased product is before close of business on
+                the second working day following the purchase.
               %li
-                The selling pharmacy has a duty to ensure that the shop is open and appropriate staff are available to facilitate the collection of the parcel by the courier. Collection times will be within regular business hours.
+                Users of the platform may browse the listings posted by other pharmacies and
+                purchase any listings they require to meet immediate patient need.
               %li
-                Users of the platform may browse the listings posted by other pharmacies and purchase any listings they require to meet immediate patient need.
+                Upon purchasing a listing on the platform the buying pharmacy is agreeing to pay
+                the listed price for the product in the state described in the listing. Where the
+                product is seen to be delivered according to the details supplied in the product
+                listing, no return of the product will be permitted. In the event that the product
+                is considered to not meet the specification outlined in the product listing
+                Renupharm will attempt to mediate a resolution between the buying and selling
+                pharmacies. See the section on
+                = succeed "." do
+                  = link_to "DISPUTE RESOULTION", "#dispute_resolution"
               %li
-                Upon purchasing a listing on the platform the buying pharmacy is agreeing to pay the listed price for the product in the state described in the listing. Where the product is seen to be delivered according to the details supplied in the product listing, no return of the product will be permitted. In the event that the product is considered to not meet the specification outlined in the product listing Renupharm will attempt to mediate a resolution between the buying and selling pharmacies.
-              %li
-                The buying pharmacy has a duty to ensure that the shop is open and appropriate staff are available to facilitate the drop-off of the parcel by the courier. Drop-off times will be within regular business hours.
+                The buying pharmacy has a duty to ensure that the shop is open and appropriate
+                staff are available to facilitate the drop-off of the parcel by the courier.
+                Drop-off times will be within regular business hours unless otherwise agreed
+                between buying and selling pharmacies.
 
           %li#content.contents_section
             CONTENT
             %ul
               %li
-                Assumed consent for verified account holders allows Renupharm to display Pharmacy Name, Address, Logo / Photo, purchase history, products of interest and date / time of last activity for the sole viewing of other verified users.  Limits on sharing and visibility may be tailored according to individual user needs.
+                Assumed consent for verified account holders allows Renupharm to display pharmacy
+                name, address, logo/photo, contact email, contact phone number, purchase history,
+                products of interest and date/time of last activity for the sole viewing of other
+                verified users. Limits on sharing and visibility may be tailored according to
+                individual user needs.
               %li
-                Information supplied to the platform in relation to product description and seller is deemed non-confidential and non-proprietary.  Personally identifiable information is covered under our Privacy statement.
+                Information supplied to the platform in relation to product description and seller
+                is deemed non-confidential and non-proprietary. Personally identifiable information
+                is covered under our Privacy statement.
               %li
-                Renupharm may use, host, store, reproduce, modify, communicate, publish any content present or that has been uploaded, submitted or stored on the platform.
+                Renupharm may use, host, store, reproduce, modify, communicate, publish any content
+                present or that has been uploaded, submitted or stored on the platform.
               %li
-                Verified users are permitted to download limited extracts from the platform as long as the integrity and functioning of the use of such is not detrimental to the use of the website, users or employees of Renupharm Ltd.
+                Verified users are permitted to download limited extracts from the platform as long
+                as the integrity and functioning of the use of such is not detrimental to the use
+                of the website, users or employees of Renupharm.
               %li
-                Images or text downloaded from the platform must not be re-produced in any way such as to be offensive, illegal or otherwise bring the company into disrepute.
+                Images or text downloaded from the platform must not be re-produced in any way such
+                as to be offensive, illegal or otherwise bring the company into disrepute.
               %li
-                It is an offence to remove, obscure or alter any information on the platform unless authorised by Renupharm.
+                It is an offence to remove, obscure or alter any information on the platform unless
+                authorised by Renupharm.
               %li
-                The platform may display some content that is not authored by the Company and  as such this content is the sole responsibility of the account holder that makes it available.  Such material may be removed by Renupharm without notice if deemed to contravene any of the terms or conditions.
+                The platform may display some content that is not authored by the Company and as
+                such this content is the sole responsibility of the account holder that makes it
+                available. Such material may be removed by Renupharm without notice if deemed to
+                contravene any of the terms or conditions.
 
           %li#intellectual_property.contents_section
             INTELLECTAL PROPERTY
             %ul
               %li
-                Renupharm and/or it’s licensors own the intellectual property rights for all material on the Renupharm website.  All intellectual property rights are reserved.  You may view and/or print pages from www.renupharm.ie for you own personal use subject to restrictions.
+                Renupharm and/or it’s licensors own the intellectual property rights for all
+                material on the Renupharm website. All intellectual property rights are reserved.
+                You may view and/or print pages from www.renupharm.ie for you own personal use
+                subject to restrictions.
               %li
-                Renupharm Ltd retains the rights to the Renupharm IP and reserves all rights in respect of same.
+                Renupharm retains the rights to the Renupharm IP and reserves all rights in respect
+                of same.
               %li
-                Authorisation as an account holder on the Renupharm platform does not give ownership to any of the information,content, branding or logos present on the website. 
+                Authorisation as an account holder on the Renupharm platform does not give
+                ownership to any of the information, content, branding or logos present on the
+                website.
               %li
-                Acceptance of terms and conditions by verified account holders provides users with a non-exclusive, non-transferable, limited, revocable right to access and use the website and the material displayed thereon.
+                Acceptance of terms and conditions by verified account holders provides users with
+                a non-exclusive, non-transferable, limited, revocable right to access and use the
+                website and the material displayed thereon.
 
           %li#suspension_and_termination.contents_section
             SUSPENSION AND TERMINATION OF ACCOUNT
             %ul
               %li
-                Renupharm reserves the right to suspend and / or terminate the account of any user without notification or consultation should there be reasonable concern with respect to any activity in relation to the account without reproach.
+                Renupharm reserves the right to suspend and/or terminate the account of any user
+                without notification or consultation should there be reasonable concern with
+                respect to any activity in relation to the account without reproach.
               %li
-                Termination of your Renupharm account includes removal of access to the website and all activities facilitated through the platform.
+                Termination of your Renupharm account includes removal of access to the website and
+                all activities facilitated through the platform.
               %li
-                Restoration of account will be considered based on the circumstances in relation to each case.
+                Restoration of account will be considered based on the circumstances in relation to
+                each case.
               %li
-                Renupharm Ltd is not liable for any actions taken in relation to suspension or termination of account use.
+                Renupharm is not liable for any actions taken in relation to suspension or
+                termination of account use.
 
           %li#liability.contents_section
             LIABILITY
             %ul
               %li
-                Acceptance of terms and conditions automatically assumes your agreement to indemnify, keep us indemnified and otherwise hold harmless Renupharm, its officers, employees, agents and all associated clients either directly or otherwise.
+                Acceptance of terms and conditions automatically assumes your agreement to
+                indemnify, keep us indemnified and otherwise hold harmless Renupharm, its officers,
+                employees, agents and all associated clients either directly or otherwise.
               %li
-                In the event that your contributions to the platform infringe any rights of any third party, you shall, at your own expense and at our discretion, either obtain the rights to use such contribution or render such contribution free from infringement.
+                In the event that your contributions to the platform infringe any rights of any
+                third party, you shall, at your own expense and at our discretion, either obtain
+                the rights to use such contribution or render such contribution free from
+                infringement.
+
+          %li#dispute_resolution.contents_section
+            DISPUTE RESOLUTION
+            %ul
+              %li
+                In the event of that a purchased product is received by the buying pharmacy and it
+                is found to be inconsistent with the product purchased on the Renupharm Marketplace
+                (owing to quantity, form, expiry, condition etc. of the product being different
+                than advertised) then the buying pharmacy has the option to raise a complaint with
+                Renupharm by emailing details of the complaint to
+                = succeed "." do
+                  %a{href: "mailto:dev@renupharm.ie"}
+                    dev@renupharm.ie
+              %li
+                In the event that a product which has been sold is the subject of a complaint, we
+                will contact the seller promptly with details of the complaint.
+              %li
+                If the seller, accepts the complaint they are agreeing to the purchase being
+                cancelled and payment for the purchase being witheld. At this point the seller will
+                have the option to arrange for the product to be returned to them (at their own
+                expense), or they may choose to leave the product with the buyer to sell on, or
+                destroy, as they see fit.
+              %li
+                If the seller disputes the complaint Renupharm will be forced to make an impartial
+                judgement in favour of either the buyer or seller. If a judgement is made in favour
+                of the buyer, then the seller will be bound by the process describe in point 8.3,
+                which will be executed as though they had accepted the complaint. If a judgement is
+                made in favour of the seller then the transaction will remain intact, buyer will
+                retain ownership of the purchased product and the seller will receive payment for
+                the purchase as normal.
+              %li
+                As the selling pharmacy you have a responsibility to respond to any communication
+                about a complaint within two business days of receiveing this complaint instruction
+                from Renupharm. Failure to respond in this timeframe will be interpreted as your
+                acceptance of the complaint and your agreement to our handling of the complaint, as
+                described in point 8.3 above.
+              %li
+                As the buying pharmacy you accept that in the event that the selling pharmacy
+                accepts your complaint, or if we rule in your favour in the case of a dispute, then
+                the selling pharmacy has the right to arrange for the return of the product at
+                their own expense. In such cases you have a responsibility for the safekeeping of
+                the product until it is collected and to facilitating said collection during
+                regular working hours. You also accept, that in the event of the selling pharmacy
+              %li
+                As the buying pharmacy you also accept that in the event that the selling pharmacy
+                accepts your complaint, or if we rule in your favour in the case of a dispute, then
+                the selling pharmacy has the right to write-off the product, in which case the
+                product will be left in your possession to sell-on or dispose of as you see fit, in
+                your professional capacity.
+              %li
+                While acting as either party in a dispute (i.e. the buying or selling pharmacy) you
+                have the responsiblity to respond to any communication you receive from us (e.g.
+                request for additional details or evidence) within two business days of receiving
+                the communication.
+                Failure to respond promptly in this fashion will be interpreted by us as an attempt
+                to frustrate a fair dispute resolution process and we reserve the right to rule in
+                favour of the other party in such cases.
+              %li
+                By entering into any transaction on the Renupharm Marketplace you agree to this
+                dispute resolution process and, specifically, to the role of Renupharm as the
+                ultimate abitrator in any dispute, and to be bound by the decisions of Renupharm in
+                such regards.
 
           %li#disclaimer.contents_section
             DISCLAIMER
             %ul
               %li
-                To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to our website and the use of this website (including, without limitation, any warranties implied by law in respect of satisfactory quality, fitness for purpose and/or the use of reasonable care and skill).
+                To the maximum extent permitted by applicable law, we exclude all representations,
+                warranties and conditions relating to our website and the use of this website
+                (including, without limitation, any warranties implied by law in respect of
+                satisfactory quality, fitness for purpose and/or the use of reasonable care and
+                skill).
               %li
-                Renupharm takes all possible measures to ensure that information provided on the platform is up-to-date and accurate.  However as product listings are generated from account holders we cannot be accountable for, issue guarantees or warranties as to the accuracy or other terms of any kind to the maximum extent permitted by legislation.
+                Renupharm takes all possible measures to ensure that information provided on the
+                platform is up-to-date and accurate. However as product listings are generated from
+                account holders we cannot be accountable for, issue guarantees or warranties as to
+                the accuracy or other terms of any kind to the maximum extent permitted by legislation.
               %li
-                Renupharm does not assume any responsibility for death or personal injury arising from our negligence, fraudulent misrepresentation, or any other liability which cannot be excluded or limited under applicable law. 
+                Renupharm does not assume any responsibility for death or personal injury arising
+                from our negligence, fraudulent misrepresentation, or any other liability which
+                cannot be excluded or limited under applicable law.
               %li
-                Renupharm will take all possible measures to ensure that  the website is available at all times. Platform downtime may be required from time-to-time to ensure provision of the service, in such cases Renupharm Ltd will make every reasonable effort to ensure that this downtime is as brief as possible.  Platform downtime may also arise due to misconfiguration, system failures, users errors and/or factors outside of our control.  In relation to all the aforementioned causes of downtime, or downtime arising from any other reasons, Renupharm Ltd does not accept any responsibility or liability for losses occurring as a result of such events.
+                Renupharm will strive to ensure that the website is available at all times.
+                Platform downtime may be required from time-to-time to ensure provision of the
+                service, in such cases Renupharm will make every reasonable effort to ensure that
+                this downtime is as brief as possible. Platform downtime may also arise due to
+                misconfiguration, system failures, users' errors and/or factors outside of our
+                control. In relation to all the aforementioned causes of downtime, or downtime
+                arising from any other reasons, Renupharm does not accept any responsibility or
+                liability for losses occurring as a result of such events.
               %li
-                Renupharm will use all reasonable avenues to correct any errors at the earliest opportunity. In the event of an error or fault, or if you have any other problem with the service provided, you should report this via email to
+                Renupharm will use all reasonable avenues to correct any errors at the earliest
+                opportunity. In the event of an error or fault, or if you have any other problem
+                with the service provided, you should report this via email to
                 = succeed "." do
                   %a{href: "mailto:dev@renupharm.ie"}
                     dev@renupharm.ie
               %li
-                Renupharm reserve the right at any time to modify or discontinue, temporarily or permanently, the website with or without notification.  No liability to Renupharm will be assumed or compensation warranted.
+                Renupharm reserve the right at any time to modify or discontinue, temporarily or
+                permanently, the website with or without notification. No liability to Renupharm
+                will be assumed or compensation warranted.
 
           %li#governing_law.contents_section
             GOVERNING LAW
             %p
-              The Irish courts will have exclusive jurisdiction over any claim arising in respect of, or related to, the website although we retain the right to bring proceedings against you for breach of our terms and conditions. 
+              The Irish courts will have exclusive jurisdiction over any claim arising in respect
+              of, or related to, the website although we retain the right to bring proceedings
+              against you for breach of our terms and conditions.
