@@ -3,6 +3,16 @@
     .card
       .card-body
         .row
+          - if @alert_sales.any?
+            .col-12
+              .callout.callout-danger.alert_sales
+                %strong The following orders have been recently purchased from your pharmacy and need immediate shipping
+                %ul
+                  - @alert_sales.each do |order|
+                    %li.order
+                      .product_name= link_to order.product_names, marketplace_order_path(order)
+                      .sale_value= order.display_price
+                      .updated_at= l(order.updated_at, format: :short)
           .col-sm-4
             .callout.callout-info
               %small.text-muted Total Purchases

@@ -36,6 +36,9 @@ class DashboardsController < AuthenticatedController
     @recent_purchases = policy_scope(Marketplace::Purchase).limit(5)
     @recent_sales     = policy_scope(Marketplace::Sale).limit(5)
     @recent_listings  = pharmacy.listings.order(created_at: :desc).limit(5)
+
+    # Alert sales
+    @alert_sales      = policy_scope(Marketplace::Sale).placed
   end
 
   def get_week_endings

@@ -37,7 +37,9 @@ class Marketplace::Order < ApplicationRecord
   accepts_nested_attributes_for :line_items, allow_destroy: true
 
   scope :not_in_progress, ->{ where(state: Marketplace::Order::State::valid_states - [Marketplace::Order::State::IN_PROGRESS]) }
+  scope :placed, ->{ where(state: Marketplace::Order::State::PLACED) }
   scope :completed, ->{ where(state: Marketplace::Order::State::COMPLETED) }
+  scope :delivering, ->{ where(state: Marketplace::Order::State::DELIVERY_IN_PROGRESS) }
 
   delegate :reference,
     to: :payment,
