@@ -3,7 +3,7 @@
     %li.nav-item
       %a.nav-link{href: dashboard_path}
         %i.nav-icon.fa.fa-chart-line
-        = t("sidebar.headings.dashboard")
+        = current_user.pharmacy? ? current_user.pharmacy.name : t("sidebar.headings.dashboard")
     - if current_user.pharmacy?
       %li.divider
       %li.nav-title= t("sidebar.headings.pharmacy")
