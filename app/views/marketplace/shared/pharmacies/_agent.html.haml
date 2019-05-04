@@ -1,4 +1,6 @@
 .card.agent
+  - if agent.superintendent?
+    %h3.superintendent= t("marketplace.agent.labels.superintendent")
   .full_name
     %label.label= t("marketplace.agent.full_name")
     .value= agent.full_name

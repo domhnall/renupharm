@@ -63,6 +63,20 @@
 #pharmacy_agents {
   .card.agent {
     padding: 20px;
+    h3.superintendent {
+      display: inline-block;
+      position: absolute;
+      text-align: left;
+      left: 0;
+      margin-top: -28px;
+      margin-left: 10px;
+      padding: 0 5px;
+      color: #8ad4ee;
+      text-transform: uppercase;
+      font-size: 90%;
+      font-weight: bold;
+      background: white;
+    }
   }
 }
 

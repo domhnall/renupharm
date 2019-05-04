@@ -437,6 +437,8 @@ en:
       email: "Email"
       telephone: "Mobile"
       superintendent: "Superintendent?"
+      labels:
+        superintendent: "Superintendent"
       errors:
         must_be_superintendent: "Pharmacy must nominate a superintendent pharmacist before any other functions can be completed."
         already_have_superintendent: "Pharmacy can only nominate a single superintendent pharmacist."
