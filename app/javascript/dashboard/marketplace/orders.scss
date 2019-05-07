@@ -88,3 +88,59 @@ table#orders {
     }
   }
 }
+
+// Individual order receipt
+.cart.order_receipt {
+  .order_seller_buyer {
+    h2, h3 {
+      text-align: center;
+    }
+    h3 {
+      color: $default_blue;
+      font-size: 150%;
+      text-transform: uppercase;
+      font-weight: bold;
+      opacity: 50%;
+    }
+  }
+  table.order_details {
+    margin-top: 20px;
+  }
+
+  #info_and_action {
+    text-align: center;
+    .state {
+      width: 100%;
+      font-size: 100%;
+    }
+    .state.buying {
+      &.in_progress {
+        color: $text_blue;
+      }
+      &.placed {
+        color: $text_orange;
+      }
+      &.delivering {
+        color: $text_red;
+      }
+      &.completed {
+        color: $text_green;
+      }
+    }
+
+    .state.selling {
+      &.in_progress {
+        color: $text_blue;
+      }
+      &.placed {
+        color: $text_red;
+      }
+      &.delivering {
+        color: $text_orange;
+      }
+      &.completed {
+        color: $text_green;
+      }
+    }
+  }
+}

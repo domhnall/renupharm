@@ -23,7 +23,10 @@ class Marketplace::OrderPolicy < AuthenticatedApplicationPolicy
   end
 
   def update?
-    user.admin? || order.user==user
+    user.admin? ||
+    (order.in_progress? && order.user.id==user.id) ||
+    (order.placed? && order.selling_pharmacy==user.pharmacy) ||
+    (order.delivering? && order.buying_pharmacy==user.pharmacy)
   end
 
   private

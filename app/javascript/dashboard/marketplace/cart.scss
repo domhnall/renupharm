@@ -3,6 +3,7 @@
   h2 {
     display: inline-block;
     width: auto;
+    margin-bottom: 20px;
   }
   .empty_cart_btn {
     display: inline-block;
@@ -12,6 +13,7 @@
     }
   }
   table.order_details {
+    width: 100%;
     thead td {
       font-weight: bold;
       font-size: 110%;

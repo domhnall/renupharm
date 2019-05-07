@@ -66,10 +66,22 @@ class Marketplace::Order < ApplicationRecord
     line_items.first&.selling_pharmacy
   end
 
+  def bought_by?(pharmacy = nil)
+    buying_pharmacy==pharmacy
+  end
+
+  def sold_by?(pharmacy = nil)
+    selling_pharmacy==pharmacy
+  end
+
   State::valid_states.each do |state|
     define_method("#{state}?") do
       self.state==state
     end
+  end
+
+  def next_state
+    Marketplace::Order::State::valid_states[current_state_index+1]
   end
 
   private
@@ -78,5 +90,9 @@ class Marketplace::Order < ApplicationRecord
     if self.line_items.map(&:selling_pharmacy).uniq.count > 1
       errors.add(:base, I18n.t("marketplace.order.errors.line_items_from_multiple_sellers"))
     end
+  end
+
+  def current_state_index
+    Marketplace::Order::State::valid_states.index(self.state)
   end
 end

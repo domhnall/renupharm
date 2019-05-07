@@ -1,8 +1,10 @@
-.row
-  .col-md-12
-    .card.cart
+.card.cart.order_receipt
+  .row
+    .col-12
       .heading
         %h2= t("marketplace.order.title", reference: @order.reference)
+  .row
+    .col-12.col-md-6.order-md-last
       %table.order_details
         %thead
           %tr
@@ -19,10 +21,42 @@
           %td
           %td.total_price_label= t("marketplace.order.total_price")
           %td.total_price= @order.display_price
+      #info_and_action
+        .state{ class: [ @order.state, @order.bought_by?(current_user.pharmacy) ? 'buying' : '', @order.sold_by?(current_user.pharmacy) ? 'selling' : ''].compact }
+          - if @order.bought_by?(current_user.pharmacy)
+            = t("marketplace.order.instructions.#{@order.state}.buyer")
+          - elsif @order.sold_by?(current_user.pharmacy)
+            = t("marketplace.order.instructions.#{@order.state}.seller")
 
-    - if current_user.admin?
-      .card
-        .comments
-          %h2
-            = t("marketplace.order.comments")
-          = render 'admin/comments/comment_list', commentable: @order
+        - if @order.completed?
+          %p Leave seller feedback
+        - elsif policy(@order).update?
+          = form_for @order do |form|
+            = form.submit t("marketplace.order.actions.#{@order.state}"),
+              id: "update_order_status",
+              class: "btn btn-success"
+
+
+    .col-12.col-md-6.order-md-first
+      .products{data: { behaviour: "vue" } }
+        - @order.line_items.each do |line_item|
+          <product v-bind="#{line_item.product.as_select_json.to_json}"></product>
+
+  .row.order_seller_buyer
+    .col-12.col-md-5
+      .seller.pharmacy_profile
+        %h3= t("marketplace.order.seller")
+        = render "marketplace/shared/pharmacies/contact_details", pharmacy: @order.selling_pharmacy
+    .col-md-2
+      %h3.fa.fa-arrow-right
+    .col-12.col-md-5
+      .buyer.pharmacy_profile
+        %h3= t("marketplace.order.buyer")
+        = render "marketplace/shared/pharmacies/contact_details", pharmacy: @order.buying_pharmacy
+
+- if current_user.admin?
+  .card
+    .comments
+      %h2
+        = t("marketplace.order.comments")
+        = render 'admin/comments/comment_list', commentable: @order

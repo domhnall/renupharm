@@ -1,3 +1,5 @@
+@import '../dashboard/style.scss';
+
 .hidden {
   display: none;
 }
@@ -12,7 +14,7 @@
   }
 }
 
-#pharmacy_profile {
+#pharmacy_profile, .pharmacy_profile {
   .description {
     font-size: 110%;
   }
@@ -45,7 +47,7 @@
 
 }
 
-#pharmacy_profile,
+#pharmacy_profile, .pharmacy_profile,
 #pharmacy_agents,
 #pharmacy_products,
 #pharmacy_pharmacy_products,
@@ -71,7 +73,7 @@
       margin-top: -28px;
       margin-left: 10px;
       padding: 0 5px;
-      color: #8ad4ee;
+      color: $default_blue;
       text-transform: uppercase;
       font-size: 90%;
       font-weight: bold;

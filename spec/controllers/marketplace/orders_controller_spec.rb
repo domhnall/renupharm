@@ -120,4 +120,63 @@ describe Marketplace::OrdersController do
       end
     end
   end
+
+  describe "#update" do
+    before :each do
+      @order.update_column(:state, Marketplace::Order::State::DELIVERY_IN_PROGRESS)
+    end
+
+    describe "unauthenticated user" do
+      it "should redirect user to the sign in path" do
+        patch :update, params: {id: @order.id}
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    describe "authenticated user from another pharmacy" do
+      before :each do
+        sign_in @other_pharmacy_user
+      end
+
+      it "should return a 404 response" do
+        get :update, params: {id: @order.id}
+        expect(response.status).to eq 404
+      end
+
+      it "should set an appropriate flash message" do
+        get :update, params: {id: @order.id}
+        expect(flash[:error]).to include I18n.t('errors.record_not_found')
+      end
+    end
+
+    describe "authenticated user from same pharmacy" do
+      before :each do
+        sign_in @other_user
+      end
+
+      it "should return a successful response" do
+        patch :update, params: {id: @order.id }
+        expect(response.status).to redirect_to marketplace_order_path(@order)
+      end
+
+      it "should set an appropriate flash message" do
+        patch :update, params: {id: @order.id }
+        expect(flash[:success]).to include I18n.t("general.flash.update_successful")
+      end
+
+      it "should push the order into the next state" do
+        expect(@order.state).to eq Marketplace::Order::State::DELIVERY_IN_PROGRESS
+        patch :update, params: {id: @order.id }
+        expect(@order.reload.state).to eq Marketplace::Order::State::COMPLETED
+      end
+
+      describe "attempting to transition to inaccessible state" do
+        it "should push the order into the next logical state" do
+          expect(@order.state).to eq Marketplace::Order::State::DELIVERY_IN_PROGRESS
+          patch :update, params: {id: @order.id, state: "placed" }
+          expect(@order.reload.state).to eq Marketplace::Order::State::COMPLETED
+        end
+      end
+    end
+  end
 end

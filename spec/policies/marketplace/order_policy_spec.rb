@@ -23,6 +23,7 @@ describe Marketplace::OrderPolicy do
     @buying_agent_user = @buying_agent.user.becomes(Users::Agent)
     @selling_agent_user = @selling_agent.user.becomes(Users::Agent)
     @other_agent_user = @other_agent.user.becomes(Users::Agent)
+    @admin_user = create_admin_user
 
     # Purchases
     @purchase = create_order(agent: @agent, listing: @listing, state: 'placed')
@@ -90,14 +91,63 @@ describe Marketplace::OrderPolicy do
     describe "#update?" do
       before :all do
         @order = create_order(agent: @agent, listing: @listing)
+        @order.state = Marketplace::Order::State::valid_states.sample
       end
 
-      it "should be true where user owns the order" do
-        expect(Marketplace::OrderPolicy.new(@agent.user, @order).update?).to be_truthy
+      it "should be true where the user is an admin" do
+        expect(Marketplace::OrderPolicy.new(@admin_user, @order).update?).to be_truthy
       end
 
       it "should be false where user does not own the order" do
-        expect(Marketplace::OrderPolicy.new(@other_agent.user, @order).update?).to be_falsey
+        @order.state = Marketplace::Order::State::IN_PROGRESS
+        expect(Marketplace::OrderPolicy.new(@other_agent_user, @order).update?).to be_falsey
+      end
+
+      describe "where user owns the order" do
+        it "should be true where the order is in 'in_progress' state" do
+          @order.state = Marketplace::Order::State::IN_PROGRESS
+          expect(Marketplace::OrderPolicy.new(@agent_user, @order).update?).to be_truthy
+        end
+
+        [ Marketplace::Order::State::PLACED,
+          Marketplace::Order::State::COMPLETED ].each do |state|
+          it "should be false where the order is in '#{state}' state" do
+            @order.state = state
+            expect(Marketplace::OrderPolicy.new(@agent_user, @order).update?).to be_falsey
+          end
+        end
+      end
+
+      describe "where user is agent for the buying pharmacy" do
+        it "should be true where the order is in 'delivering' state" do
+          @order.state = Marketplace::Order::State::DELIVERY_IN_PROGRESS
+          expect(Marketplace::OrderPolicy.new(@buying_agent_user, @order).update?).to be_truthy
+        end
+
+        [ Marketplace::Order::State::IN_PROGRESS,
+          Marketplace::Order::State::PLACED,
+          Marketplace::Order::State::COMPLETED ].each do |state|
+          it "should be false where the order is in '#{state}' state" do
+            @order.state = state
+            expect(Marketplace::OrderPolicy.new(@buying_agent_user, @order).update?).to be_falsey
+          end
+        end
+      end
+
+      describe "where user is agent for the selling pharmacy" do
+        it "should be true where the order is in 'placed' state" do
+          @order.state = Marketplace::Order::State::PLACED
+          expect(Marketplace::OrderPolicy.new(@selling_agent_user, @order).update?).to be_truthy
+        end
+
+        [ Marketplace::Order::State::IN_PROGRESS,
+          Marketplace::Order::State::DELIVERY_IN_PROGRESS,
+          Marketplace::Order::State::COMPLETED ].each do |state|
+          it "should be false where the order is in '#{state}' state" do
+            @order.state = state
+            expect(Marketplace::OrderPolicy.new(@selling_agent_user, @order).update?).to be_falsey
+          end
+        end
       end
     end
   end

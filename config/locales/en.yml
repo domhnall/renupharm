@@ -385,6 +385,7 @@ en:
       product: "Product details"
       quantity: "Quantity"
       seller: "Seller"
+      buyer: "Buyer"
       price: "Price"
       total_price: "Total price:"
       updated_at: "Updated"
@@ -408,6 +409,23 @@ en:
         delivery_info: "A job has been created with our courier partners, and you should have your order within 2 business days."
         support_info: "If you have any questions or problems please reach out to our support teams at <a href=\"mailto:dev@renuparm.ie\">dev@renupharm.ie</a>."
         payment_reference: "Payment reference: %{payment_reference}"
+      instructions:
+        in_progress:
+          buyer: "This order has not yet been placed and you have no obligations."
+          seller: "This order has not yet been placed and you have no obligations."
+        placed:
+          buyer: "This order has been placed and is pending delivery"
+          seller: "This order has been placed. You must arrange delivery."
+        delivering:
+          buyer: "This order is currently in delivery. Once received please update the order to indicate that it has been received."
+          seller: "This order is currently in delivery."
+        completed:
+          buyer: "This order has been completed. Please leave some feedback about the seller."
+          seller: "This order has been completed."
+      actions:
+        in_progress: "Place order"
+        placed: "Collected for delivery"
+        delivering: "Delivery received"
     pharmacy:
       name: "Name"
       description: "Description"

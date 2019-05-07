@@ -16,18 +16,21 @@ describe Marketplace::Order do
     :price_minor,
     :currency_symbol,
     :currency_code,
-    :display_price ].each do |method|
+    :display_price,
+    :bought_by?,
+    :sold_by? ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Order.new).to respond_to method
     end
   end
 
   before :all do
-    @seller = create_pharmacy(name: "Sammy Seller", email: "sammy@seller.com")
+    @seller    = create_pharmacy(name: "Sammy Seller", email: "sammy@seller.com")
     @product_a = create_product(pharmacy: @seller)
     @product_b = create_product(pharmacy: @seller)
-    @pharmacy = create_pharmacy(name: "Billy Buyer", email: "billy@buyer.com")
-    @agent = create_agent(pharmacy: @pharmacy)
+    @pharmacy  = create_pharmacy(name: "Billy Buyer", email: "billy@buyer.com")
+    @buyer     = @pharmacy
+    @agent     = create_agent(pharmacy: @pharmacy)
   end
 
   describe "instantiation" do
@@ -132,6 +135,44 @@ describe Marketplace::Order do
       end
     end
 
+    describe "#bought_by?" do
+      before :all do
+        @other_pharmacy = create_pharmacy
+      end
+
+      it "should return true if passed the pharmacy who is the buyer in the transaction" do
+        expect(@order.bought_by?(@buyer)).to be_truthy
+      end
+
+      it "should return false if passed a pharmacy who is not the buyer in the transaction" do
+        expect(@order.bought_by?(@other_pharmacy)).to be_falsey
+        expect(@order.bought_by?(@seller)).to be_falsey
+      end
+
+      it "should return false if passed nil" do
+        expect(@order.bought_by?(nil)).to be_falsey
+      end
+    end
+
+    describe "#sold_by?" do
+      before :all do
+        @other_pharmacy = create_pharmacy
+      end
+
+      it "should return true if passed the pharmacy who is the buyer in the transaction" do
+        expect(@order.sold_by?(@seller)).to be_truthy
+      end
+
+      it "should return false if passed a pharmacy who is not the buyer in the transaction" do
+        expect(@order.sold_by?(@other_pharmacy)).to be_falsey
+        expect(@order.sold_by?(@buyer)).to be_falsey
+      end
+
+      it "should return false if passed nil" do
+        expect(@order.sold_by?(nil)).to be_falsey
+      end
+    end
+
     Marketplace::Order::State::valid_states.each do |state|
       other_state = (Marketplace::Order::State::valid_states - [state]).sample
 
@@ -157,6 +198,28 @@ describe Marketplace::Order do
       it "should return nil where no associated payment exists" do
         allow(@order).to receive(:payment).and_return(nil)
         expect(@order.reference).to be_nil
+      end
+    end
+
+    describe "#next_state" do
+      it "should return PLACED when current state is IN_PROGRESS" do
+        @order.state = Marketplace::Order::State::IN_PROGRESS
+        expect(@order.next_state).to eq Marketplace::Order::State::PLACED
+      end
+
+      it "should return DELIVERY_IN_PROGRESS when current state is PLACED" do
+        @order.state = Marketplace::Order::State::PLACED
+        expect(@order.next_state).to eq Marketplace::Order::State::DELIVERY_IN_PROGRESS
+      end
+
+      it "should return COMPLETED when current state is DELIVERY_IN_PROGRESS" do
+        @order.state = Marketplace::Order::State::DELIVERY_IN_PROGRESS
+        expect(@order.next_state).to eq Marketplace::Order::State::COMPLETED
+      end
+
+      it "should return nil when current state is COMPLETED" do
+        @order.state = Marketplace::Order::State::COMPLETED
+        expect(@order.next_state).to be_nil
       end
     end
   end

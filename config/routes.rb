@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   namespace :marketplace do
     root to: "listings#index"
     resource :cart, only: [:show, :update]
-    resources :orders, only: [:show] do
+    resources :orders, only: [:show, :update] do
       member do
         get :receipt
       end
