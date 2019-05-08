@@ -28,11 +28,11 @@ describe Marketplace::Accounts::CourierFee do
           @payment.reload
         end
 
-        it "should set the amount_cents to a flat fee of 800 cents" do
+        it "should set the amount_cents to a flat fee of 0 cents" do
           expect(@payment.fees.reload).to be_empty
           Marketplace::Accounts::CourierFee.new(payment: @payment).calculate!
           expect(@payment.fees.reload).not_to be_empty
-          expect(@payment.fees.reload.where(type: "Marketplace::Accounts::CourierFee").first.amount_cents).to eq 800
+          expect(@payment.fees.reload.where(type: "Marketplace::Accounts::CourierFee").first.amount_cents).to eq 0
         end
       end
 
@@ -42,11 +42,11 @@ describe Marketplace::Accounts::CourierFee do
           @payment.reload
         end
 
-        it "should augment the flat fee with a 10% fee on the surplus" do
+        it "should augment the flat fee with a 0% fee on the surplus" do
           expect(@payment.fees.reload).to be_empty
           Marketplace::Accounts::CourierFee.new(payment: @payment).calculate!
           expect(@payment.fees.reload).not_to be_empty
-          expect(@payment.fees.reload.where(type: "Marketplace::Accounts::CourierFee").first.amount_cents).to eq 1000
+          expect(@payment.fees.reload.where(type: "Marketplace::Accounts::CourierFee").first.amount_cents).to eq 0
         end
       end
     end

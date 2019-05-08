@@ -1,7 +1,7 @@
 class Marketplace::Accounts::CourierFee < Marketplace::Accounts::Fee
-  FLAT_FEE_CENTS = 800
+  FLAT_FEE_CENTS = 0
   FLAT_FEE_THRESHOLD_CENTS = 8000
-  SURPLUS_PERCENT_FEE = 0.1
+  SURPLUS_PERCENT_FEE = 0
 
   def calculate!
     payment.fees.create!({

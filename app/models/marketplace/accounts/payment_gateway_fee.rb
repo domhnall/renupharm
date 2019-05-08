@@ -1,6 +1,6 @@
 class Marketplace::Accounts::PaymentGatewayFee < Marketplace::Accounts::Fee
-  FLAT_RATE_CENTS = 10
-  TRANSACTION_RATE = 0.011
+  FLAT_RATE_CENTS = 25
+  TRANSACTION_RATE = 0.014
 
   def calculate!
     payment.fees.create!({
