@@ -91,6 +91,16 @@ table#orders {
 
 // Individual order receipt
 .cart.order_receipt {
+  h2 {
+    text-transform: capitalize;
+  }
+
+  table.order_details,
+  .order_seller_buyer,
+  .order_history_items {
+    margin-top: 30px;
+  }
+
   .order_seller_buyer {
     h2, h3 {
       text-align: center;
@@ -102,9 +112,6 @@ table#orders {
       font-weight: bold;
       opacity: 50%;
     }
-  }
-  table.order_details {
-    margin-top: 20px;
   }
 
   #info_and_action {

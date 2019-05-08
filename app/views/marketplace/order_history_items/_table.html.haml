@@ -1,0 +1,13 @@
+%table.order_history_table.table.table-striped
+  %thead
+    %tr
+      %th= t("marketplace.order_history_item.from_state")
+      %th= t("marketplace.order_history_item.to_state")
+      %th= t("marketplace.order_history_item.user")
+      %th= t("marketplace.order_history_item.created_at")
+  - items.each do |item|
+    %tr
+      %td= t("marketplace.order.states.#{item.from_state}")
+      %td= t("marketplace.order.states.#{item.to_state}")
+      %td= item.user.full_name
+      %td= l(item.created_at, format: :short)

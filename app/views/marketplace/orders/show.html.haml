@@ -54,6 +54,12 @@
         %h3= t("marketplace.order.buyer")
         = render "marketplace/shared/pharmacies/contact_details", pharmacy: @order.buying_pharmacy
 
+  .row.order_history_items
+    .col-12
+      %h2= t("marketplace.order.history_items")
+    .col-12
+      = render "marketplace/order_history_items/table", items: @order.history_items
+
 - if current_user.admin?
   .card
     .comments

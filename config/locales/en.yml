@@ -392,6 +392,7 @@ en:
       state: "Status"
       reference: "Reference"
       comments: "Comments"
+      history_items: "Order history"
       states:
         in_progress: "In progress"
         placed: "Placed"
@@ -426,6 +427,11 @@ en:
         in_progress: "Place order"
         placed: "Collected for delivery"
         delivering: "Delivery received"
+    order_history_item:
+      from_state: "Original state"
+      to_state: "Updated state"
+      user: "Updated by user"
+      created_at: "Updated at"
     pharmacy:
       name: "Name"
       description: "Description"
