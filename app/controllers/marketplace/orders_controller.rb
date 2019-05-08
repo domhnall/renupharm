@@ -12,8 +12,7 @@ class Marketplace::OrdersController < AuthenticatedController
   def update
     @order = get_scope.find(params.fetch(:id).to_i)
     authorize @order, :update?
-    @order.state = @order.next_state
-    if @order.save
+    if @order.push_state!(current_user)
       redirect_to marketplace_order_path(@order), flash: { success: I18n.t("general.flash.update_successful") }
     else
       render 'show', flash: { error: I18n.t("general.flash.error") }

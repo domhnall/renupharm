@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_12_210826) do
+ActiveRecord::Schema.define(version: 2019_05_08_124226) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -112,6 +112,17 @@ ActiveRecord::Schema.define(version: 2019_03_12_210826) do
     t.text "seller_note"
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_listings_on_marketplace_pharmacy_id"
     t.index ["marketplace_product_id"], name: "index_marketplace_listings_on_marketplace_product_id"
+  end
+
+  create_table "marketplace_order_history_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_order_id"
+    t.bigint "user_id"
+    t.string "from_state"
+    t.string "to_state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_order_id"], name: "index_marketplace_order_history_items_on_marketplace_order_id"
+    t.index ["user_id"], name: "index_marketplace_order_history_items_on_user_id"
   end
 
   create_table "marketplace_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -297,6 +308,8 @@ ActiveRecord::Schema.define(version: 2019_03_12_210826) do
   add_foreign_key "marketplace_line_items", "marketplace_orders"
   add_foreign_key "marketplace_listings", "marketplace_pharmacies"
   add_foreign_key "marketplace_listings", "marketplace_products"
+  add_foreign_key "marketplace_order_history_items", "marketplace_orders"
+  add_foreign_key "marketplace_order_history_items", "users"
   add_foreign_key "marketplace_orders", "marketplace_agents"
   add_foreign_key "marketplace_payments", "marketplace_credit_cards"
   add_foreign_key "marketplace_payments", "marketplace_orders"

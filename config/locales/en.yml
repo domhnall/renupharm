@@ -325,7 +325,7 @@ en:
       sale_alert: "Congrats! Your listing has been purchased"
     actions:
       purchase: "Review purchase"
-      sale: "Prep for collection"
+      sale: "Arrange delivery"
   marketplace:
     product:
       name: "Name"

@@ -24,5 +24,8 @@ module Renupharm
 
     # Define an asset host, allowing us to build full URLs
     config.action_controller.asset_host = 'http://localhost:3000'
+
+    # Set timezone to Dublin
+    config.time_zone = "Dublin"
   end
 end

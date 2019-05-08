@@ -25,6 +25,11 @@ class Marketplace::Order < ApplicationRecord
     foreign_key: :marketplace_order_id,
     inverse_of: :order
 
+  has_many :history_items,
+    class_name: "Marketplace::OrderHistoryItem",
+    foreign_key: :marketplace_order_id,
+    inverse_of: :order
+
   has_one :user, through: :agent
   has_one :pharmacy, through: :agent
   has_many :listings, through: :line_items
@@ -41,10 +46,6 @@ class Marketplace::Order < ApplicationRecord
   scope :completed, ->{ where(state: Marketplace::Order::State::COMPLETED) }
   scope :delivering, ->{ where(state: Marketplace::Order::State::DELIVERY_IN_PROGRESS) }
 
-  delegate :reference,
-    to: :payment,
-    allow_nil: true
-
   delegate :price_cents,
            :price_major,
            :price_minor,
@@ -53,6 +54,8 @@ class Marketplace::Order < ApplicationRecord
            :display_price, to: :price
 
   alias_method :buying_pharmacy, :pharmacy
+
+  before_create :set_reference
 
   def price
     @price ||= Price.new(self.line_items.reduce(0){|sum,li| sum+=li.price_cents })
@@ -84,7 +87,36 @@ class Marketplace::Order < ApplicationRecord
     Marketplace::Order::State::valid_states[current_state_index+1]
   end
 
+  def push_state!(user)
+    self.state = next_state
+    ActiveRecord::Base.transaction do
+      self.save &&
+      history_items.create({
+        user: user,
+        from_state: self.state_previous_change.first,
+        to_state: self.state_previous_change.last
+      })
+    end
+  end
+
+  def delivery_due_at
+    return unless placed_at
+    WorkingDays.end_of_next_working_day_plus_one(placed_at)
+  end
+
   private
+
+  def set_reference
+    self.reference ||= SecureRandom.uuid
+  end
+
+  def placed_at
+    return if in_progress?
+    history_items.where({
+      from_state: Marketplace::Order::State::IN_PROGRESS,
+      to_state: Marketplace::Order::State::PLACED
+    }).first.created_at
+  end
 
   def line_items_from_single_seller
     if self.line_items.map(&:selling_pharmacy).uniq.count > 1

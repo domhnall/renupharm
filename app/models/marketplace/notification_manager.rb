@@ -77,7 +77,7 @@ class Marketplace::NotificationManager
 
   def build_sale_sms(order)
     [ base_sale_message(order),
-      "Visit www.renupharm.ie to see order details and track delivery."].join(" ")
+      "Visit www.renupharm.ie to see order details and arrange delivery."].join(" ")
   end
 
   def build_purchase_notification(order)

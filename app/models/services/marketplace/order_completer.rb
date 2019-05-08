@@ -19,9 +19,9 @@ class Services::Marketplace::OrderCompleter
     validate_listing_available
     take_payment
     remove_listing
+    add_order_history_item
     calculate_fees
     send_notifications
-    contact_courier
     @response
   rescue Services::Error => e
     @errors << e
@@ -57,6 +57,14 @@ class Services::Marketplace::OrderCompleter
       backtrace: e.backtrace
     ).deliver_later
     raise Services::Error, I18n.t("marketplace.cart.errors.failed_payment")
+  end
+
+  def add_order_history_item
+    order.history_items.create({
+      user: order.user,
+      from_state: Marketplace::Order::State::IN_PROGRESS,
+      to_state: Marketplace::Order::State::PLACED
+    })
   end
 
   def credit_card
@@ -101,10 +109,6 @@ class Services::Marketplace::OrderCompleter
         { order: @order }
       )
     end
-  end
-
-  def contact_courier
-    # No-op
   end
 
   def listing

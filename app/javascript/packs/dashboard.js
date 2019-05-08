@@ -20,7 +20,6 @@ Vue.component('product-select', ProductSelect);
 Vue.component('product', Product);
 Vue.component('credit-card', CreditCard);
 
-
 document.addEventListener('turbolinks:load', () => {
 
   if(document.querySelector('[data-behaviour="vue"]')){

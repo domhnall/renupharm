@@ -5,7 +5,12 @@
         %p
           = "Hi #{@agent.full_name}"
         %p
-          = "We are pleased to confirm that your RenuPharm listing has been purchased and is pending collection."
+          We are pleased to confirm that your RenuPharm listing has been purchased and is pending delivery.
+          This order should be delivered in full to the recipient no later than
+          = succeed "." do
+            %strong= @order.delivery_due
+        %p
+          %strong Please arrange delivery of this item at your earliest convenience.
         %br/
         = render 'order_details', order: @order
         %br/
