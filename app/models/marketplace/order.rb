@@ -30,6 +30,12 @@ class Marketplace::Order < ApplicationRecord
     foreign_key: :marketplace_order_id,
     inverse_of: :order
 
+  has_one :feedback,
+    class_name: "Marketplace::OrderFeedback",
+    foreign_key: :marketplace_order_id,
+    inverse_of: :order,
+    dependent: :destroy
+
   has_one :user, through: :agent
   has_one :pharmacy, through: :agent
   has_many :listings, through: :line_items
