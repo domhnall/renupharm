@@ -10,6 +10,7 @@ import '../legal';
 import '../product_edit';
 import '../pharmacy_profile';
 import '../cart';
+import '../order';
 
 import ProductSelect from '../product_select/app.vue';
 import Product from '../product_select/product.vue';

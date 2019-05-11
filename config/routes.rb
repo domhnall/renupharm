@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     root to: "listings#index"
     resource :cart, only: [:show, :update]
     resources :orders, only: [:show, :update] do
+      resource :order_feedback, only: [:create, :update]
       member do
         get :receipt
       end

@@ -2,6 +2,7 @@ class Marketplace::OrdersController < AuthenticatedController
   def show
     @order = get_scope.find(params.fetch(:id).to_i)
     authorize @order, :show?
+    @feedback = @order.feedback || @order.build_feedback(user: current_user)
   end
 
   def receipt

@@ -1,0 +1,33 @@
+.row
+  .col-12
+    #order_feedback
+      - if feedback.persisted?
+        .form-group
+          .label= t("marketplace.order_feedback.rating")
+          .value
+            %span.star_rating{ data: { rating: feedback.rating }}
+            %span.user_meta
+              = "#{feedback.user.full_name} #{l(feedback.updated_at, format: :short)}"
+        .form-group.mb-2
+          .label= t("marketplace.order_feedback.message")
+          .value= feedback.message
+
+        - if policy(feedback).update?
+          = link_to t("marketplace.order_feedback.actions.edit"), "#", class: "edit_feedback_link"
+
+      - else
+        = t("marketplace.order_feedback.messages.not_present")
+        - if policy(feedback).create?
+          = link_to t("marketplace.order_feedback.actions.leave"), "#", class: "edit_feedback_link"
+
+    #order_feedback_form.hidden
+      = form_for feedback, url: marketplace_order_order_feedback_path(feedback.order) do |form|
+        .form-group
+          = form.label :rating, t("marketplace.order_feedback.rating"), class: 'col-form-label label'
+          = form.hidden_field :rating, class: 'form-control'
+          .star_rating.value{ data: { rating: feedback.rating }}
+        .form-group.mb-2
+          = form.label :message, t("marketplace.order_feedback.message"), class: 'col-form-label label'
+          = form.text_area :message, class: 'form-control value', rows: 5
+        = form.submit t("marketplace.order_feedback.actions.save"), class: "btn btn-success"
+        = button_tag t("general.cancel"), class: "btn btn-light cancel"

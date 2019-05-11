@@ -421,7 +421,7 @@ en:
           buyer: "This order is currently in delivery. Once received please update the order to indicate that it has been received."
           seller: "This order is currently in delivery."
         completed:
-          buyer: "This order has been completed. Please leave some feedback about the seller."
+          buyer: "This order has been completed."
           seller: "This order has been completed."
       actions:
         in_progress: "Place order"
@@ -432,6 +432,20 @@ en:
       to_state: "Updated state"
       user: "Updated by user"
       created_at: "Updated at"
+    order_feedback:
+      user: "User"
+      rating: "Rating"
+      message: "Feedback"
+      messages:
+        not_present: "No buyer feedback has been provided."
+      actions:
+        leave: "Leave feedback"
+        edit: "Edit feedback"
+        save: "Submit feedback"
+      flash:
+        create_successful: "Feedback successfully added."
+        update_successful: "Feedback successfully updated."
+        error: "There has been an error saving this feedback. Please try again."
     pharmacy:
       name: "Name"
       description: "Description"

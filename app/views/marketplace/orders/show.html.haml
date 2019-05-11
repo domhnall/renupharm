@@ -29,7 +29,7 @@
             = t("marketplace.order.instructions.#{@order.state}.seller")
 
         - if @order.completed?
-          %p Leave seller feedback
+          = render "marketplace/order_feedbacks/show", feedback: @feedback
         - elsif policy(@order).update?
           = form_for @order do |form|
             = form.submit t("marketplace.order.actions.#{@order.state}"),

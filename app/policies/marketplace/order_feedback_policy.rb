@@ -8,7 +8,7 @@ class Marketplace::OrderFeedbackPolicy < AuthenticatedApplicationPolicy
   end
 
   def update?
-    create? && (order_feedback.user == user)
+    create? && (order_feedback.user.id == user.id)
   end
 
   def destroy?
