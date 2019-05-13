@@ -21,7 +21,8 @@ describe Marketplace::Order do
     :bought_by?,
     :sold_by?,
     :push_state!,
-    :delivery_due_at ].each do |method|
+    :delivery_due_at,
+    :seller_payout ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Order.new).to respond_to method
     end
@@ -34,6 +35,7 @@ describe Marketplace::Order do
     @pharmacy  = create_pharmacy(name: "Billy Buyer", email: "billy@buyer.com")
     @buyer     = @pharmacy
     @agent     = create_agent(pharmacy: @pharmacy)
+    @admin     = create_admin_user
   end
 
   describe "instantiation" do
@@ -99,6 +101,32 @@ describe Marketplace::Order do
       expect(order.line_items.count).to eq 2
       expect(order).not_to be_valid
     end
+
+    it "should be valid when complete order has :seller_payout" do
+      order = create_order(state: Marketplace::Order::State::COMPLETED).tap do |order|
+        order.line_items = [ Marketplace::LineItem.new(order: order, listing: create_listing) ]
+        order.create_seller_payout({
+          pharmacy: @seller_pharmacy,
+          user: @admin_user,
+          total_cents: 9800,
+          currency_code: "EUR"
+        })
+      end
+      expect(order).to be_valid
+    end
+
+    it "should be invalid when incomplete order has :seller_payout" do
+      order = create_order(state: Marketplace::Order::State::IN_PROGRESS).tap do |order|
+        order.line_items = [ Marketplace::LineItem.new(order: order, listing: create_listing) ]
+        order.create_seller_payout({
+          pharmacy: @seller_pharmacy,
+          user: @admin_user,
+          total_cents: 9800,
+          currency_code: "EUR"
+        })
+      end
+      expect(order).not_to be_valid
+    end
   end
 
   describe "creation" do
@@ -109,7 +137,7 @@ describe Marketplace::Order do
       }
     end
 
-    it "should automatically assigna a reference to the order" do
+    it "should automatically assign a reference to the order" do
       order = Marketplace::Order.new(@params)
       expect(order.reference).to be_nil
       order.save!

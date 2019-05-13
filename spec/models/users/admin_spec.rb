@@ -28,7 +28,8 @@ describe Users::Admin do
 
   describe "instance method" do
     [ :profile,
-      :role ].each do |method|
+      :role,
+      :seller_payouts ].each do |method|
       it "should respond to :#{method}" do
         expect(Users::Admin.new(@params)).to respond_to method
       end

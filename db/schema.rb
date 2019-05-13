@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_08_200443) do
+ActiveRecord::Schema.define(version: 2019_05_12_200915) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -143,7 +143,9 @@ ActiveRecord::Schema.define(version: 2019_05_08_200443) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "comments_count", default: 0
+    t.bigint "marketplace_seller_payout_id"
     t.index ["marketplace_agent_id"], name: "index_marketplace_orders_on_marketplace_agent_id"
+    t.index ["marketplace_seller_payout_id"], name: "index_marketplace_orders_on_marketplace_seller_payout_id"
     t.index ["reference"], name: "index_marketplace_orders_on_reference", unique: true
   end
 
@@ -195,6 +197,17 @@ ActiveRecord::Schema.define(version: 2019_05_08_200443) do
     t.string "manufacturer"
     t.decimal "weight", precision: 8, scale: 4
     t.index ["marketplace_pharmacy_id"], name: "index_marketplace_products_on_marketplace_pharmacy_id"
+  end
+
+  create_table "marketplace_seller_payouts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "marketplace_pharmacy_id"
+    t.bigint "user_id"
+    t.integer "total_cents"
+    t.string "currency_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marketplace_pharmacy_id"], name: "index_marketplace_seller_payouts_on_marketplace_pharmacy_id"
+    t.index ["user_id"], name: "index_marketplace_seller_payouts_on_user_id"
   end
 
   create_table "notification_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -324,9 +337,12 @@ ActiveRecord::Schema.define(version: 2019_05_08_200443) do
   add_foreign_key "marketplace_order_history_items", "marketplace_orders"
   add_foreign_key "marketplace_order_history_items", "users"
   add_foreign_key "marketplace_orders", "marketplace_agents"
+  add_foreign_key "marketplace_orders", "marketplace_seller_payouts"
   add_foreign_key "marketplace_payments", "marketplace_credit_cards"
   add_foreign_key "marketplace_payments", "marketplace_orders"
   add_foreign_key "marketplace_products", "marketplace_pharmacies"
+  add_foreign_key "marketplace_seller_payouts", "marketplace_pharmacies"
+  add_foreign_key "marketplace_seller_payouts", "users"
   add_foreign_key "notification_configs", "profiles"
   add_foreign_key "notifications", "profiles"
   add_foreign_key "profiles", "users"

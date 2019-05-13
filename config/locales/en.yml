@@ -400,6 +400,7 @@ en:
         completed: "Completed"
       errors:
         line_items_from_multiple_sellers: "Valid orders can only include products from a single selling pharmacy, please remove some items from your basket."
+        no_payout_for_incomplete_order: "Order should not have an associated seller payout when in an incomplete state."
       messages:
         empty_purchases: "There are no purchases matching this condition."
         empty_sales: "There are no sales matching this condition."

@@ -31,6 +31,11 @@ class Marketplace::Pharmacy < ApplicationRecord
 
   has_one_attached :image
 
+  has_many :seller_payouts,
+    class_name: "Marketplace::SellerPayout",
+    foreign_key: :marketplace_pharmacy_id,
+    inverse_of: :pharmacy
+
   validates :name, :address_1, :address_3, :telephone, presence: true
   validates :name, :address_1, :address_3, length: { minimum: 3, maximum: 255 }
   validates :address_2, length: { minimum: 3, maximum: 255 }, if: :address_2

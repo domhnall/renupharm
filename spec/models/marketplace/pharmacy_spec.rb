@@ -27,6 +27,7 @@ describe Marketplace::Pharmacy do
     :products,
     :listings,
     :bank_account,
+    :seller_payouts,
     :address,
     :bank_name,
     :bic,

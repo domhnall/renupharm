@@ -15,6 +15,12 @@ class Marketplace::Order < ApplicationRecord
     foreign_key: :marketplace_agent_id,
     inverse_of: :orders
 
+  belongs_to :seller_payout,
+    class_name: "Marketplace::SellerPayout",
+    foreign_key: :marketplace_seller_payout_id,
+    inverse_of: :orders,
+    optional: true
+
   has_many :line_items,
     class_name: "Marketplace::LineItem",
     foreign_key: :marketplace_order_id,
@@ -44,6 +50,7 @@ class Marketplace::Order < ApplicationRecord
 
   validates :state, presence: true, inclusion: {in: Marketplace::Order::State::valid_states}
   validate :line_items_from_single_seller
+  validate :no_payout_for_incomplete_order
 
   accepts_nested_attributes_for :line_items, allow_destroy: true
 
@@ -127,6 +134,12 @@ class Marketplace::Order < ApplicationRecord
   def line_items_from_single_seller
     if self.line_items.map(&:selling_pharmacy).uniq.count > 1
       errors.add(:base, I18n.t("marketplace.order.errors.line_items_from_multiple_sellers"))
+    end
+  end
+
+  def no_payout_for_incomplete_order
+    if self.seller_payout && !self.completed?
+      errors.add(:base, I18n.t("marketplace.order.errors.no_payout_for_incomplete_order"))
     end
   end
 
