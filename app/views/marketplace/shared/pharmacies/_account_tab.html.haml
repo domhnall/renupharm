@@ -1,0 +1,74 @@
+- account = pharmacy.account
+.row
+  .col-12.col-md-6
+    .account_stat.primary
+    %h2= t("marketplace.account.balance")
+    = account.display_balance
+  .col-12.col-md-6
+    .account_stat.secondary
+      %h3= t("marketplace.account.uncleared_earnings")
+      = account.display_uncleared_earnings
+    .account_stat.secondary
+      %h3= t("marketplace.account.total_payouts_to_date")
+      = account.display_total_payouts_to_date
+
+  .col-12.col-md-6
+
+  .col-12
+    %h2= t("marketplace.account.sales")
+    - if account.sales.empty?
+      %p= t("marketplace.account.messages.no_sales")
+    - else
+      %table.sales
+        %tr
+          %th.product_name= t("marketplace.account.labels.sales.product_name")
+          %th.buyer= t("marketplace.account.labels.sales.buyer")
+          %th.sale_value= t("marketplace.account.labels.sales.sale_value")
+          %th.seller_earning= t("marketplace.account.labels.sales.seller_earning")
+          %th.placed_at= t("marketplace.account.labels.sales.placed_at")
+          %th.state= t("marketplace.account.labels.sales.state")
+        - account.sales.each do |sale|
+          %tr.order
+            %td.product_name= link_to sale.product_names, marketplace_order_path(sale)
+            %td.buyer= link_to sale.buying_pharmacy.name, marketplace_pharmacy_profile_path(sale.buying_pharmacy)
+            %td.sale_value= sale.display_price
+            %td.seller_earning= sale.seller_earning&.display_price
+            %td.placed_at= l(sale.placed_at, format: :short)
+            %td.state
+              = t("marketplace.account.state.#{sale.paid? ? 'paid' : (sale.cleared? ? 'cleared' : 'uncleared')}")
+      .actions
+        = link_to t("general.see_more"), marketplace_pharmacy_sales_path(current_user.pharmacy)
+
+  .col-12
+    %h2= t("marketplace.account.purchases")
+    - if account.purchases.empty?
+      %p= t("marketplace.account.messages.no_purchases")
+    - else
+      %table.purchases
+        %tr
+          %th.product_name= t("marketplace.account.labels.purchases.product_name")
+          %th.seller= t("marketplace.account.labels.purchases.seller")
+          %th.sale_value= t("marketplace.account.labels.purchases.sale_value")
+          %th.placed_at= t("marketplace.account.labels.purchases.placed_at")
+        - account.purchases.each do |purchase|
+          %li.order
+            .product_name= link_to purchase.product_names, marketplace_order_path(purchase)
+            .seller= link_to purchase.selling_pharmacy.name, marketplace_pharmacy_profile_path(purchase.selling_pharmacy)
+            .sale_value= purchase.display_price
+            .placed_at= l(purchase.placed_at, format: :short)
+      .actions
+        = link_to t("general.see_more"), marketplace_pharmacy_purchases_path(current_user.pharmacy)
+
+  .col-12
+    %h2= t("marketplace.account.payouts")
+    - if account.payouts_to_date.empty?
+      %p= t("marketplace.account.messages.no_payouts")
+    - else
+      %table.payouts
+        %tr
+          %th.amount_paid= t("marketplace.seller_payout.amount_paid")
+          %th.paid_at= t("marketplace.seller_payout.paid_at")
+          - account.payouts_to_date.each do |payout|
+            %tr
+              %td.amount_paid= payout.price.display_price
+              %td.paid_at= l(payout.created_at, format: :short)

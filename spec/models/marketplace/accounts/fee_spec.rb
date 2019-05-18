@@ -6,7 +6,8 @@ describe Marketplace::Accounts::Fee do
     :currency_code,
     :buying_pharmacy,
     :selling_pharmacy,
-    :calculate! ].each do |method|
+    :calculate!,
+    :price ].each do |method|
     it "should respond to method :#{method}" do
       expect(Marketplace::Accounts::Fee.new).to respond_to method
     end
@@ -37,6 +38,22 @@ describe Marketplace::Accounts::Fee do
     describe "#calculate!" do
       it "should raise a NotImplementedError" do
         expect{ Marketplace::Accounts::Fee.new.calculate! }.to raise_error NotImplementedError
+      end
+    end
+
+    describe "#price" do
+      it "should return a Price object" do
+        expect(Marketplace::Accounts::Fee.new(amount_cents: 999, currency_code: "EUR").price).to be_a Price
+      end
+
+      describe "Price object returned" do
+        it "should have a :currency_code matching that of the Fee" do
+          expect(Marketplace::Accounts::Fee.new(amount_cents: 999, currency_code: "EUR").price.currency_code).to eq "EUR"
+        end
+
+        it "should have a :price_cents given by the :amount_cents of the Fee" do
+          expect(Marketplace::Accounts::Fee.new(amount_cents: 999, currency_code: "EUR").price.price_cents).to eq 999
+        end
       end
     end
   end

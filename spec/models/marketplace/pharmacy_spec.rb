@@ -23,6 +23,7 @@ describe Marketplace::Pharmacy do
     :telephone,
     :fax,
     :image,
+    :account,
     :agents,
     :products,
     :listings,
@@ -147,6 +148,14 @@ describe Marketplace::Pharmacy do
   end
 
   describe "instance method" do
+    describe "#account" do
+      it "should return a Marketplace::Account for the pharamcy" do
+        pharmacy = Marketplace::Pharmacy.new(@params)
+        expect(pharmacy.account).to be_a Marketplace::Account
+        expect(pharmacy.account.pharmacy).to eq pharmacy
+      end
+    end
+
     describe "#address" do
       it "should return a comma separated list of the address components" do
         expect(Marketplace::Pharmacy.new(@params).address).to eq "1a Sandymount Green, Dublin 4, Irishtown, Dublin 4"

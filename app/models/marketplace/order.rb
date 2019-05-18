@@ -117,18 +117,18 @@ class Marketplace::Order < ApplicationRecord
     WorkingDays.end_of_next_working_day_plus_one(placed_at)
   end
 
-  private
-
-  def set_reference
-    self.reference ||= SecureRandom.uuid
-  end
-
   def placed_at
     return if in_progress?
     history_items.where({
       from_state: Marketplace::Order::State::IN_PROGRESS,
       to_state: Marketplace::Order::State::PLACED
     }).first.created_at
+  end
+
+  private
+
+  def set_reference
+    self.reference ||= SecureRandom.uuid
   end
 
   def line_items_from_single_seller

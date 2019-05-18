@@ -19,6 +19,10 @@ class Marketplace::SellerPayout < ApplicationRecord
   validates :total_cents, numericality: { only_integer: true, greater_than: MIN_PAYOUT_CENTS }
   validate :no_payout_for_incomplete_order
 
+  def price
+    Price.new(total_cents, currency_code)
+  end
+
   private
 
   def no_payout_for_incomplete_order

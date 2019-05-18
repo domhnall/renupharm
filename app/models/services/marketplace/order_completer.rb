@@ -86,12 +86,7 @@ class Services::Marketplace::OrderCompleter
   end
 
   def calculate_fees
-    [ Marketplace::Accounts::SellerFee,
-      Marketplace::Accounts::CourierFee,
-      Marketplace::Accounts::PaymentGatewayFee,
-      Marketplace::Accounts::ResidualFee ].each do |calculator|
-      calculator.new(payment: order.payment).calculate!
-    end
+    Services::Marketplace::FeesCalculator.new(payment: order.payment).call
   end
 
   def send_notifications

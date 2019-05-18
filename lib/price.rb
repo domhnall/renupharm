@@ -25,6 +25,16 @@ class Price
     "#{currency_symbol}#{decimal_price}"
   end
 
+  def +(price)
+    raise ArgumentError, "Prices must be of same currency" unless self.currency_code==price.currency_code
+    Price.new(self.price_cents+price.price_cents, self.currency_code)
+  end
+
+  def -(price)
+    raise ArgumentError, "Prices must be of same currency" unless self.currency_code==price.currency_code
+    Price.new(self.price_cents-price.price_cents, self.currency_code)
+  end
+
   private
 
   def decimal_price

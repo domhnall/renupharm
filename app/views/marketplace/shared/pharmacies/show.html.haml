@@ -2,6 +2,7 @@
   .col-md-12
     .tab-navigation
       %ul.nav.nav-tabs{:role => "tablist"}
+        = pharmacy_tab_for('account')
         = pharmacy_tab_for('profile')
         = pharmacy_tab_for('listings')
         = pharmacy_tab_for('agents')
@@ -12,6 +13,7 @@
           = pharmacy_tab_for('bank_account')
 
       .tab-content.clearfix
+        = pharmacy_content_for('account', @marketplace_pharmacy)
         = pharmacy_content_for('profile', @marketplace_pharmacy)
         = pharmacy_content_for('listings', @marketplace_pharmacy)
         = pharmacy_content_for('agents', @marketplace_pharmacy)

@@ -103,6 +103,42 @@ module Factories
       end.reload
     end
 
+    def create_placed_order(attrs = {})
+      create_order(attrs).tap do |order|
+        order.state = ::Marketplace::Order::State::PLACED
+        order.history_items.build({
+          user: order.user,
+          from_state: ::Marketplace::Order::State::IN_PROGRESS,
+          to_state: ::Marketplace::Order::State::PLACED
+        })
+        order.save!
+      end
+    end
+
+    def create_delivery_in_progress_order(attrs = {})
+      create_placed_order(attrs).tap do |order|
+        order.state = ::Marketplace::Order::State::DELIVERY_IN_PROGRESS
+        order.history_items.build({
+          user: attrs.fetch(:user){ create_user },
+          from_state: ::Marketplace::Order::State::PLACED,
+          to_state: ::Marketplace::Order::State::DELIVERY_IN_PROGRESS
+        })
+        order.save!
+      end
+    end
+
+    def create_completed_order(attrs = {})
+      create_placed_order(attrs).tap do |order|
+        order.state = ::Marketplace::Order::State::COMPLETED
+        order.history_items.build({
+          user: order.user,
+          from_state: ::Marketplace::Order::State::DELIVERY_IN_PROGRESS,
+          to_state: ::Marketplace::Order::State::COMPLETED
+        })
+        order.save!
+      end
+    end
+
     def create_credit_card(attrs = {})
       attrs.fetch(:pharmacy){ create_pharmacy }.credit_cards.create({
         number: "1111",
@@ -135,6 +171,14 @@ module Factories
         order: buying_pharmacy.orders.first,
         amount_cents: 9999,
         currency_code: "EUR",
+      })
+    end
+
+    def create_seller_payout(attrs = {})
+      attrs.fetch(:pharmacy){ create_pharmacy(attrs) }.seller_payouts.create({
+        user: attrs.fetch(:user){ create_admin_user },
+        total_cents: attrs.fetch(:total_cents){ 10000 },
+        currency_code: attrs.fetch(:currency_code){ "EUR" }
       })
     end
 

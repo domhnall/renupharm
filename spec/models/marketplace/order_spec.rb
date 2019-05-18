@@ -22,7 +22,8 @@ describe Marketplace::Order do
     :sold_by?,
     :push_state!,
     :delivery_due_at,
-    :seller_payout ].each do |method|
+    :seller_payout,
+    :placed_at ].each do |method|
     it "should respond to :#{method}" do
       expect(Marketplace::Order.new).to respond_to method
     end
@@ -310,6 +311,18 @@ describe Marketplace::Order do
         it "should return a timestamp which corresponds to the end of the following business day +1 relative to when order was placed" do
           expect(@order.delivery_due_at).to eq DateTime.new(2019,5,10,17,30,0)
         end
+      end
+    end
+
+    describe "#placed_at" do
+      it "should return nil if the order is IN_PROGRESS" do
+        expect(@order.placed_at).to be_nil
+      end
+
+      it "should return the timestamp that the order moved into PLACED status" do
+        @order.push_state!(@order.user)
+        expect(@order.placed_at).not_to be_nil
+        expect(@order.placed_at).to eq @order.history_items.where(to_state: "placed").first.created_at
       end
     end
   end

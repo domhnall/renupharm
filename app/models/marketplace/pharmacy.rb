@@ -59,4 +59,8 @@ class Marketplace::Pharmacy < ApplicationRecord
   def default_card
     credit_cards.default.first || credit_cards.last
   end
+
+  def account
+    @_account ||= Marketplace::Account.new(pharmacy: self)
+  end
 end

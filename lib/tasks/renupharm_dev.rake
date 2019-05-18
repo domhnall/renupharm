@@ -261,9 +261,7 @@ namespace :renupharm do
     lawrences = create_lawrences.tap do |pharmacy|
       pharmacy.agents.create(user: johnny, superintendent: true).tap do |agent|
         [@valium, @cosopt_0_5].each do |product|
-          agent.orders.create(state: Marketplace::Order::State::COMPLETED).tap do |order|
-            order.line_items.create(listing: product.listings.first)
-          end
+          create_completed_order(agent: agent, listing: product.listings.first)
         end
         agent.orders.create(state: Marketplace::Order::State::IN_PROGRESS).tap do |order|
           order.line_items.create(listing: @xalatan.listings.first)

@@ -465,12 +465,44 @@ en:
         confirm_deactivation: "Are you sure you want to deactivate this pharmacy? This will deactive all their products and delist all of their stock."
         no_bank_details: "You have not set up bank details yet. <a href=\"%{path}\">Set up account details now</a>."
       tabs:
+        account: "Account"
         profile: "Profile"
         listings: "Listings"
         agents: "Agents"
         pharmacy_products: "Products"
         credit_cards: "Purchasing"
         bank_account: "Payouts"
+    account:
+      labels:
+        balance: "Balance"
+        uncleared_earnings: "Uncleared earnings"
+        total_earnings_paid_out: "Total earning paid out (to date)"
+        sales: "Sales"
+        purchases: "Purchases"
+        payouts: "Payouts"
+        sales:
+          product_name: "Products"
+          buyer: "Buyer"
+          sale_value: "Sale value"
+          seller_earning: "Seller earning"
+          placed_at: "Placed at"
+          state: "Status"
+        purchases:
+          product_name: "Products"
+          seller: "Seller"
+          sale_value: "Sale value"
+          placed_at: "Placed at"
+      state:
+        paid: "paid"
+        clearer: "cleared"
+        uncleared: "uncleared"
+      messages:
+        no_sales: "No sales found"
+        no_purchases: "No purchases found"
+        no_payouts: "No payouts found"
+    seller_payout:
+      amount: "Amount paid"
+      paid_at: "Paid at"
     agent:
       full_name: "Name"
       email: "Email"

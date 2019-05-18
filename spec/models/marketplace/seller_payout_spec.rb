@@ -78,4 +78,32 @@ describe Marketplace::SellerPayout do
       end
     end
   end
+
+  describe "instance method" do
+    describe "#price" do
+      before :all do
+        @payout = Marketplace::SellerPayout.new({
+          pharmacy: @seller,
+          user: @admin,
+          orders: [@order_1, @order_2],
+          total_cents: 9080,
+          currency_code: "EUR"
+        })
+      end
+
+      it "should return an instance of Price" do
+        expect(@payout.price).to be_a Price
+      end
+
+      describe "the Price object returned" do
+        it "should have :currency_code equal to the :currency_code of the payout" do
+          expect(@payout.price.currency_code).to eq @payout.currency_code
+        end
+
+        it "should have :price_cents equal to the :total_cents of the payout" do
+          expect(@payout.price.price_cents).to eq @payout.total_cents
+        end
+      end
+    end
+  end
 end

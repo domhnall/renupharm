@@ -2,7 +2,11 @@ import rater from 'rater-js';
 import './style.scss';
 
 document.addEventListener('turbolinks:load', () => {
-  const existing_feedback =  document.getElementById("order_feedback"),
+  if(!document.getElementById("order_feedback")){
+    return;
+  }
+
+  const existing_feedback = document.getElementById("order_feedback"),
         feedback_form = document.getElementById("order_feedback_form"),
         links = document.getElementsByClassName("edit_feedback_link"),
         cancel_btn = feedback_form.querySelector("button.cancel");

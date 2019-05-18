@@ -12,4 +12,8 @@ class Marketplace::Accounts::Fee < ApplicationRecord
   def calculate!
     raise NotImplementedError, "This should be implemented in a subclass"
   end
+
+  def price
+    Price.new(amount_cents, currency_code)
+  end
 end
