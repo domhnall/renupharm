@@ -7,6 +7,7 @@ class Marketplace::Sale < Marketplace::Order
     joins(line_items: { listing: :pharmacy })
     .where("marketplace_pharmacies.id = ?", pharmacy.id)
     .not_in_progress
+    .distinct
   }
 
   scope :paid_out, ->{ completed.where.not(marketplace_seller_payout_id: nil) }
@@ -41,6 +42,6 @@ class Marketplace::Sale < Marketplace::Order
     history_items.where({
       from_state: Marketplace::Order::State::DELIVERY_IN_PROGRESS,
       to_state: Marketplace::Order::State::COMPLETED
-    }).first.created_at
+    }).first&.created_at
   end
 end

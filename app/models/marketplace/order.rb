@@ -122,7 +122,7 @@ class Marketplace::Order < ApplicationRecord
     history_items.where({
       from_state: Marketplace::Order::State::IN_PROGRESS,
       to_state: Marketplace::Order::State::PLACED
-    }).first.created_at
+    }).first&.created_at
   end
 
   private
