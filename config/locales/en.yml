@@ -476,7 +476,7 @@ en:
       labels:
         balance: "Balance"
         uncleared_earnings: "Uncleared earnings"
-        total_earnings_paid_out: "Total earning paid out (to date)"
+        total_payouts_to_date: "Total earning paid out (to date)"
         sales: "Sales"
         purchases: "Purchases"
         payouts: "Payouts"
@@ -494,7 +494,7 @@ en:
           placed_at: "Placed at"
       state:
         paid: "paid"
-        clearer: "cleared"
+        cleared: "cleared"
         uncleared: "uncleared"
       messages:
         no_sales: "No sales found"

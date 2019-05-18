@@ -1,7 +1,9 @@
+import Chart from 'chart.js';
 import './style.scss';
 
 // Handle tab transitions
 document.addEventListener('turbolinks:load', () => {
+  init_charts();
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     const new_section     = e.target.getAttribute('id').split('-')[0],
           path_components = window.location.pathname.split('/');
@@ -34,4 +36,29 @@ window.onpopstate = function(event){
       content.classList.remove('active', 'show');
     }
   }
+};
+
+const init_charts = function(){
+  // Disable the on-canvas tooltip
+  Chart.defaults.global.pointHitDetectionRadius = 1;
+  Chart.defaults.global.tooltips.enabled = false;
+  Chart.defaults.global.tooltips.mode = 'index';
+  Chart.defaults.global.tooltips.position = 'nearest';
+  Chart.defaults.global.tooltips.custom = CustomTooltips; // eslint-disable-next-line no-unused-vars
+
+  const cleared_cents = parseInt(document.querySelector(".account_stats .balance").getAttribute("data-price-cents"), 10),
+    uncleared_cents = parseInt(document.querySelector(".account_stats .uncleared").getAttribute("data-price-cents"), 10);
+
+  new Chart(document.querySelector('canvas#earnings_chart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Cleared earnings', 'Uncleared earnings'],
+      datasets: [{
+        label: 'Earnings',
+        backgroundColor: ["rgb(119, 221, 119)", "rgb(255, 179, 71)"],
+        data: [cleared_cents/100,uncleared_cents/100]
+      }]
+    },
+    options: {}
+  });
 };

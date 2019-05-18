@@ -34,7 +34,7 @@ class Marketplace::Sale < Marketplace::Order
   end
 
   def paid?
-    cleared? && seller_payout
+    cleared? && !!seller_payout
   end
 
   def completed_at

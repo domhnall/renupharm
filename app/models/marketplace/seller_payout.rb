@@ -13,17 +13,28 @@ class Marketplace::SellerPayout < ApplicationRecord
   has_many :orders,
     class_name: "Marketplace::Order",
     foreign_key: :marketplace_seller_payout_id,
-    inverse_of: :seller_payout
+    inverse_of: :seller_payout,
+    dependent: :nullify
 
   validates :total_cents, :currency_code, presence: true
   validates :total_cents, numericality: { only_integer: true, greater_than: MIN_PAYOUT_CENTS }
   validate :no_payout_for_incomplete_order
+
+  before_validation :set_total_cents_and_currency_code
 
   def price
     Price.new(total_cents, currency_code)
   end
 
   private
+
+  def set_total_cents_and_currency_code
+    self.total_cents = orders.reduce(0) do |total, order|
+      total + order.fees.seller.first.price.price_cents
+    end
+    # TODO should really verify that all seller payouts are in the same currency here
+    self.currency_code = "EUR"
+  end
 
   def no_payout_for_incomplete_order
     unless self.orders.all?(&:completed?)
