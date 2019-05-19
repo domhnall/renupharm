@@ -20,10 +20,17 @@ describe Marketplace::SellerPayout do
     @listing_3 = create_listing(product: @product, price_cents: 4500, purchased_at: Time.now-15.days)
 
     @buyer     = create_pharmacy(name: "Billy Buyer", email: "billy@buyer.com")
+    @card      = create_credit_card(pharmacy: @buyer)
     @agent     = create_agent(pharmacy: @buyer)
     @order_1   = create_order(agent: @agent, listing: @listing_1, state: Marketplace::Order::State::COMPLETED)
     @order_2   = create_order(agent: @agent, listing: @listing_2, state: Marketplace::Order::State::COMPLETED)
     @order_3   = create_order(agent: @agent, listing: @listing_3, state: Marketplace::Order::State::COMPLETED)
+
+    [@order_1, @order_2, @order_3].each_with_index do |order, i|
+      payment = order.create_payment(credit_card: @card, amount_cents: (i+1)*2000, currency_code: "EUR")
+      Services::Marketplace::FeesCalculator.new(payment: payment).call
+    end
+
     @admin     = create_admin_user
   end
 
@@ -33,9 +40,7 @@ describe Marketplace::SellerPayout do
       @params = {
         pharmacy: @seller,
         user: @admin,
-        orders: [@order_1, @order_2],
-        total_cents: 9080,
-        currency_code: "EUR"
+        orders: [@order_1, @order_2]
       }
     end
 
@@ -52,21 +57,20 @@ describe Marketplace::SellerPayout do
     end
 
     it "should be invalid when :total_cents is not supplied" do
-      expect(Marketplace::SellerPayout.new(@params.merge(total_cents: nil))).not_to be_valid
+      expect(Marketplace::SellerPayout.new(@params.merge(orders: []))).not_to be_valid
     end
 
     it "should be invalid when :currency_code is not supplied" do
-      expect(Marketplace::SellerPayout.new(@params.merge(currency_code: nil))).not_to be_valid
+      expect(Marketplace::SellerPayout.new(@params.merge(orders: []))).not_to be_valid
     end
 
     it "should be valid when :total_cents is greater than 2000" do
-      expect(Marketplace::SellerPayout.new(@params.merge(total_cents: 2001))).to be_valid
+      expect(Marketplace::SellerPayout.new(@params.merge(orders: [@order_2]))).to be_valid
     end
 
     it "should be invalid when :total_cents is 2000 or less" do
-      expect(Marketplace::SellerPayout.new(@params.merge(total_cents: 500))).not_to be_valid
-      expect(Marketplace::SellerPayout.new(@params.merge(total_cents: 1999))).not_to be_valid
-      expect(Marketplace::SellerPayout.new(@params.merge(total_cents: 2000))).not_to be_valid
+      expect(Marketplace::SellerPayout.new(@params.merge(orders: []))).not_to be_valid
+      expect(Marketplace::SellerPayout.new(@params.merge(orders: [@order_1]))).not_to be_valid
     end
 
     [ Marketplace::Order::State::IN_PROGRESS,
@@ -85,7 +89,7 @@ describe Marketplace::SellerPayout do
         @payout = Marketplace::SellerPayout.new({
           pharmacy: @seller,
           user: @admin,
-          orders: [@order_1, @order_2],
+          orders: [@order_1, @order_2].map{|o| o.becomes(Marketplace::Sale) },
           total_cents: 9080,
           currency_code: "EUR"
         })

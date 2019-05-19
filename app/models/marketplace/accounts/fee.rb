@@ -9,8 +9,6 @@ class Marketplace::Accounts::Fee < ApplicationRecord
   delegate :buying_pharmacy,
            :selling_pharmacy, to: :payment
 
-  scope :seller, ->{ where(type: "Marketplace::Accounts::SellerFee") }
-
   def calculate!
     raise NotImplementedError, "This should be implemented in a subclass"
   end

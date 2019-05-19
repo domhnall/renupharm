@@ -29,9 +29,9 @@ class Marketplace::SellerPayout < ApplicationRecord
   private
 
   def set_total_cents_and_currency_code
-    self.total_cents = orders.reduce(0) do |total, order|
-      total + order.fees.seller.first.price.price_cents
-    end
+    self.total_cents = orders.map{ |o| o.becomes(Marketplace::Sale) }.reduce(0) do |total, sale|
+      total + (sale.seller_fee&.amount_cents || 0)
+    end.round
     # TODO should really verify that all seller payouts are in the same currency here
     self.currency_code = "EUR"
   end

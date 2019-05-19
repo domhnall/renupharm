@@ -48,7 +48,7 @@ describe Marketplace::PurchasesController do
 
       it "should include any placed orders for the pharmacy" do
         get :index, params: { pharmacy_id: @buying_pharmacy.id }
-        expect(response.body).to include @payment.reference
+        expect(response.body).to include @order.reference
         expect(response.body).to include @order.product_names
       end
 

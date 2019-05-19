@@ -33,6 +33,7 @@ describe Marketplace::Sale do
 
     @buyer        = create_pharmacy(name: "Billy Buyer", email: "billy@buyer.com")
     @buyer_agent  = create_agent(pharmacy: @buyer)
+    @buyer_card   = create_credit_card(pharmacy: @buyer)
     @buy_user     = @buyer_agent.user
     @seller_agent = create_agent(pharmacy: @seller)
     @sell_user    = @seller_agent.user
@@ -80,6 +81,12 @@ describe Marketplace::Sale do
       order.history_items.create(user: @sell_user, from_state: "placed", to_state: "delivering", created_at: Time.now-33.days)
       order.history_items.create(user: @buy_user, from_state: "delivering", to_state: "completed", created_at: Time.now-31.days)
     end
+
+    # Add payments to completed orders
+    [ @order_a, @order_b, @order_c, @order_e ].each do |order|
+      payment = order.create_payment(credit_card: @buyer_card)
+      Services::Marketplace::FeesCalculator.new(payment: payment).call
+    end
   end
 
   describe "scope" do
@@ -107,19 +114,13 @@ describe Marketplace::Sale do
       before :all do
         @seller.seller_payouts.create!({
           user: @admin,
-          currency_code: "EUR",
-          total_cents: 4999
-        }).tap do |payout|
-          payout.orders << @order_a
-        end
+          orders: [@order_a]
+        })
 
         @seller_b.seller_payouts.create!({
           user: @admin,
-          currency_code: "EUR",
-          total_cents: 4999
-        }).tap do |payout|
-          payout.orders << @order_e
-        end
+          orders: [@order_e]
+        })
       end
 
       describe "::paid_out" do
@@ -205,7 +206,7 @@ describe Marketplace::Sale do
         end
 
         it "should have an :price_cents matching the seller payout on the order" do
-          expect(@sale_a.seller_earning.price_cents).to eq 9000
+          expect(@sale_a.seller_earning.price_cents).to be_within(1).of(@sale_a.seller_fee.amount_cents)
         end
       end
     end
