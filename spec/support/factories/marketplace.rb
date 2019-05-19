@@ -174,14 +174,6 @@ module Factories
       })
     end
 
-    def create_seller_payout(attrs = {})
-      attrs.fetch(:pharmacy){ create_pharmacy(attrs) }.seller_payouts.create({
-        user: attrs.fetch(:user){ create_admin_user },
-        total_cents: attrs.fetch(:total_cents){ 10000 },
-        currency_code: attrs.fetch(:currency_code){ "EUR" }
-      })
-    end
-
     def generate_image(name = Faker::Lorem.characters(8))
       Timeout::timeout(5) do
         open(Faker::Avatar.image(name, "250x250", "jpg"))

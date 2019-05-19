@@ -41,8 +41,9 @@ describe Marketplace::Account do
     @completed_ids = [@cleared_order_a, @cleared_order_b, @uncleared_order_c, @uncleared_order_d].map(&:id)
 
     # Set up historical payouts for seller
-    @payout_1 = create_seller_payout(pharmacy: @seller, orders: [@cleared_order_a])
-    @payout_2 = create_seller_payout(pharmacy: @seller, orders: [@cleared_order_b])
+    @admin    = create_admin_user
+    @payout_1 = @seller.seller_payouts.create(user: @admin, orders: [@cleared_order_a])
+    @payout_2 = @seller.seller_payouts.create(user: @admin, orders: [@cleared_order_b])
   end
 
   [ :pharmacy,
@@ -117,7 +118,7 @@ describe Marketplace::Account do
       it "should represent the combined value of all payouts already processed" do
         total_payout_cents = @cleared_order_a.becomes(Marketplace::Sale).seller_fee.amount_cents +
           @cleared_order_b.becomes(Marketplace::Sale).seller_fee.amount_cents
-        expect(Marketplace::Account.new(pharmacy: @seller).total_payouts_to_date.price_cents).to eq total_payout_cents
+        expect(Marketplace::Account.new(pharmacy: @seller).total_payouts_to_date.price_cents).to eq total_payout_cents.round
         expect(Marketplace::Account.new(pharmacy: @seller).total_payouts_to_date.currency_code).to eq "EUR"
       end
 
