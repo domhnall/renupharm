@@ -63,7 +63,11 @@
             %span.label= t("marketplace.listing.labels.expires")
             %span.value= format_date(listing.expiry)
           - if current_order
-            .cta= render "marketplace/listings/buy_cta", order: current_order, listing: listing
+            - if current_order.listing_ids.include?(listing.id)
+              %button.btn.btn-secondary.cta{ disabled: true }
+                = t("marketplace.listing.labels.already_in_cart")
+            - else
+              .cta= render "marketplace/listings/buy_cta", order: current_order, listing: listing
 
   - if policy(listing).update?
     .row

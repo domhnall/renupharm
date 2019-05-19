@@ -365,6 +365,7 @@ en:
       labels:
         sold_by: "Sold by"
         buy_now: "Buy now"
+        already_in_cart: "Already in cart"
         expires: "Expires"
         new_listing: "Add new listing"
         edit_listing: "Editing listing"
