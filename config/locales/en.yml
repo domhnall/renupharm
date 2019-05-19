@@ -538,6 +538,7 @@ en:
         message: "There appears to have been a problem. Please address the following errors to progress your order. If problems persist please <a href=\"mailto:dev@renupharm.ie\">contact support</a>"
         failed_payment: "There has been a problem processing your payment. Please check your payment method."
         listing_unavailable: "Unfortunately it seems that one of the items in your cart is no longer available. If problems persist please <a href=\"mailto:dev@renupharm.ie\">contact support</a>"
+        duplicate_line_item: "You already have this item in your cart"
       stripe:
         description: "Marketplace purchase (%{value})"
     credit_card:

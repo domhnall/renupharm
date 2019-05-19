@@ -7,6 +7,10 @@ class Marketplace::LineItem < ApplicationRecord
     class_name: "Marketplace::Listing",
     foreign_key: :marketplace_listing_id
 
+  validates :marketplace_listing_id, uniqueness: {
+    scope: :marketplace_order_id,
+    message: I18n.t("marketplace.cart.errors.duplicate_line_item") }
+
   delegate :product,
            :product_name,
            :selling_pharmacy,

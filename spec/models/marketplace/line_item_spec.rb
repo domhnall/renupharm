@@ -23,7 +23,7 @@ describe Marketplace::LineItem do
       @selling_pharmacy = create_larussos
       @listing = create_listing(pharmacy: @selling_pharmacy)
       @buyer = create_agent(pharmacy: create_lawrences)
-      @order = @buyer.orders.create
+      @order = @buyer.orders.create(state: Marketplace::Order::State::IN_PROGRESS)
       @params = {
         order: @order,
         listing: @listing
@@ -40,6 +40,13 @@ describe Marketplace::LineItem do
 
     it "should not be valid when :listing is not supplied" do
       expect(Marketplace::LineItem.new(@params.merge(listing: nil, marketplace_listing_id: nil))).not_to be_valid
+    end
+
+    it "should not be valid when order already has a line item for the same listing_id" do
+      expect(@order.line_items.count).to eq 0
+      Marketplace::LineItem.create!(@params)
+      expect(@order.line_items.count).to eq 1
+      expect(Marketplace::LineItem.new(@params)).not_to be_valid
     end
   end
 
