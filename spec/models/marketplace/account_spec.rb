@@ -39,11 +39,6 @@ describe Marketplace::Account do
     end
 
     @completed_ids = [@cleared_order_a, @cleared_order_b, @uncleared_order_c, @uncleared_order_d].map(&:id)
-
-    # Set up historical payouts for seller
-    @admin    = create_admin_user
-    @payout_1 = @seller.seller_payouts.create(user: @admin, orders: [@cleared_order_a])
-    @payout_2 = @seller.seller_payouts.create(user: @admin, orders: [@cleared_order_b])
   end
 
   [ :pharmacy,
@@ -111,6 +106,13 @@ describe Marketplace::Account do
     end
 
     describe "#total_payouts_to_date" do
+      before :all do
+        # Set up historical payouts for seller
+        @admin    = create_admin_user
+        @payout_1 = @seller.seller_payouts.create(user: @admin, orders: [@cleared_order_a])
+        @payout_2 = @seller.seller_payouts.create(user: @admin, orders: [@cleared_order_b])
+      end
+
       it "should return a Price instance" do
         expect(Marketplace::Account.new(pharmacy: @seller).total_payouts_to_date).to be_a Price
       end
