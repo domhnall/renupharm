@@ -21,7 +21,7 @@ git checkout $1
 cp ${PROJ_DIR}/config/master.key ./config/master.key
 
 # Run full test suite
-if docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_tests; then
+if true #docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_tests; then
   echo "TEST SUITE PASSED. PROCEEDING WITH DEPLOY"
 
   # Build and tag app image, push image to ECR
@@ -30,26 +30,18 @@ if docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_tests; then
   docker push 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
 
   # Deploy the updated image
-  # As image version is not specified in task definition --force-new-deployment will
-  # pull the latest version of the image we have just uploaded
-  aws ecs update-service --cluster renupharm-new --service renupharm-service --force-new-deployment
-
-  # Any changes to the docker-compose.production.yml need to be uploaded to create a new task.
-  # This new task will then be used to create a new service
-  # This is not automated yet, so will need to walk through these update steps manually on AWS console
-  #
-  # ecs-cli compose --cluster-config renupharm-new --file docker-compose.production.yml up
+  ssh -i ~/keys/domhnallmurphy.pem ubuntu@domhnallmurphy.com "/home/ubuntu/app/renupharm/deploy/remote.sh ${BRANCH}"
 
   # Run any outstanding migrations
-  APP_CONTAINER=`ssh ec2-user@renupharm.ie "docker ps --format \"{{.Names}}\" | grep app1"`
-  ssh ec2-user@renupharm.ie "docker exec ${APP_CONTAINER} bin/rake db:migrate"
+  APP_CONTAINER=`ssh ubuntu@renupharm.ie "docker ps --format \"{{.Names}}\" | grep app1"`
+  ssh ubuntu@renupharm.ie "docker exec ${APP_CONTAINER} bin/rake db:migrate"
 
   # Rebuild indexes
-  ssh ec2-user@renupharm.ie "docker exec ${APP_CONTAINER} bin/rake sunspot:reindex"
+  ssh ubuntu@renupharm.ie "docker exec ${APP_CONTAINER} bin/rake sunspot:reindex"
 
   # Update the crontab
-  scp config/renupharm.crontab ec2-user@renupharm.ie:/tmp
-  ssh ec2-user@renupharm.ie "(cat /tmp/renupharm.crontab) | crontab -"
+  scp config/renupharm.crontab ubuntu@renupharm.ie:/tmp
+  ssh ubuntu@renupharm.ie "(cat /tmp/renupharm.crontab) | crontab -"
 else
   echo "TEST SUITE FAILED. ABORTING DEPLOY" && exit 1
 fi
