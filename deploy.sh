@@ -21,7 +21,7 @@ git checkout $1
 cp ${PROJ_DIR}/config/master.key ./config/master.key
 
 # Run full test suite
-if true #docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_tests; then
+if true; then #docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_tests; then
   echo "TEST SUITE PASSED. PROCEEDING WITH DEPLOY"
 
   # Build and tag app image, push image to ECR
