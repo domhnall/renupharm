@@ -33,15 +33,15 @@ if true; then #docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_t
   ssh -i ~/keys/domhnallmurphy.pem ubuntu@domhnallmurphy.com "/home/ubuntu/app/renupharm/deploy/remote.sh ${BRANCH}"
 
   # Run any outstanding migrations
-  APP_CONTAINER=`ssh ubuntu@renupharm.ie "docker ps --format \"{{.Names}}\" | grep app1"`
-  ssh ubuntu@renupharm.ie "docker exec ${APP_CONTAINER} bin/rake db:migrate"
+  APP_CONTAINER=`ssh ubuntu@domhnallmurphy.com "docker ps --format \"{{.Names}}\" | grep app1"`
+  ssh ubuntu@domhnallmurphy.com "docker exec ${APP_CONTAINER} bin/rake db:migrate"
 
   # Rebuild indexes
-  ssh ubuntu@renupharm.ie "docker exec ${APP_CONTAINER} bin/rake sunspot:reindex"
+  ssh ubuntu@domhnallmurphy.com "docker exec ${APP_CONTAINER} bin/rake sunspot:reindex"
 
   # Update the crontab
-  scp config/renupharm.crontab ubuntu@renupharm.ie:/tmp
-  ssh ubuntu@renupharm.ie "(cat /tmp/renupharm.crontab) | crontab -"
+  scp config/renupharm.crontab ubuntu@domhnallmurphy.com:/tmp
+  ssh ubuntu@domhnallmurphy.com "(cat /tmp/renupharm.crontab) | crontab -"
 else
   echo "TEST SUITE FAILED. ABORTING DEPLOY" && exit 1
 fi
