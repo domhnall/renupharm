@@ -3,6 +3,7 @@ if [ $# -ne 1 ]; then
   echo "You must supply the tag or branch name to be deployed"
   exit 1
 fi
+BRANCH=${1}
 
 # Ensure we have added the renupharm key to the key-chain
 ssh-add ~/.ssh/domhnall-renupharm
