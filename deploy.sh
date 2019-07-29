@@ -18,7 +18,7 @@ cd /tmp
 sudo rm -rf renupharm
 git clone git@bitbucket.org:domhnall_murphy/renupharm.git
 cd renupharm
-git checkout $1
+git checkout $BRANCH
 cp ${PROJ_DIR}/config/master.key ./config/master.key
 
 # Run full test suite

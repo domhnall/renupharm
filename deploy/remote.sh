@@ -1,7 +1,9 @@
 #!/bin/sh
-eval "$(aws ecr get-login --no-include-email)"
 BRANCH=${1}
 RELEASE_DIR=`date +%Y%m%d%H%M%S`
+
+eval "$(aws ecr get-login --no-include-email)"
+
 mkdir /home/ubuntu/app/renupharm_releases/${RELEASE_DIR}
 cd /home/ubuntu/app/renumpharm_releases/${RELEASE_DIR}
 git clone git@bitbucket.org:domhnall_murphy/renupharm.git
