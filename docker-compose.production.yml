@@ -23,11 +23,10 @@ services:
       - redis
       - solr
     logging:
-      driver: awslogs
+      driver: "json-file"
       options:
-        awslogs-group: renupharm-app-1
-        awslogs-region: eu-west-1
-        awslogs-stream-prefix: rails
+        max-size: "200k"
+        max-file: "10"
   app_2:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
     environment:
@@ -43,11 +42,10 @@ services:
       - redis
       - solr
     logging:
-      driver: awslogs
+      driver: "json-file"
       options:
-        awslogs-group: renupharm-app-2
-        awslogs-region: eu-west-1
-        awslogs-stream-prefix: rails
+        max-size: "200k"
+        max-file: "10"
   sidekiq:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
     command: bundle exec sidekiq -q default -q mailers
@@ -60,11 +58,10 @@ services:
       NODE_ENV: "development"
       JOB_WORKER_URL: "redis://redis:6379/0"
     logging:
-      driver: awslogs
+      driver: "json-file"
       options:
-        awslogs-group: renupharm-sidekiq
-        awslogs-region: eu-west-1
-        awslogs-stream-prefix: sidekiq
+        max-size: "200k"
+        max-file: "10"
   web:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-nginx
     volumes:
@@ -77,11 +74,10 @@ services:
       - app_1
       - app_2
     logging:
-      driver: awslogs
+      driver: "json-file"
       options:
-        awslogs-group: renupharm-nginx
-        awslogs-region: eu-west-1
-        awslogs-stream-prefix: nginx
+        max-size: "200k"
+        max-file: "10"
   solr:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-solr
     ports:
@@ -92,11 +88,10 @@ services:
       - default
       - /opt/solr/server/solr/configsets/sunspot
     logging:
-      driver: awslogs
+      driver: "json-file"
       options:
-        awslogs-group: renupharm-solr
-        awslogs-region: eu-west-1
-        awslogs-stream-prefix: solr
+        max-size: "200k"
+        max-file: "10"
 volumes:
   public-volume:
   solr_indices:
