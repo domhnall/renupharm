@@ -3,11 +3,10 @@ services:
   redis:
     image: redis
     logging:
-      driver: awslogs
+      driver: "json-file"
       options:
-        awslogs-group: renupharm-redis
-        awslogs-region: eu-west-1
-        awslogs-stream-prefix: redis
+        max-size: "200k"
+        max-file: "10"
   app_1:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
     environment:
@@ -57,22 +56,6 @@ services:
       RACK_ENV: "production"
       NODE_ENV: "development"
       JOB_WORKER_URL: "redis://redis:6379/0"
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200k"
-        max-file: "10"
-  web:
-    image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-nginx
-    volumes:
-      - public-volume:/usr/share/nginx/html
-      - /etc/letsencrypt:/etc/letsencrypt
-    ports:
-      - "80:80"
-      - "443:443"
-    links:
-      - app_1
-      - app_2
     logging:
       driver: "json-file"
       options:
