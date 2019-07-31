@@ -26,7 +26,7 @@ if true; then #docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_t
   echo "TEST SUITE PASSED. PROCEEDING WITH DEPLOY"
 
   # Build and tag app image, push image to ECR
-  docker-compose -f docker-compose.production.yml build app
+  docker-compose build app
   docker tag renupharm_app 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
   docker push 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
 
