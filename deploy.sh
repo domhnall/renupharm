@@ -34,7 +34,7 @@ if true; then #docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_t
   ssh -i ~/keys/domhnallmurphy.pem ubuntu@domhnallmurphy.com "/home/ubuntu/app/renupharm/deploy/remote.sh ${BRANCH}"
 
   # Run any outstanding migrations
-  APP_CONTAINER=`ssh ubuntu@domhnallmurphy.com "docker ps --format \"{{.Names}}\" | grep app1"`
+  APP_CONTAINER=`ssh ubuntu@domhnallmurphy.com "docker ps --format \"{{.Names}}\" | grep renupharm_app_1"`
   ssh ubuntu@domhnallmurphy.com "docker exec ${APP_CONTAINER} bin/rake db:migrate"
 
   # Rebuild indexes
