@@ -14,6 +14,8 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     mysql-client \
       # Needed for asset compilation
     nodejs \
+      # Needed to edit files in container
+    vim \
    # Install yarn
   && curl -o- -L https://yarnpkg.com/install.sh | bash \
     # The following are used to trim down the size of the image by removing unneeded data
