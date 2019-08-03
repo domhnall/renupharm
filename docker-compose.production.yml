@@ -2,6 +2,7 @@ version: '3'
 services:
   redis:
     image: redis
+    network_mode: bridge
     logging:
       driver: "json-file"
       options:
@@ -9,6 +10,7 @@ services:
         max-file: "10"
   app_1:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
+    network_mode: bridge
     environment:
       PORT: "3000"
       RAILS_ENV: "production"
@@ -28,6 +30,7 @@ services:
         max-file: "10"
   app_2:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
+    network_mode: bridge
     environment:
       PORT: "3000"
       RAILS_ENV: "production"
@@ -47,6 +50,7 @@ services:
         max-file: "10"
   sidekiq:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
+    network_mode: bridge
     command: bundle exec sidekiq -q default -q mailers
     links:
       - redis
@@ -63,6 +67,7 @@ services:
         max-file: "10"
   solr:
     image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-solr
+    network_mode: bridge
     ports:
       - "8983:8983"
     entrypoint:
