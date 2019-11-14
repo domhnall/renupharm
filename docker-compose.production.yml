@@ -2,6 +2,7 @@ version: '3'
 services:
   db:
     image: mysql
+    network_mode: bridge
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
