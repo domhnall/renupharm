@@ -1,5 +1,13 @@
 version: '3'
 services:
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+     - /usr/local/renupharm/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "s2cr2t"
   redis:
     image: redis
     network_mode: bridge
@@ -24,8 +32,11 @@ services:
       - config-volume:/production/config/
       - public-volume:/production/public/
     links:
+      - db
       - redis
       - solr
+    depends_on:
+      - db
     logging:
       driver: "json-file"
       options:
@@ -47,8 +58,11 @@ services:
       - config-volume:/production/config/
       - public-volume:/production/public/
     links:
+      - db
       - redis
       - solr
+    depends_on:
+      - db
     logging:
       driver: "json-file"
       options:
@@ -86,14 +100,6 @@ services:
       options:
         max-size: "200k"
         max-file: "10"
-  db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    volumes:
-     - /usr/local/renupharm/mysql:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: "s2cr2t"
 volumes:
   config-volume:
   public-volume:
