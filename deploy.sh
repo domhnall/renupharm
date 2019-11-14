@@ -11,7 +11,7 @@ ssh-add ~/.ssh/domhnall-renupharm
 PROJ_DIR=`pwd`
 
 # Authenticate ECR with docker
-eval "$(aws ecr get-login --no-include-email)"
+#eval "$(aws ecr get-login --no-include-email)"
 
 # Clone repo and checkout branch/tag to build
 #cd /tmp
