@@ -49,9 +49,12 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+#production:
+#  <<: *default
+#  database: renupharm_production
+#  username: <%= Rails.application.credentials.database.fetch(:mysql_user) %>
+#  password: <%= Rails.application.credentials.database.fetch(:mysql_password) %>
+#  host: <%= Rails.application.credentials.database.fetch(:mysql_host) %>
 production:
   <<: *default
   database: renupharm_production
-  #username: <%= Rails.application.credentials.database.fetch(:mysql_user) %>
-  #password: <%= Rails.application.credentials.database.fetch(:mysql_password) %>
-  #host: <%= Rails.application.credentials.database.fetch(:mysql_host) %>

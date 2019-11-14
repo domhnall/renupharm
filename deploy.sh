@@ -14,21 +14,21 @@ PROJ_DIR=`pwd`
 eval "$(aws ecr get-login --no-include-email)"
 
 # Clone repo and checkout branch/tag to build
-cd /tmp
-sudo rm -rf renupharm
-git clone git@bitbucket.org:domhnall_murphy/renupharm.git
-cd renupharm
-git checkout $BRANCH
-cp ${PROJ_DIR}/config/master.key ./config/master.key
+#cd /tmp
+#sudo rm -rf renupharm
+#git clone git@bitbucket.org:domhnall_murphy/renupharm.git
+#cd renupharm
+#git checkout $BRANCH
+#cp ${PROJ_DIR}/config/master.key ./config/master.key
 
 # Run full test suite
 if true; then #docker-compose run -e "RAILS_ENV=test" app bundle exec rake all_tests; then
   echo "TEST SUITE PASSED. PROCEEDING WITH DEPLOY"
 
   # Build and tag app image, push image to ECR
-  docker-compose build app
-  docker tag renupharm_app 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
-  docker push 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
+  #docker-compose build app
+  #docker tag renupharm_app 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
+  #docker push 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
 
   # Deploy the updated image
   ssh -i ~/keys/domhnallmurphy.pem ubuntu@domhnallmurphy.com "/home/ubuntu/app/renupharm/deploy/remote.sh ${BRANCH}"
