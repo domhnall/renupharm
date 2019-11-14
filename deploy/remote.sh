@@ -12,6 +12,7 @@ git checkout ${BRANCH}
 git pull origin ${BRANCH}
 ln -sfn /home/ubuntu/app/renupharm_releases/${RELEASE_DIR}/renupharm /home/ubuntu/app/renupharm
 cd /home/ubuntu/app/renupharm
+cp /home/ubuntu/master.key /home/ubuntu/app/renupharm/config
 docker-compose -f docker-compose.production.yml up -d
 cd /home/ubuntu/app/renupharm_releases
 ls | head -$(($(ls | wc -l)-3)) | xargs rm -rf
