@@ -80,6 +80,14 @@ services:
       options:
         max-size: "200k"
         max-file: "10"
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+     - /usr/local/renupharm/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "s2cr2t"
 volumes:
   public-volume:
   solr_indices:
