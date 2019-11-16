@@ -68,7 +68,9 @@ services:
         max-size: "200k"
         max-file: "10"
   sidekiq:
-    image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
     network_mode: bridge
     command: bundle exec sidekiq -q default -q mailers
     links:
