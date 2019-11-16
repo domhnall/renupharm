@@ -87,7 +87,8 @@ services:
         max-size: "200k"
         max-file: "10"
   solr:
-    image: 348231524911.dkr.ecr.eu-west-1.amazonaws.com/renupharm-solr
+    build:
+      context: ./docker/solr
     network_mode: bridge
     ports:
       - "8983:8983"
@@ -101,6 +102,8 @@ services:
       options:
         max-size: "200k"
         max-file: "10"
+    links:
+      - db:db
 volumes:
   public-volume:
   solr_indices:
