@@ -31,3 +31,6 @@ yarn-debug.log*
 
 # Ignore debugger history
 .byebug_history
+
+# Ignore private README
+README_PRIVATE.md
